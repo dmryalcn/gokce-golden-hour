@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gökçe & Yalçın</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#f7efe5;
+      color:#4b3527;
+      overflow-x:hidden;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px;
+      background:
+      linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      color:white;
+    }
+
+    .hero-content{
+      backdrop-filter:blur(6px);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15);
+      padding:50px;
+      border-radius:30px;
+      max-width:850px;
+    }
+
+    .tag{
+      letter-spacing:4px;
+      text-transform:uppercase;
+      font-size:12px;
+      opacity:.9;
+    }
+
+    h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:90px;
+      font-weight:600;
+      margin-top:20px;
+    }
+
+    .desc{
+      margin-top:20px;
+      font-size:18px;
+      line-height:1.8;
+      opacity:.92;
+    }
+
+    .buttons{
+      margin-top:35px;
+      display:flex;
+      gap:15px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:15px 28px;
+      border-radius:999px;
+      text-decoration:none;
+      transition:.3s;
+      font-weight:500;
+    }
+
+    .btn-dark{
+      background:#4b3527;
+      color:white;
+    }
+
+    .btn-light{
+      background:rgba(255,255,255,.15);
+      color:white;
+      border:1px solid rgba(255,255,255,.25);
+      backdrop-filter:blur(5px);
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+    }
+
+    section{
+      padding:100px 25px;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      padding:35px;
+      border-radius:30px;
+      box-shadow:0 10px 30px rgba(0,0,0,.06);
+      text-align:center;
+    }
+
+    .card h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:34px;
+      margin-bottom:10px;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title p{
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#b0824f;
+      font-size:12px;
+    }
+
+    .section-title h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:60px;
+      margin-top:15px;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:400px;
+      object-fit:cover;
+      border-radius:28px;
+    }
+
+    footer{
+      text-align:center;
+      padding:50px 20px;
+      color:#7c6250;
+    }
+
+    @media(max-width:768px){
+
+      h1{
+        font-size:58px;
+      }
+
+      .hero-content{
+        padding:35px 25px;
+      }
+
+      .section-title h2{
+        font-size:42px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tag">
+        GOLDEN HOUR ENGAGEMENT
+      </div>
+
+      <h1>
+        Gökçe & Yalçın
+      </h1>
+
+      <p class="desc">
+        Hayatımızın en güzel “evet”lerinden birine
+        şahitlik etmeniz bizi çok mutlu eder.
+      </p>
+
+      <div class="buttons">
+        <a class="btn btn-dark" href="#">
+          Katılım Bildir
+        </a>
+
+        <a class="btn btn-light" href="#">
+          Anı Bırak
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="cards">
+
+        <div class="card">
+          <h3>Tarih</h3>
+          <p>26 Haziran 2026</p>
+        </div>
+
+        <div class="card">
+          <h3>Saat</h3>
+          <p>20:00</p>
+        </div>
+
+        <div class="card">
+          <h3>Konum</h3>
+          <p>Hatay</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="section-title">
+        <p>Bizim Hikayemiz</p>
+        <h2>Birlikte kurduğumuz en güzel hayal</h2>
+      </div>
+
+      <div class="card">
+        <p style="line-height:2;font-size:18px;">
+          Bazen bir bakış, bazen küçük bir konuşma,
+          bazen de aynı hayale inanmak…
+          Bizim hikayemiz, birlikte büyüyen bir sevginin hikayesi.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="section-title">
+        <p>Galeri</p>
+        <h2>Golden Moments</h2>
+      </div>
+
+      <div class="gallery">
+
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop">
+
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
+      Gökçe & Yalçın
+    </h2>
+
+    <p style="margin-top:10px;">
+      26.06.2026 • Golden Hour Engagement
+    </p>
+  </footer>
+
+</body>
+</html>
