@@ -5,21 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gökçe & Yalçın</title>
 
+  <script async src="https://tally.so/widgets/embed.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       font-family:'Inter',sans-serif;
       background:#f7efe5;
       color:#4b3527;
       overflow-x:hidden;
+    }
+
+    #intro{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      background:
+        radial-gradient(circle at top,#f6d8a8,transparent 35%),
+        linear-gradient(135deg,#3a2418,#8f6237,#f1c27d);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:white;
+      padding:25px;
+      transition:opacity 1s ease, visibility 1s ease;
+    }
+
+    #intro.hide{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .seal-card{
+      max-width:520px;
+      width:100%;
+      padding:45px 30px;
+      border-radius:35px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.25);
+      backdrop-filter:blur(10px);
+      box-shadow:0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .seal{
+      width:95px;
+      height:95px;
+      margin:0 auto 25px;
+      border-radius:50%;
+      background:#7b1f1f;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:36px;
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+      border:3px solid rgba(255,255,255,.35);
+    }
+
+    .seal-card h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:52px;
+      margin-bottom:15px;
+    }
+
+    .seal-card p{
+      line-height:1.8;
+      opacity:.92;
+      margin-bottom:28px;
+    }
+
+    .open-btn{
+      border:none;
+      border-radius:999px;
+      padding:15px 32px;
+      background:white;
+      color:#4b3527;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 10px 30px rgba(0,0,0,.2);
     }
 
     .hero{
@@ -30,7 +98,7 @@
       text-align:center;
       padding:40px;
       background:
-      linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),
+      linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),
       url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
       background-size:cover;
       background-position:center;
@@ -38,12 +106,18 @@
     }
 
     .hero-content{
-      backdrop-filter:blur(6px);
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter:blur(7px);
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.18);
       padding:50px;
-      border-radius:30px;
-      max-width:850px;
+      border-radius:34px;
+      max-width:880px;
+      animation:fadeUp 1.2s ease both;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(25px)}
+      to{opacity:1;transform:translateY(0)}
     }
 
     .tag{
@@ -81,13 +155,12 @@
       text-decoration:none;
       transition:.3s;
       font-weight:500;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
     }
 
-    .btn-dark{
-      background:#4b3527;
-      color:white;
-    }
-
+    .btn-dark{background:#4b3527;color:white}
     .btn-light{
       background:rgba(255,255,255,.15);
       color:white;
@@ -95,18 +168,10 @@
       backdrop-filter:blur(5px);
     }
 
-    .btn:hover{
-      transform:translateY(-3px);
-    }
+    .btn:hover{transform:translateY(-3px)}
 
-    section{
-      padding:100px 25px;
-    }
-
-    .container{
-      max-width:1100px;
-      margin:auto;
-    }
+    section{padding:95px 25px}
+    .container{max-width:1100px;margin:auto}
 
     .cards{
       display:grid;
@@ -130,7 +195,7 @@
 
     .section-title{
       text-align:center;
-      margin-bottom:60px;
+      margin-bottom:55px;
     }
 
     .section-title p{
@@ -142,8 +207,38 @@
 
     .section-title h2{
       font-family:'Cormorant Garamond',serif;
-      font-size:60px;
+      font-size:58px;
       margin-top:15px;
+    }
+
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+      gap:18px;
+      max-width:800px;
+      margin:0 auto;
+    }
+
+    .time-box{
+      background:white;
+      border-radius:28px;
+      padding:28px 15px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .time-box strong{
+      display:block;
+      font-family:'Cormorant Garamond',serif;
+      font-size:52px;
+      color:#4b3527;
+    }
+
+    .time-box span{
+      letter-spacing:3px;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#9a7659;
     }
 
     .gallery{
@@ -157,6 +252,22 @@
       height:400px;
       object-fit:cover;
       border-radius:28px;
+      box-shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+
+    .floating-memory{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:9999;
+      background:#4b3527;
+      color:white;
+      border:none;
+      border-radius:999px;
+      padding:15px 22px;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 10px 30px rgba(0,0,0,.22);
     }
 
     footer{
@@ -165,35 +276,44 @@
       color:#7c6250;
     }
 
+    #musicFrame{
+      width:0;
+      height:0;
+      border:0;
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
     @media(max-width:768px){
-
-      h1{
-        font-size:58px;
-      }
-
-      .hero-content{
-        padding:35px 25px;
-      }
-
-      .section-title h2{
-        font-size:42px;
-      }
-
+      h1{font-size:58px}
+      .hero-content{padding:35px 25px}
+      .section-title h2{font-size:42px}
+      .seal-card h2{font-size:42px}
     }
   </style>
 </head>
 
 <body>
 
+  <div id="intro">
+    <div class="seal-card">
+      <div class="seal">G&Y</div>
+      <h2>Gökçe & Yalçın</h2>
+      <p>
+        Bu özel günümüzün dijital davetiyesini açmak için mührü dokunarak açın.
+      </p>
+      <button class="open-btn" onclick="openInvitation()">Daveti Aç 🤍</button>
+    </div>
+  </div>
+
+  <iframe id="musicFrame" allow="autoplay"></iframe>
+
   <section class="hero">
     <div class="hero-content">
-      <div class="tag">
-        GOLDEN HOUR ENGAGEMENT
-      </div>
+      <div class="tag">GOLDEN HOUR ENGAGEMENT</div>
 
-      <h1>
-        Gökçe & Yalçın
-      </h1>
+      <h1>Gökçe & Yalçın</h1>
 
       <p class="desc">
         Hayatımızın en güzel “evet”lerinden birine
@@ -201,22 +321,26 @@
       </p>
 
       <div class="buttons">
-        <a class="btn btn-dark" href="#">
+        <button class="btn btn-dark"
+          data-tally-open="EkZKdl"
+          data-tally-emoji-text="🤍"
+          data-tally-emoji-animation="wave">
           Katılım Bildir
-        </a>
+        </button>
 
-        <a class="btn btn-light" href="#">
+        <button class="btn btn-light"
+          data-tally-open="2ElX8M"
+          data-tally-emoji-text="💌"
+          data-tally-emoji-animation="wave">
           Anı Bırak
-        </a>
+        </button>
       </div>
     </div>
   </section>
 
   <section>
     <div class="container">
-
       <div class="cards">
-
         <div class="card">
           <h3>Tarih</h3>
           <p>26 Haziran 2026</p>
@@ -229,17 +353,30 @@
 
         <div class="card">
           <h3>Konum</h3>
-          <p>Hatay</p>
+          <p>Yakında açıklanacak 🤍</p>
         </div>
-
       </div>
-
     </div>
   </section>
 
   <section>
     <div class="container">
+      <div class="section-title">
+        <p>Geri Sayım</p>
+        <h2>Nişanımıza Kalan Süre</h2>
+      </div>
 
+      <div class="countdown">
+        <div class="time-box"><strong id="days">00</strong><span>Gün</span></div>
+        <div class="time-box"><strong id="hours">00</strong><span>Saat</span></div>
+        <div class="time-box"><strong id="minutes">00</strong><span>Dakika</span></div>
+        <div class="time-box"><strong id="seconds">00</strong><span>Saniye</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
       <div class="section-title">
         <p>Bizim Hikayemiz</p>
         <h2>Birlikte kurduğumuz en güzel hayal</h2>
@@ -249,43 +386,111 @@
         <p style="line-height:2;font-size:18px;">
           Bazen bir bakış, bazen küçük bir konuşma,
           bazen de aynı hayale inanmak…
-          Bizim hikayemiz, birlikte büyüyen bir sevginin hikayesi.
+          Bizim hikayemiz, birlikte büyüyen bir sevginin ve emek verilen bir geleceğin hikayesi.
         </p>
       </div>
-
     </div>
   </section>
 
   <section>
     <div class="container">
-
       <div class="section-title">
         <p>Galeri</p>
         <h2>Golden Moments</h2>
       </div>
 
       <div class="gallery">
-
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop">
-
-        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop">
-
-        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop">
-
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Nişan konsept görseli">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop" alt="Romantik konsept görseli">
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop" alt="Golden hour konsept görseli">
       </div>
-
     </div>
   </section>
+
+  <section>
+    <div class="container">
+      <div class="cards">
+        <div class="card">
+          <h3>Katılım Bildirin</h3>
+          <p style="line-height:1.8;margin-bottom:25px;">
+            Nişanımıza katılıp katılamayacağınızı kolayca bize iletebilirsiniz.
+          </p>
+          <button class="btn btn-dark"
+            data-tally-open="EkZKdl"
+            data-tally-emoji-text="🤍"
+            data-tally-emoji-animation="wave">
+            Katılım Formu
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>Anı Bırakın</h3>
+          <p style="line-height:1.8;margin-bottom:25px;">
+            Fotoğraf, video, ses kaydı veya güzel dileklerinizi bizimle paylaşabilirsiniz.
+          </p>
+          <button class="btn btn-dark"
+            data-tally-open="2ElX8M"
+            data-tally-emoji-text="💌"
+            data-tally-emoji-animation="wave">
+            Anı Gönder
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <button class="floating-memory"
+    data-tally-open="2ElX8M"
+    data-tally-emoji-text="💌"
+    data-tally-emoji-animation="wave">
+    💌 Anı Bırak
+  </button>
 
   <footer>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
       Gökçe & Yalçın
     </h2>
-
     <p style="margin-top:10px;">
-      26.06.2026 • Golden Hour Engagement
+      26.06.2026 • Gökçe & Yalçın
     </p>
   </footer>
+
+  <script>
+    function openInvitation(){
+      document.getElementById("intro").classList.add("hide");
+
+      const music = document.getElementById("musicFrame");
+      music.src = "https://www.youtube.com/embed/WLW7cxhwMio?autoplay=1&loop=1&playlist=WLW7cxhwMio&controls=0";
+    }
+
+    const eventDate = new Date("2026-06-26T20:00:00+03:00").getTime();
+
+    function updateCountdown(){
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if(distance <= 0){
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").innerText = String(days).padStart(2,"0");
+      document.getElementById("hours").innerText = String(hours).padStart(2,"0");
+      document.getElementById("minutes").innerText = String(minutes).padStart(2,"0");
+      document.getElementById("seconds").innerText = String(seconds).padStart(2,"0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 
 </body>
 </html>
