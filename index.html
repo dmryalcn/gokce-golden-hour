@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -276,15 +277,6 @@
       color:#7c6250;
     }
 
-    #musicFrame{
-      width:0;
-      height:0;
-      border:0;
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-
     @media(max-width:768px){
       h1{font-size:58px}
       .hero-content{padding:35px 25px}
@@ -307,7 +299,9 @@
     </div>
   </div>
 
-  <iframe id="musicFrame" allow="autoplay"></iframe>
+  <audio id="bgMusic" loop>
+    <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
+  </audio>
 
   <section class="hero">
     <div class="hero-content">
@@ -459,8 +453,13 @@
     function openInvitation(){
       document.getElementById("intro").classList.add("hide");
 
-      const music = document.getElementById("musicFrame");
-      music.src = "https://www.youtube.com/embed/WLW7cxhwMio?autoplay=1&loop=1&playlist=WLW7cxhwMio&controls=0";
+      const music = document.getElementById("bgMusic");
+
+      music.volume = 0.5;
+
+      music.play().catch((e)=>{
+        console.log("Müzik başlatılamadı:", e);
+      });
     }
 
     const eventDate = new Date("2026-06-26T20:00:00+03:00").getTime();
@@ -494,3 +493,4 @@
 
 </body>
 </html>
+```
