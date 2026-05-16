@@ -16,6 +16,7 @@
     body{
       font-family:'Inter',sans-serif;
       background:#f7efe5;
+      background-attachment:fixed;
       color:#4b3527;
       overflow-x:hidden;
     }
@@ -151,6 +152,12 @@
       background-size:cover;
       background-position:center;
       color:white;
+      animation:heroZoom 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom{
+      from{background-size:100%}
+      to{background-size:108%}
     }
 
     .hero-content{
@@ -189,11 +196,25 @@
       opacity:.92;
     }
 
+    .quote{
+      margin-top:18px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:28px;
+      opacity:.95;
+    }
+
     .qr-note{
       margin-top:22px;
       font-size:14px;
       opacity:.88;
       color:rgba(255,255,255,.92);
+    }
+
+    .music-note{
+      margin-top:10px;
+      font-size:13px;
+      opacity:.78;
+      color:rgba(255,255,255,.9);
     }
 
     .buttons{
@@ -235,13 +256,15 @@
 
     .reveal{
       opacity:0;
-      transform:translateY(35px);
-      transition:all .9s ease;
+      transform:translateY(60px);
+      filter:blur(10px);
+      transition:all 1.2s ease;
     }
 
     .reveal.active{
       opacity:1;
       transform:translateY(0);
+      filter:blur(0);
     }
 
     .cards{
@@ -251,7 +274,9 @@
     }
 
     .card{
-      background:white;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.55);
       padding:35px;
       border-radius:30px;
       box-shadow:0 10px 30px rgba(0,0,0,.06);
@@ -301,6 +326,13 @@
       margin-top:15px;
     }
 
+    .gold-line{
+      width:90px;
+      height:1px;
+      background:linear-gradient(to right, transparent, #c69a63, transparent);
+      margin:22px auto 0;
+    }
+
     .countdown{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
@@ -310,7 +342,9 @@
     }
 
     .time-box{
-      background:white;
+      background:rgba(255,255,255,.22);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.35);
       border-radius:28px;
       padding:28px 15px;
       text-align:center;
@@ -347,7 +381,9 @@
     }
 
     .gallery img:hover{
-      transform:scale(1.025);
+      transform:scale(1.03);
+      filter:brightness(1.08);
+      box-shadow:0 20px 45px rgba(184,130,63,.28);
     }
 
     .final-section{
@@ -375,6 +411,16 @@
       font-size:18px;
     }
 
+    .memory-note{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto;
+      font-family:'Cormorant Garamond',serif;
+      font-size:34px;
+      line-height:1.5;
+      color:#4b3527;
+    }
+
     .floating-memory{
       position:fixed;
       right:20px;
@@ -389,6 +435,8 @@
       cursor:pointer;
       box-shadow:0 10px 30px rgba(0,0,0,.22);
       animation:pulseGlow 2.2s infinite;
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.15);
     }
 
     @keyframes pulseGlow{
@@ -405,11 +453,14 @@
     }
 
     @media(max-width:768px){
+      .hero{animation:none;background-size:cover}
       h1{font-size:58px}
       .hero-content{padding:35px 25px}
       .section-title h2{font-size:42px}
       .seal-card h2{font-size:42px}
       .final-section h2{font-size:40px}
+      .quote{font-size:24px}
+      .memory-note{font-size:28px}
     }
   </style>
 </head>
@@ -444,8 +495,14 @@
         şahitlik etmeniz bizi çok mutlu eder.
       </p>
 
+      <p class="quote">“Bir ömür aynı manzaraya bakabilmek için…” 🤍</p>
+
       <p class="qr-note">
         QR kodu okutarak bu özel ana ortak olduğunuz için teşekkür ederiz 🤍
+      </p>
+
+      <p class="music-note">
+        🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
       </p>
 
       <div class="buttons">
@@ -484,7 +541,7 @@
         <div class="card">
           <div class="icon">⌖</div>
           <h3>Konum</h3>
-          <p>Yakında açıklanacak 🤍</p>
+          <p>Konum bilgisi çok yakında burada paylaşılacaktır 🤍</p>
         </div>
       </div>
     </div>
@@ -495,6 +552,7 @@
       <div class="section-title">
         <p>Geri Sayım</p>
         <h2>Nişanımıza Kalan Süre</h2>
+        <div class="gold-line"></div>
       </div>
 
       <div class="countdown">
@@ -511,6 +569,7 @@
       <div class="section-title">
         <p>Bizim Hikayemiz</p>
         <h2>Birlikte kurduğumuz en güzel hayal</h2>
+        <div class="gold-line"></div>
       </div>
 
       <div class="card">
@@ -528,6 +587,7 @@
       <div class="section-title">
         <p>Galeri</p>
         <h2>Sizleri Aramızda Görmeyi Çok İsteriz</h2>
+        <div class="gold-line"></div>
       </div>
 
       <div class="gallery">
@@ -559,7 +619,7 @@
           <div class="icon">✧</div>
           <h3>Anı Bırakın</h3>
           <p style="line-height:1.8;margin-bottom:25px;">
-            Fotoğraf, video, ses kaydı veya güzel dileklerinizi bizimle paylaşabilirsiniz.
+            Bu özel günümüz için fotoğraf, video, ses kaydı veya küçük bir hatıra bırakabilirsiniz 🤍
           </p>
           <button class="btn btn-dark"
             data-tally-open="2ElX8M"
@@ -583,6 +643,12 @@
     </div>
   </section>
 
+  <section class="reveal">
+    <p class="memory-note">
+      “Bu siteye bıraktığınız her anı, yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
+    </p>
+  </section>
+
   <button class="floating-memory"
     data-tally-open="2ElX8M"
     data-tally-emoji-text="💌"
@@ -596,6 +662,9 @@
     </h2>
     <p style="margin-top:10px;">
       26.06.2026 • Gökçe & Yalçın
+    </p>
+    <p style="margin-top:12px;font-size:14px;">
+      Birlikte başlayacak güzel bir hayatın ilk adımı.
     </p>
   </footer>
 
