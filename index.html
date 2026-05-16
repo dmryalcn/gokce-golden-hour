@@ -33,6 +33,13 @@
         radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
     }
 
+    body.night::before{
+      background:
+        radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
+        radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
+    }
+
     .gold-dust{
       position:fixed;
       inset:0;
@@ -74,12 +81,28 @@
       transition:opacity 1s ease, visibility 1s ease;
     }
 
+    #intro::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:linear-gradient(120deg, transparent 35%, rgba(255,255,255,.18), transparent 65%);
+      animation:shimmer 4s infinite;
+      pointer-events:none;
+    }
+
+    @keyframes shimmer{
+      from{transform:translateX(-40%)}
+      to{transform:translateX(40%)}
+    }
+
     #intro.hide{
       opacity:0;
       visibility:hidden;
     }
 
     .seal-card{
+      position:relative;
+      z-index:2;
       max-width:520px;
       width:100%;
       padding:45px 30px;
@@ -135,7 +158,7 @@
       transition:.3s;
     }
 
-    .open-btn:hover{transform:translateY(-3px)}
+    .open-btn:hover{transform:translateY(-3px) scale(1.02)}
 
     .hero{
       position:relative;
@@ -203,15 +226,8 @@
       opacity:.95;
     }
 
-    .qr-note{
-      margin-top:22px;
-      font-size:14px;
-      opacity:.88;
-      color:rgba(255,255,255,.92);
-    }
-
     .music-note{
-      margin-top:10px;
+      margin-top:18px;
       font-size:13px;
       opacity:.78;
       color:rgba(255,255,255,.9);
@@ -234,6 +250,10 @@
       border:none;
       cursor:pointer;
       font-size:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
     }
 
     .btn-dark{background:#4b3527;color:white}
@@ -245,6 +265,7 @@
     }
 
     .btn:hover{transform:translateY(-3px)}
+    .btn:active{transform:scale(.97)}
 
     section{
       position:relative;
@@ -308,6 +329,10 @@
       margin-bottom:10px;
     }
 
+    .card p{
+      line-height:1.8;
+    }
+
     .section-title{
       text-align:center;
       margin-bottom:55px;
@@ -365,6 +390,19 @@
       color:#9a7659;
     }
 
+    .event-day-message{
+      margin-top:35px;
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:34px;
+      color:#4b3527;
+      display:none;
+    }
+
+    .event-day-message.show{
+      display:block;
+    }
+
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -384,6 +422,26 @@
       transform:scale(1.03);
       filter:brightness(1.08);
       box-shadow:0 20px 45px rgba(184,130,63,.28);
+    }
+
+    .action-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+
+    .map-card{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .map-card .address{
+      font-size:18px;
+      line-height:1.9;
+      margin:18px auto 25px;
+      max-width:650px;
     }
 
     .final-section{
@@ -461,6 +519,7 @@
       .final-section h2{font-size:40px}
       .quote{font-size:24px}
       .memory-note{font-size:28px}
+      .floating-memory{right:14px;bottom:14px;padding:13px 18px}
     }
   </style>
 </head>
@@ -496,10 +555,6 @@
       </p>
 
       <p class="quote">“Bir ömür aynı manzaraya bakabilmek için…” 🤍</p>
-
-      <p class="qr-note">
-        QR kodu okutarak bu özel ana ortak olduğunuz için teşekkür ederiz 🤍
-      </p>
 
       <p class="music-note">
         🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
@@ -541,7 +596,7 @@
         <div class="card">
           <div class="icon">⌖</div>
           <h3>Konum</h3>
-          <p>Konum bilgisi çok yakında burada paylaşılacaktır 🤍</p>
+          <p>Harbiye Mahallesi No:7 İç Kapı No:2<br>Defne / Hatay</p>
         </div>
       </div>
     </div>
@@ -560,6 +615,39 @@
         <div class="time-box"><strong id="hours">00</strong><span>Saat</span></div>
         <div class="time-box"><strong id="minutes">00</strong><span>Dakika</span></div>
         <div class="time-box"><strong id="seconds">00</strong><span>Saniye</span></div>
+      </div>
+
+      <div id="eventMessage" class="event-day-message">
+        Bugün bizim günümüz 🤍
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <p>Konum</p>
+        <h2>Bu özel günde yanımızda olun</h2>
+        <div class="gold-line"></div>
+      </div>
+
+      <div class="card map-card">
+        <div class="icon">⌖</div>
+        <h3>Harbiye / Defne / Hatay</h3>
+        <p class="address">
+          Harbiye Mahallesi No:7 İç Kapı No:2<br>
+          Defne / Hatay
+        </p>
+
+        <div class="buttons">
+          <a class="btn btn-dark" href="https://google.com/maps?q=36.145576,36.142250" target="_blank" rel="noopener">
+            Yol Tarifi Al
+          </a>
+
+          <button class="btn btn-light" onclick="addToCalendar()">
+            Takvime Ekleyin 🤍
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -600,11 +688,17 @@
 
   <section class="reveal">
     <div class="container">
-      <div class="cards">
+      <div class="section-title">
+        <p>Davet</p>
+        <h2>Küçük bir yanıt, güzel bir anı</h2>
+        <div class="gold-line"></div>
+      </div>
+
+      <div class="action-grid">
         <div class="card">
           <div class="icon">✓</div>
           <h3>Katılım Bildirin</h3>
-          <p style="line-height:1.8;margin-bottom:25px;">
+          <p style="margin-bottom:25px;">
             Nişanımıza katılıp katılamayacağınızı kolayca bize iletebilirsiniz.
           </p>
           <button class="btn btn-dark"
@@ -618,7 +712,7 @@
         <div class="card">
           <div class="icon">✧</div>
           <h3>Anı Bırakın</h3>
-          <p style="line-height:1.8;margin-bottom:25px;">
+          <p style="margin-bottom:25px;">
             Bu özel günümüz için fotoğraf, video, ses kaydı veya küçük bir hatıra bırakabilirsiniz 🤍
           </p>
           <button class="btn btn-dark"
@@ -626,6 +720,17 @@
             data-tally-emoji-text="💌"
             data-tally-emoji-animation="wave">
             Anı Gönder
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="icon">◷</div>
+          <h3>Takvime Ekleyin</h3>
+          <p style="margin-bottom:25px;">
+            Tarihi unutmamak için davetimizi telefon takviminize ekleyebilirsiniz.
+          </p>
+          <button class="btn btn-dark" onclick="addToCalendar()">
+            Takvime Kaydet
           </button>
         </div>
       </div>
@@ -664,7 +769,7 @@
       26.06.2026 • Gökçe & Yalçın
     </p>
     <p style="margin-top:12px;font-size:14px;">
-      Birlikte başlayacak güzel bir hayatın ilk adımı.
+      Bu sayfayı kaydetmeyi unutmayın; nişan günü anılarınızı buradan bırakabilirsiniz.
     </p>
   </footer>
 
@@ -690,6 +795,41 @@
       });
     }
 
+    function addToCalendar(){
+      if(navigator.vibrate){
+        navigator.vibrate(30);
+      }
+
+      const icsContent =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//GokceYalcin//Engagement//TR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:gokce-yalcin-nisan-26062026
+DTSTAMP:20260517T000000Z
+DTSTART:20260626T170000Z
+DTEND:20260626T210000Z
+SUMMARY:Gökçe & Yalçın Nişan
+DESCRIPTION:Gökçe & Yalçın'ın nişan daveti.
+LOCATION:Harbiye Mahallesi No:7 İç Kapı No:2, Defne, Hatay
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([icsContent], {type:"text/calendar;charset=utf-8"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "gokce-yalcin-nisan.ics";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    const hourNow = new Date().getHours();
+    if(hourNow >= 18 || hourNow <= 6){
+      document.body.classList.add("night");
+    }
+
     const eventDate = new Date("2026-06-26T20:00:00+03:00").getTime();
 
     function updateCountdown(){
@@ -701,6 +841,7 @@
         document.getElementById("hours").innerText = "00";
         document.getElementById("minutes").innerText = "00";
         document.getElementById("seconds").innerText = "00";
+        document.getElementById("eventMessage").classList.add("show");
         return;
       }
 
@@ -740,6 +881,14 @@
       dot.style.opacity = Math.random();
       dustContainer.appendChild(dot);
     }
+
+    document.querySelectorAll("button, a").forEach(item=>{
+      item.addEventListener("click",()=>{
+        if(navigator.vibrate){
+          navigator.vibrate(20);
+        }
+      });
+    });
   </script>
 
 </body>
