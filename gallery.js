@@ -120,7 +120,21 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
 
     }
+});
+const galleryItems = document.querySelectorAll(".gallery img");
 
-  });
+galleryItems.forEach((img,index)=>{
+
+  if(index % 5 === 0){
+
+    img.classList.add("wide");
+
+  }
+
+  if(index % 7 === 0){
+
+    img.classList.add("tall");
+
+  }
 
 });
