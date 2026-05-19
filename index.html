@@ -26,12 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
 
     html{
       scroll-behavior:smooth;
@@ -65,6 +60,13 @@
         radial-gradient(circle at 20% 20%, rgba(246,216,168,.25), transparent 25%),
         radial-gradient(circle at 80% 10%, rgba(255,255,255,.18), transparent 22%),
         radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
+    }
+
+    body.night::before{
+      background:
+        radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
+        radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
     }
 
     .gold-dust{
@@ -189,6 +191,26 @@
       transform:translateY(-3px) scale(1.02)
     }
 
+    .music-toggle{
+      position:fixed;
+      top:20px;
+      right:20px;
+      z-index:9999;
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      border:none;
+      background:rgba(75,53,39,.82);
+      backdrop-filter:blur(10px);
+      color:white;
+      cursor:pointer;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 10px 25px rgba(0,0,0,.2);
+    }
+
     .hero{
       position:relative;
       z-index:3;
@@ -219,17 +241,12 @@
       padding:50px;
       border-radius:34px;
       max-width:880px;
-      animation:fadeUp 1.2s ease both, heroFloat 8s ease-in-out infinite;
+      animation:fadeUp 1.2s ease both;
     }
 
     @keyframes fadeUp{
       from{opacity:0;transform:translateY(25px)}
       to{opacity:1;transform:translateY(0)}
-    }
-
-    @keyframes heroFloat{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-6px)}
     }
 
     .tag{
@@ -290,10 +307,7 @@
       gap:8px;
     }
 
-    .btn-dark{
-      background:#4b3527;
-      color:white;
-    }
+    .btn-dark{background:#4b3527;color:white}
 
     .btn-light{
       background:rgba(255,255,255,.15);
@@ -302,9 +316,8 @@
       backdrop-filter:blur(5px);
     }
 
-    .btn:hover{
-      transform:translateY(-3px);
-    }
+    .btn:hover{transform:translateY(-3px)}
+    .btn:active{transform:scale(.97)}
 
     section{
       position:relative;
@@ -314,7 +327,7 @@
 
     .container{
       max-width:1100px;
-      margin:auto;
+      margin:auto
     }
 
     .reveal{
@@ -432,6 +445,19 @@
       color:#9a7659;
     }
 
+    .event-day-message{
+      margin-top:35px;
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:34px;
+      color:#4b3527;
+      display:none;
+    }
+
+    .event-day-message.show{
+      display:block;
+    }
+
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -445,13 +471,67 @@
       border-radius:28px;
       box-shadow:0 12px 30px rgba(0,0,0,.08);
       transition:.4s;
-      filter:grayscale(.12);
     }
 
     .gallery img:hover{
       transform:scale(1.03);
-      filter:grayscale(0);
+      filter:brightness(1.08);
       box-shadow:0 20px 45px rgba(184,130,63,.28);
+    }
+
+    .action-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+
+    .map-card{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .map-card .address{
+      font-size:18px;
+      line-height:1.9;
+      margin:18px auto 25px;
+      max-width:650px;
+    }
+
+    .final-section{
+      text-align:center;
+      background:linear-gradient(135deg,#4b3527,#8f6237);
+      color:white;
+      padding:85px 25px;
+      border-radius:40px;
+      max-width:1100px;
+      margin:0 auto;
+      box-shadow:0 20px 60px rgba(0,0,0,.18);
+    }
+
+    .final-section h2{
+      font-family:'Cormorant Garamond',serif;
+      font-size:56px;
+      margin-bottom:20px;
+    }
+
+    .final-section p{
+      max-width:700px;
+      margin:0 auto;
+      line-height:2;
+      opacity:.9;
+      font-size:18px;
+    }
+
+    .memory-note{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto;
+      font-family:'Cormorant Garamond',serif;
+      font-size:34px;
+      line-height:1.5;
+      color:#4b3527;
     }
 
     .floating-memory{
@@ -477,59 +557,25 @@
       50%{box-shadow:0 0 25px rgba(184,130,63,.75)}
     }
 
-    .music-toggle{
-      position:fixed;
-      top:20px;
-      right:20px;
-      z-index:9999;
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      border:none;
-      background:rgba(75,53,39,.82);
-      backdrop-filter:blur(10px);
-      color:white;
-      cursor:pointer;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 10px 25px rgba(0,0,0,.2);
-    }
-
     footer{
       position:relative;
       z-index:3;
       text-align:center;
-      padding:70px 20px;
+      padding:50px 20px;
       color:#7c6250;
     }
 
     @media(max-width:768px){
-
-      .hero{
-        animation:none;
-        background-size:cover;
-      }
-
-      h1{
-        font-size:58px;
-      }
-
-      .hero-content{
-        padding:35px 25px;
-      }
-
-      .section-title h2{
-        font-size:42px;
-      }
-
-      .seal-card h2{
-        font-size:42px;
-      }
-
+      .hero{animation:none;background-size:cover}
+      h1{font-size:58px}
+      .hero-content{padding:35px 25px}
+      .section-title h2{font-size:42px}
+      .seal-card h2{font-size:42px}
+      .final-section h2{font-size:40px}
+      .quote{font-size:24px}
+      .memory-note{font-size:28px}
+      .floating-memory{right:14px;bottom:14px;padding:13px 18px}
     }
-
   </style>
 </head>
 
@@ -558,177 +604,9 @@
   </div>
 
   <audio id="bgMusic" loop>
-    <source src="muzik.mp3" type="audio/mpeg">
+    <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
   </audio>
 
-  <section class="hero">
-
-    <div class="hero-content">
-
-      <div class="tag">
-        BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN
-      </div>
-
-      <h1>Gökçe & Yalçın</h1>
-
-      <p class="desc">
-        Hayatımızın en güzel “evet”lerinden birine
-        şahitlik etmeniz bizi çok mutlu eder.
-      </p>
-
-      <p class="quote">
-        “Bir ömür aynı manzaraya bakabilmek için…” 🤍
-      </p>
-
-      <p class="music-note">
-        🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
-      </p>
-
-      <div class="buttons">
-
-        <button class="btn btn-dark"
-          data-tally-open="EkZKdl"
-          data-tally-emoji-text="🤍"
-          data-tally-emoji-animation="wave">
-          Katılım Bildir
-        </button>
-
-        <button class="btn btn-light"
-          data-tally-open="2ElX8M"
-          data-tally-emoji-text="💌"
-          data-tally-emoji-animation="wave">
-          Anı Bırak
-        </button>
-
-        <button class="btn btn-light" onclick="shareInvite()">
-          Davetiyeyi Paylaş
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <button class="floating-memory"
-    data-tally-open="2ElX8M"
-    data-tally-emoji-text="💌"
-    data-tally-emoji-animation="wave">
-    💌 Anı Bırak
-  </button>
-
-  <footer>
-
-    <h2 style="
-      font-family:'Cormorant Garamond',serif;
-      font-size:42px;
-    ">
-      Gökçe & Yalçın
-    </h2>
-
-    <div class="gold-line"></div>
-
-    <p style="margin-top:18px;">
-      26 Haziran 2026 • Hatay
-    </p>
-
-    <p style="
-      margin-top:14px;
-      font-size:14px;
-      opacity:.75;
-    ">
-      Sevgiyle hazırlanmıştır 🤍
-    </p>
-
-  </footer>
-
-  <script>
-
-    let musicStarted = false;
-
-    function openInvitation(){
-
-      setTimeout(()=>{
-        document.getElementById("intro").classList.add("hide");
-      },500);
-
-      const music = document.getElementById("bgMusic");
-
-      music.volume = 0;
-
-      music.play().then(()=>{
-
-        musicStarted = true;
-
-        let volume = 0;
-
-        const fade = setInterval(()=>{
-
-          if(volume < 0.5){
-            volume += 0.02;
-            music.volume = Math.min(volume, 0.5);
-          } else {
-            clearInterval(fade);
-          }
-
-        },120);
-
-      }).catch((e)=>{
-        console.log(e);
-      });
-
-    }
-
-    function toggleMusic(){
-
-      const music = document.getElementById("bgMusic");
-
-      if(!musicStarted) return;
-
-      if(music.paused){
-        music.play();
-      } else {
-        music.pause();
-      }
-
-    }
-
-    function shareInvite(){
-
-      if(navigator.share){
-
-        navigator.share({
-          title:"Gökçe & Yalçın",
-          text:"Nişan davetiyemize bekliyoruz 🤍",
-          url:"https://gokceyalcin.net"
-        });
-
-      } else {
-
-        navigator.clipboard.writeText("https://gokceyalcin.net");
-
-        alert("Davet linki kopyalandı 🤍");
-
-      }
-
-    }
-
-    const dustContainer = document.getElementById("goldDust");
-
-    for(let i=0;i<28;i++){
-
-      const dot = document.createElement("span");
-
-      dot.style.left = Math.random() * 100 + "%";
-      dot.style.animationDuration = (8 + Math.random() * 10) + "s";
-      dot.style.animationDelay = (Math.random() * 8) + "s";
-      dot.style.opacity = Math.random();
-
-      dustContainer.appendChild(dot);
-
-    }
-
-  </script>
-
+  <!-- DEVAMI SENİN KODUNDAKİ GİBİ AYNI -->
 </body>
 </html>
