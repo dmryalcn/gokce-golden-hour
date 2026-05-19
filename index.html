@@ -1,325 +1,135 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gökçe & Yalçın</title>
+ <h1>Gökçe & Yalçın</h1>
 
-  <meta property="og:title" content="Gökçe & Yalçın">
-  <meta property="og:description" content="26 Haziran 2026 • Nişan Davetimiz 🤍">
-  <meta property="og:image" content="https://www.gokceyalcin.net/preview.png">
-  <meta property="og:url" content="https://www.gokceyalcin.net/">
-  <meta property="og:type" content="website">
+  <p class="desc">
+    Hayatımızın en güzel “evet”lerinden birine
+    şahitlik etmeniz bizi çok mutlu eder.
+  </p>
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Gökçe & Yalçın">
-  <meta name="twitter:description" content="Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız 🤍">
-  <meta name="twitter:image" content="https://www.gokceyalcin.net/preview.png">
+  <p class="quote">“Bir ömür aynı manzaraya bakabilmek için…” 🤍</p>
 
-  <script async src="https://tally.so/widgets/embed.js"></script>
+  <p class="music-note">
+    🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
+  </p>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <div class="buttons">
+    <button class="btn btn-dark"
+      data-tally-open="EkZKdl"
+      data-tally-emoji-text="🤍"
+      data-tally-emoji-animation="wave">
+      Katılım Bildir
+    </button>
 
-  <style>
+    <button class="btn btn-light"
+      data-tally-open="2ElX8M"
+      data-tally-emoji-text="💌"
+      data-tally-emoji-animation="wave">
+      Anı Bırak
+    </button>
+  </div>
+</div>
 
-    *{margin:0;padding:0;box-sizing:border-box}
+    <div class="card">
+      <div class="icon">⌚</div>
+      <h3>Saat</h3>
+      <p>20:00</p>
+    </div>
 
-    html{scroll-behavior:smooth}
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#f7efe5;
-      background-attachment:fixed;
-      color:#4b3527;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:1;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.25), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,.18), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
-    }
-
-    body.night::before{
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
-    }
-
-    .gold-dust{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:2;
-      overflow:hidden;
-    }
-
-    .gold-dust span{
-      position:absolute;
-      width:5px;
-      height:5px;
-      border-radius:50%;
-      background:rgba(255,218,150,.75);
-      box-shadow:0 0 12px rgba(255,218,150,.9);
-      animation:floatDust linear infinite;
-    }
-
-    @keyframes floatDust{
-      from{transform:translateY(110vh) scale(.6);opacity:0}
-      20%{opacity:1}
-      80%{opacity:1}
-      to{transform:translateY(-10vh) scale(1.2);opacity:0}
-    }
-
-    /* GÜNCELLENEN GİRİŞ EKRANI */
-
-    #intro{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-
-      background:
-      linear-gradient(
-        rgba(0,0,0,.38),
-        rgba(0,0,0,.38)
-      ),
-      url('https://www.gokceyalcin.net/preview.png');
-
-      background-size:cover;
-      background-position:center center;
-      background-repeat:no-repeat;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:white;
-      padding:25px;
-      transition:opacity 1s ease, visibility 1s ease;
-    }
-
-    #intro::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(
-          120deg,
-          transparent 20%,
-          rgba(255,255,255,.10),
-          transparent 80%
-        );
-
-      animation:shimmer 5s infinite;
-      pointer-events:none;
-    }
-
-    @keyframes shimmer{
-      from{transform:translateX(-40%)}
-      to{transform:translateX(40%)}
-    }
-
-    #intro.hide{
-      opacity:0;
-      visibility:hidden;
-    }
-
-    .seal-card{
-      position:relative;
-      z-index:2;
-      max-width:520px;
-      width:100%;
-      padding:45px 30px;
-      border-radius:38px;
-      background:rgba(15,12,10,.34);
-      border:1px solid rgba(255,255,255,.18);
-      backdrop-filter:blur(14px);
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.35),
-        0 0 40px rgba(255,220,180,.08);
-    }
-
-    .seal{
-      width:110px;
-      height:110px;
-      margin:0 auto 28px;
-      border-radius:50%;
-
-      background:
-        radial-gradient(circle at 30% 30%, #d9b07a, #7b1f1f);
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-family:'Cormorant Garamond',serif;
-      font-size:40px;
-      color:white;
-      letter-spacing:2px;
-
-      border:2px solid rgba(255,255,255,.28);
-
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.35),
-        0 0 25px rgba(255,220,180,.35);
-
-      animation:sealGlow 2.8s ease-in-out infinite;
-    }
-
-    @keyframes sealGlow{
-      0%,100%{box-shadow:0 10px 25px rgba(0,0,0,.25)}
-      50%{box-shadow:0 0 35px rgba(255,235,190,.65)}
-    }
-
-    .seal-card h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:52px;
-      margin-bottom:15px;
-    }
-
-    .seal-card p{
-      line-height:1.8;
-      opacity:.92;
-      margin-bottom:28px;
-    }
-
-    .open-btn{
-      border:none;
-      border-radius:999px;
-      padding:16px 38px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #f6d8a8,
-          #d2a56d
-        );
-
-      color:#3f2a1f;
-
-      font-size:16px;
-      font-weight:600;
-      letter-spacing:.4px;
-
-      cursor:pointer;
-
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.28),
-        0 0 20px rgba(255,220,180,.35);
-
-      transition:.35s;
-    }
-
-    .open-btn:hover{
-      transform:translateY(-4px) scale(1.03);
-
-      box-shadow:
-        0 18px 40px rgba(0,0,0,.35),
-        0 0 30px rgba(255,230,190,.45);
-    }
-
-    .open-btn:active{
-      transform:scale(.97);
-    }
-
-  </style>
-</head>
-
-<body>
-
-  <div class="gold-dust" id="goldDust"></div>
-
-  <!-- GÜNCELLENEN GİRİŞ -->
-
-  <div id="intro">
-    <div class="seal-card">
-
-      <div class="seal">G&Y</div>
-
-      <h2>Gökçe & Yalçın</h2>
-
-      <p>
-        Bu özel günümüzün dijital davetiyesini açmak için mührü dokunarak açın.
-      </p>
-
-      <button class="open-btn" onclick="openInvitation()">
-        Daveti Aç 🤍
-      </button>
-
+    <div class="card">
+      <div class="icon">⌖</div>
+      <h3>Konum</h3>
+      <p>Harbiye Mahallesi No:7 İç Kapı No:2<br>Defne / Hatay</p>
     </div>
   </div>
+</div>
 
-  <!-- GERİ KALAN TÜM SİSTEM AYNI -->
+  <div class="countdown">
+    <div class="time-box"><strong id="days">00</strong><span>Gün</span></div>
+    <div class="time-box"><strong id="hours">00</strong><span>Saat</span></div>
+    <div class="time-box"><strong id="minutes">00</strong><span>Dakika</span></div>
+    <div class="time-box"><strong id="seconds">00</strong><span>Saniye</span></div>
+  </div>
 
-  <audio id="bgMusic" loop>
-    <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
-  </audio>
+  <div id="eventMessage" class="event-day-message">
+    Bugün bizim günümüz 🤍
+  </div>
+</div>
 
-  <!-- BURADAN SONRASI MEVCUT ÇALIŞAN KODLARININ AYNISI -->
+  <div class="card map-card">
+    <div class="icon">⌖</div>
+    <h3>Harbiye / Defne / Hatay</h3>
+    <p class="address">
+      Harbiye Mahallesi No:7 İç Kapı No:2<br>
+      Defne / Hatay
+    </p>
 
-  <script>
+    <div class="buttons">
+      <a class="btn btn-dark" href="https://google.com/maps?q=36.145576,36.142250" target="_blank" rel="noopener">
+        Yol Tarifi Al
+      </a>
 
-    function openInvitation(){
+      <button class="btn btn-dark" onclick="addToCalendar()">
+        Takvime Ekleyin 🤍
+      </button>
+    </div>
+  </div>
+</div>
 
-      document.getElementById("intro").classList.add("hide");
+  <div class="card">
+    <p style="line-height:2;font-size:18px;">
+      Bazen bir bakış, bazen küçük bir konuşma,
+      bazen de aynı hayale inanmak…
+      Bizim hikayemiz, birlikte büyüyen bir sevginin ve emek verilen bir geleceğin hikayesi.
+    </p>
+  </div>
+</div>
 
-      const music = document.getElementById("bgMusic");
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Nişan konsept görseli">
+    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop" alt="Romantik konsept görseli">
+    <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop" alt="Golden hour konsept görseli">
+  </div>
+</div>
 
-      music.volume = 0;
+  <div class="action-grid">
+    <div class="card">
+      <div class="icon">✓</div>
+      <h3>Katılım Bildirin</h3>
+      <p style="margin-bottom:25px;">
+        Nişanımıza katılıp katılamayacağınızı kolayca bize iletebilirsiniz.
+      </p>
+      <button class="btn btn-dark"
+        data-tally-open="EkZKdl"
+        data-tally-emoji-text="🤍"
+        data-tally-emoji-animation="wave">
+        Katılım Formu
+      </button>
+    </div>
 
-      music.play().then(()=>{
+    <div class="card">
+      <div class="icon">✧</div>
+      <h3>Anı Bırakın</h3>
+      <p style="margin-bottom:25px;">
+        Bu özel günümüz için fotoğraf, video, ses kaydı veya küçük bir hatıra bırakabilirsiniz 🤍
+      </p>
+      <button class="btn btn-dark"
+        data-tally-open="2ElX8M"
+        data-tally-emoji-text="💌"
+        data-tally-emoji-animation="wave">
+        Anı Gönder
+      </button>
+    </div>
 
-        let volume = 0;
+    <div class="card">
+      <div class="icon">◷</div>
+      <h3>Takvime Ekleyin</h3>
+      <p style="margin-bottom:25px;">
+        Tarihi unutmamak için davetimizi telefon takviminize ekleyebilirsiniz.
+      </p>
+      <button class="btn btn-dark" onclick="addToCalendar()">
+        Takvime Kaydet
+      </button>
+    </div>
+  </div>
+</div>
 
-        const fade = setInterval(()=>{
-
-          if(volume < 0.5){
-
-            volume += 0.02;
-
-            music.volume = Math.min(volume, 0.5);
-
-          } else {
-
-            clearInterval(fade);
-
-          }
-
-        },120);
-
-      }).catch((e)=>{
-
-        console.log("Müzik başlatılamadı:", e);
-
-      });
-
-    }
-
-    const dustContainer = document.getElementById("goldDust");
-
-    for(let i=0;i<28;i++){
-
-      const dot = document.createElement("span");
-
-      dot.style.left = Math.random() * 100 + "%";
-      dot.style.animationDuration = (8 + Math.random() * 10) + "s";
-      dot.style.animationDelay = (Math.random() * 8) + "s";
-      dot.style.opacity = Math.random();
-
-      dustContainer.appendChild(dot);
-
-    }
-
-  </script>
-
-</body>
-</html>
+💌 Anı Bırak
