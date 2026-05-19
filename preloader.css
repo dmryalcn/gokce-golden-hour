@@ -1,1 +1,189 @@
+/* =========================
+   LUXURY PRELOADER
+========================= */
 
+#preloader{
+  position:fixed;
+
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #1d1b18 0%,
+      #0f0e0c 100%
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+
+  z-index:999999999;
+
+  transition:
+    opacity 1s ease,
+    visibility 1s ease;
+}
+
+#preloader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+/* LOGO */
+
+.preloader-logo{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:72px;
+
+  font-weight:300;
+
+  letter-spacing:6px;
+
+  color:#d4b07b;
+
+  margin-bottom:40px;
+
+  position:relative;
+
+  animation:
+    logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-8px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+/* GOLD LINE */
+
+.preloader-line{
+  width:220px;
+  height:2px;
+
+  background:
+    rgba(255,255,255,.08);
+
+  border-radius:999px;
+
+  overflow:hidden;
+
+  position:relative;
+}
+
+.preloader-line::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #d4b07b,
+      transparent
+    );
+
+  animation:
+    loadingLine 2s ease-in-out infinite;
+}
+
+@keyframes loadingLine{
+
+  0%{
+    transform:translateX(-100%);
+  }
+
+  100%{
+    transform:translateX(100%);
+  }
+
+}
+
+/* TEXT */
+
+.preloader-text{
+  margin-top:24px;
+
+  color:
+    rgba(255,255,255,.55);
+
+  font-size:13px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+}
+
+/* GLOW */
+
+.preloader-glow{
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,176,123,.12),
+      transparent 70%
+    );
+
+  filter:blur(40px);
+
+  animation:
+    glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+
+  0%{
+    transform:scale(1);
+    opacity:.7;
+  }
+
+  50%{
+    transform:scale(1.12);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:.7;
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .preloader-logo{
+    font-size:52px;
+  }
+
+  .preloader-line{
+    width:170px;
+  }
+
+}
