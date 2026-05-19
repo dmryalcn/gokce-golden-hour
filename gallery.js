@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   });
 
+  /* CINEMATIC LAYOUT */
+
+  images.forEach((img,index)=>{
+
+    if(index % 5 === 0){
+
+      img.classList.add("wide");
+
+    }
+
+    if(index % 7 === 0){
+
+      img.classList.add("tall");
+
+    }
+
+  });
+
+  /* LIGHTBOX */
+
   const lightbox = document.createElement("div");
 
   lightbox.className = "lightbox";
@@ -20,9 +40,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   document.body.appendChild(lightbox);
 
-  const lightboxImg = lightbox.querySelector(".lightbox-image");
+  const lightboxImg =
+    lightbox.querySelector(".lightbox-image");
 
-  const closeBtn = lightbox.querySelector(".lightbox-close");
+  const closeBtn =
+    lightbox.querySelector(".lightbox-close");
 
   let currentIndex = 0;
 
@@ -46,17 +68,21 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   function showNext(){
 
-    currentIndex = (currentIndex + 1) % images.length;
+    currentIndex =
+      (currentIndex + 1) % images.length;
 
-    lightboxImg.src = images[currentIndex].src;
+    lightboxImg.src =
+      images[currentIndex].src;
   }
 
   function showPrev(){
 
     currentIndex =
-      (currentIndex - 1 + images.length) % images.length;
+      (currentIndex - 1 + images.length)
+      % images.length;
 
-    lightboxImg.src = images[currentIndex].src;
+    lightboxImg.src =
+      images[currentIndex].src;
   }
 
   images.forEach((img,index)=>{
@@ -69,7 +95,10 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   });
 
-  closeBtn.addEventListener("click",closeLightbox);
+  closeBtn.addEventListener(
+    "click",
+    closeLightbox
+  );
 
   lightbox.addEventListener("click",(e)=>{
 
@@ -83,15 +112,21 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   document.addEventListener("keydown",(e)=>{
 
-    if(!lightbox.classList.contains("show")) return;
+    if(!lightbox.classList.contains("show"))
+      return;
 
-    if(e.key === "Escape") closeLightbox();
+    if(e.key === "Escape")
+      closeLightbox();
 
-    if(e.key === "ArrowRight") showNext();
+    if(e.key === "ArrowRight")
+      showNext();
 
-    if(e.key === "ArrowLeft") showPrev();
+    if(e.key === "ArrowLeft")
+      showPrev();
 
   });
+
+  /* SWIPE */
 
   let startX = 0;
 
@@ -103,7 +138,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   lightbox.addEventListener("touchend",(e)=>{
 
-    let endX = e.changedTouches[0].clientX;
+    let endX =
+      e.changedTouches[0].clientX;
 
     let diff = startX - endX;
 
@@ -120,21 +156,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
 
     }
-});
-const galleryItems = document.querySelectorAll(".gallery img");
 
-galleryItems.forEach((img,index)=>{
-
-  if(index % 5 === 0){
-
-    img.classList.add("wide");
-
-  }
-
-  if(index % 7 === 0){
-
-    img.classList.add("tall");
-
-  }
+  });
 
 });
