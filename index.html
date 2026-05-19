@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
- <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 
 <meta property="og:title" content="Gökçe & Yalçın">
 
@@ -21,1030 +21,738 @@ content="Gökçe & Yalçın">
 
 <meta name="twitter:image"
 content="https://www.gokceyalcin.net/preview.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gökçe & Yalçın</title>
-
-  <script async src="https://tally.so/widgets/embed.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',sans-serif;
-      background:#f7efe5;
-      background-attachment:fixed;
-      color:#4b3527;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:1;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.25), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,.18), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
-    }
-
-    body.night::before{
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
-    }
-
-    .gold-dust{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:2;
-      overflow:hidden;
-    }
-
-    .gold-dust span{
-      position:absolute;
-      width:5px;
-      height:5px;
-      border-radius:50%;
-      background:rgba(255,218,150,.75);
-      box-shadow:0 0 12px rgba(255,218,150,.9);
-      animation:floatDust linear infinite;
-    }
-
-    @keyframes floatDust{
-      from{transform:translateY(110vh) scale(.6);opacity:0}
-      20%{opacity:1}
-      80%{opacity:1}
-      to{transform:translateY(-10vh) scale(1.2);opacity:0}
-    }
-
-    /* PREMIUM INTRO */
-
-    
-    /* PREMIUM INTRO */
-
-    #intro{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-      overflow:hidden;
-
-      background:
-        linear-gradient(rgba(20,12,8,.58),rgba(20,12,8,.58)),
-        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1800&auto=format&fit=crop');
-
-      background-size:cover;
-      background-position:center;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-
-      color:white;
-      padding:25px;
-
-      transition:opacity 1s ease, visibility 1s ease;
-    }
-
-    #intro::before{
-      content:"";
-      position:absolute;
-      inset:0;
-
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,230,180,.18), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,.10), transparent 20%),
-        radial-gradient(circle at 50% 90%, rgba(184,130,63,.20), transparent 30%);
-
-      animation:introGlow 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes introGlow{
-      from{
-        transform:scale(1);
-        opacity:.8;
-      }
 
-      to{
-        transform:scale(1.05);
-        opacity:1;
-      }
-    }
-
-    #intro::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Gökçe & Yalçın</title>
+
+<script async src="https://tally.so/widgets/embed.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#f7efe5;
+  background-attachment:fixed;
+  color:#4b3527;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(246,216,168,.25), transparent 25%),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,.18), transparent 22%),
+    radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
+}
+
+body.night::before{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
+    radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
+    radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
+}
+
+.gold-dust{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  overflow:hidden;
+}
+
+.gold-dust span{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:rgba(255,218,150,.75);
+  box-shadow:0 0 12px rgba(255,218,150,.9);
+  animation:floatDust linear infinite;
+}
+
+@keyframes floatDust{
+  from{
+    transform:translateY(110vh) scale(.6);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-10vh) scale(1.2);
+    opacity:0;
+  }
+}
+
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  overflow:hidden;
+
+  background:
+    linear-gradient(rgba(20,12,8,.58),rgba(20,12,8,.58)),
+    url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1800&auto=format&fit=crop');
+
+  background-size:cover;
+  background-position:center;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+
+  color:white;
+  padding:25px;
+
+  transition:opacity 1s ease, visibility 1s ease;
+}
+
+#intro::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,230,180,.18), transparent 25%),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,.10), transparent 20%),
+    radial-gradient(circle at 50% 90%, rgba(184,130,63,.20), transparent 30%);
+
+  animation:introGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes introGlow{
+  from{
+    transform:scale(1);
+    opacity:.8;
+  }
 
-      background:
-        linear-gradient(
-          120deg,
-          transparent 35%,
-          rgba(255,255,255,.12),
-          transparent 65%
-        );
+  to{
+    transform:scale(1.05);
+    opacity:1;
+  }
+}
+
+#intro::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
 
-      animation:shimmer 6s linear infinite;
-      pointer-events:none;
-    }
+  background:
+    linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(255,255,255,.12),
+      transparent 65%
+    );
 
-    @keyframes shimmer{
-      from{
-        transform:translateX(-40%) rotate(8deg);
-      }
+  animation:shimmer 6s linear infinite;
+  pointer-events:none;
+}
 
-      to{
-        transform:translateX(40%) rotate(8deg);
-      }
-    }
-
-    #intro.hide{
-      opacity:0;
-      visibility:hidden;
-    }
-
-    .seal-card{
-      position:relative;
-      z-index:2;
-
-      max-width:560px;
-      width:100%;
-
-      padding:55px 35px;
-
-      border-radius:38px;
-
-      background:rgba(255,248,240,.14);
-
-      border:1px solid rgba(255,255,255,.28);
-
-      backdrop-filter:blur(14px);
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.18);
-
-      overflow:hidden;
-    }
-
-    .seal-card::before{
-      content:"";
-      position:absolute;
-      inset:-30%;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 35%,
-          rgba(255,255,255,.14),
-          transparent 65%
-        );
-
-      animation:cardShine 6s linear infinite;
-    }
-
-    @keyframes cardShine{
-      from{
-        transform:translateX(-40%) rotate(8deg);
-      }
+@keyframes shimmer{
+  from{
+    transform:translateX(-40%) rotate(8deg);
+  }
 
-      to{
-        transform:translateX(40%) rotate(8deg);
-      }
-    }
-
-    .seal{
-      position:relative;
-      z-index:2;
-
-      width:110px;
-      height:110px;
-
-      margin:0 auto 28px;
-
-      border-radius:50%;
-
-      background:
-        radial-gradient(circle at top,#a52b2b,#7b1f1f 60%, #5a1111);
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-family:'Cormorant Garamond',serif;
-      font-size:42px;
-      color:#f7e1b2;
-
-      border:3px solid rgba(255,255,255,.28);
-
-      box-shadow:
-        0 15px 35px rgba(0,0,0,.35),
-        0 0 25px rgba(184,130,63,.35);
-
-      animation:sealGlow 2.8s ease-in-out infinite;
-    }
-
-    @keyframes sealGlow{
-      0%,100%{
-        box-shadow:
-          0 15px 35px rgba(0,0,0,.35),
-          0 0 18px rgba(184,130,63,.25);
-      }
-
-      50%{
-        box-shadow:
-          0 18px 45px rgba(0,0,0,.4),
-          0 0 40px rgba(255,220,150,.55);
-      }
-    }
-
-    .seal-card h2{
-      position:relative;
-      z-index:2;
-
-      font-family:'Cormorant Garamond',serif;
-      font-size:58px;
-      margin-bottom:18px;
-      color:#fff7ec;
-    }
-
-    .seal-card p{
-      position:relative;
-      z-index:2;
-
-      line-height:1.9;
-      opacity:.95;
-      margin-bottom:32px;
-      font-size:17px;
-      color:rgba(255,255,255,.92);
-    }
-
-    .open-btn{
-      position:relative;
-      z-index:2;
-
-      border:none;
-      border-radius:999px;
-
-      padding:16px 38px;
-
-      background:
-        linear-gradient(135deg,#7b1f1f,#b0824f);
-
-      color:white;
-      font-size:16px;
-      cursor:pointer;
-
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.25),
-        0 0 20px rgba(184,130,63,.25);
-
-      transition:.35s;
-    }
-
-    .open-btn:hover{
-      transform:translateY(-4px) scale(1.03);
-    }
-
-
-    .hero{
-      position:relative;
-      z-index:3;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:40px;
-      background:
-      linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),
-      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;
-      background-position:center;
-      color:white;
-      animation:heroZoom 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroZoom{
-      from{background-size:100%}
-      to{background-size:108%}
-    }
-
-    .hero-content{
-      backdrop-filter:blur(7px);
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.18);
-      padding:50px;
-      border-radius:34px;
-      max-width:880px;
-      animation:fadeUp 1.2s ease both;
-    }
-
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(25px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .tag{
-      letter-spacing:4px;
-      text-transform:uppercase;
-      font-size:12px;
-      opacity:.9;
-    }
-
-    h1{
-      font-family:'Cormorant Garamond',serif;
-      font-size:90px;
-      font-weight:600;
-      margin-top:20px;
-    }
-
-    .desc{
-      margin-top:20px;
-      font-size:18px;
-      line-height:1.8;
-      opacity:.92;
-    }
-
-    .quote{
-      margin-top:18px;
-      font-family:'Cormorant Garamond',serif;
-      font-size:28px;
-      opacity:.95;
-    }
-
-    .music-note{
-      margin-top:18px;
-      font-size:13px;
-      opacity:.78;
-      color:rgba(255,255,255,.9);
-    }
-
-    .buttons{
-      margin-top:35px;
-      display:flex;
-      gap:15px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:15px 28px;
-      border-radius:999px;
-      text-decoration:none;
-      transition:.3s;
-      font-weight:500;
-      border:none;
-      cursor:pointer;
-      font-size:16px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
-
-    .btn-dark{background:#4b3527;color:white}
-    .btn-light{
-      background:rgba(255,255,255,.15);
-      color:white;
-      border:1px solid rgba(255,255,255,.25);
-      backdrop-filter:blur(5px);
-    }
-
-    .btn:hover{transform:translateY(-3px)}
-    .btn:active{transform:scale(.97)}
-
-    section{
-      position:relative;
-      z-index:3;
-      padding:95px 25px;
-    }
-
-    .container{max-width:1100px;margin:auto}
-
-    .reveal{
-      opacity:0;
-      transform:translateY(60px);
-      filter:blur(10px);
-      transition:all 1.2s ease;
-    }
-
-    .reveal.active{
-      opacity:1;
-      transform:translateY(0);
-      filter:blur(0);
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
-
-    .card{
-      background:rgba(255,255,255,.72);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.55);
-      padding:35px;
-      border-radius:30px;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-      text-align:center;
-      transition:.35s;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 18px 45px rgba(0,0,0,.09);
-    }
-
-    .icon{
-      width:50px;
-      height:50px;
-      margin:0 auto 15px;
-      border-radius:50%;
-      background:#f4e4cf;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      color:#8f6237;
-    }
-
-    .card h3{
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      margin-bottom:10px;
-    }
-
-    .card p{
-      line-height:1.8;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:55px;
-    }
-
-    .section-title p{
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#b0824f;
-      font-size:12px;
-    }
-
-    .section-title h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:58px;
-      margin-top:15px;
-    }
-
-    .gold-line{
-      width:90px;
-      height:1px;
-      background:linear-gradient(to right, transparent, #c69a63, transparent);
-      margin:22px auto 0;
-    }
-
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-      gap:18px;
-      max-width:800px;
-      margin:0 auto;
-    }
-
-    .time-box{
-      background:rgba(255,255,255,.22);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.35);
-      border-radius:28px;
-      padding:28px 15px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-    }
-
-    .time-box strong{
-      display:block;
-      font-family:'Cormorant Garamond',serif;
-      font-size:52px;
-      color:#4b3527;
-    }
-
-    .time-box span{
-      letter-spacing:3px;
-      text-transform:uppercase;
-      font-size:12px;
-      color:#9a7659;
-    }
-
-    .event-day-message{
-      margin-top:35px;
-      text-align:center;
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      color:#4b3527;
-      display:none;
-    }
-
-    .event-day-message.show{
-      display:block;
-    }
-
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
-
-    .gallery img{
-      width:100%;
-      height:400px;
-      object-fit:cover;
-      border-radius:28px;
-      box-shadow:0 12px 30px rgba(0,0,0,.08);
-      transition:.4s;
-    }
-
-    .gallery img:hover{
-      transform:scale(1.03);
-      filter:brightness(1.08);
-      box-shadow:0 20px 45px rgba(184,130,63,.28);
-    }
-
-    .action-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-      margin-top:20px;
-    }
-
-    .map-card{
-      max-width:900px;
-      margin:0 auto;
-      text-align:center;
-    }
-
-    .map-card .address{
-      font-size:18px;
-      line-height:1.9;
-      margin:18px auto 25px;
-      max-width:650px;
-    }
-
-    .final-section{
-      text-align:center;
-      background:linear-gradient(135deg,#4b3527,#8f6237);
-      color:white;
-      padding:85px 25px;
-      border-radius:40px;
-      max-width:1100px;
-      margin:0 auto;
-      box-shadow:0 20px 60px rgba(0,0,0,.18);
-    }
-
-    .final-section h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:56px;
-      margin-bottom:20px;
-    }
-
-    .final-section p{
-      max-width:700px;
-      margin:0 auto;
-      line-height:2;
-      opacity:.9;
-      font-size:18px;
-    }
-
-    .memory-note{
-      text-align:center;
-      max-width:760px;
-      margin:0 auto;
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      line-height:1.5;
-      color:#4b3527;
-    }
-
-    .floating-memory{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      z-index:9999;
-      background:#4b3527;
-      color:white;
-      border:none;
-      border-radius:999px;
-      padding:15px 22px;
-      font-size:15px;
-      cursor:pointer;
-      box-shadow:0 10px 30px rgba(0,0,0,.22);
-      animation:pulseGlow 2.2s infinite;
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.15);
-    }
-
-    @keyframes pulseGlow{
-      0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.22)}
-      50%{box-shadow:0 0 25px rgba(184,130,63,.75)}
-    }
-
-    footer{
-      position:relative;
-      z-index:3;
-      text-align:center;
-      padding:50px 20px;
-      color:#7c6250;
-    }
-
-    @media(max-width:768px){
-      .hero{animation:none;background-size:cover}
-      h1{font-size:58px}
-      .hero-content{padding:35px 25px}
-      .section-title h2{font-size:42px}
-      .seal-card h2{font-size:42px}
-      .final-section h2{font-size:40px}
-      .quote{font-size:24px}
-      .memory-note{font-size:28px}
-      .floating-memory{right:14px;bottom:14px;padding:13px 18px}
-    }
-  </style>
+  to{
+    transform:translateX(40%) rotate(8deg);
+  }
+}
+
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.seal-card{
+  position:relative;
+  z-index:2;
+
+  max-width:560px;
+  width:100%;
+
+  padding:55px 35px;
+
+  border-radius:38px;
+
+  background:rgba(255,248,240,.14);
+
+  border:1px solid rgba(255,255,255,.28);
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.18);
+
+  overflow:hidden;
+}
+
+.seal-card::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(255,255,255,.14),
+      transparent 65%
+    );
+
+  animation:cardShine 6s linear infinite;
+}
+
+@keyframes cardShine{
+  from{
+    transform:translateX(-40%) rotate(8deg);
+  }
+
+  to{
+    transform:translateX(40%) rotate(8deg);
+  }
+}
+
+.seal{
+  position:relative;
+  z-index:2;
+
+  width:110px;
+  height:110px;
+
+  margin:0 auto 28px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(circle at top,#a52b2b,#7b1f1f 60%, #5a1111);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;
+  color:#f7e1b2;
+
+  border:3px solid rgba(255,255,255,.28);
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.35),
+    0 0 25px rgba(184,130,63,.35);
+
+  animation:sealGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes sealGlow{
+  0%,100%{
+    box-shadow:
+      0 15px 35px rgba(0,0,0,.35),
+      0 0 18px rgba(184,130,63,.25);
+  }
+
+  50%{
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.4),
+      0 0 40px rgba(255,220,150,.55);
+  }
+}
+
+.seal-card h2{
+  position:relative;
+  z-index:2;
+
+  font-family:'Cormorant Garamond',serif;
+  font-size:58px;
+  margin-bottom:18px;
+  color:#fff7ec;
+}
+
+.seal-card p{
+  position:relative;
+  z-index:2;
+
+  line-height:1.9;
+  opacity:.95;
+  margin-bottom:32px;
+  font-size:17px;
+  color:rgba(255,255,255,.92);
+}
+
+.open-btn{
+  position:relative;
+  z-index:2;
+
+  border:none;
+  border-radius:999px;
+
+  padding:16px 38px;
+
+  background:
+    linear-gradient(135deg,#7b1f1f,#b0824f);
+
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25),
+    0 0 20px rgba(184,130,63,.25);
+
+  transition:.35s;
+}
+
+.open-btn:hover{
+  transform:translateY(-4px) scale(1.03);
+}
+
+.hero{
+  position:relative;
+  z-index:3;
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+  padding:40px;
+
+  background:
+  linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),
+  url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
+
+  background-size:cover;
+  background-position:center;
+
+  color:white;
+
+  animation:heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  from{
+    background-size:100%;
+  }
+
+  to{
+    background-size:108%;
+  }
+}
+
+.hero-content{
+  backdrop-filter:blur(7px);
+
+  background:rgba(255,255,255,.09);
+
+  border:1px solid rgba(255,255,255,.18);
+
+  padding:50px;
+
+  border-radius:34px;
+
+  max-width:880px;
+
+  animation:fadeUp 1.2s ease both;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.tag{
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:12px;
+  opacity:.9;
+}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:90px;
+  font-weight:600;
+  margin-top:20px;
+}
+
+.desc{
+  margin-top:20px;
+  font-size:18px;
+  line-height:1.8;
+  opacity:.92;
+}
+
+.quote{
+  margin-top:18px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  opacity:.95;
+}
+
+.music-note{
+  margin-top:18px;
+  font-size:13px;
+  opacity:.78;
+  color:rgba(255,255,255,.9);
+}
+
+.buttons{
+  margin-top:35px;
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:15px 28px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:.3s;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  font-size:16px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.btn-dark{
+  background:#4b3527;
+  color:white;
+}
+
+.btn-light{
+  background:rgba(255,255,255,.15);
+  color:white;
+  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(5px);
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+section{
+  position:relative;
+  z-index:3;
+  padding:95px 25px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(60px);
+  filter:blur(10px);
+  transition:all 1.2s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+
+.gallery img{
+  width:100%;
+  height:420px;
+  object-fit:cover;
+  border-radius:30px;
+  cursor:pointer;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.10),
+    0 0 0 rgba(184,130,63,0);
+
+  transition:
+    transform .5s ease,
+    box-shadow .5s ease,
+    filter .5s ease;
+}
+
+.gallery img:hover{
+  transform:translateY(-8px) scale(1.02);
+
+  filter:
+    brightness(1.05)
+    saturate(1.08);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.18),
+    0 0 35px rgba(184,130,63,.25);
+}
+
+@media(max-width:768px){
+
+  .hero{
+    animation:none;
+    background-size:cover;
+  }
+
+  h1{
+    font-size:58px;
+  }
+
+  .hero-content{
+    padding:35px 25px;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="gold-dust" id="goldDust"></div>
+<div class="gold-dust" id="goldDust"></div>
 
-  <div id="intro">
-    <div class="seal-card">
-      <div class="seal">G&Y</div>
-      <h2>Gökçe & Yalçın</h2>
-      <p>
-        Bu özel günümüzün dijital davetiyesini açmak için mührü dokunarak açın.
-      </p>
-      <button class="open-btn" onclick="openInvitation()">Daveti Aç 🤍</button>
+<div id="intro">
+  <div class="seal-card">
+    <div class="seal">G&Y</div>
+
+    <h2>Gökçe & Yalçın</h2>
+
+    <p>
+      Bu özel günümüzün dijital davetiyesini açmak için mührü dokunarak açın.
+    </p>
+
+    <button class="open-btn" onclick="openInvitation()">
+      Daveti Aç 🤍
+    </button>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
+</audio>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="tag">
+      BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN
+    </div>
+
+    <h1>Gökçe & Yalçın</h1>
+
+    <p class="desc">
+      Hayatımızın en güzel “evet”lerinden birine
+      şahitlik etmeniz bizi çok mutlu eder.
+    </p>
+
+    <p class="quote">
+      “Bir ömür aynı manzaraya bakabilmek için…” 🤍
+    </p>
+
+    <p class="music-note">
+      🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
+    </p>
+
+    <div class="buttons">
+
+      <button class="btn btn-dark"
+        data-tally-open="EkZKdl"
+        data-tally-emoji-text="🤍"
+        data-tally-emoji-animation="wave">
+
+        Katılım Bildir
+
+      </button>
+
+      <button class="btn btn-light"
+        data-tally-open="2ElX8M"
+        data-tally-emoji-text="💌"
+        data-tally-emoji-animation="wave">
+
+        Anı Bırak
+
+      </button>
+
     </div>
   </div>
+</section>
 
-  <audio id="bgMusic" loop>
-    <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
-  </audio>
+<section class="reveal">
 
-  <section class="hero">
-    <div class="hero-content">
-      <div class="tag">BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN</div>
+  <div class="container">
 
-      <h1>Gökçe & Yalçın</h1>
+    <div class="section-title">
 
-      <p class="desc">
-        Hayatımızın en güzel “evet”lerinden birine
-        şahitlik etmeniz bizi çok mutlu eder.
-      </p>
+      <p>Galeri</p>
 
-      <p class="quote">“Bir ömür aynı manzaraya bakabilmek için…” 🤍</p>
+      <h2>Sizleri Aramızda Görmeyi Çok İsteriz</h2>
 
-      <p class="music-note">
-        🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
-      </p>
+      <div class="gold-line"></div>
 
-      <div class="buttons">
-        <button class="btn btn-dark"
-          data-tally-open="EkZKdl"
-          data-tally-emoji-text="🤍"
-          data-tally-emoji-animation="wave">
-          Katılım Bildir
-        </button>
-
-        <button class="btn btn-light"
-          data-tally-open="2ElX8M"
-          data-tally-emoji-text="💌"
-          data-tally-emoji-animation="wave">
-          Anı Bırak
-        </button>
-      </div>
     </div>
-  </section>
 
-  <section class="reveal">
-    <div class="container">
-      <div class="cards">
-        <div class="card">
-          <div class="icon">♡</div>
-          <h3>Tarih</h3>
-          <p>26 Haziran 2026</p>
-        </div>
+    <div class="gallery">
 
-        <div class="card">
-          <div class="icon">⌚</div>
-          <h3>Saat</h3>
-          <p>20:00</p>
-        </div>
+      <img src="images/gy1.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy2.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy3.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy4.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy5.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy6.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy7.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy8.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy9.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy10.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy11.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy12.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy13.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy14.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy15.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy16.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy17.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy18.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy19.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy20.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy21.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy22.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy23.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy24.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy25.jpeg" alt="Gökçe ve Yalçın">
+      <img src="images/gy26.jpeg" alt="Gökçe ve Yalçın">
 
-        <div class="card">
-          <div class="icon">⌖</div>
-          <h3>Konum</h3>
-          <p>Harbiye Mahallesi No:7 İç Kapı No:2<br>Defne / Hatay</p>
-        </div>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Geri Sayım</p>
-        <h2>Nişanımıza Kalan Süre</h2>
-        <div class="gold-line"></div>
-      </div>
+<script>
 
-      <div class="countdown">
-        <div class="time-box"><strong id="days">00</strong><span>Gün</span></div>
-        <div class="time-box"><strong id="hours">00</strong><span>Saat</span></div>
-        <div class="time-box"><strong id="minutes">00</strong><span>Dakika</span></div>
-        <div class="time-box"><strong id="seconds">00</strong><span>Saniye</span></div>
-      </div>
+function openInvitation(){
 
-      <div id="eventMessage" class="event-day-message">
-        Bugün bizim günümüz 🤍
-      </div>
-    </div>
-  </section>
+  document.getElementById("intro").classList.add("hide");
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Konum</p>
-        <h2>Bu özel günde yanımızda olun</h2>
-        <div class="gold-line"></div>
-      </div>
+  const music = document.getElementById("bgMusic");
 
-      <div class="card map-card">
-        <div class="icon">⌖</div>
-        <h3>Harbiye / Defne / Hatay</h3>
-        <p class="address">
-          Harbiye Mahallesi No:7 İç Kapı No:2<br>
-          Defne / Hatay
-        </p>
+  music.volume = 0;
 
-        <div class="buttons">
-          <a class="btn btn-dark" href="https://google.com/maps?q=36.145576,36.142250" target="_blank" rel="noopener">
-            Yol Tarifi Al
-          </a>
+  music.play().then(()=>{
 
-          <button class="btn btn-light" onclick="addToCalendar()">
-            Takvime Ekleyin 🤍
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+    let volume = 0;
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Bizim Hikayemiz</p>
-        <h2>Birlikte kurduğumuz en güzel hayal</h2>
-        <div class="gold-line"></div>
-      </div>
+    const fade = setInterval(()=>{
 
-      <div class="card">
-        <p style="line-height:2;font-size:18px;">
-          Bazen bir bakış, bazen küçük bir konuşma,
-          bazen de aynı hayale inanmak…
-          Bizim hikayemiz, birlikte büyüyen bir sevginin ve emek verilen bir geleceğin hikayesi.
-        </p>
-      </div>
-    </div>
-  </section>
+      if(volume < 0.5){
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Galeri</p>
-        <h2>Sizleri Aramızda Görmeyi Çok İsteriz</h2>
-        <div class="gold-line"></div>
-      </div>
+        volume += 0.02;
 
-      <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Nişan konsept görseli">
-        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop" alt="Romantik konsept görseli">
-        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop" alt="Golden hour konsept görseli">
-      </div>
-    </div>
-  </section>
+        music.volume = Math.min(volume, 0.5);
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Davet</p>
-        <h2>Küçük bir yanıt, güzel bir anı</h2>
-        <div class="gold-line"></div>
-      </div>
+      }else{
 
-      <div class="action-grid">
-        <div class="card">
-          <div class="icon">✓</div>
-          <h3>Katılım Bildirin</h3>
-          <p style="margin-bottom:25px;">
-            Nişanımıza katılıp katılamayacağınızı kolayca bize iletebilirsiniz.
-          </p>
-          <button class="btn btn-dark"
-            data-tally-open="EkZKdl"
-            data-tally-emoji-text="🤍"
-            data-tally-emoji-animation="wave">
-            Katılım Formu
-          </button>
-        </div>
+        clearInterval(fade);
 
-        <div class="card">
-          <div class="icon">✧</div>
-          <h3>Anı Bırakın</h3>
-          <p style="margin-bottom:25px;">
-            Bu özel günümüz için fotoğraf, video, ses kaydı veya küçük bir hatıra bırakabilirsiniz 🤍
-          </p>
-          <button class="btn btn-dark"
-            data-tally-open="2ElX8M"
-            data-tally-emoji-text="💌"
-            data-tally-emoji-animation="wave">
-            Anı Gönder
-          </button>
-        </div>
-
-        <div class="card">
-          <div class="icon">◷</div>
-          <h3>Takvime Ekleyin</h3>
-          <p style="margin-bottom:25px;">
-            Tarihi unutmamak için davetimizi telefon takviminize ekleyebilirsiniz.
-          </p>
-          <button class="btn btn-dark" onclick="addToCalendar()">
-            Takvime Kaydet
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <div class="final-section">
-      <h2>Bu hikâyenin en güzel sayfasına davetlisiniz</h2>
-      <p>
-        Bazı hikâyeler tesadüfle başlar, bazıları emekle güzelleşir.
-        Bizim hikâyemiz ise sevgiyle, sabırla ve aynı geleceğe inanarak büyüdü.
-        Bu özel günümüzde yanımızda olmanız bizim için en güzel anılardan biri olacak.
-      </p>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <p class="memory-note">
-      “Bu siteye bıraktığınız her anı, yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
-    </p>
-  </section>
-
-  <button class="floating-memory"
-    data-tally-open="2ElX8M"
-    data-tally-emoji-text="💌"
-    data-tally-emoji-animation="wave">
-    💌 Anı Bırak
-  </button>
-
-  <footer>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
-      Gökçe & Yalçın
-    </h2>
-    <p style="margin-top:10px;">
-      26.06.2026 • Gökçe & Yalçın
-    </p>
-    <p style="margin-top:12px;font-size:14px;">
-      Bu sayfayı kaydetmeyi unutmayın; nişan günü anılarınızı buradan bırakabilirsiniz.
-    </p>
-  </footer>
-
-  <script>
-    function openInvitation(){
-      document.getElementById("intro").classList.add("hide");
-
-      const music = document.getElementById("bgMusic");
-      music.volume = 0;
-
-      music.play().then(()=>{
-        let volume = 0;
-        const fade = setInterval(()=>{
-          if(volume < 0.5){
-            volume += 0.02;
-            music.volume = Math.min(volume, 0.5);
-          } else {
-            clearInterval(fade);
-          }
-        }, 120);
-      }).catch((e)=>{
-        console.log("Müzik başlatılamadı:", e);
-      });
-    }
-
-    function addToCalendar(){
-      if(navigator.vibrate){
-        navigator.vibrate(30);
       }
 
-      const icsContent =
-`BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//GokceYalcin//Engagement//TR
-CALSCALE:GREGORIAN
-BEGIN:VEVENT
-UID:gokce-yalcin-nisan-26062026
-DTSTAMP:20260517T000000Z
-DTSTART:20260626T170000Z
-DTEND:20260626T210000Z
-SUMMARY:Gökçe & Yalçın Nişan
-DESCRIPTION:Gökçe & Yalçın'ın nişan daveti.
-LOCATION:Harbiye Mahallesi No:7 İç Kapı No:2, Defne, Hatay
-END:VEVENT
-END:VCALENDAR`;
+    },120);
 
-      const blob = new Blob([icsContent], {type:"text/calendar;charset=utf-8"});
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "gokce-yalcin-nisan.ics";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  }).catch((e)=>{
+
+    console.log("Müzik başlatılamadı:", e);
+
+  });
+}
+
+const hourNow = new Date().getHours();
+
+if(hourNow >= 18 || hourNow <= 6){
+
+  document.body.classList.add("night");
+
+}
+
+const reveals = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver((entries)=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+
+      entry.target.classList.add("active");
+
     }
 
-    const hourNow = new Date().getHours();
-    if(hourNow >= 18 || hourNow <= 6){
-      document.body.classList.add("night");
-    }
+  });
 
-    const eventDate = new Date("2026-06-26T20:00:00+03:00").getTime();
+},{threshold:0.15});
 
-    function updateCountdown(){
-      const now = new Date().getTime();
-      const distance = eventDate - now;
+reveals.forEach(item=>observer.observe(item));
 
-      if(distance <= 0){
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("minutes").innerText = "00";
-        document.getElementById("seconds").innerText = "00";
-        document.getElementById("eventMessage").classList.add("show");
-        return;
-      }
+const dustContainer = document.getElementById("goldDust");
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
+for(let i=0;i<28;i++){
 
-      document.getElementById("days").innerText = String(days).padStart(2,"0");
-      document.getElementById("hours").innerText = String(hours).padStart(2,"0");
-      document.getElementById("minutes").innerText = String(minutes).padStart(2,"0");
-      document.getElementById("seconds").innerText = String(seconds).padStart(2,"0");
-    }
+  const dot = document.createElement("span");
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+  dot.style.left = Math.random() * 100 + "%";
 
-    const reveals = document.querySelectorAll(".reveal");
+  dot.style.animationDuration = (8 + Math.random() * 10) + "s";
 
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add("active");
-        }
-      });
-    }, {threshold:0.15});
+  dot.style.animationDelay = (Math.random() * 8) + "s";
 
-    reveals.forEach(item=>observer.observe(item));
+  dot.style.opacity = Math.random();
 
-    const dustContainer = document.getElementById("goldDust");
+  dustContainer.appendChild(dot);
+}
 
-    for(let i=0;i<28;i++){
-      const dot = document.createElement("span");
-      dot.style.left = Math.random() * 100 + "%";
-      dot.style.animationDuration = (8 + Math.random() * 10) + "s";
-      dot.style.animationDelay = (Math.random() * 8) + "s";
-      dot.style.opacity = Math.random();
-      dustContainer.appendChild(dot);
-    }
-
-    document.querySelectorAll("button, a").forEach(item=>{
-      item.addEventListener("click",()=>{
-        if(navigator.vibrate){
-          navigator.vibrate(20);
-        }
-      });
-    });
-  </script>
+</script>
 
 </body>
 </html>
