@@ -1,1 +1,248 @@
+/* =========================
+   CINEMATIC REVEAL SYSTEM
+========================= */
 
+.reveal{
+  opacity:0;
+
+  transform:
+    translateY(80px)
+    scale(.98);
+
+  filter:
+    blur(14px);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease,
+    filter 1.2s ease;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+.reveal.active{
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  filter:
+    blur(0);
+}
+
+/* =========================
+   STAGGER IMAGE EFFECT
+========================= */
+
+.gallery img{
+  transition-delay:
+    calc(var(--i) * 80ms);
+}
+
+/* =========================
+   HERO FLOAT EFFECT
+========================= */
+
+.hero-content{
+  position:relative;
+
+  animation:
+    heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+/* =========================
+   CINEMATIC PARALLAX
+========================= */
+
+.hero{
+  background-attachment:fixed;
+}
+
+/* =========================
+   GLASS SHIMMER EFFECT
+========================= */
+
+.hero-content::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:inherit;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0) 20%,
+      rgba(255,255,255,.08) 50%,
+      rgba(255,255,255,0) 80%
+    );
+
+  transform:
+    translateX(-120%);
+
+  animation:
+    shimmer 8s linear infinite;
+
+  pointer-events:none;
+}
+
+@keyframes shimmer{
+
+  to{
+    transform:translateX(120%);
+  }
+
+}
+
+/* =========================
+   PREMIUM IMAGE FEEL
+========================= */
+
+.gallery img{
+  transform-origin:center;
+}
+
+.gallery img:hover{
+  transform:
+    translateY(-10px)
+    scale(1.025);
+}
+
+/* =========================
+   PREMIUM BUTTON FEEL
+========================= */
+
+.btn{
+  position:relative;
+
+  overflow:hidden;
+
+  isolation:isolate;
+}
+
+.btn::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,.18),
+      transparent
+    );
+
+  transform:
+    translateX(-120%);
+
+  transition:
+    transform .8s ease;
+
+  z-index:-1;
+}
+
+.btn:hover::before{
+  transform:
+    translateX(120%);
+}
+
+/* =========================
+   SOFT SECTION GLOW
+========================= */
+
+section::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255,255,255,.08),
+      transparent 45%
+    );
+
+  opacity:.7;
+}
+
+/* =========================
+   SMOOTH SCROLL FEEL
+========================= */
+
+html{
+  scroll-behavior:smooth;
+}
+
+/* =========================
+   PREMIUM IMAGE SHADOW
+========================= */
+
+.gallery img{
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.10),
+    0 0 0 rgba(184,130,63,0);
+
+  transition:
+    transform .5s ease,
+    box-shadow .5s ease,
+    filter .5s ease,
+    opacity .4s ease;
+}
+
+.gallery img:hover{
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.18),
+    0 0 35px rgba(184,130,63,.25);
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+@media(max-width:768px){
+
+  .hero{
+    background-attachment:scroll;
+  }
+
+  .hero-content{
+    animation:none;
+  }
+
+  .reveal{
+    transition:
+      opacity .9s ease,
+      transform .9s ease,
+      filter .9s ease;
+  }
+
+}
