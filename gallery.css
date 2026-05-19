@@ -68,5 +68,69 @@
     height:auto;
     max-height:520px;
   }
+.lightbox{
+  position:fixed;
+  inset:0;
 
+  background:rgba(0,0,0,.92);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.35s ease;
+
+  z-index:999999;
+
+  padding:20px;
+}
+
+.lightbox.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.lightbox-image{
+  max-width:95%;
+  max-height:90vh;
+
+  border-radius:22px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+
+  animation:lightboxIn .35s ease;
+}
+
+@keyframes lightboxIn{
+
+  from{
+    transform:scale(.92);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
+
+.lightbox-close{
+  position:absolute;
+
+  top:25px;
+  right:30px;
+
+  font-size:42px;
+
+  color:white;
+
+  cursor:pointer;
+
+  z-index:2;
+}
 }
