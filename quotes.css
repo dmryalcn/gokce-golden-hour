@@ -11,7 +11,7 @@
 
   pointer-events:none;
 
-  z-index:2;
+  z-index:4;
 }
 
 .floating-quote{
@@ -21,19 +21,26 @@
     "Cormorant Garamond",
     serif;
 
-  font-size:28px;
+  font-size:30px;
 
   font-style:italic;
 
+  font-weight:500;
+
   color:
-    rgba(255,255,255,.18);
+    rgba(255,255,255,.34);
 
   text-shadow:
-    0 0 18px rgba(255,255,255,.08);
+    0 0 24px rgba(255,255,255,.16),
+    0 0 40px rgba(255,255,255,.08);
 
   white-space:nowrap;
 
   user-select:none;
+
+  letter-spacing:.5px;
+
+  backdrop-filter:blur(1px);
 
   animation:
     floatQuote linear infinite;
@@ -42,18 +49,18 @@
 /* DIFFERENT SIZES */
 
 .floating-quote.small{
-  font-size:20px;
-  opacity:.12;
+  font-size:22px;
+  opacity:.22;
 }
 
 .floating-quote.medium{
-  font-size:28px;
-  opacity:.16;
+  font-size:30px;
+  opacity:.30;
 }
 
 .floating-quote.large{
-  font-size:38px;
-  opacity:.22;
+  font-size:42px;
+  opacity:.38;
 }
 
 /* FLOAT ANIMATION */
@@ -80,7 +87,7 @@
   to{
     transform:
       translateY(-120vh)
-      translateX(40px)
+      translateX(50px)
       rotate(2deg);
 
     opacity:0;
@@ -92,10 +99,11 @@
 
 .floating-quote.gold{
   color:
-    rgba(212,176,123,.22);
+    rgba(212,176,123,.42);
 
   text-shadow:
-    0 0 24px rgba(212,176,123,.18);
+    0 0 30px rgba(212,176,123,.30),
+    0 0 60px rgba(212,176,123,.16);
 }
 
 /* MOBILE */
@@ -103,11 +111,11 @@
 @media(max-width:768px){
 
   .floating-quote{
-    font-size:18px;
+    font-size:20px;
   }
 
   .floating-quote.large{
-    font-size:26px;
+    font-size:30px;
   }
 
 }
