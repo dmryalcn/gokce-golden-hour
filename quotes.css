@@ -1,1 +1,107 @@
+/* =========================
+   FLOATING LOVE QUOTES
+========================= */
 
+.floating-quotes{
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+  z-index:2;
+}
+
+.floating-quote{
+  position:absolute;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:28px;
+
+  font-style:italic;
+
+  color:
+    rgba(255,255,255,.08);
+
+  white-space:nowrap;
+
+  user-select:none;
+
+  animation:
+    floatQuote linear infinite;
+}
+
+/* DIFFERENT SIZES */
+
+.floating-quote.small{
+  font-size:20px;
+  opacity:.06;
+}
+
+.floating-quote.medium{
+  font-size:28px;
+  opacity:.08;
+}
+
+.floating-quote.large{
+  font-size:38px;
+  opacity:.10;
+}
+
+/* FLOAT ANIMATION */
+
+@keyframes floatQuote{
+
+  from{
+    transform:
+      translateY(110vh)
+      translateX(0px)
+      rotate(-2deg);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:1;
+  }
+
+  90%{
+    opacity:1;
+  }
+
+  to{
+    transform:
+      translateY(-120vh)
+      translateX(40px)
+      rotate(2deg);
+
+    opacity:0;
+  }
+
+}
+
+/* GOLD TINT */
+
+.floating-quote.gold{
+  color:
+    rgba(212,176,123,.10);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .floating-quote{
+    font-size:18px;
+  }
+
+  .floating-quote.large{
+    font-size:26px;
+  }
+
+}
