@@ -1222,86 +1222,160 @@ Anı Gönder
 </button>
 
   <footer>
-   <div class="memory-modal" id="memoryModal">
+  <footer>
 
-<div class="memory-overlay"></div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
+    Gökçe & Yalçın
+  </h2>
 
-<div class="memory-box">
+  <p style="margin-top:10px;">
+    26.06.2026 • Gökçe & Yalçın
+  </p>
 
-<button class="close-memory" id="closeMemory">
-✕
-</button>
+  <p style="margin-top:12px;font-size:14px;">
+    Bu sayfayı kaydetmeyi unutmayın; nişan günü anılarınızı buradan bırakabilirsiniz.
+  </p>
 
-<h2>Anı & Katılım</h2>
+</footer>
 
-<form id="memoryForm">
+<!-- RSVP MODAL -->
 
-<input
-type="text"
-id="name"
-placeholder="Adınız Soyadınız"
-required>
+<div class="memory-modal" id="rsvpModal">
 
-<input
-type="tel"
-id="phone"
-placeholder="Telefon Numaranız">
+  <div class="memory-overlay"></div>
 
-<select id="status">
+  <div class="memory-box">
 
-<option value="geliyor">
-Katılacağım
-</option>
+    <button class="close-memory" id="closeRsvp">
+      ✕
+    </button>
 
-<option value="gelmiyor">
-Katılamayacağım
-</option>
+    <h2>Katılım Bildir 🤍</h2>
 
-<option value="kararsiz">
-Kararsızım
-</option>
+    <form id="rsvpForm">
 
-</select>
+      <input
+      type="text"
+      id="rsvpName"
+      placeholder="Adınız Soyadınız"
+      required>
 
-<input
-type="number"
-id="count"
-placeholder="Kaç kişi geleceksiniz?"
-min="1"
-value="1">
+      <select id="rsvpStatus">
 
-<textarea
-id="note"
-placeholder="Mesajınız / Notunuz"></textarea>
+        <option value="">
+          Katılım Durumu Seçin
+        </option>
 
-<button
-type="submit"
-class="send-btn"
-id="submitMemory">
+        <option value="geliyor">
+          Katılacağım
+        </option>
 
-Gönder
+        <option value="gelmiyor">
+          Katılamayacağım
+        </option>
 
-</button>
+        <option value="kararsiz">
+          Kararsızım
+        </option>
 
-</form>
+      </select>
+
+      <div id="guestCountArea" style="display:none;">
+
+        <input
+        type="number"
+        id="guestCount"
+        placeholder="Kaç kişi geleceksiniz?"
+        min="1">
+
+      </div>
+
+      <div id="cannotJoinArea" style="display:none;">
+
+        <textarea
+        id="cannotJoinMessage"
+        placeholder="Bizlere küçük bir mesaj bırakmak ister misiniz?"></textarea>
+
+      </div>
+
+      <div id="maybeArea" style="display:none;">
+
+        <p style="margin-bottom:15px;">
+          Sizi yanımızda görmeyi çok isteriz 🤍
+          Yine de bize küçük bir not bırakmak ister misiniz?
+        </p>
+
+        <textarea
+        id="maybeMessage"
+        placeholder="Mesajınız"></textarea>
+
+      </div>
+
+      <button
+      type="submit"
+      class="send-btn">
+
+      Gönder
+
+      </button>
+
+    </form>
+
+  </div>
 
 </div>
 
-</div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
-      Gökçe & Yalçın
-    </h2>
-    <p style="margin-top:10px;">
-      26.06.2026 • Gökçe & Yalçın
-    </p>
-    <p style="margin-top:12px;font-size:14px;">
-      Bu sayfayı kaydetmeyi unutmayın; nişan günü anılarınızı buradan bırakabilirsiniz.
-    </p>
- </footer>
+<!-- MEMORY MODAL -->
 
-<div class="memory-modal">
+<div class="memory-modal" id="memoryModal">
 
-...
+  <div class="memory-overlay"></div>
+
+  <div class="memory-box">
+
+    <button class="close-memory" id="closeMemory">
+      ✕
+    </button>
+
+    <h2>Anı Bırak 💌</h2>
+
+    <form id="memoryForm">
+
+      <input
+      type="text"
+      id="memoryName"
+      placeholder="Adınız Soyadınız"
+      required>
+
+      <textarea
+      id="memoryMessage"
+      placeholder="Bizim için bir mesaj bırakabilirsiniz 🤍"></textarea>
+
+      <div class="upload-area">
+
+        <label style="display:block;margin-bottom:10px;">
+          Fotoğraf / Video / Ses Kaydı
+        </label>
+
+        <input
+        type="file"
+        id="memoryFile"
+        accept="image/*,video/*,audio/*"
+        capture="environment">
+
+      </div>
+
+      <button
+      type="submit"
+      class="send-btn">
+
+      Gönder
+
+      </button>
+
+    </form>
+
+  </div>
 
 </div>
 
@@ -1310,4 +1384,3 @@ Gönder
 
 </body>
 </html>
-
