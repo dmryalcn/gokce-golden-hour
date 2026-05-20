@@ -1092,6 +1092,109 @@ END:VCALENDAR`;
       });
     });
   </script>
+<script type="module">
 
+import "./firebase-config.js";
+
+const {
+
+collection,
+addDoc,
+serverTimestamp
+
+} = window.firebaseFns;
+
+const db = window.db;
+
+/* =========================
+   RSVP FORM
+========================= */
+
+const form =
+document.getElementById(
+"rsvpForm"
+);
+
+if(form){
+
+form.addEventListener(
+"submit",
+async(e)=>{
+
+e.preventDefault();
+
+const submitBtn =
+form.querySelector("button");
+
+submitBtn.disabled = true;
+
+submitBtn.innerText =
+"Gönderiliyor...";
+
+/* DATA */
+
+const data = {
+
+name:
+form.name.value,
+
+phone:
+form.phone.value,
+
+people:
+form.people.value,
+
+status:
+form.status.value,
+
+note:
+form.note.value,
+
+createdAt:
+serverTimestamp()
+
+};
+
+try{
+
+await addDoc(
+
+collection(
+db,
+"guests"
+),
+
+data
+
+);
+
+submitBtn.innerText =
+"Gönderildi 🤍";
+
+form.reset();
+
+}catch(err){
+
+console.error(err);
+
+submitBtn.innerText =
+"Hata oluştu";
+
+}
+
+setTimeout(()=>{
+
+submitBtn.disabled = false;
+
+submitBtn.innerText =
+"Gönder";
+
+},2500);
+
+});
+
+}
+
+</script>
 </body>
 </html>
