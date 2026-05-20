@@ -524,7 +524,7 @@ orderBy
 const guestsRef =
 collection(
 window.db,
-"guests"
+"rsvp"
 );
 
 const q =
@@ -599,11 +599,7 @@ ${data.name || "-"}
 </td>
 
 <td>
-${data.phone || "-"}
-</td>
-
-<td>
-${data.people || "1"}
+${data.guestCount || "-"}
 </td>
 
 <td>
@@ -617,7 +613,7 @@ ${data.status || "-"}
 </td>
 
 <td>
-${data.note || "-"}
+${data.cannotJoinMessage || data.maybeMessage || "-"}
 </td>
 
 <td>
