@@ -1226,262 +1226,79 @@ END:VCALENDAR`;
     });
   </script>
 <script type="module">
+          type="tel"
+          id="phone"
+          placeholder="Telefon Numaranız">
 
-import "./firebase-config.js";
+      </div>
 
-const {
+      <select id="status">
 
-collection,
-addDoc,
-serverTimestamp
+        <option value="geliyor">
+          Katılacağım
+        </option>
 
-} = window.firebaseFns;
+        <option value="gelmiyor">
+          Katılamayacağım
+        </option>
 
-const db = window.db;
+        <option value="kararsiz">
+          Kararsızım
+        </option>
 
-/* =========================
-   RSVP FORM
-========================= */
+      </select>
 
-const form =
-document.getElementById(
-"memoryForm"
-);
+      <input
+        type="number"
+        id="count"
+        placeholder="Kaç kişi geleceksiniz?"
+        min="1"
+        value="1">
 
+      <textarea
+        id="note"
+        placeholder="Mesajınız / Notunuz"></textarea>
 
-if(form){
+      <label class="upload-box">
 
-form.addEventListener(
-"submit",
-async(e)=>{
+        <input
+          type="file"
+          id="memoryFile"
+          accept="image/*,video/*,audio/*"
+          hidden>
 
-e.preventDefault();
+        <div class="upload-inner">
 
-const submitBtn =
-form.querySelector("button");
+          <div class="upload-icon">
+            📸
+          </div>
 
-submitBtn.disabled = true;
+          <p>
+            Fotoğraf, video veya ses yükle
+          </p>
 
-submitBtn.innerText =
-"Gönderiliyor...";
+          <span id="fileName">
+            Dosya seçilmedi
+          </span>
 
-/* DATA */
+        </div>
 
-const data = {
+      </label>
 
-name:
-document.getElementById("name").value,
+      <button
+        type="submit"
+        class="memory-submit"
+        id="submitMemory">
 
-phone:
-document.getElementById("phone").value,
+        Gönder
 
-people:
-document.getElementById("count").value,
+      </button>
 
-status:
-document.getElementById("status").value,
+    </form>
 
-note:
-document.getElementById("note").value,
-
-createdAt:
-serverTimestamp()
-
-
-};
-
-try{
-
-await addDoc(
-
-collection(
-db,
-"guests"
-),
-
-data
-
-);
-
-submitBtn.innerText =
-"Gönderildi 🤍";
-
-form.reset();
-
-}catch(err){
-
-console.error(err);
-
-submitBtn.innerText =
-"Hata oluştu";
-
-}
-
-setTimeout(()=>{
-
-submitBtn.disabled = false;
-
-submitBtn.innerText =
-"Gönder";
-
-},2500);
-
-});
-
-}
-const memoryModal =
-document.getElementById("memoryModal");
-
-const openMemoryBtns =
-document.querySelectorAll("[data-open-memory]");
-
-const closeMemory =
-document.getElementById("closeMemory");
-
-openMemoryBtns.forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-memoryModal.classList.add("active");
-
-});
-
-});
-
-closeMemory.addEventListener("click",()=>{
-
-memoryModal.classList.remove("active");
-
-});
-
-memoryModal.addEventListener("click",(e)=>{
-
-if(e.target.classList.contains("memory-overlay")){
-
-memoryModal.classList.remove("active");
-
-}
-
-});
-
-const memoryFile =
-document.getElementById("memoryFile");
-
-const fileName =
-document.getElementById("fileName");
-
-memoryFile.addEventListener("change",()=>{
-
-if(memoryFile.files.length > 0){
-
-fileName.innerText =
-memoryFile.files[0].name;
-
-}
-
-});
-
-</button>
-
- <div class="memory-modal" id="memoryModal">
-
-<div class="memory-overlay"></div>
-
-<div class="memory-box">
-
-
-</button>
-
-<h2>Anı & Katılım</h2>
-
-<p class="memory-sub">
-Bizim için bir mesaj bırakabilirsiniz 🤍
-</p>
-
-<form id="memoryForm">
-
-<div class="memory-grid">
-
-<input
-type="text"
-id="name"
-placeholder="Adınız Soyadınız"
-required>
-
-<input
-type="tel"
-id="phone"
-placeholder="Telefon Numaranız">
+  </div>
 
 </div>
 
-<select id="status">
-
-<option value="geliyor">
-Katılacağım
-</option>
-
-<option value="gelmiyor">
-Katılamayacağım
-</option>
-
-<option value="kararsiz">
-Kararsızım
-</option>
-
-</select>
-
-<input
-type="number"
-id="count"
-placeholder="Kaç kişi geleceksiniz?"
-min="1"
-value="1">
-
-<textarea
-id="note"
-placeholder="Mesajınız / Notunuz"></textarea>
-
-<label class="upload-box">
-
-<input
-type="file"
-id="memoryFile"
-accept="image/*,video/*,audio/*"
-hidden>
-
-<div class="upload-inner">
-
-<div class="upload-icon">
-📸
-</div>
-
-<p>
-Fotoğraf, video veya ses yükle
-</p>
-
-<span id="fileName">
-Dosya seçilmedi
-</span>
-
-</div>
-
-</label>
-
-<button
-type="submit"
-class="memory-submit"
-id="submitMemory">
-
-Gönder
-
-</button>
-
-</form>
-
-</div>
-
-</div>
 </body>
- 
 </html>
