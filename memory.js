@@ -1,22 +1,56 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
+/* RSVP MODAL */
+
+const rsvpModal =
+document.getElementById("rsvpModal");
+
+const openRsvpBtns =
+document.querySelectorAll("[data-open-rsvp]");
+
+const closeRsvp =
+document.getElementById("closeRsvp");
+
+openRsvpBtns.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+rsvpModal.classList.add("active");
+
+document.body.style.overflow =
+"hidden";
+
+});
+
+});
+
+if(closeRsvp){
+
+closeRsvp.addEventListener("click",()=>{
+
+rsvpModal.classList.remove("active");
+
+document.body.style.overflow =
+"auto";
+
+});
+
+}
+
+/* MEMORY MODAL */
+
 const memoryModal =
 document.getElementById("memoryModal");
 
-const openButtons =
+const openMemoryBtns =
 document.querySelectorAll("[data-open-memory]");
 
-const closeButton =
+const closeMemory =
 document.getElementById("closeMemory");
 
-if(!memoryModal){
-console.log("memoryModal bulunamadı");
-return;
-}
+openMemoryBtns.forEach(btn=>{
 
-openButtons.forEach(button=>{
-
-button.addEventListener("click",()=>{
+btn.addEventListener("click",()=>{
 
 memoryModal.classList.add("active");
 
@@ -27,9 +61,9 @@ document.body.style.overflow =
 
 });
 
-if(closeButton){
+if(closeMemory){
 
-closeButton.addEventListener("click",()=>{
+closeMemory.addEventListener("click",()=>{
 
 memoryModal.classList.remove("active");
 
@@ -40,17 +74,76 @@ document.body.style.overflow =
 
 }
 
-const overlay =
-document.querySelector(".memory-overlay");
+/* OVERLAY CLOSE */
 
-if(overlay){
+document
+.querySelectorAll(".memory-overlay")
+.forEach(overlay=>{
 
 overlay.addEventListener("click",()=>{
 
-memoryModal.classList.remove("active");
+document
+.querySelectorAll(".memory-modal")
+.forEach(modal=>{
+
+modal.classList.remove("active");
+
+});
 
 document.body.style.overflow =
 "auto";
+
+});
+
+});
+
+/* RSVP CONDITIONAL AREAS */
+
+const rsvpStatus =
+document.getElementById("rsvpStatus");
+
+const guestCountArea =
+document.getElementById("guestCountArea");
+
+const cannotJoinArea =
+document.getElementById("cannotJoinArea");
+
+const maybeArea =
+document.getElementById("maybeArea");
+
+if(rsvpStatus){
+
+rsvpStatus.addEventListener("change",()=>{
+
+guestCountArea.style.display =
+"none";
+
+cannotJoinArea.style.display =
+"none";
+
+maybeArea.style.display =
+"none";
+
+if(rsvpStatus.value === "geliyor"){
+
+guestCountArea.style.display =
+"block";
+
+}
+
+if(rsvpStatus.value === "gelmiyor"){
+
+cannotJoinArea.style.display =
+"block";
+
+}
+
+if(rsvpStatus.value === "kararsiz"){
+
+maybeArea.style.display =
+"block";
+
+}
 
 });
 
