@@ -190,6 +190,148 @@
 
 }
 
+/* =========================
+   MEMORY PREMIUM UPGRADE
+========================= */
+
+.memory-section .card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.20),
+      rgba(255,255,255,.08)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  backdrop-filter:
+    blur(22px);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.12);
+
+  transition:
+    transform .45s ease,
+    box-shadow .45s ease,
+    border .45s ease;
+}
+
+/* GOLD ATMOSPHERE */
+
+.memory-section .card::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:-30%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,176,123,.18),
+      transparent 65%
+    );
+
+  opacity:0;
+
+  transition:.6s ease;
+
+  pointer-events:none;
+}
+
+/* HOVER */
+
+.memory-section .card:hover{
+
+  transform:
+    translateY(-10px)
+    scale(1.02);
+
+  border:
+    1px solid rgba(212,176,123,.30);
+
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.16),
+    0 0 50px rgba(212,176,123,.10);
+}
+
+.memory-section .card:hover::before{
+
+  opacity:1;
+}
+
+/* ICON */
+
+.memory-section .icon{
+
+  background:
+    linear-gradient(
+      135deg,
+      #f3dec2,
+      #d4b07b
+    );
+
+  color:#5b3e27;
+
+  box-shadow:
+    0 10px 30px rgba(212,176,123,.25);
+}
+
+/* TITLE */
+
+.memory-section .card h3{
+
+  color:#fff;
+
+  font-size:38px;
+}
+
+/* TEXT */
+
+.memory-section .card p{
+
+  color:
+    rgba(255,255,255,.78);
+}
+
+/* BUTTON */
+
+.memory-section .btn{
+
+  position:relative;
+
+  overflow:hidden;
+
+  animation:
+    memoryPulse 3s infinite;
+}
+
+@keyframes memoryPulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(212,176,123,.35);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 18px rgba(212,176,123,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(212,176,123,0);
+  }
+
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -205,6 +347,16 @@
   .memory-text{
     font-size:15px;
     line-height:1.8;
+  }
+
+  .memory-section .card{
+
+    padding:28px 22px;
+  }
+
+  .memory-section .card h3{
+
+    font-size:32px;
   }
 
 }
