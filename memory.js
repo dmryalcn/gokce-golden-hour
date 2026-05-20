@@ -8,11 +8,19 @@ serverTimestamp
 
 const db = window.db;
 
+/* =========================
+   CLOUDINARY
+========================= */
+
 const CLOUD_NAME =
 "dgtscqpnv";
 
 const UPLOAD_PRESET =
 "weddingUploads";
+
+/* =========================
+   DOM LOADED
+========================= */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -186,6 +194,8 @@ rsvpForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
+try{
+
 const status =
 document.getElementById(
 "rsvpStatus"
@@ -240,12 +250,31 @@ showSuccessPopup(message);
 
 rsvpForm.reset();
 
+guestCountArea.style.display =
+"none";
+
+cannotJoinArea.style.display =
+"none";
+
+maybeArea.style.display =
+"none";
+
 rsvpModal.classList.remove(
 "active"
 );
 
 document.body.style.overflow =
 "auto";
+
+}catch(err){
+
+console.error(err);
+
+showSuccessPopup(
+"Bir hata oluştu 😔"
+);
+
+}
 
 });
 
@@ -291,17 +320,23 @@ UPLOAD_PRESET
 
 const response =
 await fetch(
-
-https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload
+`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
 {
 method:"POST",
 body:formData
 }
-
 );
 
 const data =
 await response.json();
+
+if(!response.ok){
+
+throw new Error(
+data.error?.message || "Upload failed"
+);
+
+}
 
 fileUrl =
 data.secure_url;
