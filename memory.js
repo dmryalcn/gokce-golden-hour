@@ -104,7 +104,7 @@ document.body.style.overflow =
 });
 
 /* =========================
-   RSVP CONDITIONAL AREAS
+   RSVP CONDITIONAL
 ========================= */
 
 const rsvpStatus =
@@ -158,7 +158,7 @@ maybeArea.style.display =
 }
 
 /* =========================
-   RSVP FORM SUBMIT
+   RSVP FORM
 ========================= */
 
 const rsvpForm =
@@ -179,32 +179,26 @@ document.getElementById(
 
 if(status === "geliyor"){
 
-message = `
-Sizi yanımızda görecek olmak bizi çok mutlu etti 🤍<br><br>
-Bu güzel günü birlikte paylaşacağımız için heyecanlıyız.
-`;
+message =
+"Sizi yanımızda görecek olmak bizi çok mutlu etti 🤍";
 
 }
 
 if(status === "gelmiyor"){
 
-message = `
-Mesajınız bizim için çok kıymetli 🤍<br><br>
-Gönlünüzün bizimle olduğunu bilmek bile yeterli.
-`;
+message =
+"Mesajınız bizim için çok kıymetli 🤍";
 
 }
 
 if(status === "kararsiz"){
 
-message = `
-Umarız o gün birlikte oluruz 🤍<br><br>
-Bize bıraktığınız güzel not için teşekkür ederiz.
-`;
+message =
+"Umarız o gün birlikte oluruz 🤍";
 
 }
 
-showSuccessMessage(message);
+showSuccessPopup(message);
 
 rsvpForm.reset();
 
@@ -229,7 +223,7 @@ document.body.style.overflow =
 }
 
 /* =========================
-   MEMORY FORM SUBMIT
+   MEMORY FORM
 ========================= */
 
 const memoryForm =
@@ -241,10 +235,9 @@ memoryForm.addEventListener("submit",(e)=>{
 
 e.preventDefault();
 
-showSuccessMessage(`
-Bize bıraktığınız bu anı yıllar sonra bile
-gülümseyerek hatırlayacağız 🤍
-`);
+showSuccessPopup(
+"Bu güzel anıyı bizimle paylaştığınız için teşekkür ederiz 🤍"
+);
 
 memoryForm.reset();
 
@@ -263,55 +256,49 @@ document.body.style.overflow =
    SUCCESS POPUP
 ========================= */
 
-function showSuccessMessage(message){
+function showSuccessPopup(message){
 
-const success =
+const popup =
 document.createElement("div");
 
-success.className =
+popup.className =
 "success-popup";
 
-success.innerHTML = `
+popup.innerHTML = `
 
-<div class="success-box">
+<div class="success-popup-box">
 
 <div class="success-heart">
 🤍
 </div>
 
-<div class="success-text">
-${message}
-</div>
+<p>${message}</p>
 
 </div>
 
 `;
 
 document.body.appendChild(
-success
+popup
 );
 
 setTimeout(()=>{
 
-success.classList.add(
-"show"
-);
+popup.classList.add("show");
 
 },50);
 
 setTimeout(()=>{
 
-success.classList.remove(
-"show"
-);
+popup.classList.remove("show");
 
 setTimeout(()=>{
 
-success.remove();
+popup.remove();
 
-},600);
+},500);
 
-},4200);
+},3500);
 
 }
 
