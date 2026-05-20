@@ -1,5 +1,5 @@
 /* =========================
-   OPENING EXPERIENCE
+   CINEMATIC ENVELOPE OPENING
 ========================= */
 
 .invitation-opening{
@@ -18,11 +18,17 @@
 
   overflow:hidden;
 
-  background:#120f0d;
+  background:
+    radial-gradient(
+      circle at top,
+      #2b160f,
+      #120b08 55%,
+      #050404
+    );
 
   transition:
-    opacity 1.2s ease,
-    visibility 1.2s ease;
+    opacity 1.4s ease,
+    visibility 1.4s ease;
 }
 
 /* HIDE */
@@ -36,251 +42,49 @@
   pointer-events:none;
 }
 
-/* BACKGROUND */
+/* GOLD PARTICLES */
 
-.opening-bg{
-
-  position:absolute;
-
-  inset:0;
-
-  background-size:cover;
-
-  background-position:center;
-
-  filter:
-    blur(10px)
-    brightness(.45);
-
-  transform:scale(1.08);
-
-  animation:
-    bgZoom 14s ease-in-out infinite alternate;
-}
-
-@keyframes bgZoom{
-
-  from{
-    transform:scale(1.08);
-  }
-
-  to{
-    transform:scale(1.16);
-  }
-
-}
-
-/* CARD */
-
-.opening-card{
-
-  position:relative;
-
-  width:min(88%,430px);
-
-  padding:42px 30px;
-
-  border-radius:42px;
-
-  text-align:center;
-
-  overflow:hidden;
-
-  backdrop-filter:blur(22px);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.14),
-      rgba(255,255,255,.05)
-    );
-
-  border:
-    1px solid rgba(255,255,255,.16);
-
-  box-shadow:
-    0 25px 90px rgba(0,0,0,.35);
-
-  z-index:2;
-}
-
-/* GOLD GLOW */
-
-.opening-card::before{
+.invitation-opening::before{
 
   content:"";
 
   position:absolute;
 
-  inset:-30%;
+  inset:0;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(212,176,123,.20),
-      transparent 65%
-    );
+    radial-gradient(circle at 20% 30%, rgba(212,176,123,.14), transparent 18%),
+    radial-gradient(circle at 80% 20%, rgba(212,176,123,.10), transparent 16%),
+    radial-gradient(circle at 60% 80%, rgba(212,176,123,.10), transparent 18%),
+    radial-gradient(circle at 30% 75%, rgba(212,176,123,.08), transparent 14%);
 
   animation:
-    cardGlow 7s ease-in-out infinite;
+    floatingDust 12s linear infinite alternate;
 
   pointer-events:none;
 }
 
-@keyframes cardGlow{
+@keyframes floatingDust{
 
-  0%{
-    transform:scale(1);
-    opacity:.5;
+  from{
+    transform:translateY(0px);
   }
 
-  50%{
-    transform:scale(1.15);
-    opacity:1;
-  }
-
-  100%{
-    transform:scale(1);
-    opacity:.5;
+  to{
+    transform:translateY(-20px);
   }
 
 }
 
-/* SEAL */
-
-.opening-seal{
-
-  width:130px;
-  height:130px;
-
-  margin:0 auto 28px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #b81f24,
-      #6b0910
-    );
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:56px;
-
-  color:#f6deb2;
-
-  cursor:pointer;
-
-  position:relative;
-
-  z-index:3;
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.35);
-
-  transition:
-    transform .4s ease,
-    box-shadow .4s ease;
-
-  animation:
-    sealBreath 4s ease-in-out infinite;
-}
-
-@keyframes sealBreath{
-
-  0%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.05);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
-}
-
-.opening-seal:hover{
-
-  transform:scale(1.08);
-
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.42),
-    0 0 45px rgba(212,176,123,.22);
-}
-
-/* CRACK EFFECT */
-
-.opening-seal.crack{
-
-  animation:
-    sealBreak .9s ease forwards;
-}
-
-@keyframes sealBreak{
-
-  0%{
-    transform:scale(1);
-  }
-
-  30%{
-    transform:scale(1.12) rotate(-4deg);
-  }
-
-  60%{
-    transform:scale(.92) rotate(5deg);
-  }
-
-  100%{
-    transform:scale(0);
-    opacity:0;
-  }
-
-}
-
-/* TEXT */
-
-.opening-card h1{
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:64px;
-
-  color:#fff;
-
-  margin-bottom:18px;
-}
-
-.opening-card p{
-
-  color:
-    rgba(255,255,255,.82);
-
-  line-height:1.9;
-
-  font-size:18px;
-}
-
-/* ENVELOPE */
+/* ENVELOPE AREA */
 
 .envelope{
 
-  position:absolute;
+  position:relative;
 
-  inset:0;
+  width:360px;
+
+  height:260px;
 
   display:flex;
 
@@ -288,36 +92,54 @@
 
   justify-content:center;
 
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:1s ease;
+  perspective:1800px;
 }
 
-.envelope.show{
-
-  opacity:1;
-}
+/* ENVELOPE BODY */
 
 .envelope-body{
 
-  width:320px;
+  position:relative;
+
+  width:100%;
+
   height:220px;
 
   background:
     linear-gradient(
       145deg,
-      #f7ecd9,
-      #d9c0a2
+      #f2dfc4,
+      #dcc2a1
     );
 
-  position:relative;
+  border-radius:10px;
 
-  border-radius:8px;
+  overflow:hidden;
 
   box-shadow:
-    0 30px 80px rgba(0,0,0,.35);
+    0 30px 80px rgba(0,0,0,.45);
+
+  transform-style:preserve-3d;
+}
+
+/* ENVELOPE SHADOW */
+
+.envelope-body::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,.35),
+      transparent 45%
+    );
+
+  pointer-events:none;
 }
 
 /* FLAP */
@@ -335,8 +157,8 @@
   background:
     linear-gradient(
       145deg,
-      #ead8bf,
-      #c8a987
+      #ead6bb,
+      #c8a37d
     );
 
   clip-path:
@@ -349,8 +171,12 @@
   transform-origin:top;
 
   transition:
-    transform 1.2s ease;
+    transform 1.4s cubic-bezier(.77,0,.18,1);
+
+  z-index:4;
 }
+
+/* OPEN */
 
 .envelope.open .envelope-flap{
 
@@ -358,26 +184,35 @@
     rotateX(180deg);
 }
 
-/* INVITATION */
+/* LETTER */
 
 .invitation-paper{
 
   position:absolute;
 
-  width:82%;
-  height:82%;
+  width:84%;
 
-  background:#fffaf3;
+  height:88%;
 
   left:50%;
 
-  bottom:12px;
+  bottom:10px;
 
   transform:
     translateX(-50%)
-    translateY(40px);
+    translateY(55px);
 
-  border-radius:10px;
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf8,
+      #f4ede3
+    );
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.18);
 
   display:flex;
 
@@ -388,18 +223,21 @@
   flex-direction:column;
 
   transition:
-    transform 1.4s ease;
+    transform 1.8s cubic-bezier(.77,0,.18,1);
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.15);
+  z-index:2;
 }
+
+/* PAPER MOVE */
 
 .envelope.open .invitation-paper{
 
   transform:
     translateX(-50%)
-    translateY(-110px);
+    translateY(-130px);
 }
+
+/* LETTER TEXT */
 
 .invitation-paper h2{
 
@@ -407,57 +245,201 @@
     "Cormorant Garamond",
     serif;
 
-  font-size:54px;
+  font-size:58px;
 
-  color:#8d6746;
+  color:#7c5637;
+
+  margin-bottom:10px;
 }
 
-.invitation-paper span{
-
-  margin-top:12px;
+.invitation-paper p{
 
   color:#8d6746;
 
-  letter-spacing:3px;
+  font-size:14px;
+
+  letter-spacing:4px;
 
   text-transform:uppercase;
+}
 
-  font-size:12px;
+/* WAX SEAL */
+
+.opening-seal{
+
+  position:absolute;
+
+  top:50%;
+
+  left:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  width:120px;
+
+  height:120px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #c01925,
+      #7d0911
+    );
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:52px;
+
+  color:#f6ddb1;
+
+  z-index:10;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45),
+    0 0 40px rgba(160,20,30,.35);
+
+  animation:
+    sealFloat 4s ease-in-out infinite;
+
+  transition:
+    transform .4s ease,
+    opacity .8s ease;
+}
+
+@keyframes sealFloat{
+
+  0%{
+    transform:
+      translate(-50%,-50%)
+      scale(1);
+  }
+
+  50%{
+    transform:
+      translate(-50%,-50%)
+      scale(1.06);
+  }
+
+  100%{
+    transform:
+      translate(-50%,-50%)
+      scale(1);
+  }
+
+}
+
+/* SEAL BREAK */
+
+.opening-seal.crack{
+
+  animation:
+    sealBreak 1s ease forwards;
+}
+
+@keyframes sealBreak{
+
+  0%{
+    transform:
+      translate(-50%,-50%)
+      scale(1);
+  }
+
+  35%{
+    transform:
+      translate(-50%,-50%)
+      scale(1.15)
+      rotate(-8deg);
+  }
+
+  65%{
+    transform:
+      translate(-50%,-50%)
+      scale(.88)
+      rotate(8deg);
+  }
+
+  100%{
+    transform:
+      translate(-50%,-50%)
+      scale(0);
+
+    opacity:0;
+  }
+
+}
+
+/* LIGHT FLASH */
+
+.light-burst{
+
+  position:absolute;
+
+  width:600px;
+
+  height:600px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,240,210,.22),
+      transparent 70%
+    );
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:1.5s ease;
+}
+
+.light-burst.show{
+
+  opacity:1;
+
+  transform:scale(1.2);
 }
 
 /* MOBILE */
 
 @media(max-width:768px){
 
-  .opening-card{
+  .envelope{
 
-    width:90%;
-
-    padding:34px 24px;
-  }
-
-  .opening-card h1{
-
-    font-size:52px;
-  }
-
-  .opening-card p{
-
-    font-size:16px;
-  }
-
-  .opening-seal{
-
-    width:115px;
-    height:115px;
-
-    font-size:48px;
+    width:320px;
+    height:240px;
   }
 
   .envelope-body{
 
-    width:290px;
-    height:205px;
+    height:200px;
+  }
+
+  .opening-seal{
+
+    width:105px;
+    height:105px;
+
+    font-size:46px;
+  }
+
+  .invitation-paper h2{
+
+    font-size:48px;
   }
 
 }
