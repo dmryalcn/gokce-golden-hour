@@ -40,9 +40,7 @@ G&Y
 
 `;
 
-document.body.appendChild(
-opening
-);
+document.body.appendChild(opening);
 
 /* =========================
    ELEMENTS
@@ -76,10 +74,10 @@ document.body.style.overflow =
 "hidden";
 
 /* =========================
-   PREVENT DOUBLE CLICK
+   SINGLE CLICK PROTECTION
 ========================= */
 
-let opened = false;
+let isOpening = false;
 
 /* =========================
    OPEN EXPERIENCE
@@ -89,9 +87,9 @@ seal.addEventListener(
 "click",
 ()=>{
 
-if(opened) return;
+if(isOpening) return;
 
-opened = true;
+isOpening = true;
 
 /* PLAY MUSIC */
 
@@ -129,7 +127,7 @@ envelope.classList.add(
 
 },700);
 
-/* REMOVE INTRO */
+/* REMOVE OPENING */
 
 setTimeout(()=>{
 
@@ -144,7 +142,7 @@ setTimeout(()=>{
 
 opening.remove();
 
-},1000);
+},1200);
 
 },4200);
 
