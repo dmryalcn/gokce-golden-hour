@@ -4,11 +4,8 @@
 
 .memory-enhanced{
   position:relative;
-
   overflow:hidden;
-
   border-radius:38px;
-
   padding:42px 28px;
 
   background:
@@ -34,9 +31,7 @@
 
 .memory-enhanced::before{
   content:"";
-
   position:absolute;
-
   inset:-20%;
 
   background:
@@ -332,6 +327,123 @@
 
 }
 
+/* =========================
+   MEMORY MODAL
+========================= */
+
+.memory-modal{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:999999;
+}
+
+.memory-modal.active{
+display:flex;
+}
+
+.memory-overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.72);
+backdrop-filter:blur(12px);
+}
+
+.memory-box{
+position:relative;
+width:100%;
+max-width:650px;
+padding:35px;
+border-radius:35px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+z-index:2;
+color:white;
+}
+
+.memory-box h2{
+font-family:'Cormorant Garamond',serif;
+font-size:52px;
+margin-bottom:25px;
+text-align:center;
+}
+
+.close-memory{
+position:absolute;
+top:18px;
+right:18px;
+width:42px;
+height:42px;
+border:none;
+border-radius:50%;
+background:rgba(255,255,255,.12);
+color:white;
+cursor:pointer;
+font-size:20px;
+transition:.3s;
+}
+
+.close-memory:hover{
+transform:rotate(90deg);
+background:rgba(255,255,255,.18);
+}
+
+#memoryForm{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+#memoryForm input,
+#memoryForm textarea,
+#memoryForm select{
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+background:rgba(255,255,255,.08);
+color:white;
+font-size:15px;
+outline:none;
+}
+
+#memoryForm textarea{
+min-height:120px;
+resize:none;
+}
+
+#memoryForm input::placeholder,
+#memoryForm textarea::placeholder{
+color:rgba(255,255,255,.60);
+}
+
+#memoryForm select option{
+background:#111;
+color:white;
+}
+
+.send-btn{
+border:none;
+padding:18px;
+border-radius:18px;
+background:#b0824f;
+color:white;
+font-size:16px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.send-btn:hover{
+transform:translateY(-2px);
+background:#c79a63;
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -350,13 +462,20 @@
   }
 
   .memory-section .card{
-
     padding:28px 22px;
   }
 
   .memory-section .card h3{
-
     font-size:32px;
+  }
+
+  .memory-box{
+    padding:26px;
+    border-radius:26px;
+  }
+
+  .memory-box h2{
+    font-size:38px;
   }
 
 }
