@@ -1,3 +1,19 @@
+import "./firebase.js";
+
+const {
+collection,
+addDoc,
+serverTimestamp
+} = window.firebaseFns;
+
+const db = window.db;
+
+const CLOUD_NAME =
+"dgtscqpnv";
+
+const UPLOAD_PRESET =
+"weddingUploads";
+
 document.addEventListener("DOMContentLoaded",()=>{
 
 /* =========================
@@ -158,7 +174,7 @@ maybeArea.style.display =
 }
 
 /* =========================
-   RSVP FORM
+   RSVP SUBMIT
 ========================= */
 
 const rsvpForm =
@@ -166,16 +182,38 @@ document.getElementById("rsvpForm");
 
 if(rsvpForm){
 
-rsvpForm.addEventListener("submit",(e)=>{
+rsvpForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
-
-let message = "";
 
 const status =
 document.getElementById(
 "rsvpStatus"
 ).value;
+
+await addDoc(
+collection(db,"rsvp"),
+{
+name:
+document.getElementById("rsvpName").value,
+
+status,
+
+guestCount:
+document.getElementById("guestCount").value || "",
+
+cannotJoinMessage:
+document.getElementById("cannotJoinMessage").value || "",
+
+maybeMessage:
+document.getElementById("maybeMessage").value || "",
+
+createdAt:
+serverTimestamp()
+}
+);
+
+let message = "";
 
 if(status === "geliyor"){
 
@@ -202,15 +240,6 @@ showSuccessPopup(message);
 
 rsvpForm.reset();
 
-guestCountArea.style.display =
-"none";
-
-cannotJoinArea.style.display =
-"none";
-
-maybeArea.style.display =
-"none";
-
 rsvpModal.classList.remove(
 "active"
 );
@@ -223,7 +252,7 @@ document.body.style.overflow =
 }
 
 /* =========================
-   MEMORY FORM
+   MEMORY SUBMIT
 ========================= */
 
 const memoryForm =
@@ -231,9 +260,74 @@ document.getElementById("memoryForm");
 
 if(memoryForm){
 
-memoryForm.addEventListener("submit",(e)=>{
+memoryForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
+
+try{
+
+const file =
+document.getElementById(
+"memoryFile"
+).files[0];
+
+let fileUrl = "";
+let fileType = "";
+
+if(file){
+
+const formData =
+new FormData();
+
+formData.append(
+"file",
+file
+);
+
+formData.append(
+"upload_preset",
+UPLOAD_PRESET
+);
+
+const response =
+await fetch(
+
+`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+
+{
+method:"POST",
+body:formData
+}
+
+);
+
+const data =
+await response.json();
+
+fileUrl =
+data.secure_url;
+
+fileType =
+file.type;
+
+}
+
+await addDoc(
+collection(db,"memories"),
+{
+name:
+document.getElementById("memoryName").value,
+
+message:
+document.getElementById("memoryMessage").value,
+
+fileUrl,
+fileType,
+
+createdAt:
+serverTimestamp()
+}
+);
 
 showSuccessPopup(
 "Bu güzel anıyı bizimle paylaştığınız için teşekkür ederiz 🤍"
@@ -247,6 +341,16 @@ memoryModal.classList.remove(
 
 document.body.style.overflow =
 "auto";
+
+}catch(err){
+
+console.error(err);
+
+showSuccessPopup(
+"Bir hata oluştu 😔"
+);
+
+}
 
 });
 
