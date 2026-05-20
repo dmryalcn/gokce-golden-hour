@@ -125,7 +125,7 @@ envelope.classList.add(
 "open"
 );
 
-},700);
+},150);
 
 /* REMOVE OPENING */
 
@@ -144,7 +144,7 @@ opening.remove();
 
 },1200);
 
-},4200);
+},2600);
 
 }
 );
