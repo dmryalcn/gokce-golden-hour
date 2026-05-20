@@ -413,7 +413,32 @@ onclick="exportData()">
 Excel Olarak İndir
 
 </button>
+<div class="table-wrap" style="margin-top:35px;">
 
+<div style="
+padding:25px;
+border-bottom:1px solid rgba(255,255,255,.05);
+font-size:24px;
+font-weight:700;
+">
+
+Anı Galerisi 🤍
+
+</div>
+
+<div
+id="memoryGallery"
+style="
+padding:25px;
+display:grid;
+grid-template-columns:
+repeat(auto-fill,minmax(260px,1fr));
+gap:22px;
+">
+
+</div>
+
+</div>
 </div>
 
 <script type="module">
@@ -467,7 +492,7 @@ window.adminSecurity.login(pass)
 ){
 
 showPanel();
-
+loadMemories();
 }else{
 
 alert(
@@ -699,6 +724,198 @@ a.click();
 
 window.exportData =
 exportData;
+  async function loadMemories(){
+
+const {
+collection,
+onSnapshot,
+query,
+orderBy
+
+} = window.firebaseFns;
+
+const gallery =
+document.getElementById(
+"memoryGallery"
+);
+
+const q =
+query(
+collection(
+window.db,
+"memories"
+),
+orderBy(
+"createdAt",
+"desc"
+)
+);
+
+onSnapshot(q,(snapshot)=>{
+
+gallery.innerHTML = "";
+
+if(snapshot.empty){
+
+gallery.innerHTML = `
+
+<div style="
+opacity:.6;
+padding:20px;
+">
+
+Henüz anı bırakılmadı
+
+</div>
+
+`;
+
+return;
+
+}
+
+snapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+const card =
+document.createElement("div");
+
+card.style.background =
+"rgba(20,20,20,.95)";
+
+card.style.border =
+"1px solid rgba(255,255,255,.05)";
+
+card.style.borderRadius =
+"24px";
+
+card.style.overflow =
+"hidden";
+
+card.style.padding =
+"18px";
+
+let media = "";
+
+if(data.fileUrl){
+
+if(data.fileType?.startsWith("image")){
+
+media = `
+
+<img
+src="${data.fileUrl}"
+style="
+width:100%;
+height:240px;
+object-fit:cover;
+border-radius:18px;
+margin-bottom:15px;
+">
+
+`;
+
+}
+
+else if(
+data.fileType?.startsWith("video")
+){
+
+media = `
+
+<video
+controls
+style="
+width:100%;
+border-radius:18px;
+margin-bottom:15px;
+">
+
+<source src="${data.fileUrl}">
+
+</video>
+
+`;
+
+}
+
+else if(
+data.fileType?.startsWith("audio")
+){
+
+media = `
+
+<div style="
+margin-bottom:15px;
+">
+
+<audio
+controls
+style="width:100%;">
+
+<source src="${data.fileUrl}">
+
+</audio>
+
+</div>
+
+`;
+
+}
+
+}
+
+const date =
+data.createdAt?.toDate
+? new Date(
+data.createdAt.toDate()
+).toLocaleString("tr-TR")
+: "-";
+
+card.innerHTML = `
+
+${media}
+
+<div style="
+font-size:18px;
+font-weight:700;
+margin-bottom:10px;
+">
+
+${data.name || "İsimsiz"}
+
+</div>
+
+<div style="
+opacity:.75;
+line-height:1.7;
+margin-bottom:14px;
+">
+
+${data.message || "-"}
+
+</div>
+
+<div style="
+font-size:13px;
+opacity:.45;
+">
+
+${date}
+
+</div>
+
+`;
+
+gallery.appendChild(card);
+
+});
+
+});
+
+}
 
 </script>
 
