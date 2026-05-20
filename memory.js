@@ -1,110 +1,142 @@
+import "./firebase-config.js";
+
+const {
+collection,
+addDoc,
+serverTimestamp
+} = window.firebaseFns;
+
+const db = window.db;
+
 document.addEventListener("DOMContentLoaded",()=>{
 
-  /* MEMORY SECTION */
+const memoryModal =
+document.getElementById("memoryModal");
 
-  const memorySection =
+const openMemoryBtns =
+document.querySelectorAll("[data-open-memory]");
 
-    document.querySelector(
-      ".memory-section"
-    );
+const closeMemory =
+document.getElementById("closeMemory");
 
-  if(!memorySection) return;
+if(memoryModal){
 
-  /* ADD PREMIUM CLASS */
+openMemoryBtns.forEach(btn=>{
 
-  memorySection.classList.add(
-    "memory-enhanced"
-  );
+btn.addEventListener("click",()=>{
 
-  /* TITLE */
+memoryModal.classList.add("active");
 
-  const title =
-    memorySection.querySelector("h2");
+document.body.style.overflow =
+"hidden";
 
-  if(title){
+});
 
-    title.classList.add(
-      "memory-title"
-    );
+});
 
-  }
+}
 
-  /* TEXT */
+if(closeMemory){
 
-  const text =
-    memorySection.querySelector("p");
+closeMemory.addEventListener("click",()=>{
 
-  if(text){
+memoryModal.classList.remove("active");
 
-    text.classList.add(
-      "memory-text"
-    );
+document.body.style.overflow =
+"auto";
 
-  }
+});
 
-  /* CTA */
+}
 
-  const buttonWrapper =
-    document.createElement("div");
+if(memoryModal){
 
-  buttonWrapper.className =
-    "memory-cta";
+memoryModal.addEventListener("click",(e)=>{
 
-  const tallyButton =
-    memorySection.querySelector(
-      ".btn"
-    );
+if(e.target.classList.contains("memory-overlay")){
 
-  if(tallyButton){
+memoryModal.classList.remove("active");
 
-    tallyButton.parentNode.insertBefore(
-      buttonWrapper,
-      tallyButton
-    );
+document.body.style.overflow =
+"auto";
 
-    buttonWrapper.appendChild(
-      tallyButton
-    );
+}
 
-  }
+});
 
-  /* FLOATING HEARTS */
+}
 
-  function createHeart(){
+const form =
+document.getElementById("memoryForm");
 
-    const heart =
-      document.createElement("div");
+if(form){
 
-    heart.className =
-      "memory-heart";
+form.addEventListener("submit",async(e)=>{
 
-    heart.innerHTML = "🤍";
+e.preventDefault();
 
-    heart.style.left =
-      Math.random() * 100 + "%";
+const submitBtn =
+document.getElementById("submitMemory");
 
-    const duration =
-      4 + Math.random() * 4;
+submitBtn.disabled = true;
 
-    heart.style.animationDuration =
-      duration + "s";
+submitBtn.innerText =
+"Gönderiliyor...";
 
-    memorySection.appendChild(
-      heart
-    );
+const data = {
 
-    setTimeout(()=>{
+name:
+document.getElementById("name").value,
 
-      heart.remove();
+phone:
+document.getElementById("phone").value,
 
-    }, duration * 1000);
+people:
+document.getElementById("count").value,
 
-  }
+status:
+document.getElementById("status").value,
 
-  setInterval(()=>{
+note:
+document.getElementById("note").value,
 
-    createHeart();
+createdAt:
+serverTimestamp()
 
-  },1200);
+};
+
+try{
+
+await addDoc(
+collection(db,"guests"),
+data
+);
+
+submitBtn.innerText =
+"Gönderildi 🤍";
+
+form.reset();
+
+}catch(err){
+
+console.error(err);
+
+submitBtn.innerText =
+"Hata oluştu";
+
+}
+
+setTimeout(()=>{
+
+submitBtn.disabled = false;
+
+submitBtn.innerText =
+"Gönder";
+
+},2500);
+
+});
+
+}
 
 });
