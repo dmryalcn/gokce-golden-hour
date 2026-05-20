@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded",()=>{
 
   /* =========================
@@ -13,28 +12,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   opening.innerHTML = `
 
-    <div class="opening-bg"></div>
-
-    <div class="opening-card">
-
-      <div class="opening-seal">
-        G&Y
-      </div>
-
-      <h1>
-        Gökçe & Yalçın
-      </h1>
-
-      <p>
-        Mühre dokunarak
-        davetiyemizi açın 🤍
-      </p>
-
-    </div>
+    <div class="light-burst"></div>
 
     <div class="envelope">
 
-      <div class="envelope-body envelope">
+      <div class="envelope-body">
 
         <div class="envelope-flap"></div>
 
@@ -42,33 +24,25 @@ document.addEventListener("DOMContentLoaded",()=>{
 
           <h2>G&Y</h2>
 
-          <span>
-            DAVETİMİZE
-            HOŞ GELDİNİZ
-          </span>
+          <p>
+            DAVETİMİZE HOŞ GELDİNİZ
+          </p>
 
         </div>
 
       </div>
 
+      <div class="opening-seal">
+        G&Y
+      </div>
+
     </div>
+
   `;
 
   document.body.appendChild(
     opening
   );
-
-  /* =========================
-     BACKGROUND IMAGE
-  ========================= */
-
-  const bg =
-    opening.querySelector(
-      ".opening-bg"
-    );
-
-  bg.style.backgroundImage =
-    "url('images/gy1.jpeg')";
 
   /* =========================
      ELEMENTS
@@ -79,19 +53,14 @@ document.addEventListener("DOMContentLoaded",()=>{
       ".opening-seal"
     );
 
-  const card =
-    opening.querySelector(
-      ".opening-card"
-    );
-
   const envelope =
     opening.querySelector(
       ".envelope"
     );
 
-  const envelopeBody =
+  const lightBurst =
     opening.querySelector(
-      ".envelope-body"
+      ".light-burst"
     );
 
   /* =========================
@@ -108,36 +77,25 @@ document.addEventListener("DOMContentLoaded",()=>{
         "crack"
       );
 
-      /* HIDE CARD */
+      /* LIGHT */
 
       setTimeout(()=>{
 
-        card.style.opacity = "0";
-
-        card.style.transform =
-          "scale(.92)";
-
-      },500);
-
-      /* SHOW ENVELOPE */
-
-      setTimeout(()=>{
-
-        envelope.classList.add(
+        lightBurst.classList.add(
           "show"
         );
 
-      },700);
+      },300);
 
       /* OPEN ENVELOPE */
 
       setTimeout(()=>{
 
-        envelopeBody.classList.add(
+        envelope.classList.add(
           "open"
         );
 
-      },1200);
+      },700);
 
       /* REMOVE OPENING */
 
@@ -150,7 +108,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         document.body.style.overflow =
           "";
 
-      },4200);
+      },4500);
 
     }
   );
