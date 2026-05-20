@@ -199,13 +199,14 @@ font-weight:700;
 .table-wrap{
 background:rgba(20,20,20,.95);
 border-radius:28px;
-overflow:hidden;
+overflow:auto;
 border:1px solid rgba(255,255,255,.05);
 }
 
 table{
 width:100%;
 border-collapse:collapse;
+min-width:900px;
 }
 
 thead{
@@ -387,13 +388,14 @@ onclick="logout()">
 <th>Kişi</th>
 <th>Durum</th>
 <th>Not</th>
+<th>Tarih</th>
 </tr>
 </thead>
 
 <tbody id="guestTable">
 
 <tr>
-<td colspan="5" class="empty">
+<td colspan="6" class="empty">
 Henüz veri yok
 </td>
 </tr>
@@ -414,77 +416,295 @@ Excel Olarak İndir
 
 </div>
 
-<script>
+<script type="module">
 
-const ADMIN_PASSWORD =
-"GY2026UltraSecure";
+import "./firebase.js";
+
+const loginScreen =
+document.getElementById(
+"loginScreen"
+);
+
+const adminPanel =
+document.getElementById(
+"adminPanel"
+);
+
+const guestTable =
+document.getElementById(
+"guestTable"
+);
+
+const totalCount =
+document.getElementById(
+"totalCount"
+);
+
+const yesCount =
+document.getElementById(
+"yesCount"
+);
+
+const noCount =
+document.getElementById(
+"noCount"
+);
+
+const maybeCount =
+document.getElementById(
+"maybeCount"
+);
 
 function login(){
 
 const pass =
-document.getElementById("password").value;
+document.getElementById(
+"password"
+).value;
 
-if(pass === ADMIN_PASSWORD){
-
-localStorage.setItem(
-"gy_admin_auth",
-"true"
-);
+if(
+window.adminSecurity.login(pass)
+){
 
 showPanel();
 
 }else{
 
-alert("Şifre yanlış");
+alert(
+"Şifre yanlış"
+);
 
 }
 
 }
+
+window.login = login;
 
 function logout(){
 
-localStorage.removeItem(
-"gy_admin_auth"
-);
+window.adminSecurity.logout();
 
 location.reload();
 
 }
 
+window.logout = logout;
+
 function showPanel(){
 
-document.getElementById(
-"loginScreen"
-).style.display = "none";
+loginScreen.style.display =
+"none";
 
-document.getElementById(
-"adminPanel"
-).style.display = "block";
+adminPanel.style.display =
+"block";
+
+loadGuests();
 
 }
 
 if(
-localStorage.getItem(
-"gy_admin_auth"
-) === "true"
+window.adminSecurity.isLoggedIn()
 ){
 
 showPanel();
 
 }
 
-function exportData(){
+async function loadGuests(){
 
-alert(
-"Excel sistemi bağlanacak 😄"
+const {
+
+collection,
+onSnapshot,
+query,
+orderBy
+
+} = window.firebaseFns;
+
+const guestsRef =
+collection(
+window.db,
+"guests"
 );
+
+const q =
+query(
+guestsRef,
+orderBy(
+"createdAt",
+"desc"
+)
+);
+
+onSnapshot(q,(snapshot)=>{
+
+guestTable.innerHTML = "";
+
+let total = 0;
+let yes = 0;
+let no = 0;
+let maybe = 0;
+
+if(snapshot.empty){
+
+guestTable.innerHTML = `
+
+<tr>
+<td colspan="6" class="empty">
+Henüz veri yok
+</td>
+</tr>
+
+`;
 
 }
 
-</script>
+snapshot.forEach((doc)=>{
 
-<script type="module" src="firebase-config.js"></script>
-<script type="module" src="admin.js"></script>
+const data =
+doc.data();
+
+total++;
+
+if(
+data.status === "geliyor"
+){
+yes++;
+}
+
+else if(
+data.status === "gelmiyor"
+){
+no++;
+}
+
+else{
+maybe++;
+}
+
+const date =
+data.createdAt?.toDate
+? new Date(
+data.createdAt.toDate()
+).toLocaleString("tr-TR")
+: "-";
+
+const tr =
+document.createElement("tr");
+
+tr.innerHTML = `
+
+<td>
+${data.name || "-"}
+</td>
+
+<td>
+${data.phone || "-"}
+</td>
+
+<td>
+${data.people || "1"}
+</td>
+
+<td>
+
+<span class="status ${getStatusClass(data.status)}">
+
+${data.status || "-"}
+
+</span>
+
+</td>
+
+<td>
+${data.note || "-"}
+</td>
+
+<td>
+${date}
+</td>
+
+`;
+
+guestTable.appendChild(tr);
+
+});
+
+totalCount.innerText =
+total;
+
+yesCount.innerText =
+yes;
+
+noCount.innerText =
+no;
+
+maybeCount.innerText =
+maybe;
+
+});
+
+}
+
+function getStatusClass(status){
+
+if(status === "geliyor"){
+return "yes";
+}
+
+if(status === "gelmiyor"){
+return "no";
+}
+
+return "maybe";
+
+}
+
+function exportData(){
+
+let csv =
+"İsim,Telefon,Kişi Sayısı,Durum,Not,Tarih\n";
+
+document.querySelectorAll(
+"#guestTable tr"
+).forEach(tr=>{
+
+const cols =
+tr.querySelectorAll("td");
+
+if(cols.length > 1){
+
+csv +=
+`${cols[0].innerText},${cols[1].innerText},${cols[2].innerText},${cols[3].innerText},${cols[4].innerText},${cols[5].innerText}\n`;
+
+}
+
+});
+
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
+
+const url =
+URL.createObjectURL(blob);
+
+const a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"gokce-yalcin-katilim.csv";
+
+a.click();
+
+}
+
+window.exportData =
+exportData;
+
+</script>
 
 </body>
 </html>
