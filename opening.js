@@ -4,26 +4,9 @@ document.addEventListener("DOMContentLoaded",()=>{
    CHECK OPENED BEFORE
 ========================= */
 
-const alreadyOpened =
-localStorage.getItem(
-"invitationOpened"
-);
+if(localStorage.getItem("invitationOpened")){
 
-if(alreadyOpened){
-
-const intro =
-document.querySelector(
-".invitation-opening"
-);
-
-if(intro){
-
-intro.remove();
-
-}
-
-document.body.style.overflow =
-"";
+document.body.style.overflow = "";
 
 return;
 
