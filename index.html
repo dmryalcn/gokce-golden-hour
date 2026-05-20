@@ -1120,7 +1120,6 @@ Anı Gönder
         type="file"
         id="memoryFile"
         accept="image/*,video/*,audio/*">
-        
 
       </div>
 
@@ -1138,8 +1137,102 @@ Anı Gönder
 
 </div>
 
+<script>
+
+const eventDate = new Date(
+"2026-06-26T20:00:00+03:00"
+).getTime();
+
+function updateCountdown(){
+
+const now = new Date().getTime();
+
+const distance =
+eventDate - now;
+
+if(distance <= 0){
+
+document.getElementById("days").innerText = "00";
+document.getElementById("hours").innerText = "00";
+document.getElementById("minutes").innerText = "00";
+document.getElementById("seconds").innerText = "00";
+
+return;
+
+}
+
+const days =
+Math.floor(distance / (1000 * 60 * 60 * 24));
+
+const hours =
+Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+const minutes =
+Math.floor((distance / (1000 * 60)) % 60);
+
+const seconds =
+Math.floor((distance / 1000) % 60);
+
+document.getElementById("days").innerText =
+String(days).padStart(2,"0");
+
+document.getElementById("hours").innerText =
+String(hours).padStart(2,"0");
+
+document.getElementById("minutes").innerText =
+String(minutes).padStart(2,"0");
+
+document.getElementById("seconds").innerText =
+String(seconds).padStart(2,"0");
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+function addToCalendar(){
+
+const icsContent =
+`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Gökçe & Yalçın Nişan
+DTSTART:20260626T170000Z
+DTEND:20260626T210000Z
+LOCATION:Harbiye / Defne / Hatay
+DESCRIPTION:Gökçe & Yalçın
+END:VEVENT
+END:VCALENDAR`;
+
+const blob = new Blob(
+[icsContent],
+{
+type:"text/calendar;charset=utf-8"
+}
+);
+
+const link =
+document.createElement("a");
+
+link.href =
+URL.createObjectURL(blob);
+
+link.download =
+"gokce-yalcin-nisan.ics";
+
+document.body.appendChild(link);
+
+link.click();
+
+document.body.removeChild(link);
+
+}
+
+</script>
+
 <script src="opening.js"></script>
-<script src="memory.js"></script>
+<script type="module" src="memory.js"></script>
 
 </body>
 </html>
