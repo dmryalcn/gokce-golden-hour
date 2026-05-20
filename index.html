@@ -1350,8 +1350,135 @@ END:VCALENDAR`;
       });
     });
   </script>
+# BUNU DİREKT YAPIŞTIR — ESKİ ALT KISMI TAMAMEN SİL
+
+ŞUNU BUL:
+
+```html
+<script>
+    function openInvitation(){
+```
+
+ve DOSYANIN SONUNA KADAR HER ŞEYİ SİL.
+
+SONRA YERİNE AŞAĞIDAKİNİ DİREKT YAPIŞTIR.
+
+```html
+<script>
+
+function openInvitation(){
+  document.getElementById("intro").classList.add("hide");
+
+  const music = document.getElementById("bgMusic");
+
+  music.volume = 0;
+
+  music.play().then(()=>{
+
+    let volume = 0;
+
+    const fade = setInterval(()=>{
+
+      if(volume < 0.5){
+
+        volume += 0.02;
+
+        music.volume = Math.min(volume,0.5);
+
+      }else{
+
+        clearInterval(fade);
+
+      }
+
+    },120);
+
+  }).catch((e)=>{
+
+    console.log("Müzik başlatılamadı:",e);
+
+  });
+}
+
+function addToCalendar(){
+
+  const icsContent =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//GokceYalcin//Engagement//TR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:gokce-yalcin-nisan-26062026
+DTSTAMP:20260517T000000Z
+DTSTART:20260626T170000Z
+DTEND:20260626T210000Z
+SUMMARY:Gökçe & Yalçın Nişan
+DESCRIPTION:Gökçe & Yalçın'ın nişan daveti.
+LOCATION:Harbiye Mahallesi No:7 İç Kapı No:2, Defne, Hatay
+END:VEVENT
+END:VCALENDAR`;
+
+  const blob = new Blob([icsContent], {
+    type:"text/calendar;charset=utf-8"
+  });
+
+  const link = document.createElement("a");
+
+  link.href = URL.createObjectURL(blob);
+
+  link.download = "gokce-yalcin-nisan.ics";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+}
+
+const eventDate = new Date(
+"2026-06-26T20:00:00+03:00"
+).getTime();
+
+function updateCountdown(){
+
+  const now = new Date().getTime();
+
+  const distance = eventDate - now;
+
+  if(distance <= 0){
+
+    document.getElementById("days").innerText = "00";
+    document.getElementById("hours").innerText = "00";
+    document.getElementById("minutes").innerText = "00";
+    document.getElementById("seconds").innerText = "00";
+
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  document.getElementById("days").innerText = String(days).padStart(2,"0");
+
+  document.getElementById("hours").innerText = String(hours).padStart(2,"0");
+
+  document.getElementById("minutes").innerText = String(minutes).padStart(2,"0");
+
+  document.getElementById("seconds").innerText = String(seconds).padStart(2,"0");
+}
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+</script>
+
 <script type="module">
- <script type="module">
 
 import "./firebase-config.js";
 
@@ -1363,12 +1490,53 @@ serverTimestamp
 
 const db = window.db;
 
+const memoryModal =
+document.getElementById("memoryModal");
+
+const openMemoryBtns =
+document.querySelectorAll("[data-open-memory]");
+
+const closeMemory =
+document.getElementById("closeMemory");
+
+openMemoryBtns.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+memoryModal.classList.add("active");
+
+document.body.style.overflow = "hidden";
+
+});
+
+});
+
+closeMemory.addEventListener("click",()=>{
+
+memoryModal.classList.remove("active");
+
+document.body.style.overflow = "auto";
+
+});
+
+memoryModal.addEventListener("click",(e)=>{
+
+if(e.target.classList.contains("memory-overlay")){
+
+memoryModal.classList.remove("active");
+
+document.body.style.overflow = "auto";
+
+}
+
+});
+
 const form =
 document.getElementById("memoryForm");
 
 if(form){
 
-form.addEventListener("submit", async(e)=>{
+form.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
@@ -1376,6 +1544,7 @@ const submitBtn =
 document.getElementById("submitMemory");
 
 submitBtn.disabled = true;
+
 submitBtn.innerText = "Gönderiliyor...";
 
 const data = {
@@ -1424,74 +1593,10 @@ submitBtn.innerText =
 setTimeout(()=>{
 
 submitBtn.disabled = false;
+
 submitBtn.innerText = "Gönder";
 
 },2500);
-
-});
-
-}
-
-const memoryModal =
-document.getElementById("memoryModal");
-
-const openMemoryBtns =
-document.querySelectorAll("[data-open-memory]");
-
-const closeMemory =
-document.getElementById("closeMemory");
-
-openMemoryBtns.forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-memoryModal.classList.add("active");
-
-document.body.style.overflow =
-"hidden";
-
-});
-
-});
-
-closeMemory.addEventListener("click",()=>{
-
-memoryModal.classList.remove("active");
-
-document.body.style.overflow =
-"auto";
-
-});
-
-memoryModal.addEventListener("click",(e)=>{
-
-if(e.target.classList.contains("memory-overlay")){
-
-memoryModal.classList.remove("active");
-
-document.body.style.overflow =
-"auto";
-
-}
-
-});
-
-const memoryFile =
-document.getElementById("memoryFile");
-
-const fileName =
-document.getElementById("fileName");
-
-if(memoryFile){
-
-memoryFile.addEventListener("change",()=>{
-
-if(memoryFile.files.length > 0){
-
-fileName.innerText =
-memoryFile.files[0].name;
-
-}
 
 });
 
@@ -1511,13 +1616,7 @@ memoryFile.files[0].name;
 
 <h2>Anı & Katılım</h2>
 
-<p class="memory-sub">
-Bizim için bir mesaj bırakabilirsiniz 🤍
-</p>
-
 <form id="memoryForm">
-
-<div class="memory-grid">
 
 <input
 type="text"
@@ -1530,22 +1629,10 @@ type="tel"
 id="phone"
 placeholder="Telefon Numaranız">
 
-</div>
-
 <select id="status">
-
-<option value="geliyor">
-Katılacağım
-</option>
-
-<option value="gelmiyor">
-Katılamayacağım
-</option>
-
-<option value="kararsiz">
-Kararsızım
-</option>
-
+<option value="geliyor">Katılacağım</option>
+<option value="gelmiyor">Katılamayacağım</option>
+<option value="kararsiz">Kararsızım</option>
 </select>
 
 <input
@@ -1559,39 +1646,11 @@ value="1">
 id="note"
 placeholder="Mesajınız / Notunuz"></textarea>
 
-<label class="upload-box">
-
-<input
-type="file"
-id="memoryFile"
-accept="image/*,video/*,audio/*"
-hidden>
-
-<div class="upload-inner">
-
-<div class="upload-icon">
-📸
-</div>
-
-<p>
-Fotoğraf, video veya ses yükle
-</p>
-
-<span id="fileName">
-Dosya seçilmedi
-</span>
-
-</div>
-
-</label>
-
 <button
 type="submit"
-class="memory-submit"
+class="send-btn"
 id="submitMemory">
-
 Gönder
-
 </button>
 
 </form>
@@ -1602,4 +1661,4 @@ Gönder
 
 </body>
 </html>
-</html>
+
