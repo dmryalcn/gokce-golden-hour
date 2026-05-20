@@ -1,148 +1,180 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-  /* =========================
-     CREATE OPENING
-  ========================= */
+/* =========================
+   CHECK OPENED BEFORE
+========================= */
 
-  const opening =
-    document.createElement("div");
+const alreadyOpened =
+localStorage.getItem(
+"invitationOpened"
+);
 
-  opening.className =
-    "invitation-opening";
+if(alreadyOpened){
 
-  opening.innerHTML = `
+const intro =
+document.querySelector(
+".invitation-opening"
+);
 
-    <div class="light-burst"></div>
+if(intro){
 
-    <div class="envelope">
+intro.remove();
 
-      <div class="envelope-body">
+}
 
-        <div class="envelope-flap"></div>
+document.body.style.overflow =
+"";
 
-        <div class="invitation-paper">
+return;
 
-          <h2>G&Y</h2>
+}
 
-          <p>
-            DAVETİMİZE HOŞ GELDİNİZ
-          </p>
+/* =========================
+   CREATE OPENING
+========================= */
 
-        </div>
+const opening =
+document.createElement("div");
 
-      </div>
+opening.className =
+"invitation-opening";
 
-      <div class="opening-seal">
-        G&Y
-      </div>
+opening.innerHTML = `
 
-    </div>
+<div class="light-burst"></div>
 
-  `;
+<div class="envelope">
 
-  document.body.appendChild(
-    opening
-  );
+<div class="envelope-body">
 
-  /* =========================
-     ELEMENTS
-  ========================= */
+<div class="envelope-flap"></div>
 
-  const seal =
-    opening.querySelector(
-      ".opening-seal"
-    );
+<div class="invitation-paper">
 
-  const envelope =
-    opening.querySelector(
-      ".envelope"
-    );
+<h2>G&Y</h2>
 
-  const lightBurst =
-    opening.querySelector(
-      ".light-burst"
-    );
+<p>
+DAVETİMİZE HOŞ GELDİNİZ
+</p>
 
-  const music =
-    document.getElementById(
-      "bgMusic"
-    );
+</div>
 
-  /* =========================
-     OPEN EXPERIENCE
-  ========================= */
+</div>
 
-  seal.addEventListener(
-    "click",
-    ()=>{
+<div class="opening-seal">
+G&Y
+</div>
 
-      /* =========================
-         PLAY MUSIC
-      ========================= */
+</div>
 
-      if(music){
+`;
 
-        music.volume = 0.18;
+document.body.appendChild(
+opening
+);
 
-        music.play().catch(()=>{});
+/* =========================
+   ELEMENTS
+========================= */
 
-      }
+const seal =
+opening.querySelector(
+".opening-seal"
+);
 
-      /* =========================
-         BREAK SEAL
-      ========================= */
+const envelope =
+opening.querySelector(
+".envelope"
+);
 
-      seal.classList.add(
-        "crack"
-      );
+const lightBurst =
+opening.querySelector(
+".light-burst"
+);
 
-      /* =========================
-         LIGHT EFFECT
-      ========================= */
+const music =
+document.getElementById(
+"bgMusic"
+);
 
-      setTimeout(()=>{
+/* =========================
+   OPEN EXPERIENCE
+========================= */
 
-        lightBurst.classList.add(
-          "show"
-        );
+seal.addEventListener(
+"click",
+()=>{
 
-      },250);
+/* SAVE OPENED */
 
-      /* =========================
-         OPEN ENVELOPE
-      ========================= */
+localStorage.setItem(
+"invitationOpened",
+"true"
+);
 
-      setTimeout(()=>{
+/* PLAY MUSIC */
 
-        envelope.classList.add(
-          "open"
-        );
+if(music){
 
-      },700);
+music.volume = 0.18;
 
-      /* =========================
-         REMOVE OPENING
-      ========================= */
+music.play().catch(()=>{});
 
-      setTimeout(()=>{
+}
 
-        opening.classList.add(
-          "hidden"
-        );
+/* BREAK SEAL */
 
-        document.body.style.overflow =
-          "";
+seal.classList.add(
+"crack"
+);
 
-      },4500);
+/* LIGHT EFFECT */
 
-    }
-  );
+setTimeout(()=>{
 
-  /* =========================
-     LOCK SCROLL
-  ========================= */
+lightBurst.classList.add(
+"show"
+);
 
-  document.body.style.overflow =
-    "hidden";
+},250);
+
+/* OPEN ENVELOPE */
+
+setTimeout(()=>{
+
+envelope.classList.add(
+"open"
+);
+
+},700);
+
+/* REMOVE OPENING */
+
+setTimeout(()=>{
+
+opening.classList.add(
+"hidden"
+);
+
+document.body.style.overflow =
+"";
+
+setTimeout(()=>{
+
+opening.remove();
+
+},1200);
+
+},4500);
+
+}
+);
+
+/* =========================
+   LOCK SCROLL
+========================= */
+
+document.body.style.overflow =
+"hidden";
 
 });
