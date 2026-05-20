@@ -1,29 +1,22 @@
-import "./firebase-config.js";
-
-const {
-collection,
-addDoc,
-serverTimestamp
-} = window.firebaseFns;
-
-const db = window.db;
-
 document.addEventListener("DOMContentLoaded",()=>{
 
 const memoryModal =
 document.getElementById("memoryModal");
 
-const openMemoryBtns =
+const openButtons =
 document.querySelectorAll("[data-open-memory]");
 
-const closeMemory =
+const closeButton =
 document.getElementById("closeMemory");
 
-if(memoryModal){
+if(!memoryModal){
+console.log("memoryModal bulunamadı");
+return;
+}
 
-openMemoryBtns.forEach(btn=>{
+openButtons.forEach(button=>{
 
-btn.addEventListener("click",()=>{
+button.addEventListener("click",()=>{
 
 memoryModal.classList.add("active");
 
@@ -34,11 +27,9 @@ document.body.style.overflow =
 
 });
 
-}
+if(closeButton){
 
-if(closeMemory){
-
-closeMemory.addEventListener("click",()=>{
+closeButton.addEventListener("click",()=>{
 
 memoryModal.classList.remove("active");
 
@@ -49,91 +40,17 @@ document.body.style.overflow =
 
 }
 
-if(memoryModal){
+const overlay =
+document.querySelector(".memory-overlay");
 
-memoryModal.addEventListener("click",(e)=>{
+if(overlay){
 
-if(e.target.classList.contains("memory-overlay")){
+overlay.addEventListener("click",()=>{
 
 memoryModal.classList.remove("active");
 
 document.body.style.overflow =
 "auto";
-
-}
-
-});
-
-}
-
-const form =
-document.getElementById("memoryForm");
-
-if(form){
-
-form.addEventListener("submit",async(e)=>{
-
-e.preventDefault();
-
-const submitBtn =
-document.getElementById("submitMemory");
-
-submitBtn.disabled = true;
-
-submitBtn.innerText =
-"Gönderiliyor...";
-
-const data = {
-
-name:
-document.getElementById("name").value,
-
-phone:
-document.getElementById("phone").value,
-
-people:
-document.getElementById("count").value,
-
-status:
-document.getElementById("status").value,
-
-note:
-document.getElementById("note").value,
-
-createdAt:
-serverTimestamp()
-
-};
-
-try{
-
-await addDoc(
-collection(db,"guests"),
-data
-);
-
-submitBtn.innerText =
-"Gönderildi 🤍";
-
-form.reset();
-
-}catch(err){
-
-console.error(err);
-
-submitBtn.innerText =
-"Hata oluştu";
-
-}
-
-setTimeout(()=>{
-
-submitBtn.disabled = false;
-
-submitBtn.innerText =
-"Gönder";
-
-},2500);
 
 });
 
