@@ -1,37 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
 /* =========================
-   CHECK OPENED BEFORE
-========================= */
-
-const alreadyOpened =
-
-
-/* =========================
-   IF OPENED BEFORE
-========================= */
-
-if(alreadyOpened){
-
-document.body.style.overflow =
-"auto";
-
-const oldOpening =
-document.querySelector(
-".invitation-opening"
-);
-
-if(oldOpening){
-
-oldOpening.remove();
-
-}
-
-return;
-
-}
-
-/* =========================
    CREATE OPENING
 ========================= */
 
@@ -107,6 +76,12 @@ document.body.style.overflow =
 "hidden";
 
 /* =========================
+   PREVENT DOUBLE CLICK
+========================= */
+
+let opened = false;
+
+/* =========================
    OPEN EXPERIENCE
 ========================= */
 
@@ -114,22 +89,9 @@ seal.addEventListener(
 "click",
 ()=>{
 
-/* PREVENT DOUBLE CLICK */
+if(opened) return;
 
-if(seal.classList.contains(
-"opened"
-)) return;
-
-seal.classList.add(
-"opened"
-);
-
-/* SAVE STATE */
-
-localStorage.setItem(
-"invitationOpened",
-"true"
-);
+opened = true;
 
 /* PLAY MUSIC */
 
