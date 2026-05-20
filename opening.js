@@ -63,6 +63,11 @@ document.addEventListener("DOMContentLoaded",()=>{
       ".light-burst"
     );
 
+  const music =
+    document.getElementById(
+      "bgMusic"
+    );
+
   /* =========================
      OPEN EXPERIENCE
   ========================= */
@@ -71,13 +76,29 @@ document.addEventListener("DOMContentLoaded",()=>{
     "click",
     ()=>{
 
-      /* BREAK SEAL */
+      /* =========================
+         PLAY MUSIC
+      ========================= */
+
+      if(music){
+
+        music.volume = 0.18;
+
+        music.play().catch(()=>{});
+
+      }
+
+      /* =========================
+         BREAK SEAL
+      ========================= */
 
       seal.classList.add(
         "crack"
       );
 
-      /* LIGHT */
+      /* =========================
+         LIGHT EFFECT
+      ========================= */
 
       setTimeout(()=>{
 
@@ -85,9 +106,11 @@ document.addEventListener("DOMContentLoaded",()=>{
           "show"
         );
 
-      },300);
+      },250);
 
-      /* OPEN ENVELOPE */
+      /* =========================
+         OPEN ENVELOPE
+      ========================= */
 
       setTimeout(()=>{
 
@@ -97,7 +120,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
       },700);
 
-      /* REMOVE OPENING */
+      /* =========================
+         REMOVE OPENING
+      ========================= */
 
       setTimeout(()=>{
 
@@ -113,7 +138,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
   );
 
-  /* LOCK SCROLL */
+  /* =========================
+     LOCK SCROLL
+  ========================= */
 
   document.body.style.overflow =
     "hidden";
