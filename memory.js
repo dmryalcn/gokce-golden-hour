@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-/* RSVP MODAL */
+/* =========================
+   RSVP MODAL
+========================= */
 
 const rsvpModal =
 document.getElementById("rsvpModal");
@@ -37,7 +39,9 @@ document.body.style.overflow =
 
 }
 
-/* MEMORY MODAL */
+/* =========================
+   MEMORY MODAL
+========================= */
 
 const memoryModal =
 document.getElementById("memoryModal");
@@ -74,7 +78,9 @@ document.body.style.overflow =
 
 }
 
-/* OVERLAY CLOSE */
+/* =========================
+   OVERLAY CLOSE
+========================= */
 
 document
 .querySelectorAll(".memory-overlay")
@@ -97,7 +103,9 @@ document.body.style.overflow =
 
 });
 
-/* RSVP CONDITIONAL AREAS */
+/* =========================
+   RSVP CONDITIONAL AREAS
+========================= */
 
 const rsvpStatus =
 document.getElementById("rsvpStatus");
@@ -146,6 +154,164 @@ maybeArea.style.display =
 }
 
 });
+
+}
+
+/* =========================
+   RSVP FORM SUBMIT
+========================= */
+
+const rsvpForm =
+document.getElementById("rsvpForm");
+
+if(rsvpForm){
+
+rsvpForm.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+let message = "";
+
+const status =
+document.getElementById(
+"rsvpStatus"
+).value;
+
+if(status === "geliyor"){
+
+message = `
+Sizi yanımızda görecek olmak bizi çok mutlu etti 🤍<br><br>
+Bu güzel günü birlikte paylaşacağımız için heyecanlıyız.
+`;
+
+}
+
+if(status === "gelmiyor"){
+
+message = `
+Mesajınız bizim için çok kıymetli 🤍<br><br>
+Gönlünüzün bizimle olduğunu bilmek bile yeterli.
+`;
+
+}
+
+if(status === "kararsiz"){
+
+message = `
+Umarız o gün birlikte oluruz 🤍<br><br>
+Bize bıraktığınız güzel not için teşekkür ederiz.
+`;
+
+}
+
+showSuccessMessage(message);
+
+rsvpForm.reset();
+
+guestCountArea.style.display =
+"none";
+
+cannotJoinArea.style.display =
+"none";
+
+maybeArea.style.display =
+"none";
+
+rsvpModal.classList.remove(
+"active"
+);
+
+document.body.style.overflow =
+"auto";
+
+});
+
+}
+
+/* =========================
+   MEMORY FORM SUBMIT
+========================= */
+
+const memoryForm =
+document.getElementById("memoryForm");
+
+if(memoryForm){
+
+memoryForm.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+showSuccessMessage(`
+Bize bıraktığınız bu anı yıllar sonra bile
+gülümseyerek hatırlayacağız 🤍
+`);
+
+memoryForm.reset();
+
+memoryModal.classList.remove(
+"active"
+);
+
+document.body.style.overflow =
+"auto";
+
+});
+
+}
+
+/* =========================
+   SUCCESS POPUP
+========================= */
+
+function showSuccessMessage(message){
+
+const success =
+document.createElement("div");
+
+success.className =
+"success-popup";
+
+success.innerHTML = `
+
+<div class="success-box">
+
+<div class="success-heart">
+🤍
+</div>
+
+<div class="success-text">
+${message}
+</div>
+
+</div>
+
+`;
+
+document.body.appendChild(
+success
+);
+
+setTimeout(()=>{
+
+success.classList.add(
+"show"
+);
+
+},50);
+
+setTimeout(()=>{
+
+success.classList.remove(
+"show"
+);
+
+setTimeout(()=>{
+
+success.remove();
+
+},600);
+
+},4200);
 
 }
 
