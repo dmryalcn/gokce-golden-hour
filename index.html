@@ -1447,5 +1447,106 @@ Gönder 🤍
 </div>
 
 </div>
+ <div class="memory-modal" id="memoryModal">
+
+<div class="memory-overlay"></div>
+
+<div class="memory-box">
+
+<button class="memory-close" id="closeMemory">
+✕
+</button>
+
+<h2>Anı & Katılım</h2>
+
+<p class="memory-sub">
+Bizim için bir mesaj bırakabilirsiniz 🤍
+</p>
+
+<form id="memoryForm">
+
+<div class="memory-grid">
+
+<input
+type="text"
+id="name"
+placeholder="Adınız Soyadınız"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Telefon Numaranız">
+
+</div>
+
+<select id="status">
+
+<option value="geliyor">
+Katılacağım
+</option>
+
+<option value="gelmiyor">
+Katılamayacağım
+</option>
+
+<option value="kararsiz">
+Kararsızım
+</option>
+
+</select>
+
+<input
+type="number"
+id="count"
+placeholder="Kaç kişi geleceksiniz?"
+min="1"
+value="1">
+
+<textarea
+id="note"
+placeholder="Mesajınız / Notunuz"></textarea>
+
+<label class="upload-box">
+
+<input
+type="file"
+id="memoryFile"
+accept="image/*,video/*,audio/*"
+hidden>
+
+<div class="upload-inner">
+
+<div class="upload-icon">
+📸
+</div>
+
+<p>
+Fotoğraf, video veya ses yükle
+</p>
+
+<span id="fileName">
+Dosya seçilmedi
+</span>
+
+</div>
+
+</label>
+
+<button
+type="submit"
+class="memory-submit"
+id="submitMemory">
+
+Gönder
+
+</button>
+
+</form>
+
+</div>
+
+</div>
 </body>
+ 
 </html>
