@@ -13,7 +13,7 @@ const db = window.db;
 ========================= */
 
 const CLOUD_NAME =
-"dgtscqpnv";
+"dgtscqpny";
 
 const UPLOAD_PRESET =
 "weddingUploads";
