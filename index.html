@@ -1092,12 +1092,9 @@ Anı Bırak
     </p>
   </section>
 
-  <button class="floating-memory"
-    data-tally-open="2ElX8M"
-    data-tally-emoji-text="💌"
-    data-tally-emoji-animation="wave">
-    💌 Anı Bırak
-  </button>
+<button class="floating-memory" data-open-memory>
+💌 Anı Bırak
+</button>
 
   <footer>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
@@ -1248,8 +1245,9 @@ const db = window.db;
 
 const form =
 document.getElementById(
-"rsvpForm"
+"memoryForm"
 );
+
 
 if(form){
 
@@ -1272,22 +1270,23 @@ submitBtn.innerText =
 const data = {
 
 name:
-form.name.value,
+document.getElementById("name").value,
 
 phone:
-form.phone.value,
+document.getElementById("phone").value,
 
 people:
-form.people.value,
+document.getElementById("count").value,
 
 status:
-form.status.value,
+document.getElementById("status").value,
 
 note:
-form.note.value,
+document.getElementById("note").value,
 
 createdAt:
 serverTimestamp()
+
 
 };
 
@@ -1493,8 +1492,7 @@ Gönder 🤍
 
 <div class="memory-box">
 
-<button class="memory-close" id="closeMemory">
-✕
+
 </button>
 
 <h2>Anı & Katılım</h2>
