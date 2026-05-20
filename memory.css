@@ -479,3 +479,89 @@ background:#c79a63;
   }
 
 }
+/* =========================
+   SUCCESS POPUP
+========================= */
+
+.success-popup{
+
+position:fixed;
+
+inset:0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:rgba(0,0,0,.45);
+
+backdrop-filter:blur(10px);
+
+z-index:999999;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:.45s ease;
+
+}
+
+.success-popup.show{
+
+opacity:1;
+
+}
+
+.success-popup-box{
+
+background:white;
+
+padding:38px 32px;
+
+border-radius:28px;
+
+max-width:420px;
+
+width:90%;
+
+text-align:center;
+
+box-shadow:
+0 25px 80px rgba(0,0,0,.18);
+
+transform:
+translateY(40px)
+scale(.95);
+
+transition:.45s ease;
+
+}
+
+.success-popup.show .success-popup-box{
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+.success-heart{
+
+font-size:42px;
+
+margin-bottom:18px;
+
+}
+
+.success-popup-box p{
+
+font-size:18px;
+
+line-height:1.8;
+
+color:#4d3b2f;
+
+}
