@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 ========================= */
 
 const alreadyOpened =
-localStorage.getItem(
-"invitationOpened"
-);
+
 
 /* =========================
    IF OPENED BEFORE
