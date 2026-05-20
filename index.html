@@ -1222,6 +1222,72 @@ me
 </button>
 
   <footer>
+   <div class="memory-modal" id="memoryModal">
+
+<div class="memory-overlay"></div>
+
+<div class="memory-box">
+
+<button class="close-memory" id="closeMemory">
+✕
+</button>
+
+<h2>Anı & Katılım</h2>
+
+<form id="memoryForm">
+
+<input
+type="text"
+id="name"
+placeholder="Adınız Soyadınız"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Telefon Numaranız">
+
+<select id="status">
+
+<option value="geliyor">
+Katılacağım
+</option>
+
+<option value="gelmiyor">
+Katılamayacağım
+</option>
+
+<option value="kararsiz">
+Kararsızım
+</option>
+
+</select>
+
+<input
+type="number"
+id="count"
+placeholder="Kaç kişi geleceksiniz?"
+min="1"
+value="1">
+
+<textarea
+id="note"
+placeholder="Mesajınız / Notunuz"></textarea>
+
+<button
+type="submit"
+class="send-btn"
+id="submitMemory">
+
+Gönder
+
+</button>
+
+</form>
+
+</div>
+
+</div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
       Gökçe & Yalçın
     </h2>
