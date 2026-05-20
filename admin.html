@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>G&Y Admin Panel</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,74 +19,126 @@ box-sizing:border-box;
 
 body{
 font-family:'Inter',sans-serif;
-background:#0f0f0f;
+background:#0b0b0b;
 color:white;
 min-height:100vh;
+overflow-x:hidden;
 padding:30px;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left, rgba(212,163,115,.18), transparent 30%),
+radial-gradient(circle at bottom right, rgba(176,137,104,.15), transparent 30%);
+pointer-events:none;
+z-index:-1;
 }
 
 .login-screen{
 position:fixed;
 inset:0;
-background:#0b0b0b;
+background:#050505;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:9999;
+z-index:99999;
+padding:20px;
 }
 
 .login-box{
 width:100%;
-max-width:420px;
-background:#171717;
+max-width:430px;
+background:rgba(20,20,20,.95);
+backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,.06);
 padding:40px;
-border-radius:24px;
-border:1px solid rgba(255,255,255,.08);
-box-shadow:0 20px 60px rgba(0,0,0,.5);
+border-radius:30px;
+box-shadow:
+0 20px 80px rgba(0,0,0,.6),
+0 0 0 1px rgba(255,255,255,.03);
+}
+
+.logo{
+width:85px;
+height:85px;
+border-radius:50%;
+margin:auto;
+margin-bottom:25px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+font-weight:700;
+background:linear-gradient(135deg,#d4a373,#b08968);
+color:white;
+box-shadow:0 10px 30px rgba(212,163,115,.25);
 }
 
 .login-box h1{
-font-size:32px;
+text-align:center;
+font-size:34px;
 margin-bottom:10px;
 }
 
 .login-box p{
-opacity:.7;
+text-align:center;
+opacity:.65;
 margin-bottom:30px;
+line-height:1.6;
 }
 
 .login-box input{
 width:100%;
-padding:16px;
+padding:17px;
 border:none;
 outline:none;
-border-radius:14px;
-background:#222;
+border-radius:16px;
+background:#1b1b1b;
 color:white;
 font-size:16px;
-margin-bottom:15px;
+margin-bottom:16px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.login-box input:focus{
+border-color:#d4a373;
 }
 
 .login-box button{
 width:100%;
-padding:16px;
+padding:17px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 background:linear-gradient(135deg,#d4a373,#b08968);
 color:white;
 font-size:16px;
-font-weight:600;
+font-weight:700;
 cursor:pointer;
 transition:.3s;
 }
 
 .login-box button:hover{
 transform:translateY(-2px);
-opacity:.95;
+box-shadow:0 10px 30px rgba(212,163,115,.3);
 }
 
 .admin-panel{
 display:none;
+animation:fade .5s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(15px);
+}
+to{
+opacity:1;
+transform:none;
+}
 }
 
 .topbar{
@@ -93,51 +146,61 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:35px;
+gap:15px;
 }
 
 .topbar h1{
-font-size:36px;
-}
-
-.logout-btn{
-padding:12px 18px;
-border:none;
-border-radius:12px;
-background:#222;
-color:white;
-cursor:pointer;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:30px;
-}
-
-.card{
-background:#171717;
-padding:25px;
-border-radius:22px;
-border:1px solid rgba(255,255,255,.06);
-}
-
-.card h2{
-font-size:15px;
-opacity:.7;
-margin-bottom:10px;
-}
-
-.card span{
 font-size:38px;
 font-weight:700;
 }
 
+.logout-btn{
+padding:14px 18px;
+border:none;
+border-radius:16px;
+background:#1b1b1b;
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.logout-btn:hover{
+background:#252525;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+margin-bottom:35px;
+}
+
+.card{
+background:rgba(20,20,20,.95);
+border:1px solid rgba(255,255,255,.05);
+padding:28px;
+border-radius:28px;
+backdrop-filter:blur(14px);
+}
+
+.card h2{
+font-size:14px;
+font-weight:500;
+opacity:.65;
+margin-bottom:14px;
+}
+
+.card span{
+font-size:42px;
+font-weight:700;
+}
+
 .table-wrap{
-background:#171717;
-border-radius:24px;
+background:rgba(20,20,20,.95);
+border-radius:28px;
 overflow:hidden;
-border:1px solid rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.05);
 }
 
 table{
@@ -146,59 +209,75 @@ border-collapse:collapse;
 }
 
 thead{
-background:#1f1f1f;
-}
-
-th,td{
-padding:18px;
-text-align:left;
-border-bottom:1px solid rgba(255,255,255,.05);
+background:#181818;
 }
 
 th{
-font-size:14px;
+padding:20px;
+font-size:13px;
+font-weight:600;
 opacity:.7;
+text-align:left;
+}
+
+td{
+padding:18px 20px;
+border-bottom:1px solid rgba(255,255,255,.04);
+font-size:14px;
 }
 
 tr:hover{
-background:rgba(255,255,255,.03);
+background:rgba(255,255,255,.02);
 }
 
 .status{
-padding:8px 12px;
+padding:9px 14px;
 border-radius:999px;
-font-size:13px;
-font-weight:600;
+font-size:12px;
+font-weight:700;
 display:inline-block;
 }
 
 .status.yes{
-background:rgba(0,255,140,.15);
+background:rgba(61,220,151,.14);
 color:#3ddc97;
 }
 
 .status.no{
-background:rgba(255,80,80,.15);
+background:rgba(255,107,107,.14);
 color:#ff6b6b;
 }
 
 .status.maybe{
-background:rgba(255,190,70,.15);
+background:rgba(255,209,102,.14);
 color:#ffd166;
 }
 
 .export-btn{
-margin-top:25px;
-padding:14px 20px;
+margin-top:28px;
+padding:16px 22px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 background:linear-gradient(135deg,#d4a373,#b08968);
 color:white;
-font-weight:600;
+font-weight:700;
 cursor:pointer;
+font-size:15px;
+transition:.3s;
 }
 
-@media(max-width:700px){
+.export-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 30px rgba(212,163,115,.25);
+}
+
+.empty{
+padding:40px;
+text-align:center;
+opacity:.5;
+}
+
+@media(max-width:800px){
 
 body{
 padding:15px;
@@ -206,7 +285,6 @@ padding:15px;
 
 .topbar{
 flex-direction:column;
-gap:15px;
 align-items:flex-start;
 }
 
@@ -216,12 +294,17 @@ font-size:28px;
 
 th,td{
 padding:12px;
-font-size:13px;
+font-size:12px;
+}
+
+.card span{
+font-size:34px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -230,22 +313,27 @@ font-size:13px;
 
 <div class="login-box">
 
-<h1>G&Y Admin</h1>
+<div class="logo">
+G&Y
+</div>
+
+<h1>Admin Panel</h1>
 
 <p>
-Yetkili girişi yapın
+Gökçe & Yalçın düğün yönetim sistemi
 </p>
 
 <input
 type="password"
 id="password"
-placeholder="Şifre">
+placeholder="Admin şifresi">
 
 <button onclick="login()">
-Giriş Yap
+Panele Giriş Yap
 </button>
 
 </div>
+
 </div>
 
 <div class="admin-panel" id="adminPanel">
@@ -259,7 +347,7 @@ Düğün Yönetim Paneli
 <button
 class="logout-btn"
 onclick="logout()">
-Çıkış
+Çıkış Yap
 </button>
 
 </div>
@@ -267,17 +355,17 @@ onclick="logout()">
 <div class="stats">
 
 <div class="card">
-<h2>Toplam Katılım</h2>
+<h2>Toplam Başvuru</h2>
 <span id="totalCount">0</span>
 </div>
 
 <div class="card">
-<h2>Gelecek Kişi</h2>
+<h2>Katılacak</h2>
 <span id="yesCount">0</span>
 </div>
 
 <div class="card">
-<h2>Gelmeyecek</h2>
+<h2>Katılmayacak</h2>
 <span id="noCount">0</span>
 </div>
 
@@ -296,13 +384,20 @@ onclick="logout()">
 <tr>
 <th>İsim</th>
 <th>Telefon</th>
-<th>Kişi Sayısı</th>
+<th>Kişi</th>
 <th>Durum</th>
 <th>Not</th>
 </tr>
 </thead>
 
 <tbody id="guestTable">
+
+<tr>
+<td colspan="5" class="empty">
+Henüz veri yok
+</td>
+</tr>
+
 </tbody>
 
 </table>
@@ -322,7 +417,7 @@ Excel Olarak İndir
 <script>
 
 const ADMIN_PASSWORD =
-"gy2026panel";
+"GY2026UltraSecure";
 
 function login(){
 
@@ -332,17 +427,11 @@ document.getElementById("password").value;
 if(pass === ADMIN_PASSWORD){
 
 localStorage.setItem(
-"adminAuth",
+"gy_admin_auth",
 "true"
 );
 
-document.getElementById(
-"loginScreen"
-).style.display = "none";
-
-document.getElementById(
-"adminPanel"
-).style.display = "block";
+showPanel();
 
 }else{
 
@@ -355,17 +444,14 @@ alert("Şifre yanlış");
 function logout(){
 
 localStorage.removeItem(
-"adminAuth"
+"gy_admin_auth"
 );
 
 location.reload();
 
 }
 
-if(
-localStorage.getItem("adminAuth")
-=== "true"
-){
+function showPanel(){
 
 document.getElementById(
 "loginScreen"
@@ -377,15 +463,28 @@ document.getElementById(
 
 }
 
+if(
+localStorage.getItem(
+"gy_admin_auth"
+) === "true"
+){
+
+showPanel();
+
+}
+
 function exportData(){
 
 alert(
-"Excel sistemi sonraki adımda bağlanacak 😄"
+"Excel sistemi bağlanacak 😄"
 );
 
 }
 
 </script>
+
+<script type="module" src="firebase-config.js"></script>
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
