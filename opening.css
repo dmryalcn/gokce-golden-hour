@@ -1,1 +1,463 @@
+/* =========================
+   OPENING EXPERIENCE
+========================= */
 
+.invitation-opening{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:999999;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  overflow:hidden;
+
+  background:#120f0d;
+
+  transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+}
+
+/* HIDE */
+
+.invitation-opening.hidden{
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+}
+
+/* BACKGROUND */
+
+.opening-bg{
+
+  position:absolute;
+
+  inset:0;
+
+  background-size:cover;
+
+  background-position:center;
+
+  filter:
+    blur(10px)
+    brightness(.45);
+
+  transform:scale(1.08);
+
+  animation:
+    bgZoom 14s ease-in-out infinite alternate;
+}
+
+@keyframes bgZoom{
+
+  from{
+    transform:scale(1.08);
+  }
+
+  to{
+    transform:scale(1.16);
+  }
+
+}
+
+/* CARD */
+
+.opening-card{
+
+  position:relative;
+
+  width:min(88%,430px);
+
+  padding:42px 30px;
+
+  border-radius:42px;
+
+  text-align:center;
+
+  overflow:hidden;
+
+  backdrop-filter:blur(22px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.14),
+      rgba(255,255,255,.05)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.16);
+
+  box-shadow:
+    0 25px 90px rgba(0,0,0,.35);
+
+  z-index:2;
+}
+
+/* GOLD GLOW */
+
+.opening-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:-30%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,176,123,.20),
+      transparent 65%
+    );
+
+  animation:
+    cardGlow 7s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+@keyframes cardGlow{
+
+  0%{
+    transform:scale(1);
+    opacity:.5;
+  }
+
+  50%{
+    transform:scale(1.15);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:.5;
+  }
+
+}
+
+/* SEAL */
+
+.opening-seal{
+
+  width:130px;
+  height:130px;
+
+  margin:0 auto 28px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #b81f24,
+      #6b0910
+    );
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:56px;
+
+  color:#f6deb2;
+
+  cursor:pointer;
+
+  position:relative;
+
+  z-index:3;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.35);
+
+  transition:
+    transform .4s ease,
+    box-shadow .4s ease;
+
+  animation:
+    sealBreath 4s ease-in-out infinite;
+}
+
+@keyframes sealBreath{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.05);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+.opening-seal:hover{
+
+  transform:scale(1.08);
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.42),
+    0 0 45px rgba(212,176,123,.22);
+}
+
+/* CRACK EFFECT */
+
+.opening-seal.crack{
+
+  animation:
+    sealBreak .9s ease forwards;
+}
+
+@keyframes sealBreak{
+
+  0%{
+    transform:scale(1);
+  }
+
+  30%{
+    transform:scale(1.12) rotate(-4deg);
+  }
+
+  60%{
+    transform:scale(.92) rotate(5deg);
+  }
+
+  100%{
+    transform:scale(0);
+    opacity:0;
+  }
+
+}
+
+/* TEXT */
+
+.opening-card h1{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:64px;
+
+  color:#fff;
+
+  margin-bottom:18px;
+}
+
+.opening-card p{
+
+  color:
+    rgba(255,255,255,.82);
+
+  line-height:1.9;
+
+  font-size:18px;
+}
+
+/* ENVELOPE */
+
+.envelope{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:1s ease;
+}
+
+.envelope.show{
+
+  opacity:1;
+}
+
+.envelope-body{
+
+  width:320px;
+  height:220px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f7ecd9,
+      #d9c0a2
+    );
+
+  position:relative;
+
+  border-radius:8px;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35);
+}
+
+/* FLAP */
+
+.envelope-flap{
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ead8bf,
+      #c8a987
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 58%
+    );
+
+  transform-origin:top;
+
+  transition:
+    transform 1.2s ease;
+}
+
+.envelope.open .envelope-flap{
+
+  transform:
+    rotateX(180deg);
+}
+
+/* INVITATION */
+
+.invitation-paper{
+
+  position:absolute;
+
+  width:82%;
+  height:82%;
+
+  background:#fffaf3;
+
+  left:50%;
+
+  bottom:12px;
+
+  transform:
+    translateX(-50%)
+    translateY(40px);
+
+  border-radius:10px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  flex-direction:column;
+
+  transition:
+    transform 1.4s ease;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+.envelope.open .invitation-paper{
+
+  transform:
+    translateX(-50%)
+    translateY(-110px);
+}
+
+.invitation-paper h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:54px;
+
+  color:#8d6746;
+}
+
+.invitation-paper span{
+
+  margin-top:12px;
+
+  color:#8d6746;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .opening-card{
+
+    width:90%;
+
+    padding:34px 24px;
+  }
+
+  .opening-card h1{
+
+    font-size:52px;
+  }
+
+  .opening-card p{
+
+    font-size:16px;
+  }
+
+  .opening-seal{
+
+    width:115px;
+    height:115px;
+
+    font-size:48px;
+  }
+
+  .envelope-body{
+
+    width:290px;
+    height:205px;
+  }
+
+}
