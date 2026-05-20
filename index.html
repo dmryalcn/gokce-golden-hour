@@ -1336,7 +1336,57 @@ submitBtn.innerText =
 });
 
 }
+const memoryModal =
+document.getElementById("memoryModal");
 
+const openMemoryBtns =
+document.querySelectorAll("[data-open-memory]");
+
+const closeMemory =
+document.getElementById("closeMemory");
+
+openMemoryBtns.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+memoryModal.classList.add("active");
+
+});
+
+});
+
+closeMemory.addEventListener("click",()=>{
+
+memoryModal.classList.remove("active");
+
+});
+
+memoryModal.addEventListener("click",(e)=>{
+
+if(e.target.classList.contains("memory-overlay")){
+
+memoryModal.classList.remove("active");
+
+}
+
+});
+
+const memoryFile =
+document.getElementById("memoryFile");
+
+const fileName =
+document.getElementById("fileName");
+
+memoryFile.addEventListener("change",()=>{
+
+if(memoryFile.files.length > 0){
+
+fileName.innerText =
+memoryFile.files[0].name;
+
+}
+
+});
 </script>
  <div class="memory-modal" id="memoryModal">
 
