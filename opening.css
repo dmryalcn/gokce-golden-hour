@@ -1,5 +1,5 @@
 /* =========================
-   CINEMATIC ENVELOPE OPENING
+   INVITATION OPENING
 ========================= */
 
 .invitation-opening{
@@ -27,11 +27,11 @@
     );
 
   transition:
-    opacity 1.4s ease,
-    visibility 1.4s ease;
+    opacity 1.2s ease,
+    visibility 1.2s ease;
 }
 
-/* HIDE */
+/* HIDDEN */
 
 .invitation-opening.hidden{
 
@@ -53,7 +53,7 @@
   inset:0;
 
   background:
-    radial-gradient(circle at 20% 30%, rgba(212,176,123,.14), transparent 18%),
+    radial-gradient(circle at 20% 30%, rgba(212,176,123,.12), transparent 18%),
     radial-gradient(circle at 80% 20%, rgba(212,176,123,.10), transparent 16%),
     radial-gradient(circle at 60% 80%, rgba(212,176,123,.10), transparent 18%),
     radial-gradient(circle at 30% 75%, rgba(212,176,123,.08), transparent 14%);
@@ -76,7 +76,9 @@
 
 }
 
-/* ENVELOPE AREA */
+/* =========================
+   ENVELOPE
+========================= */
 
 .envelope{
 
@@ -95,7 +97,7 @@
   perspective:2200px;
 }
 
-/* ENVELOPE BODY */
+/* BODY */
 
 .envelope-body{
 
@@ -112,7 +114,7 @@
       #dcc2a1
     );
 
-  border-radius:14px;
+  border-radius:18px;
 
   overflow:hidden;
 
@@ -142,17 +144,15 @@
   pointer-events:none;
 }
 
-/* FLAP */
+/* =========================
+   FLAP
+========================= */
 
 .envelope-flap{
 
   position:absolute;
 
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100%;
+  inset:0;
 
   background:
     linear-gradient(
@@ -173,7 +173,9 @@
   transition:
     transform 1.4s cubic-bezier(.77,0,.18,1);
 
-  z-index:4;
+  z-index:5;
+
+  backface-visibility:hidden;
 }
 
 /* OPEN */
@@ -184,7 +186,9 @@
     rotateX(180deg);
 }
 
-/* LETTER */
+/* =========================
+   LETTER
+========================= */
 
 .invitation-paper{
 
@@ -201,7 +205,7 @@
   transform:
     translateX(-50%);
 
-  border-radius:12px;
+  border-radius:14px;
 
   background:
     linear-gradient(
@@ -228,7 +232,7 @@
   z-index:2;
 }
 
-/* PAPER MOVE */
+/* LETTER MOVE */
 
 .envelope.open .invitation-paper{
 
@@ -239,7 +243,9 @@
     translateY(-120px);
 }
 
-/* LETTER TEXT */
+/* =========================
+   LETTER TEXT
+========================= */
 
 .invitation-paper h2{
 
@@ -263,9 +269,13 @@
   letter-spacing:5px;
 
   text-transform:uppercase;
+
+  text-align:center;
 }
 
-/* WAX SEAL */
+/* =========================
+   SEAL
+========================= */
 
 .opening-seal{
 
@@ -305,9 +315,14 @@
 
   color:#f6ddb1;
 
-  z-index:10;
+  z-index:20;
 
   cursor:pointer;
+
+  user-select:none;
+
+  -webkit-tap-highlight-color:
+    transparent;
 
   box-shadow:
     0 18px 55px rgba(0,0,0,.45),
@@ -343,7 +358,7 @@
 
 }
 
-/* SEAL BREAK */
+/* CRACK */
 
 .opening-seal.crack{
 
@@ -383,7 +398,9 @@
 
 }
 
-/* LIGHT FLASH */
+/* =========================
+   LIGHT BURST
+========================= */
 
 .light-burst{
 
@@ -406,7 +423,9 @@
 
   pointer-events:none;
 
-  transition:1.5s ease;
+  transition:
+    opacity 1.4s ease,
+    transform 1.4s ease;
 }
 
 .light-burst.show{
@@ -416,13 +435,16 @@
   transform:scale(1.2);
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:768px){
 
   .envelope{
 
     width:340px;
+
     height:260px;
   }
 
@@ -433,22 +455,32 @@
 
   .opening-seal{
 
-    width:82px;
-    height:82px;
+    width:78px;
 
-    font-size:34px;
+    height:78px;
+
+    font-size:32px;
   }
 
   .invitation-paper h2{
 
-    font-size:56px;
+    font-size:52px;
   }
 
   .invitation-paper p{
 
-    font-size:12px;
+    font-size:11px;
 
     letter-spacing:3px;
+
+    padding:0 14px;
+  }
+
+  .envelope.open .invitation-paper{
+
+    transform:
+      translateX(-50%)
+      translateY(-90px);
   }
 
 }
