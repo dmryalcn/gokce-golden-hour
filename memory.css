@@ -1,1 +1,210 @@
+/* =========================
+   MEMORY EXPERIENCE
+========================= */
 
+.memory-enhanced{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:38px;
+
+  padding:42px 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.10),
+      rgba(255,255,255,.04)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.12);
+
+  isolation:isolate;
+}
+
+/* GLOW */
+
+.memory-enhanced::before{
+  content:"";
+
+  position:absolute;
+
+  inset:-20%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,176,123,.18),
+      transparent 60%
+    );
+
+  filter:blur(50px);
+
+  z-index:-1;
+
+  animation:
+    memoryGlow 7s ease-in-out infinite;
+}
+
+@keyframes memoryGlow{
+
+  0%{
+    transform:scale(1);
+    opacity:.6;
+  }
+
+  50%{
+    transform:scale(1.12);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:.6;
+  }
+
+}
+
+/* TITLE */
+
+.memory-title{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:52px;
+
+  text-align:center;
+
+  margin-bottom:14px;
+
+  color:#fff;
+}
+
+/* TEXT */
+
+.memory-text{
+  text-align:center;
+
+  max-width:720px;
+
+  margin:auto;
+
+  line-height:1.9;
+
+  color:
+    rgba(255,255,255,.82);
+
+  font-size:17px;
+}
+
+/* CTA BUTTON */
+
+.memory-cta{
+
+  margin-top:34px;
+
+  display:flex;
+
+  justify-content:center;
+}
+
+.memory-cta .btn{
+
+  position:relative;
+
+  overflow:hidden;
+
+  animation:
+    pulseMemory 3s infinite;
+}
+
+@keyframes pulseMemory{
+
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(212,176,123,.35);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 22px rgba(212,176,123,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(212,176,123,0);
+  }
+
+}
+
+/* FLOATING HEARTS */
+
+.memory-heart{
+  position:absolute;
+
+  font-size:18px;
+
+  color:
+    rgba(212,176,123,.22);
+
+  pointer-events:none;
+
+  animation:
+    floatHeart linear infinite;
+}
+
+@keyframes floatHeart{
+
+  from{
+    transform:
+      translateY(40px)
+      scale(.7);
+
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  to{
+    transform:
+      translateY(-120px)
+      scale(1.2);
+
+    opacity:0;
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .memory-enhanced{
+    padding:34px 22px;
+  }
+
+  .memory-title{
+    font-size:38px;
+  }
+
+  .memory-text{
+    font-size:15px;
+    line-height:1.8;
+  }
+
+}
