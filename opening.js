@@ -4,9 +4,30 @@ document.addEventListener("DOMContentLoaded",()=>{
    CHECK OPENED BEFORE
 ========================= */
 
-if(localStorage.getItem("invitationOpened")){
+const alreadyOpened =
+localStorage.getItem(
+"invitationOpened"
+);
 
-document.body.style.overflow = "";
+/* =========================
+   IF OPENED BEFORE
+========================= */
+
+if(alreadyOpened){
+
+document.body.style.overflow =
+"auto";
+
+const oldOpening =
+document.querySelector(
+".invitation-opening"
+);
+
+if(oldOpening){
+
+oldOpening.remove();
+
+}
 
 return;
 
@@ -81,6 +102,13 @@ document.getElementById(
 );
 
 /* =========================
+   LOCK SCROLL
+========================= */
+
+document.body.style.overflow =
+"hidden";
+
+/* =========================
    OPEN EXPERIENCE
 ========================= */
 
@@ -88,7 +116,17 @@ seal.addEventListener(
 "click",
 ()=>{
 
-/* SAVE OPENED */
+/* PREVENT DOUBLE CLICK */
+
+if(seal.classList.contains(
+"opened"
+)) return;
+
+seal.classList.add(
+"opened"
+);
+
+/* SAVE STATE */
 
 localStorage.setItem(
 "invitationOpened",
@@ -131,7 +169,7 @@ envelope.classList.add(
 
 },700);
 
-/* REMOVE OPENING */
+/* REMOVE INTRO */
 
 setTimeout(()=>{
 
@@ -140,24 +178,17 @@ opening.classList.add(
 );
 
 document.body.style.overflow =
-"";
+"auto";
 
 setTimeout(()=>{
 
 opening.remove();
 
-},1200);
+},1000);
 
-},4500);
+},4200);
 
 }
 );
-
-/* =========================
-   LOCK SCROLL
-========================= */
-
-document.body.style.overflow =
-"hidden";
 
 });
