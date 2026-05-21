@@ -1,5 +1,5 @@
 /* =========================================================
-   GÖKÇE & YALÇIN — FINAL UPLOAD.JS
+   GÖKÇE & YALÇIN — MEMORY EXPERIENCE 2.0
 ========================================================= */
 
 import "./firebase.js";
@@ -21,6 +21,148 @@ const CLOUD_NAME =
 
 const UPLOAD_PRESET =
 "weddingUploads";
+
+/* =========================
+   AUDIO RECORDING
+========================= */
+
+let mediaRecorder;
+
+let audioChunks = [];
+
+let recordedAudioBlob = null;
+
+const recordBtn =
+document.getElementById(
+"recordBtn"
+);
+
+const stopRecordBtn =
+document.getElementById(
+"stopRecordBtn"
+);
+
+const audioPreview =
+document.getElementById(
+"audioPreview"
+);
+
+const recordingStatus =
+document.getElementById(
+"recordingStatus"
+);
+
+if(recordBtn){
+
+recordBtn.addEventListener(
+"click",
+async()=>{
+
+try{
+
+const stream =
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+mediaRecorder =
+new MediaRecorder(stream);
+
+audioChunks = [];
+
+mediaRecorder.ondataavailable =
+(e)=>{
+
+audioChunks.push(
+e.data
+);
+
+};
+
+mediaRecorder.onstop = ()=>{
+
+recordedAudioBlob =
+new Blob(
+audioChunks,
+{
+type:"audio/webm"
+}
+);
+
+const audioUrl =
+URL.createObjectURL(
+recordedAudioBlob
+);
+
+audioPreview.src =
+audioUrl;
+
+audioPreview.style.display =
+"block";
+
+if(recordingStatus){
+
+recordingStatus.innerHTML =
+"Ses kaydı hazır ✨";
+
+}
+
+};
+
+mediaRecorder.start();
+
+recordBtn.disabled = true;
+
+stopRecordBtn.disabled = false;
+
+recordBtn.innerHTML =
+"🎙️ Kayıt Alınıyor...";
+
+if(recordingStatus){
+
+recordingStatus.innerHTML =
+"Ses kaydı devam ediyor...";
+
+}
+
+}catch(err){
+
+console.error(err);
+
+alert(
+"Mikrofon erişimi reddedildi 😔"
+);
+
+}
+
+}
+);
+
+}
+
+if(stopRecordBtn){
+
+stopRecordBtn.addEventListener(
+"click",
+()=>{
+
+if(mediaRecorder){
+
+mediaRecorder.stop();
+
+recordBtn.disabled = false;
+
+stopRecordBtn.disabled = true;
+
+recordBtn.innerHTML =
+"🎙️ Tekrar Kaydet";
+
+}
+
+}
+);
+
+}
 
 /* =========================
    MODALS
@@ -178,8 +320,6 @@ cannotArea.style.display =
 maybeArea.style.display =
 "none";
 
-/* GELIYOR */
-
 if(rsvpStatus.value ===
 "geliyor"){
 
@@ -188,8 +328,6 @@ guestArea.style.display =
 
 }
 
-/* GELMIYOR */
-
 if(rsvpStatus.value ===
 "gelmiyor"){
 
@@ -197,8 +335,6 @@ cannotArea.style.display =
 "block";
 
 }
-
-/* KARARSIZ */
 
 if(rsvpStatus.value ===
 "kararsiz"){
@@ -255,20 +391,18 @@ document.getElementById(
 "memoryMessage"
 )?.value || "";
 
-const file =
+const files =
 document.getElementById(
 "memoryFile"
-)?.files[0];
+)?.files || [];
 
-let fileUrl = "";
-
-let fileType = "";
+let mediaItems = [];
 
 /* =========================
-   CLOUDINARY
+   MULTI FILE UPLOAD
 ========================= */
 
-if(file){
+for(const file of files){
 
 const formData =
 new FormData();
@@ -295,21 +429,71 @@ body:formData
 const data =
 await response.json();
 
-if(!response.ok){
+if(response.ok){
 
-console.error(data);
+mediaItems.push({
 
-throw new Error(
-"Upload failed"
-);
+url:data.secure_url,
+
+type:file.type
+
+});
 
 }
 
-fileUrl =
-data.secure_url || "";
+}
 
-fileType =
-file.type || "";
+/* =========================
+   AUDIO RECORD UPLOAD
+========================= */
+
+if(recordedAudioBlob){
+
+const audioFile =
+new File(
+[recordedAudioBlob],
+"voice-message.webm",
+{
+type:"audio/webm"
+}
+);
+
+const formData =
+new FormData();
+
+formData.append(
+"file",
+audioFile
+);
+
+formData.append(
+"upload_preset",
+UPLOAD_PRESET
+);
+
+const response =
+await fetch(
+`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
+{
+method:"POST",
+body:formData
+}
+);
+
+const data =
+await response.json();
+
+if(response.ok){
+
+mediaItems.push({
+
+url:data.secure_url,
+
+type:"audio/webm"
+
+});
+
+}
 
 }
 
@@ -323,8 +507,7 @@ collection(db,"memories"),
 
 name,
 message,
-fileUrl,
-fileType,
+mediaItems,
 
 createdAt:
 serverTimestamp()
@@ -337,6 +520,26 @@ serverTimestamp()
 ========================= */
 
 memoryForm.reset();
+
+recordedAudioBlob = null;
+
+audioChunks = [];
+
+if(audioPreview){
+
+audioPreview.style.display =
+"none";
+
+audioPreview.src = "";
+
+}
+
+if(recordingStatus){
+
+recordingStatus.innerHTML =
+"Hazır";
+
+}
 
 closeAllModals();
 
@@ -431,10 +634,6 @@ document.getElementById(
 "maybeMessage"
 )?.value || "";
 
-/* =========================
-   FIRESTORE
-========================= */
-
 await addDoc(
 collection(db,"rsvp"),
 {
@@ -451,17 +650,9 @@ serverTimestamp()
 }
 );
 
-/* =========================
-   RESET
-========================= */
-
 rsvpForm.reset();
 
 closeAllModals();
-
-/* =========================
-   SUCCESS
-========================= */
 
 showSuccessPopup({
 
@@ -550,8 +741,6 @@ popup.classList.add(
 
 },50);
 
-/* CLOSE */
-
 popup
 .querySelector(".success-btn")
 .addEventListener(
@@ -564,8 +753,6 @@ popup
 
 }
 );
-
-/* AUTO CLOSE */
 
 setTimeout(()=>{
 
@@ -629,8 +816,6 @@ popup.classList.add(
 
 },50);
 
-/* CLOSE */
-
 popup
 .querySelector(".success-btn")
 .addEventListener(
@@ -665,3 +850,4 @@ popup.remove();
 },400);
 
 }
+
