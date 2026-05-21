@@ -1,4 +1,6 @@
-import "./firebase.js";
+import "../firebase.js";
+
+
 
 const {
 collection,
