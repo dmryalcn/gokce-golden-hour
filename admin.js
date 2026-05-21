@@ -67,6 +67,11 @@ document.getElementById(
 "searchInput"
 );
 
+const memoryCount =
+document.getElementById(
+"memoryCount"
+);
+
 /* =========================================================
    LOGIN
 ========================================================= */
@@ -92,7 +97,7 @@ showPanel();
 }else{
 
 alert(
-"Şifre yanlış"
+"Şifre yanlış 😔"
 );
 
 }
@@ -284,10 +289,13 @@ data.status === "gelmiyor"
 
 <td>
 ${data.transportNeed || "-"}
+
 </td>
 
 <td>
+
 ${data.comingMessage || data.cannotJoinMessage || data.maybeMessage || "-"}
+
 </td>
 
 <td>
@@ -494,6 +502,8 @@ onSnapshot(q,(snapshot)=>{
 
 memoryGallery.innerHTML = "";
 
+let totalMemories = 0;
+
 if(snapshot.empty){
 
 memoryGallery.innerHTML = `
@@ -515,8 +525,7 @@ snapshot.forEach((docSnap)=>{
 const data =
 docSnap.data();
 
-if(data.hidden === true)
-return;
+totalMemories++;
 
 const card =
 document.createElement("div");
@@ -540,7 +549,8 @@ if(item.type?.includes("image")){
 mediaHTML += `
 
 <img
-src="${item.url}">
+src="${item.url}"
+class="memory-media">
 
 `;
 
@@ -552,7 +562,9 @@ item.type?.includes("video")
 
 mediaHTML += `
 
-<video controls>
+<video
+controls
+class="memory-media">
 
 <source src="${item.url}">
 
@@ -568,7 +580,9 @@ item.type?.includes("audio")
 
 mediaHTML += `
 
-<audio controls>
+<audio
+controls
+class="memory-audio">
 
 <source src="${item.url}">
 
@@ -580,6 +594,10 @@ mediaHTML += `
 
 });
 
+/* =========================================================
+   DATE
+========================================================= */
+
 const date =
 data.createdAt?.toDate
 ? new Date(
@@ -588,10 +606,23 @@ data.createdAt.toDate()
 : "-";
 
 /* =========================================================
+   HIDDEN BADGE
+========================================================= */
+
+const hiddenBadge =
+data.hidden === true
+? `<div class="memory-hidden">
+Gizli
+</div>`
+: "";
+
+/* =========================================================
    CARD
 ========================================================= */
 
 card.innerHTML = `
+
+${hiddenBadge}
 
 ${mediaHTML}
 
@@ -613,13 +644,27 @@ ${date}
 
 </div>
 
-<button
-class="action-btn delete"
-onclick="hideMemory('${docSnap.id}')">
+<div class="memory-actions">
 
-Anıyı Gizle
+<button
+class="action-btn hide"
+onclick="toggleMemory('${docSnap.id}',${data.hidden === true})">
+
+${data.hidden === true
+? "Yayınla"
+: "Gizle"}
 
 </button>
+
+<button
+class="action-btn delete"
+onclick="deleteMemory('${docSnap.id}')">
+
+Sil
+
+</button>
+
+</div>
 
 `;
 
@@ -629,22 +674,26 @@ card
 
 });
 
+/* =========================================================
+   COUNT
+========================================================= */
+
+if(memoryCount){
+
+memoryCount.innerText =
+totalMemories;
+
+}
+
 });
 
 }
 
 /* =========================================================
-   HIDE MEMORY
+   TOGGLE MEMORY
 ========================================================= */
 
-async function hideMemory(id){
-
-const confirmed =
-confirm(
-"Bu anıyı gizlemek istiyor musunuz?"
-);
-
-if(!confirmed) return;
+async function toggleMemory(id,isHidden){
 
 await updateDoc(
 
@@ -655,12 +704,41 @@ id
 ),
 
 {
-hidden:true
+hidden:!isHidden
 }
 
 );
 
 }
 
-window.hideMemory =
-hideMemory;
+window.toggleMemory =
+toggleMemory;
+
+/* =========================================================
+   DELETE MEMORY
+========================================================= */
+
+async function deleteMemory(id){
+
+const confirmed =
+confirm(
+"Bu anıyı tamamen silmek istiyor musunuz?"
+);
+
+if(!confirmed) return;
+
+await deleteDoc(
+
+doc(
+db,
+"memories",
+id
+)
+
+);
+
+}
+
+window.deleteMemory =
+deleteMemory;
+
