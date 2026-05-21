@@ -1,165 +1,260 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-  /* =========================
-     CURSOR GLOW
-  ========================= */
+/* =========================
+   CURSOR GLOW
+========================= */
 
-  const glow = document.createElement("div");
+const isMobile =
+window.innerWidth < 768;
 
-  glow.className = "cursor-glow";
+if(!isMobile){
 
-  document.body.appendChild(glow);
+const glow =
+document.createElement("div");
 
-  document.addEventListener("mousemove",(e)=>{
+glow.className =
+"cursor-glow";
 
-    glow.style.left = e.clientX + "px";
+document.body.appendChild(glow);
 
-    glow.style.top = e.clientY + "px";
+let mouseX = 0;
+let mouseY = 0;
 
-  });
+let currentX = 0;
+let currentY = 0;
 
-  /* =========================
-     LUXURY PARTICLES
-  ========================= */
+document.addEventListener(
+"mousemove",
+(e)=>{
 
-  const particleContainer =
-    document.createElement("div");
+mouseX = e.clientX;
+mouseY = e.clientY;
 
-  particleContainer.className =
-    "luxury-particles";
+}
+);
 
-  document.body.appendChild(
-    particleContainer
-  );
+function animateGlow(){
 
-  function createParticle(){
+currentX +=
+(mouseX - currentX) * 0.12;
 
-    const particle =
-      document.createElement("div");
+currentY +=
+(mouseY - currentY) * 0.12;
 
-    particle.className =
-      "luxury-particle";
+glow.style.left =
+currentX + "px";
 
-    /* RANDOM SIZE */
+glow.style.top =
+currentY + "px";
 
-    const sizes = [
-      "small",
-      "medium",
-      "large"
-    ];
+requestAnimationFrame(
+animateGlow
+);
 
-    particle.classList.add(
+}
 
-      sizes[
-        Math.floor(
-          Math.random() * sizes.length
-        )
-      ]
+animateGlow();
 
-    );
+}
 
-    /* POSITION */
+/* =========================
+   LUXURY PARTICLES
+========================= */
 
-    particle.style.left =
-      Math.random() * 100 + "vw";
+const particleContainer =
+document.createElement("div");
 
-    /* SPEED */
+particleContainer.className =
+"luxury-particles";
 
-    const duration =
-      12 + Math.random() * 18;
+document.body.appendChild(
+particleContainer
+);
 
-    particle.style.animationDuration =
-      duration + "s";
+const particleLimit =
+isMobile ? 10 : 18;
 
-    /* DELAY */
+function createParticle(){
 
-    particle.style.animationDelay =
-      Math.random() * 3 + "s";
+const particle =
+document.createElement("div");
 
-    /* OPACITY */
+particle.className =
+"luxury-particle";
 
-    particle.style.opacity =
-      .25 + Math.random() * .45;
+/* RANDOM SIZE */
 
-    particleContainer.appendChild(
-      particle
-    );
+const sizes = [
+"small",
+"medium",
+"large"
+];
 
-    /* REMOVE */
+particle.classList.add(
 
-    setTimeout(()=>{
+sizes[
+Math.floor(
+Math.random() * sizes.length
+)
+]
 
-      particle.remove();
+);
 
-    }, duration * 1000);
+/* POSITION */
 
-  }
+particle.style.left =
+Math.random() * 100 + "vw";
 
-  /* INITIAL PARTICLES */
+/* SPEED */
 
-  for(let i=0;i<18;i++){
+const duration =
+14 + Math.random() * 18;
 
-    createParticle();
+particle.style.animationDuration =
+duration + "s";
 
-  }
+/* DELAY */
 
-  /* LOOP */
+particle.style.animationDelay =
+Math.random() * 3 + "s";
 
-  setInterval(()=>{
+/* OPACITY */
 
-    createParticle();
+particle.style.opacity =
+.18 + Math.random() * .45;
 
-  },1800);
+particleContainer.appendChild(
+particle
+);
 
-  /* =========================
-     IMAGE DEPTH
-  ========================= */
+/* REMOVE */
 
-  const galleryImages =
-    document.querySelectorAll(
-      ".gallery img"
-    );
+setTimeout(()=>{
 
-  galleryImages.forEach(img=>{
+particle.remove();
 
-    img.addEventListener(
-      "mousemove",
-      (e)=>{
+}, duration * 1000);
 
-        const rect =
-          img.getBoundingClientRect();
+}
 
-        const x =
-          e.clientX - rect.left;
+/* INITIAL */
 
-        const y =
-          e.clientY - rect.top;
+for(let i=0;i<particleLimit;i++){
 
-        const rotateY =
-          ((x / rect.width) - .5) * 10;
+createParticle();
 
-        const rotateX =
-          ((y / rect.height) - .5) * -10;
+}
 
-        img.style.transform =
-          `
-          perspective(1000px)
-          rotateX(${rotateX}deg)
-          rotateY(${rotateY}deg)
-          scale(1.03)
-          `;
-      }
-    );
+/* LOOP */
 
-    img.addEventListener(
-      "mouseleave",
-      ()=>{
+setInterval(()=>{
 
-        img.style.transform = "";
+if(
+particleContainer.children.length
+< particleLimit
+){
 
-      }
-    );
+createParticle();
 
-  });
+}
+
+},2000);
+
+/* =========================
+   IMAGE DEPTH
+========================= */
+
+if(!isMobile){
+
+const galleryImages =
+document.querySelectorAll(
+".gallery img"
+);
+
+galleryImages.forEach(img=>{
+
+img.addEventListener(
+"mousemove",
+(e)=>{
+
+const rect =
+img.getBoundingClientRect();
+
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
+
+const rotateY =
+((x / rect.width) - .5) * 8;
+
+const rotateX =
+((y / rect.height) - .5) * -8;
+
+img.style.transform =
+
+`
+perspective(1000px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+scale(1.025)
+`;
+
+}
+);
+
+img.addEventListener(
+"mouseleave",
+()=>{
+
+img.style.transform = "";
+
+}
+);
+
+});
+
+}
+
+/* =========================
+   SMOOTH SECTION REVEAL
+========================= */
+
+const sections =
+document.querySelectorAll(
+"section"
+);
+
+const observer =
+new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add(
+"section-visible"
+);
+
+}
+
+});
+
+},
+
+{
+threshold:.12
+}
+
+);
+
+sections.forEach(section=>{
+
+observer.observe(section);
+
+});
 
 });
