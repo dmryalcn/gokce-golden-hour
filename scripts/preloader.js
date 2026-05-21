@@ -1,45 +1,20 @@
-document.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("load", () => {
 
-  /* CREATE PRELOADER */
+const preloader =
+document.getElementById("preloader");
 
-  const preloader = document.createElement("div");
+if(preloader){
 
-  preloader.id = "preloader";
+preloader.style.opacity = "0";
 
-  preloader.innerHTML = `
+setTimeout(()=>{
 
-    <div class="preloader-glow"></div>
+preloader.style.display = "none";
 
-    <div class="preloader-logo">
-      G&Y
-    </div>
+document.body.style.overflow = "auto";
 
-    <div class="preloader-line"></div>
+},600);
 
-    <div class="preloader-text">
-      yükleniyor
-    </div>
-
-  `;
-
-  document.body.prepend(preloader);
-
-  /* HIDE PRELOADER */
-
-  window.addEventListener("load",()=>{
-
-    setTimeout(()=>{
-
-      preloader.classList.add("hide");
-
-      setTimeout(()=>{
-
-        preloader.remove();
-
-      },1000);
-
-    },1600);
-
-  });
+}
 
 });
