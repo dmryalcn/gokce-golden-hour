@@ -1,4 +1,3 @@
-
 /* =========================
    INVITATION OPENING
 ========================= */
@@ -163,8 +162,8 @@ transform 1.4s cubic-bezier(.77,0,.18,1);
 .envelope.open{
 
 transform:
-translateY(-10px)
-scale(1.02);
+translateY(-6px)
+scale(1.01);
 
 }
 
@@ -265,7 +264,7 @@ transform-origin:top;
 transition:
 transform 1.5s cubic-bezier(.77,0,.18,1);
 
-z-index:5;
+z-index:3;
 
 backface-visibility:hidden;
 
@@ -293,7 +292,7 @@ rotateX(180deg);
 
 position:absolute;
 
-width:82%;
+width:88%;
 
 height:88%;
 
@@ -328,7 +327,7 @@ transition:
 transform 2s cubic-bezier(.77,0,.18,1),
 bottom 2s cubic-bezier(.77,0,.18,1);
 
-z-index:2;
+z-index:1;
 
 overflow:hidden;
 
@@ -382,7 +381,7 @@ font-family:
 "Cormorant Garamond",
 serif;
 
-font-size:82px;
+font-size:64px;
 
 font-weight:600;
 
@@ -393,6 +392,8 @@ margin-bottom:10px;
 position:relative;
 
 z-index:2;
+
+white-space:nowrap;
 
 }
 
@@ -457,7 +458,7 @@ justify-content:center;
 
 gap:3px;
 
-z-index:20;
+z-index:10;
 
 cursor:pointer;
 
@@ -674,17 +675,17 @@ font-size:12px;
 
 .invitation-paper h2{
 
-font-size:52px;
+font-size:40px;
 
 }
 
 .invitation-paper p{
 
-font-size:11px;
+font-size:10px;
 
-letter-spacing:3px;
+letter-spacing:2px;
 
-padding:0 14px;
+padding:0 10px;
 
 }
 
@@ -692,7 +693,7 @@ padding:0 14px;
 
 transform:
 translateX(-50%)
-translateY(-90px);
+translateY(-70px);
 
 }
 
