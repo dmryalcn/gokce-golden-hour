@@ -1,4 +1,3 @@
-```javascript id="z8v2ht"
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
@@ -112,4 +111,4 @@ opening.remove();
 });
 
 });
-```
+
