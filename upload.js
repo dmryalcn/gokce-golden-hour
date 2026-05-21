@@ -32,6 +32,12 @@ let audioChunks = [];
 
 let recordedAudioBlob = null;
 
+let recordingTimer;
+
+let recordingSeconds = 15;
+
+
+
 const recordBtn =
 document.getElementById(
 "recordBtn"
@@ -70,6 +76,8 @@ new MediaRecorder(stream);
 
 audioChunks = [];
 
+recordingSeconds = 15;
+
 mediaRecorder.ondataavailable =
 (e)=>{
 
@@ -103,9 +111,13 @@ audioPreview.style.display =
 if(recordingStatus){
 
 recordingStatus.innerHTML =
-"Ses kaydı hazır ✨";
+"Sesli mesaj hazır ✨";
 
 }
+
+clearInterval(
+recordingTimer
+);
 
 };
 
@@ -113,24 +125,55 @@ mediaRecorder.start();
 
 recordBtn.disabled = true;
 
-stopRecordBtn.disabled = false;
+stopRecordBtn.disabled = true;
 
 recordBtn.innerHTML =
-"🎙️ Kayıt Alınıyor...";
+"Kaydediliyor...";
 
 if(recordingStatus){
 
 recordingStatus.innerHTML =
-"Ses kaydı devam ediyor...";
+`15 saniye kaldı`;
 
 }
+
+/* TIMER */
+
+recordingTimer =
+setInterval(()=>{
+
+recordingSeconds--;
+
+if(recordingStatus){
+
+recordingStatus.innerHTML =
+`${recordingSeconds} saniye kaldı`;
+
+}
+
+if(recordingSeconds <= 0){
+
+mediaRecorder.stop();
+
+recordBtn.disabled = false;
+
+recordBtn.innerHTML =
+"🎙️ Sesli Mesaj Gönder";
+
+clearInterval(
+recordingTimer
+);
+
+}
+
+},1000);
 
 }catch(err){
 
 console.error(err);
 
 alert(
-"Mikrofon erişimi reddedildi 😔"
+"Mikrofon erişimi sağlanamadı 😔"
 );
 
 }
@@ -138,31 +181,6 @@ alert(
 }
 );
 
-}
-
-if(stopRecordBtn){
-
-stopRecordBtn.addEventListener(
-"click",
-()=>{
-
-if(mediaRecorder){
-
-mediaRecorder.stop();
-
-recordBtn.disabled = false;
-
-stopRecordBtn.disabled = true;
-
-recordBtn.innerHTML =
-"🎙️ Tekrar Kaydet";
-
-}
-
-}
-);
-
-}
 
 /* =========================
    MODALS
