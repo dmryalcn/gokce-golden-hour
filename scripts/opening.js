@@ -1,4 +1,3 @@
-```javascript id="q8m2vf"
 history.scrollRestoration =
 "manual";
 
@@ -129,4 +128,4 @@ behavior:"instant"
 });
 
 });
-```
+
