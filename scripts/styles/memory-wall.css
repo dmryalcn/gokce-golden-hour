@@ -1,1 +1,196 @@
+/* =========================
+   MEMORY WALL
+========================= */
+
+.memory-wall-section{
+
+padding:
+140px 0;
+
+position:relative;
+
+}
+
+/* GRID */
+
+.memory-wall{
+
+columns:3 320px;
+
+column-gap:24px;
+
+}
+
+/* CARD */
+
+.memory-card{
+
+break-inside:avoid;
+
+margin-bottom:24px;
+
+border-radius:32px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.04);
+
+backdrop-filter:blur(18px);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.22);
+
+transition:
+.45s ease;
+
+position:relative;
+
+}
+
+/* HOVER */
+
+.memory-card:hover{
+
+transform:
+translateY(-6px);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.32);
+
+}
+
+/* HEADER */
+
+.memory-header{
+
+padding:
+28px 28px 18px;
+
+}
+
+/* NAME */
+
+.memory-name{
+
+font-family:
+"Cormorant Garamond",
+serif;
+
+font-size:34px;
+
+margin-bottom:10px;
+
+}
+
+/* MESSAGE */
+
+.memory-message{
+
+line-height:1.8;
+
+color:
+rgba(255,255,255,.78);
+
+font-size:15px;
+
+}
+
+/* MEDIA GRID */
+
+.memory-media{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:6px;
+
+padding:0 12px 12px;
+
+}
+
+/* MEDIA */
+
+.memory-media img,
+.memory-media video{
+
+width:100%;
+
+display:block;
+
+border-radius:18px;
+
+object-fit:cover;
+
+cursor:pointer;
+
+}
+
+/* AUDIO */
+
+.memory-audio{
+
+padding:
+0 18px 22px;
+
+}
+
+.memory-audio audio{
+
+width:100%;
+
+}
+
+/* DATE */
+
+.memory-date{
+
+padding:
+0 28px 26px;
+
+font-size:12px;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+
+opacity:.55;
+
+}
+
+/* EMPTY */
+
+.memory-empty{
+
+text-align:center;
+
+padding:80px 20px;
+
+opacity:.7;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.memory-wall{
+
+columns:1;
+
+}
+
+.memory-name{
+
+font-size:28px;
+
+}
+
+}
+
 
