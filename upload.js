@@ -653,6 +653,18 @@ document.getElementById(
 "maybeMessage"
 )?.value || "";
 
+const transportNeed =
+document.getElementById(
+"transportNeed"
+)?.value || "";
+
+const comingMessage =
+document.getElementById(
+"comingMessage"
+)?.value || "";
+```
+
+
 await addDoc(
 collection(db,"rsvp"),
 {
@@ -660,6 +672,10 @@ collection(db,"rsvp"),
 name,
 status,
 guestCount,
+
+transportNeed,
+comingMessage,
+
 cannotJoinMessage,
 maybeMessage,
 
@@ -668,6 +684,7 @@ serverTimestamp()
 
 }
 );
+
 
 rsvpForm.reset();
 
