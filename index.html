@@ -595,48 +595,111 @@ Katılamayacağım
 
 </select>
 
+<!-- COMING -->
+
 <div
 id="guestCountArea"
 class="hidden-area">
+
+<div class="form-section">
+
+<p class="helper-title">
+
+Sizi aramızda görmek bizi çok mutlu edecek ✨
+
+</p>
+
+<p class="helper-text">
+
+Katılım detaylarınızı bizimle paylaşabilirsiniz.
+
+</p>
+
+</div>
 
 <input
 id="guestCount"
 type="number"
 placeholder="Kaç kişi geleceksiniz?">
 
+<select id="transportNeed">
+
+<option value="">
+Ulaşım desteği gerekiyor mu?
+</option>
+
+<option value="hayir">
+Hayır teşekkürler 🤍
+</option>
+
+<option value="evet">
+Evet, bilgi almak isterim
+</option>
+
+</select>
+
+<textarea
+id="comingMessage"
+placeholder="İsterseniz bize küçük bir not bırakabilirsiniz ✨">
+</textarea>
+
 </div>
+
+<!-- MAYBE -->
 
 <div
 id="maybeArea"
 class="hidden-area">
 
-<p class="helper-text">
+<div class="form-section">
 
-Sizi aramızda görmeyi çok isteriz 🤍
-İsterseniz bizim için küçük bir mesaj bırakabilirsiniz.
+<p class="helper-title">
+
+Umarız bu özel günü birlikte paylaşabiliriz 🤍
 
 </p>
 
-<textarea
-id="maybeMessage"
-placeholder="Mesajınız..."></textarea>
+<p class="helper-text">
+
+Kararsız olsanız bile bize küçük bir mesaj bırakabilirsiniz.
+
+</p>
 
 </div>
+
+<textarea
+id="maybeMessage"
+placeholder="Mesajınız...">
+</textarea>
+
+</div>
+
+<!-- CANNOT JOIN -->
 
 <div
 id="cannotJoinArea"
 class="hidden-area">
 
-<p class="helper-text">
+<div class="form-section">
+
+<p class="helper-title">
 
 Sizi yanımızda görmeyi çok isterdik 🤍
-Ama bırakacağınız güzel bir mesaj bizi çok mutlu eder.
 
 </p>
 
+<p class="helper-text">
+
+Ama bırakacağınız güzel bir mesaj bizim için çok değerli olacak.
+
+</p>
+
+</div>
+
 <textarea
 id="cannotJoinMessage"
-placeholder="Mesajınız..."></textarea>
+placeholder="Mesajınız...">
+</textarea>
 
 </div>
 
@@ -644,15 +707,12 @@ placeholder="Mesajınız..."></textarea>
 class="send-btn"
 type="submit">
 
-Gönder
+Katılım Bilgisini Gönder
 
 </button>
 
 </form>
 
-</div>
-
-</div>
 
 <!-- MEMORY MODAL -->
 
