@@ -1126,17 +1126,6 @@ translateY(-8px);
    SECTION REVEAL
 ========================= */
 
-section{
-
-opacity:0;
-
-transform:
-translateY(60px);
-
-transition:
-1.2s ease;
-
-}
 
 section.section-visible{
 
