@@ -1641,4 +1641,205 @@ width:100%;
 }
 
 }
+/* =========================
+   RSVP 2.0
+========================= */
+
+.hidden-area{
+
+display:none;
+
+margin-top:20px;
+
+animation:
+fadeUp .45s ease;
+
+}
+
+/* FORM SECTIONS */
+
+.form-section{
+
+margin-bottom:18px;
+
+}
+
+/* TITLES */
+
+.helper-title{
+
+font-size:22px;
+
+line-height:1.4;
+
+margin-bottom:10px;
+
+font-family:
+"Cormorant Garamond",
+serif;
+
+}
+
+/* TEXT */
+
+.helper-text{
+
+line-height:1.8;
+
+opacity:.78;
+
+font-size:15px;
+
+}
+
+/* RSVP FORM */
+
+#rsvpForm{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+/* INPUTS */
+
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea{
+
+width:100%;
+
+min-height:64px;
+
+padding:
+18px 22px;
+
+border-radius:24px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+color:white;
+
+font-size:16px;
+
+outline:none;
+
+transition:.3s ease;
+
+-webkit-appearance:none;
+
+appearance:none;
+
+}
+
+/* TEXTAREA */
+
+#rsvpForm textarea{
+
+min-height:150px;
+
+resize:none;
+
+padding-top:22px;
+
+}
+
+/* FOCUS */
+
+#rsvpForm input:focus,
+#rsvpForm select:focus,
+#rsvpForm textarea:focus{
+
+border-color:
+rgba(214,168,106,.5);
+
+background:
+rgba(255,255,255,.08);
+
+}
+
+/* BUTTON */
+
+#rsvpForm .send-btn{
+
+margin-top:10px;
+
+min-height:68px;
+
+font-size:18px;
+
+border-radius:24px;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+#rsvpForm{
+
+gap:16px;
+
+}
+
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea{
+
+font-size:16px;
+
+min-height:60px;
+
+padding:
+16px 18px;
+
+}
+
+.helper-title{
+
+font-size:20px;
+
+}
+
+.helper-text{
+
+font-size:14px;
+
+line-height:1.7;
+
+}
+
+#rsvpForm textarea{
+
+min-height:130px;
+
+}
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:390px){
+
+.helper-title{
+
+font-size:18px;
+
+}
+
+#rsvpForm .send-btn{
+
+font-size:16px;
+
+}
+
+}
+
 
