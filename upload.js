@@ -382,6 +382,34 @@ document.getElementById(
 "memoryMessage"
 )?.value || "";
 
+/* MESSAGE LIMIT */
+
+if(message.length > 400){
+
+throw new Error(
+"Mesaj en fazla 400 karakter olabilir 🤍"
+);
+
+}
+
+/* EMPTY */
+
+if(
+
+!message.trim() &&
+files.length === 0 &&
+!recordedAudioBlob
+
+){
+
+throw new Error(
+"Lütfen bir anı bırakın 🤍"
+);
+
+}
+
+
+   
 const files =
 document.getElementById(
 "memoryFile"
@@ -757,6 +785,36 @@ const comingMessage =
 document.getElementById(
 "comingMessage"
 )?.value || "";
+
+if(!name.trim()){
+
+throw new Error(
+"Lütfen adınızı girin 🤍"
+);
+
+}
+
+if(!status){
+
+throw new Error(
+"Katılım durumunuzu seçin 🤍"
+);
+
+}
+
+if(
+
+comingMessage.length > 250 ||
+maybeMessage.length > 250 ||
+cannotJoinMessage.length > 250
+
+){
+
+throw new Error(
+"Mesajlar maksimum 250 karakter olabilir 🤍"
+);
+
+}
 
 
 
