@@ -1,3 +1,4 @@
+```javascript id="z8v2ht"
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
@@ -67,7 +68,7 @@ seal.classList.add(
 "crack"
 );
 
-/* LIGHT */
+/* LIGHT BURST */
 
 setTimeout(()=>{
 
@@ -75,7 +76,7 @@ lightBurst.classList.add(
 "show"
 );
 
-},300);
+},250);
 
 /* ENVELOPE OPEN */
 
@@ -98,7 +99,7 @@ opening.classList.add(
 document.body.style.overflow =
 "auto";
 
-},2400);
+},2600);
 
 /* REMOVE */
 
@@ -106,8 +107,9 @@ setTimeout(()=>{
 
 opening.remove();
 
-},3800);
+},4200);
 
 });
 
 });
+```
