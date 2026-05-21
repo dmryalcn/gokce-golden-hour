@@ -222,9 +222,6 @@ rsvpModal.classList.add(
 "active"
 );
 
-document.body.style.overflow =
-"hidden";
-
 }
 
 }
@@ -256,9 +253,6 @@ memoryModal &&
 memoryModal.classList.add(
 "active"
 );
-
-document.body.style.overflow =
-"hidden";
 
 memoryModalOpen = true;
 
@@ -300,9 +294,6 @@ rsvpModal.classList.remove(
 }
 
 memoryModalOpen = false;
-
-document.body.style.overflow =
-"auto";
 
 });
 
@@ -653,7 +644,9 @@ new File(
 [recordedAudioBlob],
 "voice-message.webm",
 {
-type:"audio/webm"
+type:
+mediaRecorder.mimeType ||
+"audio/webm"
 }
 );
 
@@ -688,7 +681,9 @@ mediaItems.push({
 
 url:data.secure_url,
 
-type:"audio/webm"
+type:
+mediaRecorder.mimeType ||
+"audio/webm"
 
 });
 
@@ -1132,9 +1127,5 @@ rsvpModal.classList.remove(
 
 memoryModalOpen = false;
 
-document.body.style.overflow =
-"auto";
-
 }
-
 
