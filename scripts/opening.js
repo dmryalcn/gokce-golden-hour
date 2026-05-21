@@ -1,64 +1,13 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-/* =========================
-   CREATE OPENING
-========================= */
-
 const opening =
-document.createElement("div");
-
-opening.className =
-"invitation-opening";
-
-opening.innerHTML = `
-
-<div class="light-burst"></div>
-
-<div class="envelope">
-
-<div class="envelope-body">
-
-<div class="envelope-flap"></div>
-
-<div class="invitation-paper">
-
-<h2>G&Y</h2>
-
-<p>
-DAVETİMİZE HOŞ GELDİNİZ
-</p>
-
-</div>
-
-</div>
-
-<div class="opening-seal">
-G&Y
-</div>
-
-</div>
-
-`;
-
-document.body.appendChild(opening);
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const seal =
-opening.querySelector(
-".opening-seal"
+document.getElementById(
+"openingScreen"
 );
 
-const envelope =
-opening.querySelector(
-".envelope"
-);
-
-const lightBurst =
-opening.querySelector(
-".light-burst"
+const openBtn =
+document.getElementById(
+"openSiteBtn"
 );
 
 const music =
@@ -66,32 +15,22 @@ document.getElementById(
 "bgMusic"
 );
 
-/* =========================
-   LOCK SCROLL
-========================= */
+if(!opening || !openBtn) return;
 
 document.body.style.overflow =
 "hidden";
 
-/* =========================
-   SINGLE CLICK PROTECTION
-========================= */
+let opened = false;
 
-let isOpening = false;
-
-/* =========================
-   OPEN EXPERIENCE
-========================= */
-
-seal.addEventListener(
+openBtn.addEventListener(
 "click",
 ()=>{
 
-if(isOpening) return;
+if(opened) return;
 
-isOpening = true;
+opened = true;
 
-/* PLAY MUSIC */
+/* MUSIC */
 
 if(music){
 
@@ -101,50 +40,24 @@ music.play().catch(()=>{});
 
 }
 
-/* BREAK SEAL */
-
-seal.classList.add(
-"crack"
-);
-
-/* LIGHT EFFECT */
-
-setTimeout(()=>{
-
-lightBurst.classList.add(
-"show"
-);
-
-},250);
-
-/* OPEN ENVELOPE */
-
-setTimeout(()=>{
-
-envelope.classList.add(
-"open"
-);
-
-},150);
-
-/* REMOVE OPENING */
-
-setTimeout(()=>{
+/* OPEN ANIMATION */
 
 opening.classList.add(
-"hidden"
+"opening-hide"
 );
+
+/* ENABLE SCROLL */
 
 document.body.style.overflow =
 "auto";
+
+/* REMOVE */
 
 setTimeout(()=>{
 
 opening.remove();
 
-},1200);
-
-},2600);
+},1400);
 
 }
 );
