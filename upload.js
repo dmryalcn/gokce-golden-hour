@@ -390,6 +390,129 @@ document.getElementById(
 let mediaItems = [];
 
 /* =========================
+   FILE VALIDATION
+========================= */
+
+let imageCount = 0;
+
+let videoCount = 0;
+
+for(const file of files){
+
+/* IMAGE */
+
+if(file.type.startsWith("image")){
+
+imageCount++;
+
+if(imageCount > 5){
+
+throw new Error(
+"En fazla 5 fotoğraf yükleyebilirsiniz 🤍"
+);
+
+}
+
+if(file.size > 8 * 1024 * 1024){
+
+throw new Error(
+"Fotoğraflar maksimum 8MB olabilir 🤍"
+);
+
+}
+
+}
+
+/* VIDEO DURATION */
+
+if(file.type.startsWith("video")){
+
+const video =
+document.createElement(
+"video"
+);
+
+video.preload = "metadata";
+
+const objectUrl =
+URL.createObjectURL(file);
+
+video.src = objectUrl;
+
+await new Promise((resolve,reject)=>{
+
+video.onloadedmetadata = ()=>{
+
+URL.revokeObjectURL(
+objectUrl
+);
+
+if(video.duration > 15){
+
+reject(
+new Error(
+"Video en fazla 15 saniye olabilir 🤍"
+)
+);
+
+}else{
+
+resolve();
+
+}
+
+};
+
+});
+
+}
+
+
+   
+/* VIDEO */
+
+if(file.type.startsWith("video")){
+
+videoCount++;
+
+if(videoCount > 1){
+
+throw new Error(
+"Sadece 1 video yükleyebilirsiniz 🤍"
+);
+
+}
+
+if(file.size > 40 * 1024 * 1024){
+
+throw new Error(
+"Video maksimum 40MB olabilir 🤍"
+);
+
+}
+
+}
+
+/* UNSUPPORTED */
+
+if(
+
+!file.type.startsWith("image") &&
+!file.type.startsWith("video")
+
+){
+
+throw new Error(
+"Desteklenmeyen dosya formatı 😔"
+);
+
+}
+
+}
+
+
+   
+/* =========================
    MULTI FILE UPLOAD
 ========================= */
 
