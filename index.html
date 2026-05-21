@@ -1,714 +1,255 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
- <meta property="og:type" content="website">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gökçe & Yalçın</title>
 
-<meta property="og:title" content="Gökçe & Yalçın">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<meta property="og:description"
-content="Hayatımızın en güzel evetlerinden birine şahitlik etmeniz bizi çok mutlu eder.">
-
-<meta property="og:image"
-content="https://www.gokceyalcin.net/preview.png">
-
-<meta property="og:url"
-content="https://www.gokceyalcin.net/">
-
-<meta property="og:site_name"
-content="Gökçe & Yalçın">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<meta name="twitter:image"
-content="https://www.gokceyalcin.net/preview.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gökçe & Yalçın</title>
-
-  
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="gallery.css">
+<script defer src="opening.js"></script>
 <script defer src="gallery.js"></script>
- <script defer src="preloader.js"></script>
- <script defer src="quotes.js"></script>
- <script defer src="luxury-effects.js"></script>
- <script defer src="opening.js"></script>
- <script type="module" src="firebase.js"></script>
- <script type="module" src="upload.js"></script>
- <script defer src="protection.js"></script>
- <link rel="stylesheet" href="effects.css">
- <link rel="stylesheet" href="preloader.css">
- <link rel="stylesheet" href="quotes.css">
- <link rel="stylesheet" href="luxury-effects.css">
- <link rel="stylesheet" href="opening.css">
- <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',sans-serif;
-      background:#f7efe5;
-      background-attachment:fixed;
-      color:#4b3527;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:1;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.25), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,.18), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(184,130,63,.18), transparent 28%);
-    }
-
-    body.night::before{
-      background:
-        radial-gradient(circle at 20% 20%, rgba(246,216,168,.18), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(120,70,35,.12), transparent 22%),
-        radial-gradient(circle at 50% 90%, rgba(75,53,39,.18), transparent 28%);
-    }
-
-    .gold-dust{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:2;
-      overflow:hidden;
-    }
-
-    .gold-dust span{
-      position:absolute;
-      width:5px;
-      height:5px;
-      border-radius:50%;
-      background:rgba(255,218,150,.75);
-      box-shadow:0 0 12px rgba(255,218,150,.9);
-      animation:floatDust linear infinite;
-    }
-
-    @keyframes floatDust{
-      from{transform:translateY(110vh) scale(.6);opacity:0}
-      20%{opacity:1}
-      80%{opacity:1}
-      to{transform:translateY(-10vh) scale(1.2);opacity:0}
-    }
-
-    /* PREMIUM INTRO */
-
-    
-    /* PREMIUM INTRO */
-
-    #intro{
-      position:fixed;
-      inset:0;
-      z-index:99999;
-      overflow:hidden;
-
-      background:
-        linear-gradient(rgba(20,12,8,.58),rgba(20,12,8,.58)),
-        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1800&auto=format&fit=crop');
-
-      background-size:cover;
-      background-position:center;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-
-      color:white;
-      padding:25px;
-
-      transition:opacity 1s ease, visibility 1s ease;
-    }
-
-    #intro::before{
-      content:"";
-      position:absolute;
-      inset:0;
-
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,230,180,.18), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,.10), transparent 20%),
-        radial-gradient(circle at 50% 90%, rgba(184,130,63,.20), transparent 30%);
-
-      animation:introGlow 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes introGlow{
-      from{
-        transform:scale(1);
-        opacity:.8;
-      }
-
-      to{
-        transform:scale(1.05);
-        opacity:1;
-      }
-    }
-
-    #intro::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 35%,
-          rgba(255,255,255,.12),
-          transparent 65%
-        );
-
-      animation:shimmer 6s linear infinite;
-      pointer-events:none;
-    }
-
-    @keyframes shimmer{
-      from{
-        transform:translateX(-40%) rotate(8deg);
-      }
-
-      to{
-        transform:translateX(40%) rotate(8deg);
-      }
-    }
-
-    #intro.hide{
-      opacity:0;
-      visibility:hidden;
-    }
-
-    .seal-card{
-      position:relative;
-      z-index:2;
-
-      max-width:560px;
-      width:100%;
-
-      padding:55px 35px;
-
-      border-radius:38px;
-
-      background:rgba(255,248,240,.14);
-
-      border:1px solid rgba(255,255,255,.28);
-
-      backdrop-filter:blur(14px);
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.18);
-
-      overflow:hidden;
-    }
-
-    .seal-card::before{
-      content:"";
-      position:absolute;
-      inset:-30%;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 35%,
-          rgba(255,255,255,.14),
-          transparent 65%
-        );
-
-      animation:cardShine 6s linear infinite;
-    }
-
-    @keyframes cardShine{
-      from{
-        transform:translateX(-40%) rotate(8deg);
-      }
-
-      to{
-        transform:translateX(40%) rotate(8deg);
-      }
-    }
-
-    .seal{
-      position:relative;
-      z-index:2;
-
-      width:110px;
-      height:110px;
-
-      margin:0 auto 28px;
-
-      border-radius:50%;
-
-      background:
-        radial-gradient(circle at top,#a52b2b,#7b1f1f 60%, #5a1111);
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-family:'Cormorant Garamond',serif;
-      font-size:42px;
-      color:#f7e1b2;
-
-      border:3px solid rgba(255,255,255,.28);
-
-      box-shadow:
-        0 15px 35px rgba(0,0,0,.35),
-        0 0 25px rgba(184,130,63,.35);
-
-      animation:sealGlow 2.8s ease-in-out infinite;
-    }
-
-    @keyframes sealGlow{
-      0%,100%{
-        box-shadow:
-          0 15px 35px rgba(0,0,0,.35),
-          0 0 18px rgba(184,130,63,.25);
-      }
-
-      50%{
-        box-shadow:
-          0 18px 45px rgba(0,0,0,.4),
-          0 0 40px rgba(255,220,150,.55);
-      }
-    }
-
-    .seal-card h2{
-      position:relative;
-      z-index:2;
-
-      font-family:'Cormorant Garamond',serif;
-      font-size:58px;
-      margin-bottom:18px;
-      color:#fff7ec;
-    }
-
-    .seal-card p{
-      position:relative;
-      z-index:2;
-
-      line-height:1.9;
-      opacity:.95;
-      margin-bottom:32px;
-      font-size:17px;
-      color:rgba(255,255,255,.92);
-    }
-
-    .open-btn{
-      position:relative;
-      z-index:2;
-
-      border:none;
-      border-radius:999px;
-
-      padding:16px 38px;
-
-      background:
-        linear-gradient(135deg,#7b1f1f,#b0824f);
-
-      color:white;
-      font-size:16px;
-      cursor:pointer;
-
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.25),
-        0 0 20px rgba(184,130,63,.25);
-
-      transition:.35s;
-    }
-
-    .open-btn:hover{
-      transform:translateY(-4px) scale(1.03);
-    }
-
-
-    .hero{
-      position:relative;
-      z-index:3;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:40px;
-      background:
-      linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),
-      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;
-      background-position:center;
-      color:white;
-      animation:heroZoom 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroZoom{
-      from{background-size:100%}
-      to{background-size:108%}
-    }
-
-    .hero-content{
-      backdrop-filter:blur(7px);
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.18);
-      padding:50px;
-      border-radius:34px;
-      max-width:880px;
-      animation:fadeUp 1.2s ease both;
-    }
-
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(25px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .tag{
-      letter-spacing:4px;
-      text-transform:uppercase;
-      font-size:12px;
-      opacity:.9;
-    }
-
-    h1{
-      font-family:'Cormorant Garamond',serif;
-      font-size:90px;
-      font-weight:600;
-      margin-top:20px;
-    }
-
-    .desc{
-      margin-top:20px;
-      font-size:18px;
-      line-height:1.8;
-      opacity:.92;
-    }
-
-    .quote{
-      margin-top:18px;
-      font-family:'Cormorant Garamond',serif;
-      font-size:28px;
-      opacity:.95;
-    }
-
-    .music-note{
-      margin-top:18px;
-      font-size:13px;
-      opacity:.78;
-      color:rgba(255,255,255,.9);
-    }
-
-    .buttons{
-      margin-top:35px;
-      display:flex;
-      gap:15px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      padding:15px 28px;
-      border-radius:999px;
-      text-decoration:none;
-      transition:.3s;
-      font-weight:500;
-      border:none;
-      cursor:pointer;
-      font-size:16px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
-
-    .btn-dark{background:#4b3527;color:white}
-    .btn-light{
-      background:rgba(255,255,255,.15);
-      color:white;
-      border:1px solid rgba(255,255,255,.25);
-      backdrop-filter:blur(5px);
-    }
-
-    .btn:hover{transform:translateY(-3px)}
-    .btn:active{transform:scale(.97)}
-
-    section{
-      position:relative;
-      z-index:3;
-      padding:95px 25px;
-    }
-
-    .container{max-width:1100px;margin:auto}
-
-    .reveal{
-  opacity:1;
-  transform:none;
-  filter:none;
-  transition:all 1.2s ease;
+<script defer src="quotes.js"></script>
+<script defer src="luxury-effects.js"></script>
+<script defer src="protection.js"></script>
+<script type="module" src="firebase.js"></script>
+<script type="module" src="upload.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
+html{
+scroll-behavior:smooth;
+}
 
-    .card{
-      background:rgba(255,255,255,.72);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.55);
-      padding:35px;
-      border-radius:30px;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-      text-align:center;
-      transition:.35s;
-    }
+body{
+font-family:'Inter',sans-serif;
+background:#0f0d0b;
+color:white;
+overflow-x:hidden;
+}
 
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 18px 45px rgba(0,0,0,.09);
-    }
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1800&auto=format&fit=crop');
+background-size:cover;
+background-position:center;
+z-index:-2;
+}
 
-    .icon{
-      width:50px;
-      height:50px;
-      margin:0 auto 15px;
-      border-radius:50%;
-      background:#f4e4cf;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      color:#8f6237;
-    }
+body::after{
+content:"";
+position:fixed;
+inset:0;
+backdrop-filter:blur(2px);
+z-index:-1;
+}
 
-    .card h3{
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      margin-bottom:10px;
-    }
+section{
+padding:100px 20px;
+position:relative;
+z-index:2;
+}
 
-    .card p{
-      line-height:1.8;
-    }
+.container{
+max-width:1150px;
+margin:auto;
+}
 
-    .section-title{
-      text-align:center;
-      margin-bottom:55px;
-    }
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
 
-    .section-title p{
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#b0824f;
-      font-size:12px;
-    }
+.hero-box{
+max-width:850px;
+padding:60px 40px;
+border-radius:40px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(14px);
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
 
-    .section-title h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:58px;
-      margin-top:15px;
-    }
+.tag{
+letter-spacing:4px;
+text-transform:uppercase;
+font-size:12px;
+opacity:.8;
+}
 
-    .gold-line{
-      width:90px;
-      height:1px;
-      background:linear-gradient(to right, transparent, #c69a63, transparent);
-      margin:22px auto 0;
-    }
+h1{
+font-family:'Cormorant Garamond',serif;
+font-size:92px;
+font-weight:600;
+margin:20px 0;
+}
 
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-      gap:18px;
-      max-width:800px;
-      margin:0 auto;
-    }
+.desc{
+font-size:18px;
+line-height:1.9;
+opacity:.92;
+max-width:700px;
+margin:auto;
+}
 
-    .time-box{
-      background:rgba(255,255,255,.22);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.35);
-      border-radius:28px;
-      padding:28px 15px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-    }
+.quote{
+margin-top:22px;
+font-family:'Cormorant Garamond',serif;
+font-size:32px;
+}
 
-    .time-box strong{
-      display:block;
-      font-family:'Cormorant Garamond',serif;
-      font-size:52px;
-      color:#4b3527;
-    }
+.music-note{
+margin-top:18px;
+font-size:14px;
+opacity:.8;
+}
 
-    .time-box span{
-      letter-spacing:3px;
-      text-transform:uppercase;
-      font-size:12px;
-      color:#9a7659;
-    }
+.buttons{
+margin-top:40px;
+display:flex;
+gap:15px;
+justify-content:center;
+flex-wrap:wrap;
+}
 
-    .event-day-message{
-      margin-top:35px;
-      text-align:center;
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      color:#4b3527;
-      display:none;
-    }
+.btn{
+padding:16px 28px;
+border:none;
+border-radius:999px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.35s;
+}
 
-    .event-day-message.show{
-      display:block;
-    }
+.btn:hover{
+transform:translateY(-3px);
+}
 
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:22px;
-    }
+.btn-dark{
+background:linear-gradient(135deg,#8f6237,#b0824f);
+color:white;
+}
 
-    .gallery img{
-      width:100%;
-      height:420px;
-      object-fit:cover;
-      border-radius:30px;
-      cursor:pointer;
+.btn-light{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+color:white;
+border:1px solid rgba(255,255,255,.12);
+}
 
-      box-shadow:
-        0 15px 35px rgba(0,0,0,.10),
-        0 0 0 rgba(184,130,63,0);
+.section-title{
+text-align:center;
+margin-bottom:60px;
+}
 
-      transition:
-        transform .5s ease,
-        box-shadow .5s ease,
-        filter .5s ease;
-    }
+.section-title p{
+letter-spacing:4px;
+text-transform:uppercase;
+font-size:12px;
+opacity:.7;
+}
 
-    .gallery img:hover{
-      transform:translateY(-8px) scale(1.02);
+.section-title h2{
+font-family:'Cormorant Garamond',serif;
+font-size:62px;
+margin-top:12px;
+}
 
-      filter:
-        brightness(1.05)
-        saturate(1.08);
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
 
-      box-shadow:
-        0 25px 60px rgba(0,0,0,.18),
-        0 0 35px rgba(184,130,63,.25);
-    }
+.card{
+padding:35px;
+border-radius:32px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.08);
+text-align:center;
+}
 
-    .gallery img:active{
-      transform:scale(.98);
-    }
+.card h3{
+font-family:'Cormorant Garamond',serif;
+font-size:34px;
+margin-bottom:10px;
+}
 
-    .action-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-      margin-top:20px;
-    }
+.card p{
+line-height:1.9;
+opacity:.88;
+}
 
-    .map-card{
-      max-width:900px;
-      margin:0 auto;
-      text-align:center;
-    }
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
 
-    .map-card .address{
-      font-size:18px;
-      line-height:1.9;
-      margin:18px auto 25px;
-      max-width:650px;
-    }
+.gallery img{
+width:100%;
+height:420px;
+object-fit:cover;
+border-radius:28px;
+transition:.35s;
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
 
-    .final-section{
-      text-align:center;
-      background:linear-gradient(135deg,#4b3527,#8f6237);
-      color:white;
-      padding:85px 25px;
-      border-radius:40px;
-      max-width:1100px;
-      margin:0 auto;
-      box-shadow:0 20px 60px rgba(0,0,0,.18);
-    }
+.gallery img:hover{
+transform:translateY(-6px) scale(1.01);
+}
 
-    .final-section h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:56px;
-      margin-bottom:20px;
-    }
+.memory-note{
+max-width:760px;
+margin:auto;
+text-align:center;
+font-family:'Cormorant Garamond',serif;
+font-size:36px;
+line-height:1.6;
+}
 
-    .final-section p{
-      max-width:700px;
-      margin:0 auto;
-      line-height:2;
-      opacity:.9;
-      font-size:18px;
-    }
+.floating-memory{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:999;
+padding:16px 24px;
+border:none;
+border-radius:999px;
+background:linear-gradient(135deg,#8f6237,#b0824f);
+color:white;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
 
-    .memory-note{
-      text-align:center;
-      max-width:760px;
-      margin:0 auto;
-      font-family:'Cormorant Garamond',serif;
-      font-size:34px;
-      line-height:1.5;
-      color:#4b3527;
-    }
+/* MODAL */
 
-    .floating-memory{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      z-index:9999;
-      background:#4b3527;
-      color:white;
-      border:none;
-      border-radius:999px;
-      padding:15px 22px;
-      font-size:15px;
-      cursor:pointer;
-      box-shadow:0 10px 30px rgba(0,0,0,.22);
-      animation:pulseGlow 2.2s infinite;
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.15);
-    }
-
-    @keyframes pulseGlow{
-      0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.22)}
-      50%{box-shadow:0 0 25px rgba(184,130,63,.75)}
-    }
-
-    footer{
-      position:relative;
-      z-index:3;
-      text-align:center;
-      padding:50px 20px;
-      color:#7c6250;
-    }
-
-    @media(max-width:768px){
-      .hero{animation:none;background-size:cover}
-      h1{font-size:58px}
-      .hero-content{padding:35px 25px}
-      .section-title h2{font-size:42px}
-      .seal-card h2{font-size:42px}
-      .final-section h2{font-size:40px}
-      .quote{font-size:24px}
-      .memory-note{font-size:28px}
-      .floating-memory{right:14px;bottom:14px;padding:13px 18px}
-    }
-  .memory-modal{
+.memory-modal{
 position:fixed;
 inset:0;
 display:none;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:999999;
+z-index:99999;
 }
 
 .memory-modal.active{
@@ -725,71 +266,69 @@ backdrop-filter:blur(12px);
 .memory-box{
 position:relative;
 width:100%;
-max-width:700px;
-padding:35px;
-border-radius:35px;
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.15);
-box-shadow:0 20px 60px rgba(0,0,0,.3);
-z-index:2;
-color:white;
-overflow-y:auto;
+max-width:720px;
 max-height:90vh;
+overflow-y:auto;
+padding:40px;
+border-radius:36px;
+background:rgba(255,255,255,.1);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.12);
+box-shadow:0 25px 60px rgba(0,0,0,.35);
+z-index:2;
 }
 
 .memory-box h2{
 font-family:'Cormorant Garamond',serif;
 font-size:52px;
-margin-bottom:20px;
+margin-bottom:25px;
 text-align:center;
-color:#fff;
 }
 
-.close-memory{
+.modal-close{
 position:absolute;
-top:18px;
-right:18px;
+top:16px;
+right:16px;
 width:42px;
 height:42px;
 border:none;
 border-radius:50%;
-background:rgba(255,255,255,.12);
+background:rgba(255,255,255,.1);
 color:white;
 font-size:18px;
 cursor:pointer;
-transition:.3s;
 }
 
-.close-memory:hover{
-transform:rotate(90deg);
-background:rgba(255,255,255,.18);
-}
-
+#memoryForm,
 #rsvpForm{
 display:flex;
 flex-direction:column;
-gap:16px;
+gap:18px;
 }
 
+#memoryForm input,
+#memoryForm textarea,
 #rsvpForm input,
 #rsvpForm textarea,
 #rsvpForm select{
 width:100%;
-padding:16px;
+padding:18px;
 border:none;
 border-radius:18px;
-background:rgba(255,255,255,.12);
+background:rgba(255,255,255,.1);
 color:white;
 font-size:15px;
 outline:none;
 }
 
+#memoryForm textarea,
 #rsvpForm textarea{
-min-height:120px;
+min-height:140px;
 resize:none;
 }
 
+#memoryForm input::placeholder,
+#memoryForm textarea::placeholder,
 #rsvpForm input::placeholder,
 #rsvpForm textarea::placeholder{
 color:rgba(255,255,255,.65);
@@ -797,14 +336,12 @@ color:rgba(255,255,255,.65);
 
 #rsvpForm select option{
 background:#111;
-color:white;
 }
 
 .upload-area{
-padding:16px;
-border-radius:20px;
+padding:18px;
+border-radius:24px;
 background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
 }
 
 .upload-area label{
@@ -814,13 +351,8 @@ font-size:14px;
 opacity:.8;
 }
 
-.upload-area input{
-background:transparent !important;
-padding:0 !important;
-}
-
 .send-btn{
-padding:17px;
+padding:18px;
 border:none;
 border-radius:999px;
 background:linear-gradient(135deg,#8f6237,#b0824f);
@@ -828,58 +360,80 @@ color:white;
 font-size:16px;
 font-weight:600;
 cursor:pointer;
-transition:.35s;
 }
 
-.send-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 30px rgba(176,130,79,.35);
+.helper-text{
+line-height:1.8;
+opacity:.88;
+font-size:14px;
+}
+
+.hidden-area{
+display:none;
+}
+
+footer{
+padding:60px 20px;
+text-align:center;
+opacity:.7;
 }
 
 @media(max-width:768px){
 
+h1{
+font-size:58px;
+}
+
+.hero-box{
+padding:40px 25px;
+}
+
+.section-title h2{
+font-size:44px;
+}
+
 .memory-box{
-padding:24px;
-border-radius:26px;
+padding:26px;
+border-radius:28px;
 }
 
 .memory-box h2{
 font-size:38px;
 }
 
+.gallery img{
+height:340px;
 }
-  </style>
-</head>
 
+}
+</style>
+</head>
 <body>
 
-  <div class="gold-dust" id="goldDust"></div>
 <audio id="bgMusic" loop>
-
-  <source
-    src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3"
-    type="audio/mpeg">
-
+<source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
 </audio>
 
-  <section class="hero">
-    <div class="hero-content">
-      <div class="tag">BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN
-      </div>
+<section class="hero">
+<div class="hero-box">
 
+<div class="tag">
+BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN
+</div>
 
-      <h1>Gökçe & Yalçın</h1>
+<h1>Gökçe & Yalçın</h1>
 
-      <p class="desc">
-        Hayatımızın en güzel “evet”lerinden birine
-        şahitlik etmeniz bizi çok mutlu eder.
-      </p>
+<p class="desc">
+Hayatımızın en güzel “evet”lerinden birine şahitlik etmeniz bizi çok mutlu eder.
+</p>
 
-      <p class="quote">“Bir ömür aynı manzaraya bakabilmek için…” 🤍</p>
+<p class="quote">
+“Bir ömür aynı manzaraya bakabilmek için…” 🤍
+</p>
 
-      <p class="music-note">
-        🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
-      </p>
+<p class="music-note">
+🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
+</p>
 
 <div class="buttons">
 
@@ -887,350 +441,197 @@ font-size:38px;
 Katılım Formu
 </button>
 
-<button class="btn btn-dark" data-open="memory">
+<button class="btn btn-light" data-open="memory">
 Anı Gönder
 </button>
 
-        
-    </div>
-  </section>
+</div>
 
-  <section class="reveal memory-section">
-    <div class="container">
-      <div class="cards">
-        <div class="card">
-          <div class="icon">♡</div>
-          <h3>Tarih</h3>
-          <p>26 Haziran 2026</p>
-        </div>
+</div>
+</section>
 
-        <div class="card">
-          <div class="icon">⌚</div>
-          <h3>Saat</h3>
-          <p>20:00</p>
-        </div>
+<section>
+<div class="container">
 
-        <div class="card">
-          <div class="icon">⌖</div>
-          <h3>Konum</h3>
-          <p>Harbiye Mahallesi No:7 İç Kapı No:2<br>Defne / Hatay</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="section-title">
+<p>Özel Gün</p>
+<h2>Nişan Detayları</h2>
+</div>
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Geri Sayım</p>
-        <h2>Nişanımıza Kalan Süre</h2>
-        <div class="gold-line"></div>
-      </div>
+<div class="cards">
 
-      <div class="countdown">
-        <div class="time-box"><strong id="days">00</strong><span>Gün</span></div>
-        <div class="time-box"><strong id="hours">00</strong><span>Saat</span></div>
-        <div class="time-box"><strong id="minutes">00</strong><span>Dakika</span></div>
-        <div class="time-box"><strong id="seconds">00</strong><span>Saniye</span></div>
-      </div>
+<div class="card">
+<h3>Tarih</h3>
+<p>26 Haziran 2026</p>
+</div>
 
-      <div id="eventMessage" class="event-day-message">
-        Bugün bizim günümüz 🤍
-      </div>
-    </div>
-  </section>
+<div class="card">
+<h3>Saat</h3>
+<p>19:00</p>
+</div>
 
-  <section class="reveal">
-    <div class="container">
-      <div class="section-title">
-        <p>Konum</p>
-        <h2>Bu özel günde yanımızda olun</h2>
-        <div class="gold-line"></div>
-      </div>
+<div class="card">
+<h3>Konum</h3>
+<p>İzmir</p>
+</div>
 
-      <div class="card map-card">
-        <div class="icon">⌖</div>
-        <h3>Harbiye / Defne / Hatay</h3>
-        <p class="address">
-          Harbiye Mahallesi No:7 İç Kapı No:2<br>
-          Defne / Hatay
-        </p>
+</div>
 
-        <div class="buttons">
-          <a class="btn btn-dark" href="https://google.com/maps?q=36.145576,36.142250" target="_blank" rel="noopener">
-            Yol Tarifi Al
-          </a>
+</div>
+</section>
 
-          <button class="btn btn-dark" onclick="addToCalendar()">
-            Takvime Ekleyin 🤍
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-   
-  <section class="reveal">
-    <p class="memory-note">
-      “Bu siteye bıraktığınız her anı, yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
-    </p>
-  </section>
+<section>
+<div class="container">
+
+<div class="section-title">
+<p>Anılar</p>
+<h2>Bizden Kareler</h2>
+</div>
+
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop">
+<img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop">
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="container">
+
+<p class="memory-note">
+“Bu siteye bıraktığınız her anı, yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
+</p>
+
+</div>
+</section>
 
 <button class="floating-memory" data-open="memory">
 💌 Anı Bırak
 </button>
 
-  <footer>
-
-
-  <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;">
-    Gökçe & Yalçın
-  </h2>
-
-  <p style="margin-top:10px;">
-    26.06.2026 • Gökçe & Yalçın
-  </p>
-
-  <p style="margin-top:12px;font-size:14px;">
-    Bu sayfayı kaydetmeyi unutmayın; nişan günü anılarınızı buradan bırakabilirsiniz.
-  </p>
-
-</footer>
-
 <!-- RSVP MODAL -->
 
 <div class="memory-modal" id="rsvpModal">
 
-  <div class="memory-overlay"></div>
+<div class="memory-overlay"></div>
 
-  <div class="memory-box">
+<div class="memory-box">
 
-    <button class="modal-close" id="closeRsvp">
-      ✕
-    </button>
+<button class="modal-close">
+✕
+</button>
 
-    <h2>Katılım Bildir 🤍</h2>
+<h2>Katılım Formu</h2>
 
-    <form id="rsvpForm">
+<form id="rsvpForm">
 
-      <input
-      type="text"
-      id="rsvpName"
-      placeholder="Adınız Soyadınız"
-      required>
+<input
+id="rsvpName"
+type="text"
+placeholder="Adınız Soyadınız"
+required>
 
-      <select id="rsvpStatus">
+<select id="rsvpStatus" required>
+<option value="">Katılım Durumu Seçin</option>
+<option value="geliyor">Katılacağım 🤍</option>
+<option value="kararsiz">Kararsızım</option>
+<option value="gelmiyor">Katılamayacağım</option>
+</select>
 
-        <option value="">
-          Katılım Durumu Seçin
-        </option>
+<div id="guestCountArea" class="hidden-area">
+<input
+id="guestCount"
+type="number"
+placeholder="Kaç kişi geleceksiniz?">
+</div>
 
-        <option value="geliyor">
-          Katılacağım
-        </option>
+<div id="maybeArea" class="hidden-area">
+<p class="helper-text">
+Sizi aramızda görmeyi çok isteriz 🤍<br>
+İsterseniz bizim için küçük bir mesaj bırakabilirsiniz.
+</p>
 
-        <option value="gelmiyor">
-          Katılamayacağım
-        </option>
+<textarea
+id="maybeMessage"
+placeholder="Mesajınız..."></textarea>
+</div>
 
-        <option value="kararsiz">
-          Kararsızım
-        </option>
+<div id="cannotJoinArea" class="hidden-area">
+<p class="helper-text">
+Sizi yanımızda görmeyi çok isterdik 🤍<br>
+Ama bırakacağınız güzel bir mesaj bizi çok mutlu eder.
+</p>
 
-      </select>
+<textarea
+id="cannotJoinMessage"
+placeholder="Mesajınız..."></textarea>
+</div>
 
-      <div id="guestCountArea" style="display:none;">
+<button class="send-btn" type="submit">
+Gönder
+</button>
 
-        <input
-        type="number"
-        id="guestCount"
-        placeholder="Kaç kişi geleceksiniz?"
-        min="1">
+</form>
 
-      </div>
-
-      <div id="cannotJoinArea" style="display:none;">
-
-        <textarea
-        id="cannotJoinMessage"
-        placeholder="Bizlere küçük bir mesaj bırakmak ister misiniz?"></textarea>
-
-      </div>
-
-      <div id="maybeArea" style="display:none;">
-
-        <p style="margin-bottom:15px;">
-          Sizi yanımızda görmeyi çok isteriz 🤍
-          Yine de bize küçük bir not bırakmak ister misiniz?
-        </p>
-
-        <textarea
-        id="maybeMessage"
-        placeholder="Mesajınız"></textarea>
-
-      </div>
-
-      <button
-      type="submit"
-      class="send-btn">
-
-      Gönder
-
-      </button>
-
-    </form>
-
-  </div>
-
+</div>
 </div>
 
 <!-- MEMORY MODAL -->
 
 <div class="memory-modal" id="memoryModal">
 
-  <div class="memory-overlay"></div>
+<div class="memory-overlay"></div>
 
-  <div class="memory-box">
+<div class="memory-box">
 
-    <button class="modal-close" id="closeMemory">
-      ✕
-    </button>
+<button class="modal-close">
+✕
+</button>
 
-    <h2>Anı Bırak 💌</h2>
+<h2>Anı Bırak 💌</h2>
 
-    <form id="memoryForm">
+<form id="memoryForm">
 
-      <input
-      type="text"
-      id="memoryName"
-      placeholder="Adınız Soyadınız"
-      required>
+<input
+id="memoryName"
+type="text"
+placeholder="Adınız Soyadınız"
+required>
 
-      <textarea
-      id="memoryMessage"
-      placeholder="Bizim için bir mesaj bırakabilirsiniz 🤍"></textarea>
+<textarea
+id="memoryMessage"
+placeholder="Bizim için mesaj bırakabilirsiniz 🤍"
+required></textarea>
 
-      <div class="upload-area">
+<div class="upload-area">
+<label>
+Fotoğraf / Video / Ses Kaydı
+</label>
 
-        <label style="display:block;margin-bottom:10px;">
-          Fotoğraf / Video / Ses Kaydı
-        </label>
-
-        <input
-        type="file"
-        id="memoryFile"
-        accept="image/*,video/*,audio/*">
-
-      </div>
-
-      <button
-      type="submit"
-      class="send-btn">
-
-      Gönder
-
-      </button>
-
-    </form>
-
-  </div>
-
+<input
+id="memoryFile"
+type="file">
 </div>
 
-<script>
+<button class="send-btn" type="submit">
+Gönder
+</button>
 
-const eventDate = new Date(
-"2026-06-26T20:00:00+03:00"
-).getTime();
+</form>
 
-function updateCountdown(){
+</div>
+</div>
 
-const now = new Date().getTime();
+<footer>
+<h2 style="font-family:'Cormorant Garamond',serif;font-size:42px;">
+Gökçe & Yalçın
+</h2>
+<p style="margin-top:12px;">
+Hayatımızın en güzel gününde bizimle olduğunuz için teşekkür ederiz.
+</p>
+</footer>
 
-const distance =
-eventDate - now;
-
-if(distance <= 0){
-
-document.getElementById("days").innerText = "00";
-document.getElementById("hours").innerText = "00";
-document.getElementById("minutes").innerText = "00";
-document.getElementById("seconds").innerText = "00";
-
-return;
-
-}
-
-const days =
-Math.floor(distance / (1000 * 60 * 60 * 24));
-
-const hours =
-Math.floor((distance / (1000 * 60 * 60)) % 24);
-
-const minutes =
-Math.floor((distance / (1000 * 60)) % 60);
-
-const seconds =
-Math.floor((distance / 1000) % 60);
-
-document.getElementById("days").innerText =
-String(days).padStart(2,"0");
-
-document.getElementById("hours").innerText =
-String(hours).padStart(2,"0");
-
-document.getElementById("minutes").innerText =
-String(minutes).padStart(2,"0");
-
-document.getElementById("seconds").innerText =
-String(seconds).padStart(2,"0");
-
-}
-
-updateCountdown();
-
-setInterval(updateCountdown,1000);
-
-function addToCalendar(){
-
-const icsContent =
-`BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:Gökçe & Yalçın Nişan
-DTSTART:20260626T170000Z
-DTEND:20260626T210000Z
-LOCATION:Harbiye / Defne / Hatay
-DESCRIPTION:Gökçe & Yalçın
-END:VEVENT
-END:VCALENDAR`;
-
-const blob = new Blob(
-[icsContent],
-{
-type:"text/calendar;charset=utf-8"
-}
-);
-
-const link =
-document.createElement("a");
-
-link.href =
-URL.createObjectURL(blob);
-
-link.download =
-"gokce-yalcin-nisan.ics";
-
-document.body.appendChild(link);
-
-link.click();
-
-document.body.removeChild(link);
-
-}
-
-</script>
-
-
- 
 </body>
 </html>
