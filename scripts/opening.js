@@ -1,6 +1,12 @@
+```javascript id="q8m2vf"
+history.scrollRestoration =
+"manual";
+
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
+
+window.scrollTo(0,0);
 
 const opening =
 document.getElementById(
@@ -98,6 +104,12 @@ opening.classList.add(
 document.body.style.overflow =
 "auto";
 
+window.scrollTo({
+top:0,
+left:0,
+behavior:"instant"
+});
+
 },2600);
 
 /* REMOVE */
@@ -106,9 +118,15 @@ setTimeout(()=>{
 
 opening.remove();
 
+window.scrollTo({
+top:0,
+left:0,
+behavior:"instant"
+});
+
 },4200);
 
 });
 
 });
-
+```
