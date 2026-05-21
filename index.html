@@ -1,519 +1,460 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Gökçe & Yalçın</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- SEO -->
 
-<script defer src="opening.js"></script>
-<script defer src="gallery.js"></script>
-<script defer src="quotes.js"></script>
-<script defer src="luxury-effects.js"></script>
-<script defer src="protection.js"></script>
-<script type="module" src="firebase.js"></script>
-<script type="module" src="upload.js"></script>
+<meta
+name="description"
+content="Gökçe & Yalçın nişan daveti"
+/>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+<meta property="og:title"
+content="Gökçe & Yalçın" />
 
-html{
-scroll-behavior:smooth;
-}
+<meta property="og:description"
+content="Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız 🤍" />
 
-body{
-font-family:'Inter',sans-serif;
-background:#0f0d0b;
-color:white;
-overflow-x:hidden;
-}
+<meta property="og:image"
+content="preview.png" />
 
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:
-linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1800&auto=format&fit=crop');
-background-size:cover;
-background-position:center;
-z-index:-2;
-}
+<meta property="og:type"
+content="website" />
 
-body::after{
-content:"";
-position:fixed;
-inset:0;
-backdrop-filter:blur(2px);
-z-index:-1;
-}
+<!-- FONTS -->
 
-section{
-padding:100px 20px;
-position:relative;
-z-index:2;
-}
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-.container{
-max-width:1150px;
-margin:auto;
-}
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-.hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-}
+<link
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+rel="stylesheet">
 
-.hero-box{
-max-width:850px;
-padding:60px 40px;
-border-radius:40px;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.12);
-backdrop-filter:blur(14px);
-box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
+<!-- CSS -->
 
-.tag{
-letter-spacing:4px;
-text-transform:uppercase;
-font-size:12px;
-opacity:.8;
-}
+<link rel="stylesheet"
+href="styles/main.css">
 
-h1{
-font-family:'Cormorant Garamond',serif;
-font-size:92px;
-font-weight:600;
-margin:20px 0;
-}
+<link rel="stylesheet"
+href="styles/gallery.css">
 
-.desc{
-font-size:18px;
-line-height:1.9;
-opacity:.92;
-max-width:700px;
-margin:auto;
-}
+<link rel="stylesheet"
+href="styles/opening.css">
 
-.quote{
-margin-top:22px;
-font-family:'Cormorant Garamond',serif;
-font-size:32px;
-}
+<link rel="stylesheet"
+href="styles/luxury-effects.css">
 
-.music-note{
-margin-top:18px;
-font-size:14px;
-opacity:.8;
-}
+<link rel="stylesheet"
+href="styles/preloader.css">
 
-.buttons{
-margin-top:40px;
-display:flex;
-gap:15px;
-justify-content:center;
-flex-wrap:wrap;
-}
+<link rel="stylesheet"
+href="styles/quotes.css">
 
-.btn{
-padding:16px 28px;
-border:none;
-border-radius:999px;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-transition:.35s;
-}
+<link rel="stylesheet"
+href="styles/effects.css">
 
-.btn:hover{
-transform:translateY(-3px);
-}
+<!-- JS -->
 
-.btn-dark{
-background:linear-gradient(135deg,#8f6237,#b0824f);
-color:white;
-}
+<script defer
+src="scripts/opening.js"></script>
 
-.btn-light{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-color:white;
-border:1px solid rgba(255,255,255,.12);
-}
+<script defer
+src="scripts/gallery.js"></script>
 
-.section-title{
-text-align:center;
-margin-bottom:60px;
-}
+<script defer
+src="scripts/luxury-effects.js"></script>
 
-.section-title p{
-letter-spacing:4px;
-text-transform:uppercase;
-font-size:12px;
-opacity:.7;
-}
+<script defer
+src="scripts/preloader.js"></script>
 
-.section-title h2{
-font-family:'Cormorant Garamond',serif;
-font-size:62px;
-margin-top:12px;
-}
+<script defer
+src="scripts/protection.js"></script>
 
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
+<script defer
+src="scripts/quotes.js"></script>
 
-.card{
-padding:35px;
-border-radius:32px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(14px);
-border:1px solid rgba(255,255,255,.08);
-text-align:center;
-}
+<script type="module"
+src="firebase.js"></script>
 
-.card h3{
-font-family:'Cormorant Garamond',serif;
-font-size:34px;
-margin-bottom:10px;
-}
+<script type="module"
+src="upload.js"></script>
 
-.card p{
-line-height:1.9;
-opacity:.88;
-}
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
-.gallery img{
-width:100%;
-height:420px;
-object-fit:cover;
-border-radius:28px;
-transition:.35s;
-box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-.gallery img:hover{
-transform:translateY(-6px) scale(1.01);
-}
-
-.memory-note{
-max-width:760px;
-margin:auto;
-text-align:center;
-font-family:'Cormorant Garamond',serif;
-font-size:36px;
-line-height:1.6;
-}
-
-.floating-memory{
-position:fixed;
-right:20px;
-bottom:20px;
-z-index:999;
-padding:16px 24px;
-border:none;
-border-radius:999px;
-background:linear-gradient(135deg,#8f6237,#b0824f);
-color:white;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-box-shadow:0 15px 35px rgba(0,0,0,.35);
-}
-
-/* MODAL */
-
-.memory-modal{
-position:fixed;
-inset:0;
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:99999;
-}
-
-.memory-modal.active{
-display:flex;
-}
-
-.memory-overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.72);
-backdrop-filter:blur(12px);
-}
-
-.memory-box{
-position:relative;
-width:100%;
-max-width:720px;
-max-height:90vh;
-overflow-y:auto;
-padding:40px;
-border-radius:36px;
-background:rgba(255,255,255,.1);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.12);
-box-shadow:0 25px 60px rgba(0,0,0,.35);
-z-index:2;
-}
-
-.memory-box h2{
-font-family:'Cormorant Garamond',serif;
-font-size:52px;
-margin-bottom:25px;
-text-align:center;
-}
-
-.modal-close{
-position:absolute;
-top:16px;
-right:16px;
-width:42px;
-height:42px;
-border:none;
-border-radius:50%;
-background:rgba(255,255,255,.1);
-color:white;
-font-size:18px;
-cursor:pointer;
-}
-
-#memoryForm,
-#rsvpForm{
-display:flex;
-flex-direction:column;
-gap:18px;
-}
-
-#memoryForm input,
-#memoryForm textarea,
-#rsvpForm input,
-#rsvpForm textarea,
-#rsvpForm select{
-width:100%;
-padding:18px;
-border:none;
-border-radius:18px;
-background:rgba(255,255,255,.1);
-color:white;
-font-size:15px;
-outline:none;
-}
-
-#memoryForm textarea,
-#rsvpForm textarea{
-min-height:140px;
-resize:none;
-}
-
-#memoryForm input::placeholder,
-#memoryForm textarea::placeholder,
-#rsvpForm input::placeholder,
-#rsvpForm textarea::placeholder{
-color:rgba(255,255,255,.65);
-}
-
-#rsvpForm select option{
-background:#111;
-}
-
-.upload-area{
-padding:18px;
-border-radius:24px;
-background:rgba(255,255,255,.08);
-}
-
-.upload-area label{
-display:block;
-margin-bottom:10px;
-font-size:14px;
-opacity:.8;
-}
-
-.send-btn{
-padding:18px;
-border:none;
-border-radius:999px;
-background:linear-gradient(135deg,#8f6237,#b0824f);
-color:white;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-}
-
-.helper-text{
-line-height:1.8;
-opacity:.88;
-font-size:14px;
-}
-
-.hidden-area{
-display:none;
-}
-
-footer{
-padding:60px 20px;
-text-align:center;
-opacity:.7;
-}
-
-@media(max-width:768px){
-
-h1{
-font-size:58px;
-}
-
-.hero-box{
-padding:40px 25px;
-}
-
-.section-title h2{
-font-size:44px;
-}
-
-.memory-box{
-padding:26px;
-border-radius:28px;
-}
-
-.memory-box h2{
-font-size:38px;
-}
-
-.gallery img{
-height:340px;
-}
-
-}
-</style>
 </head>
+
 <body>
 
-<audio id="bgMusic" loop>
-<source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
-</audio>
+<!-- OPENING -->
 
-<section class="hero">
-<div class="hero-box">
+<div id="openingScreen">
 
-<div class="tag">
-BU MUTLU GÜNÜ BİZİMLE PAYLAŞIN
-</div>
+<div class="opening-overlay"></div>
 
-<h1>Gökçe & Yalçın</h1>
+<div class="opening-content">
 
-<p class="desc">
-Hayatımızın en güzel “evet”lerinden birine şahitlik etmeniz bizi çok mutlu eder.
+<div class="envelope-wrapper">
+
+<div class="envelope">
+
+<div class="letter">
+
+<h2>
+Gökçe & Yalçın
+</h2>
+
+<p>
+Sizi bu özel günümüzde aramızda görmekten mutluluk duyarız 🤍
 </p>
 
-<p class="quote">
+<button id="openSiteBtn">
+Daveti Aç
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PRELOADER -->
+
+<div id="preloader">
+
+<div class="loader-ring"></div>
+
+</div>
+
+<!-- MUSIC -->
+
+<audio id="bgMusic" loop>
+
+<source
+src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3"
+type="audio/mpeg">
+
+</audio>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-bg"></div>
+
+<div class="container">
+
+<div class="hero-content">
+
+<p class="hero-tag">
+26 HAZİRAN 2026
+</p>
+
+<h1>
+Gökçe & Yalçın
+</h1>
+
+<p class="hero-text">
+
+Hayatımızın en güzel “evet”lerinden birine
+şahitlik etmeniz bizi çok mutlu eder.
+
+</p>
+
+<p class="hero-quote">
+
 “Bir ömür aynı manzaraya bakabilmek için…” 🤍
+
 </p>
 
 <p class="music-note">
-🎵 Şu an çalan parça: Zülfü Livaneli — Gözlerin
+
+🎵 Şu an çalan parça:
+Zülfü Livaneli — Gözlerin
+
 </p>
 
-<div class="buttons">
+<div class="hero-buttons">
 
-<button class="btn btn-dark" data-open="rsvp">
+<button
+class="btn btn-gold"
+data-open="rsvp">
+
 Katılım Formu
+
 </button>
 
-<button class="btn btn-light" data-open="memory">
+<button
+class="btn btn-light"
+data-open="memory">
+
 Anı Gönder
+
 </button>
 
 </div>
 
 </div>
+
+</div>
+
 </section>
 
-<section>
+<!-- COUNTDOWN -->
+
+<section class="countdown-section">
+
 <div class="container">
 
 <div class="section-title">
-<p>Özel Gün</p>
-<h2>Nişan Detayları</h2>
+
+<p>
+GERİ SAYIM
+</p>
+
+<h2>
+Büyük Güne Kalan Süre
+</h2>
+
+</div>
+
+<div class="countdown">
+
+<div class="time-box">
+
+<span id="days">00</span>
+
+<small>Gün</small>
+
+</div>
+
+<div class="time-box">
+
+<span id="hours">00</span>
+
+<small>Saat</small>
+
+</div>
+
+<div class="time-box">
+
+<span id="minutes">00</span>
+
+<small>Dakika</small>
+
+</div>
+
+<div class="time-box">
+
+<span id="seconds">00</span>
+
+<small>Saniye</small>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- DETAILS -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<p>
+NİŞAN DETAYLARI
+</p>
+
+<h2>
+Bu Özel Gün
+</h2>
+
 </div>
 
 <div class="cards">
 
 <div class="card">
-<h3>Tarih</h3>
-<p>26 Haziran 2026</p>
+
+<div class="icon">
+🗓️
 </div>
 
-<div class="card">
-<h3>Saat</h3>
-<p>19:00</p>
-</div>
+<h3>
+Tarih
+</h3>
 
-<div class="card">
-<h3>Konum</h3>
-<p>İzmir</p>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section>
-<div class="container">
-
-<div class="section-title">
-<p>Anılar</p>
-<h2>Bizden Kareler</h2>
-</div>
-
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop">
-<img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop">
-<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop">
-</div>
-
-</div>
-</section>
-
-<section>
-<div class="container">
-
-<p class="memory-note">
-“Bu siteye bıraktığınız her anı, yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
+<p>
+26 Haziran 2026
 </p>
 
 </div>
+
+<div class="card">
+
+<div class="icon">
+🕖
+</div>
+
+<h3>
+Saat
+</h3>
+
+<p>
+19:00
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">
+📍
+</div>
+
+<h3>
+Konum
+</h3>
+
+<p>
+İzmir
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<button class="floating-memory" data-open="memory">
+<!-- LOCATION -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<p>
+KONUM
+</p>
+
+<h2>
+Yol Tarifi
+</h2>
+
+</div>
+
+<div class="map-box">
+
+<iframe
+src="https://www.google.com/maps?q=38.423733,27.142826&output=embed"
+loading="lazy"
+allowfullscreen>
+
+</iframe>
+
+<div class="map-buttons">
+
+<a
+class="btn btn-gold"
+href="https://maps.google.com/?q=38.423733,27.142826"
+target="_blank">
+
+Google Maps Aç
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- GALLERY -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<p>
+ANILAR
+</p>
+
+<h2>
+Bizden Kareler
+</h2>
+
+</div>
+
+<div class="gallery">
+
+<img
+src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop">
+
+<img
+src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop">
+
+<img
+src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MEMORY NOTE -->
+
+<section>
+
+<div class="container">
+
+<p class="memory-note">
+
+“Bu siteye bıraktığınız her anı,
+yıllar sonra tekrar açıp gülümseyeceğiz.” 🤍
+
+</p>
+
+</div>
+
+</section>
+
+<!-- FLOATING BUTTON -->
+
+<button
+class="floating-memory"
+data-open="memory">
+
 💌 Anı Bırak
+
 </button>
 
 <!-- RSVP MODAL -->
 
-<div class="memory-modal" id="rsvpModal">
+<div
+class="memory-modal"
+id="rsvpModal">
 
 <div class="memory-overlay"></div>
 
@@ -523,7 +464,9 @@ Anı Gönder
 ✕
 </button>
 
-<h2>Katılım Formu</h2>
+<h2>
+Katılım Formu
+</h2>
 
 <form id="rsvpForm">
 
@@ -533,54 +476,92 @@ type="text"
 placeholder="Adınız Soyadınız"
 required>
 
-<select id="rsvpStatus" required>
-<option value="">Katılım Durumu Seçin</option>
-<option value="geliyor">Katılacağım 🤍</option>
-<option value="kararsiz">Kararsızım</option>
-<option value="gelmiyor">Katılamayacağım</option>
+<select
+id="rsvpStatus"
+required>
+
+<option value="">
+Katılım Durumu Seçin
+</option>
+
+<option value="geliyor">
+Katılacağım 🤍
+</option>
+
+<option value="kararsiz">
+Kararsızım
+</option>
+
+<option value="gelmiyor">
+Katılamayacağım
+</option>
+
 </select>
 
-<div id="guestCountArea" class="hidden-area">
+<div
+id="guestCountArea"
+class="hidden-area">
+
 <input
 id="guestCount"
 type="number"
 placeholder="Kaç kişi geleceksiniz?">
+
 </div>
 
-<div id="maybeArea" class="hidden-area">
+<div
+id="maybeArea"
+class="hidden-area">
+
 <p class="helper-text">
-Sizi aramızda görmeyi çok isteriz 🤍<br>
+
+Sizi aramızda görmeyi çok isteriz 🤍
 İsterseniz bizim için küçük bir mesaj bırakabilirsiniz.
+
 </p>
 
 <textarea
 id="maybeMessage"
 placeholder="Mesajınız..."></textarea>
+
 </div>
 
-<div id="cannotJoinArea" class="hidden-area">
+<div
+id="cannotJoinArea"
+class="hidden-area">
+
 <p class="helper-text">
-Sizi yanımızda görmeyi çok isterdik 🤍<br>
+
+Sizi yanımızda görmeyi çok isterdik 🤍
 Ama bırakacağınız güzel bir mesaj bizi çok mutlu eder.
+
 </p>
 
 <textarea
 id="cannotJoinMessage"
 placeholder="Mesajınız..."></textarea>
+
 </div>
 
-<button class="send-btn" type="submit">
+<button
+class="send-btn"
+type="submit">
+
 Gönder
+
 </button>
 
 </form>
 
 </div>
+
 </div>
 
 <!-- MEMORY MODAL -->
 
-<div class="memory-modal" id="memoryModal">
+<div
+class="memory-modal"
+id="memoryModal">
 
 <div class="memory-overlay"></div>
 
@@ -590,7 +571,9 @@ Gönder
 ✕
 </button>
 
-<h2>Anı Bırak 💌</h2>
+<h2>
+Anı Bırak 💌
+</h2>
 
 <form id="memoryForm">
 
@@ -606,6 +589,7 @@ placeholder="Bizim için mesaj bırakabilirsiniz 🤍"
 required></textarea>
 
 <div class="upload-area">
+
 <label>
 Fotoğraf / Video / Ses Kaydı
 </label>
@@ -613,25 +597,103 @@ Fotoğraf / Video / Ses Kaydı
 <input
 id="memoryFile"
 type="file">
+
 </div>
 
-<button class="send-btn" type="submit">
+<button
+class="send-btn"
+type="submit">
+
 Gönder
+
 </button>
 
 </form>
 
 </div>
+
 </div>
 
+<!-- FOOTER -->
+
 <footer>
-<h2 style="font-family:'Cormorant Garamond',serif;font-size:42px;">
+
+<h2>
 Gökçe & Yalçın
 </h2>
-<p style="margin-top:12px;">
-Hayatımızın en güzel gününde bizimle olduğunuz için teşekkür ederiz.
+
+<p>
+
+Hayatımızın en güzel gününde
+bizimle olduğunuz için teşekkür ederiz 🤍
+
 </p>
+
 </footer>
+
+<!-- COUNTDOWN SCRIPT -->
+
+<script>
+
+const targetDate =
+new Date(
+"2026-06-26T19:00:00"
+).getTime();
+
+setInterval(()=>{
+
+const now =
+new Date().getTime();
+
+const distance =
+targetDate - now;
+
+const days =
+Math.floor(
+distance /
+(1000*60*60*24)
+);
+
+const hours =
+Math.floor(
+(distance %
+(1000*60*60*24)) /
+(1000*60*60)
+);
+
+const minutes =
+Math.floor(
+(distance %
+(1000*60*60)) /
+(1000*60)
+);
+
+const seconds =
+Math.floor(
+(distance %
+(1000*60)) /
+1000
+);
+
+document.getElementById(
+"days"
+).innerText = days;
+
+document.getElementById(
+"hours"
+).innerText = hours;
+
+document.getElementById(
+"minutes"
+).innerText = minutes;
+
+document.getElementById(
+"seconds"
+).innerText = seconds;
+
+},1000);
+
+</script>
 
 </body>
 </html>
