@@ -235,14 +235,9 @@ btn.addEventListener(
 
 if(memoryModal){
 
-memoryModal.classList.add(
-"active"
-);
+memoryModal.classList.add("active");
 
-document.body.style.overflow =
-"hidden";
-
-}
+document.body.style.overflow = "hidden";
 
 }
 );
@@ -254,51 +249,28 @@ document.body.style.overflow =
 ========================= */
 
 document
-.querySelectorAll(".modal-close")
-.forEach(btn=>{
+.querySelectorAll(
+".modal-close,.memory-overlay"
+)
+.forEach(el=>{
 
-btn.addEventListener(
+el.addEventListener(
 "click",
-closeAllModals
-);
+()=>{
 
-});
-
-document
-.querySelectorAll(".memory-modal")
-.forEach(modal=>{
-
-modal.addEventListener(
-"click",
-(e)=>{
-
-if(e.target === modal){
-
-closeAllModals();
-
-}
-
-}
-);
-
-});
-
-function closeAllModals(){
-
-document
-.querySelectorAll(".memory-modal")
-.forEach(modal=>{
-
-modal.classList.remove(
+memoryModal.classList.remove(
 "active"
 );
 
+rsvpModal.classList.remove(
+"active"
+);
+
+document.body.style.overflow = "auto";
+
 });
 
-document.body.style.overflow =
-"auto";
-
-}
+});
 
 /* =========================
    RSVP DYNAMIC AREAS
