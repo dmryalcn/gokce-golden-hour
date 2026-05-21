@@ -81,15 +81,15 @@ const data = doc.data();
 
 total++;
 
-if(data.status === "yes"){
+if(data.status === "geliyor"){
 yes++;
 }
 
-if(data.status === "no"){
+if(data.status === "gelmiyor"){
 no++;
 }
 
-if(data.status === "maybe"){
+if(data.status === "kararsiz"){
 maybe++;
 }
 
