@@ -88,7 +88,17 @@ e.data
 };
 
 mediaRecorder.onstop = ()=>{
+clearInterval(recordingTimer);
+stream
+.getTracks()
+.forEach(track=>{
 
+track.stop();
+
+});
+
+
+   
 recordedAudioBlob =
 new Blob(
 audioChunks,
@@ -356,11 +366,16 @@ document.getElementById(
 "memoryForm"
 );
 
+let memorySubmitting = false;
 if(memoryForm){
 
 memoryForm.addEventListener(
 "submit",
 async(e)=>{
+if(memorySubmitting) return;
+
+memorySubmitting = true;
+
 
 e.preventDefault();
 
@@ -376,6 +391,8 @@ submitBtn.disabled = true;
 
 submitBtn.innerHTML =
 "Yükleniyor...";
+memorySubmitting = false;
+
 
 try{
 
@@ -760,10 +777,18 @@ document.getElementById(
 );
 
 if(rsvpForm){
+let rsvpSubmitting = false;
 
+
+   
 rsvpForm.addEventListener(
 "submit",
+
 async(e)=>{
+if(rsvpSubmitting) return;
+
+rsvpSubmitting = true;
+
 
 e.preventDefault();
 
@@ -779,6 +804,8 @@ submitBtn.disabled = true;
 
 submitBtn.innerHTML =
 "Gönderiliyor...";
+rsvpSubmitting = false;
+
 
 try{
 
