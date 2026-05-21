@@ -475,6 +475,17 @@ URL.createObjectURL(file);
 video.src = objectUrl;
 
 await new Promise((resolve,reject)=>{
+video.onerror = ()=>{
+
+reject(
+new Error(
+"Video okunamadı 😔"
+)
+);
+
+};
+
+
 
 video.onloadedmetadata = ()=>{
 
@@ -597,6 +608,18 @@ type:file.type
 ========================= */
 
 if(recordedAudioBlob){
+if(
+recordedAudioBlob.size >
+5 * 1024 * 1024
+){
+
+throw new Error(
+"Ses kaydı maksimum 5MB olabilir 🤍"
+);
+
+}
+
+
 
 const audioFile =
 new File(
@@ -1047,6 +1070,33 @@ setTimeout(()=>{
 popup.remove();
 
 },400);
+
+}
+
+/* =========================
+   CLOSE ALL MODALS
+========================= */
+
+function closeAllModals(){
+
+if(memoryModal){
+
+memoryModal.classList.remove(
+"active"
+);
+
+}
+
+if(rsvpModal){
+
+rsvpModal.classList.remove(
+"active"
+);
+
+}
+
+document.body.style.overflow =
+"auto";
 
 }
 
