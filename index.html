@@ -670,6 +670,13 @@ id="memoryModal">
 Anı Bırak 💌
 </h2>
 
+<p class="memory-subtitle">
+
+Bu geceye ait bir fotoğraf,
+video ya da sesinizi bırakabilirsiniz ✨
+
+</p>
+
 <form id="memoryForm">
 
 <input
@@ -686,12 +693,69 @@ required></textarea>
 <div class="upload-area">
 
 <label>
-Fotoğraf / Video / Ses Kaydı
+Fotoğraf / Video Yükle
 </label>
 
 <input
 id="memoryFile"
-type="file">
+type="file"
+multiple
+accept="image/*,video/*,audio/*">
+
+<p class="upload-note">
+
+Birden fazla fotoğraf seçebilirsiniz ✨
+
+</p>
+
+</div>
+
+<!-- VOICE RECORDER -->
+
+<div class="voice-recorder">
+
+<p class="voice-title">
+
+🎙️ Sesli Mesaj Bırak
+
+</p>
+
+<div class="voice-buttons">
+
+<button
+class="record-btn"
+type="button"
+id="recordBtn">
+
+Ses Kaydı Başlat
+
+</button>
+
+<button
+class="record-btn stop"
+type="button"
+id="stopRecordBtn"
+disabled>
+
+Kaydı Durdur
+
+</button>
+
+</div>
+
+<div
+class="recording-status"
+id="recordingStatus">
+
+Hazır
+
+</div>
+
+<audio
+id="audioPreview"
+controls
+style="display:none;">
+</audio>
 
 </div>
 
@@ -708,6 +772,8 @@ Gönder
 </div>
 
 </div>
+
+
 
 <!-- FOOTER -->
 
