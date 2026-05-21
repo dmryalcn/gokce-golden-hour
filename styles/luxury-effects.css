@@ -1,37 +1,113 @@
 /* =========================
+   LUXURY EFFECTS V2
+   Gökçe & Yalçın
+========================= */
+
+/* =========================
    CURSOR GLOW
 ========================= */
 
 .cursor-glow{
-  position:fixed;
 
-  width:320px;
-  height:320px;
+position:fixed;
 
-  border-radius:50%;
+width:320px;
+height:320px;
 
-  pointer-events:none;
+border-radius:50%;
 
-  z-index:1;
+pointer-events:none;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(212,176,123,.16),
-      rgba(212,176,123,.08),
-      transparent 72%
-    );
+z-index:1;
 
-  filter:
-    blur(40px);
+background:
+radial-gradient(
+circle,
+rgba(212,176,123,.18),
+rgba(212,176,123,.08),
+transparent 72%
+);
 
-  transform:
-    translate(-50%,-50%);
+filter:blur(42px);
 
-  transition:
-    transform .08s linear;
+transform:
+translate(-50%,-50%);
 
-  mix-blend-mode:screen;
+transition:
+transform .08s linear;
+
+mix-blend-mode:screen;
+
+opacity:.9;
+
+}
+
+/* =========================
+   GOLD ATMOSPHERE
+========================= */
+
+.gold-light{
+
+position:fixed;
+
+top:-20%;
+left:-20%;
+
+width:70vw;
+height:70vw;
+
+border-radius:50%;
+
+pointer-events:none;
+
+z-index:0;
+
+background:
+radial-gradient(
+circle,
+rgba(212,176,123,.08),
+transparent 70%
+);
+
+filter:blur(90px);
+
+animation:
+goldPulse 12s ease-in-out infinite;
+
+}
+
+@keyframes goldPulse{
+
+0%{
+
+transform:
+scale(1)
+translate(0,0);
+
+opacity:.35;
+
+}
+
+50%{
+
+transform:
+scale(1.15)
+translate(4%,3%);
+
+opacity:.55;
+
+}
+
+100%{
+
+transform:
+scale(1)
+translate(0,0);
+
+opacity:.35;
+
+}
+
 }
 
 /* =========================
@@ -39,82 +115,98 @@
 ========================= */
 
 .luxury-particles{
-  position:fixed;
 
-  inset:0;
+position:fixed;
 
-  overflow:hidden;
+inset:0;
 
-  pointer-events:none;
+overflow:hidden;
 
-  z-index:1;
+pointer-events:none;
+
+z-index:1;
+
 }
 
 .luxury-particle{
-  position:absolute;
 
-  border-radius:50%;
+position:absolute;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.9),
-      rgba(212,176,123,.4),
-      transparent
-    );
+border-radius:50%;
 
-  filter:blur(1px);
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.95),
+rgba(212,176,123,.45),
+transparent
+);
 
-  animation:
-    luxuryFloat linear infinite;
+filter:blur(1px);
+
+animation:
+luxuryFloat linear infinite;
+
+opacity:.8;
+
 }
 
-/* DIFFERENT SIZES */
+/* SIZES */
 
 .luxury-particle.small{
-  width:4px;
-  height:4px;
+
+width:4px;
+height:4px;
+
 }
 
 .luxury-particle.medium{
-  width:8px;
-  height:8px;
+
+width:8px;
+height:8px;
+
 }
 
 .luxury-particle.large{
-  width:14px;
-  height:14px;
+
+width:14px;
+height:14px;
+
 }
 
 /* FLOAT */
 
 @keyframes luxuryFloat{
 
-  from{
-    transform:
-      translateY(110vh)
-      translateX(0px)
-      scale(.8);
+from{
 
-    opacity:0;
-  }
+transform:
+translateY(110vh)
+translateX(0px)
+scale(.8);
 
-  10%{
-    opacity:1;
-  }
+opacity:0;
 
-  90%{
-    opacity:1;
-  }
+}
 
-  to{
-    transform:
-      translateY(-120vh)
-      translateX(60px)
-      scale(1.2);
+10%{
+opacity:1;
+}
 
-    opacity:0;
-  }
+90%{
+opacity:1;
+}
+
+to{
+
+transform:
+translateY(-120vh)
+translateX(60px)
+scale(1.2);
+
+opacity:0;
+
+}
 
 }
 
@@ -123,29 +215,116 @@
 ========================= */
 
 body::after{
-  content:"";
 
-  position:fixed;
+content:"";
 
-  inset:0;
+position:fixed;
 
-  pointer-events:none;
+inset:0;
 
-  z-index:0;
+pointer-events:none;
 
-  background:
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(255,255,255,.03),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(212,176,123,.04),
-      transparent 35%
-    );
+z-index:0;
 
-  mix-blend-mode:screen;
+background:
+
+radial-gradient(
+circle at 20% 30%,
+rgba(255,255,255,.03),
+transparent 30%
+),
+
+radial-gradient(
+circle at 80% 70%,
+rgba(212,176,123,.05),
+transparent 35%
+),
+
+radial-gradient(
+circle at center,
+rgba(255,255,255,.015),
+transparent 60%
+);
+
+mix-blend-mode:screen;
+
+}
+
+/* =========================
+   GLASS SHIMMER
+========================= */
+
+.hero-content::before,
+.card::before,
+.memory-box::before,
+.time-box::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:70%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.05),
+transparent
+);
+
+transform:skewX(-20deg);
+
+animation:
+glassShine 9s infinite;
+
+pointer-events:none;
+
+}
+
+@keyframes glassShine{
+
+0%{
+left:-120%;
+}
+
+100%{
+left:160%;
+}
+
+}
+
+/* =========================
+   FLOATING HERO
+========================= */
+
+.hero-content{
+
+position:relative;
+
+animation:
+heroFloat 7s ease-in-out infinite;
+
+}
+
+@keyframes heroFloat{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-6px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
 }
 
 /* =========================
@@ -154,10 +333,34 @@ body::after{
 
 .gallery img{
 
-  transform-style:
-    preserve-3d;
+transform-style:
+preserve-3d;
 
-  perspective:1000px;
+perspective:1000px;
+
+position:relative;
+
+overflow:hidden;
+
+transition:
+transform .45s ease,
+box-shadow .45s ease,
+filter .45s ease;
+
+}
+
+.gallery img:hover{
+
+transform:
+translateY(-8px)
+scale(1.015);
+
+box-shadow:
+0 25px 70px rgba(212,176,123,.18);
+
+filter:
+brightness(1.03);
+
 }
 
 /* =========================
@@ -165,20 +368,172 @@ body::after{
 ========================= */
 
 .hero::after{
-  content:"";
 
-  position:absolute;
+content:"";
 
-  inset:0;
+position:absolute;
 
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255,255,255,.04),
-      transparent 55%
-    );
+inset:0;
 
-  pointer-events:none;
+background:
+radial-gradient(
+circle at center,
+rgba(255,255,255,.04),
+transparent 55%
+);
+
+pointer-events:none;
+
+}
+
+/* =========================
+   PREMIUM SCROLL FADE
+========================= */
+
+section{
+
+animation:
+sectionFade .9s ease;
+
+}
+
+@keyframes sectionFade{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+/* =========================
+   BUTTON GLOW
+========================= */
+
+.btn-gold,
+.send-btn,
+.floating-memory{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.btn-gold::before,
+.send-btn::before,
+.floating-memory::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:60%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.18),
+transparent
+);
+
+transform:skewX(-20deg);
+
+transition:.7s;
+
+}
+
+.btn-gold:hover::before,
+.send-btn:hover::before,
+.floating-memory:hover::before{
+
+left:160%;
+
+}
+
+/* =========================
+   SOFT BLUR ORBS
+========================= */
+
+.blur-orb{
+
+position:fixed;
+
+border-radius:50%;
+
+pointer-events:none;
+
+filter:blur(100px);
+
+z-index:0;
+
+opacity:.18;
+
+animation:
+orbFloat 18s ease-in-out infinite;
+
+}
+
+.blur-orb.one{
+
+width:300px;
+height:300px;
+
+top:10%;
+left:-120px;
+
+background:
+rgba(212,176,123,.35);
+
+}
+
+.blur-orb.two{
+
+width:260px;
+height:260px;
+
+bottom:5%;
+right:-80px;
+
+background:
+rgba(255,255,255,.16);
+
+animation-delay:4s;
+
+}
+
+@keyframes orbFloat{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-30px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
 }
 
 /* =========================
@@ -187,13 +542,92 @@ body::after{
 
 @media(max-width:768px){
 
-  .cursor-glow{
-    display:none;
-  }
+.cursor-glow{
+display:none;
+}
 
-  .luxury-particle.large{
-    width:10px;
-    height:10px;
-  }
+.gold-light{
+opacity:.5;
+}
+
+.luxury-particles{
+opacity:.55;
+}
+
+.luxury-particle.large{
+
+width:10px;
+height:10px;
+
+}
+
+.hero-content{
+
+backdrop-filter:
+blur(12px);
+
+}
+
+.section-title h2{
+
+line-height:1.15;
+
+}
+
+.memory-note{
+
+font-size:28px;
+
+padding:0 10px;
+
+}
+
+.card{
+
+padding:28px 22px;
+
+}
+
+.gallery img{
+
+height:auto;
+
+}
+
+}
+
+/* =========================
+   IOS PERFORMANCE FIX
+========================= */
+
+.hero-content,
+.card,
+.memory-box,
+.gallery img,
+.time-box{
+
+will-change:
+transform,
+opacity;
+
+backface-visibility:hidden;
+
+transform:
+translateZ(0);
+
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+*{
+
+animation:none !important;
+transition:none !important;
+
+}
 
 }
