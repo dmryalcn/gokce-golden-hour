@@ -19,6 +19,123 @@ const UPLOAD_PRESET =
 "weddingUploads";
 
 /* =========================
+   MODAL SYSTEM
+========================= */
+
+const rsvpModal =
+document.getElementById(
+"rsvpModal"
+);
+
+const memoryModal =
+document.getElementById(
+"memoryModal"
+);
+
+/* RSVP OPEN */
+
+document
+.querySelectorAll('[data-open="rsvp"]')
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>{
+
+if(rsvpModal){
+
+rsvpModal.classList.add(
+"active"
+);
+
+document.body.style.overflow =
+"hidden";
+
+}
+
+}
+);
+
+});
+
+/* MEMORY OPEN */
+
+document
+.querySelectorAll('[data-open="memory"]')
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>{
+
+if(memoryModal){
+
+memoryModal.classList.add(
+"active"
+);
+
+document.body.style.overflow =
+"hidden";
+
+}
+
+}
+);
+
+});
+
+/* CLOSE BUTTONS */
+
+document
+.querySelectorAll(".modal-close")
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+closeAllModals
+);
+
+});
+
+/* OUTSIDE CLICK */
+
+document
+.querySelectorAll(".modal")
+.forEach(modal=>{
+
+modal.addEventListener(
+"click",
+(e)=>{
+
+if(e.target === modal){
+
+closeAllModals();
+
+}
+
+}
+);
+
+});
+
+function closeAllModals(){
+
+document
+.querySelectorAll(".modal")
+.forEach(modal=>{
+
+modal.classList.remove(
+"active"
+);
+
+});
+
+document.body.style.overflow =
+"";
+
+}
+
+/* =========================
    MEMORY FORM
 ========================= */
 
@@ -50,17 +167,17 @@ try{
 const name =
 document.getElementById(
 "memoryName"
-).value;
+)?.value || "";
 
 const message =
 document.getElementById(
 "memoryMessage"
-).value;
+)?.value || "";
 
 const file =
 document.getElementById(
 "memoryFile"
-).files[0];
+)?.files[0];
 
 let fileUrl = "";
 
@@ -97,11 +214,21 @@ body:formData
 const data =
 await response.json();
 
+if(!response.ok){
+
+console.error(data);
+
+throw new Error(
+"Upload failed"
+);
+
+}
+
 fileUrl =
-data.secure_url;
+data.secure_url || "";
 
 fileType =
-file.type;
+file.type || "";
 
 }
 
@@ -130,9 +257,7 @@ serverTimestamp()
 
 memoryForm.reset();
 
-document
-.getElementById("memoryModal")
-.classList.remove("active");
+closeAllModals();
 
 showUploadPopup(
 "Anınız bize ulaştı 🤍"
@@ -190,12 +315,12 @@ try{
 const name =
 document.getElementById(
 "rsvpName"
-).value;
+)?.value || "";
 
 const status =
 document.getElementById(
 "rsvpStatus"
-).value;
+)?.value || "";
 
 const guestCount =
 document.getElementById(
@@ -230,9 +355,7 @@ serverTimestamp()
 
 rsvpForm.reset();
 
-document
-.getElementById("rsvpModal")
-.classList.remove("active");
+closeAllModals();
 
 showUploadPopup(
 "Katılım bilginiz bize ulaştı 🤍"
