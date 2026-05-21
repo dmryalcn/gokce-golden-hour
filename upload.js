@@ -19,7 +19,7 @@ const UPLOAD_PRESET =
 "weddingUploads";
 
 /* =========================
-   MODAL SYSTEM
+   MODALS
 ========================= */
 
 const rsvpModal =
@@ -100,7 +100,7 @@ closeAllModals
 /* OUTSIDE CLICK */
 
 document
-.querySelectorAll(".modal")
+.querySelectorAll(".memory-modal")
 .forEach(modal=>{
 
 modal.addEventListener(
@@ -121,7 +121,7 @@ closeAllModals();
 function closeAllModals(){
 
 document
-.querySelectorAll(".modal")
+.querySelectorAll(".memory-modal")
 .forEach(modal=>{
 
 modal.classList.remove(
@@ -132,6 +132,80 @@ modal.classList.remove(
 
 document.body.style.overflow =
 "";
+
+}
+
+/* =========================
+   RSVP DYNAMIC AREAS
+========================= */
+
+const rsvpStatus =
+document.getElementById(
+"rsvpStatus"
+);
+
+if(rsvpStatus){
+
+rsvpStatus.addEventListener(
+"change",
+()=>{
+
+const guestArea =
+document.getElementById(
+"guestCountArea"
+);
+
+const cannotArea =
+document.getElementById(
+"cannotJoinArea"
+);
+
+const maybeArea =
+document.getElementById(
+"maybeArea"
+);
+
+guestArea.style.display =
+"none";
+
+cannotArea.style.display =
+"none";
+
+maybeArea.style.display =
+"none";
+
+/* GELIYOR */
+
+if(rsvpStatus.value ===
+"geliyor"){
+
+guestArea.style.display =
+"block";
+
+}
+
+/* GELMIYOR */
+
+if(rsvpStatus.value ===
+"gelmiyor"){
+
+cannotArea.style.display =
+"block";
+
+}
+
+/* KARARSIZ */
+
+if(rsvpStatus.value ===
+"kararsiz"){
+
+maybeArea.style.display =
+"block";
+
+}
+
+}
+);
 
 }
 
@@ -183,9 +257,7 @@ let fileUrl = "";
 
 let fileType = "";
 
-/* =========================
-   CLOUDINARY UPLOAD
-========================= */
+/* CLOUDINARY */
 
 if(file){
 
@@ -232,9 +304,7 @@ file.type || "";
 
 }
 
-/* =========================
-   FIRESTORE SAVE
-========================= */
+/* FIRESTORE */
 
 await addDoc(
 collection(db,"memories"),
@@ -250,10 +320,6 @@ serverTimestamp()
 
 }
 );
-
-/* =========================
-   SUCCESS
-========================= */
 
 memoryForm.reset();
 
@@ -388,7 +454,9 @@ submitBtn.innerText =
 function showUploadPopup(text){
 
 const popup =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 popup.innerHTML = `
 
