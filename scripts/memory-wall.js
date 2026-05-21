@@ -1,12 +1,12 @@
 import "../firebase.js";
 
-
-
 const {
+
 collection,
 query,
 orderBy,
 getDocs
+
 } = window.firebaseFns;
 
 const db = window.db;
@@ -16,6 +16,10 @@ document.getElementById(
 "memoryWall"
 );
 
+/* =========================================================
+   LOAD MEMORIES
+========================================================= */
+
 async function loadMemories(){
 
 if(!memoryWall) return;
@@ -24,12 +28,25 @@ try{
 
 const q =
 query(
-collection(db,"memories"),
-orderBy("createdAt","desc")
+
+collection(
+db,
+"memories"
+),
+
+orderBy(
+"createdAt",
+"desc"
+)
+
 );
 
 const snapshot =
 await getDocs(q);
+
+/* =========================================================
+   EMPTY
+========================================================= */
 
 if(snapshot.empty){
 
@@ -49,10 +66,26 @@ return;
 
 memoryWall.innerHTML = "";
 
+/* =========================================================
+   LOOP
+========================================================= */
+
 snapshot.forEach(doc=>{
 
 const memory =
 doc.data();
+
+/* =========================================================
+   HIDDEN MEMORY
+========================================================= */
+
+if(memory.hidden === true){
+return;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
 
 const card =
 document.createElement(
@@ -62,33 +95,64 @@ document.createElement(
 card.className =
 "memory-card";
 
+/* =========================================================
+   MEDIA
+========================================================= */
+
 const mediaItems =
 memory.mediaItems || [];
 
 let mediaHTML = "";
 
+/* =========================================================
+   RENDER MEDIA
+========================================================= */
+
 mediaItems.forEach(item=>{
 
-if(item.type.includes("image")){
+if(!item?.url) return;
+
+/* IMAGE */
+
+if(
+item.type?.includes("image")
+){
 
 mediaHTML += `
 
+<div class="memory-media-item">
+
 <img
 src="${item.url}"
-loading="lazy">
+loading="lazy"
+alt="Wedding Memory">
+
+</div>
 
 `;
 
 }
 
-else if(item.type.includes("video")){
+/* VIDEO */
+
+else if(
+item.type?.includes("video")
+){
 
 mediaHTML += `
 
+<div class="memory-media-item">
+
 <video
-src="${item.url}"
-controls>
+controls
+preload="metadata">
+
+<source
+src="${item.url}">
+
 </video>
+
+</div>
 
 `;
 
@@ -96,14 +160,20 @@ controls>
 
 });
 
+/* =========================================================
+   AUDIO
+========================================================= */
+
 let audioHTML = "";
 
 const audioItem =
 mediaItems.find(item=>
-item.type.includes("audio")
+
+item.type?.includes("audio")
+
 );
 
-if(audioItem){
+if(audioItem?.url){
 
 audioHTML = `
 
@@ -123,6 +193,10 @@ type="audio/webm">
 
 }
 
+/* =========================================================
+   DATE
+========================================================= */
+
 const createdAt =
 memory.createdAt?.toDate
 ? memory.createdAt.toDate()
@@ -134,6 +208,10 @@ createdAt
 "tr-TR"
 )
 : "";
+
+/* =========================================================
+   CONTENT
+========================================================= */
 
 card.innerHTML = `
 
@@ -154,7 +232,15 @@ ${memory.message || ""}
 </div>
 
 ${mediaHTML
-? `<div class="memory-media">${mediaHTML}</div>`
+? `
+
+<div class="memory-media">
+
+${mediaHTML}
+
+</div>
+
+`
 : ""}
 
 ${audioHTML}
@@ -191,6 +277,9 @@ Anılar yüklenemedi 😔
 
 }
 
-loadMemories();
+/* =========================================================
+   INIT
+========================================================= */
 
+loadMemories();
 
