@@ -1,3 +1,7 @@
+/* =========================================================
+   GÖKÇE & YALÇIN — FINAL UPLOAD.JS
+========================================================= */
+
 import "./firebase.js";
 
 const {
@@ -32,7 +36,9 @@ document.getElementById(
 "memoryModal"
 );
 
-/* RSVP OPEN */
+/* =========================
+   OPEN MODALS
+========================= */
 
 document
 .querySelectorAll('[data-open="rsvp"]')
@@ -58,8 +64,6 @@ document.body.style.overflow =
 
 });
 
-/* MEMORY OPEN */
-
 document
 .querySelectorAll('[data-open="memory"]')
 .forEach(btn=>{
@@ -84,7 +88,9 @@ document.body.style.overflow =
 
 });
 
-/* CLOSE BUTTONS */
+/* =========================
+   CLOSE MODALS
+========================= */
 
 document
 .querySelectorAll(".modal-close")
@@ -96,8 +102,6 @@ closeAllModals
 );
 
 });
-
-/* OUTSIDE CLICK */
 
 document
 .querySelectorAll(".memory-modal")
@@ -131,7 +135,7 @@ modal.classList.remove(
 });
 
 document.body.style.overflow =
-"";
+"auto";
 
 }
 
@@ -228,12 +232,15 @@ e.preventDefault();
 
 const submitBtn =
 memoryForm.querySelector(
-"button"
+".send-btn"
 );
+
+const originalText =
+submitBtn.innerHTML;
 
 submitBtn.disabled = true;
 
-submitBtn.innerText =
+submitBtn.innerHTML =
 "Yükleniyor...";
 
 try{
@@ -257,7 +264,9 @@ let fileUrl = "";
 
 let fileType = "";
 
-/* CLOUDINARY */
+/* =========================
+   CLOUDINARY
+========================= */
 
 if(file){
 
@@ -304,7 +313,9 @@ file.type || "";
 
 }
 
-/* FIRESTORE */
+/* =========================
+   FIRESTORE
+========================= */
 
 await addDoc(
 collection(db,"memories"),
@@ -321,19 +332,33 @@ serverTimestamp()
 }
 );
 
+/* =========================
+   RESET
+========================= */
+
 memoryForm.reset();
 
 closeAllModals();
 
-showUploadPopup(
-"Anınız bize ulaştı 🤍"
-);
+/* =========================
+   SUCCESS
+========================= */
+
+showSuccessPopup({
+
+title:
+"Anınız Kaydedildi",
+
+message:
+"Bu güzel mesajınız artık hikayemizin bir parçası oldu ✨"
+
+});
 
 }catch(err){
 
 console.error(err);
 
-showUploadPopup(
+showErrorPopup(
 "Bir hata oluştu 😔"
 );
 
@@ -341,8 +366,8 @@ showUploadPopup(
 
 submitBtn.disabled = false;
 
-submitBtn.innerText =
-"Gönder";
+submitBtn.innerHTML =
+originalText;
 
 }
 );
@@ -368,12 +393,15 @@ e.preventDefault();
 
 const submitBtn =
 rsvpForm.querySelector(
-"button"
+".send-btn"
 );
+
+const originalText =
+submitBtn.innerHTML;
 
 submitBtn.disabled = true;
 
-submitBtn.innerText =
+submitBtn.innerHTML =
 "Gönderiliyor...";
 
 try{
@@ -403,6 +431,10 @@ document.getElementById(
 "maybeMessage"
 )?.value || "";
 
+/* =========================
+   FIRESTORE
+========================= */
+
 await addDoc(
 collection(db,"rsvp"),
 {
@@ -419,19 +451,33 @@ serverTimestamp()
 }
 );
 
+/* =========================
+   RESET
+========================= */
+
 rsvpForm.reset();
 
 closeAllModals();
 
-showUploadPopup(
-"Katılım bilginiz bize ulaştı 🤍"
-);
+/* =========================
+   SUCCESS
+========================= */
+
+showSuccessPopup({
+
+title:
+"Katılım Bilginiz Ulaştı",
+
+message:
+"Bu özel günümüzde yanımızda olmanız bizi çok mutlu etti 🤍"
+
+});
 
 }catch(err){
 
 console.error(err);
 
-showUploadPopup(
+showErrorPopup(
 "Bir hata oluştu 😔"
 );
 
@@ -439,8 +485,8 @@ showUploadPopup(
 
 submitBtn.disabled = false;
 
-submitBtn.innerText =
-"Gönder";
+submitBtn.innerHTML =
+originalText;
 
 }
 );
@@ -448,51 +494,45 @@ submitBtn.innerText =
 }
 
 /* =========================
-   POPUP
+   SUCCESS POPUP
 ========================= */
 
-function showUploadPopup(text){
+function showSuccessPopup({
+
+title,
+message
+
+}){
 
 const popup =
 document.createElement(
 "div"
 );
 
+popup.className =
+"success-popup";
+
 popup.innerHTML = `
 
-<div style="
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.45);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999999;
-backdrop-filter:blur(8px);
-">
+<div class="success-box">
 
-<div style="
-background:white;
-padding:40px;
-border-radius:26px;
-max-width:420px;
-width:90%;
-text-align:center;
-font-size:18px;
-line-height:1.8;
-box-shadow:0 20px 80px rgba(0,0,0,.18);
-">
-
-<div style="
-font-size:46px;
-margin-bottom:18px;
-">
+<div class="success-heart">
 🤍
 </div>
 
-${text}
+<h2>
+${title}
+</h2>
 
-</div>
+<p>
+${message}
+</p>
+
+<button class="success-btn">
+
+Kapat
+
+</button>
 
 </div>
 
@@ -504,8 +544,124 @@ popup
 
 setTimeout(()=>{
 
+popup.classList.add(
+"show"
+);
+
+},50);
+
+/* CLOSE */
+
+popup
+.querySelector(".success-btn")
+.addEventListener(
+"click",
+()=>{
+
+closePopup(
+popup
+);
+
+}
+);
+
+/* AUTO CLOSE */
+
+setTimeout(()=>{
+
+closePopup(
+popup
+);
+
+},5000);
+
+}
+
+/* =========================
+   ERROR POPUP
+========================= */
+
+function showErrorPopup(text){
+
+const popup =
+document.createElement(
+"div"
+);
+
+popup.className =
+"success-popup";
+
+popup.innerHTML = `
+
+<div class="success-box">
+
+<div class="success-heart">
+😔
+</div>
+
+<h2>
+Bir Sorun Oluştu
+</h2>
+
+<p>
+${text}
+</p>
+
+<button class="success-btn">
+
+Kapat
+
+</button>
+
+</div>
+
+`;
+
+document.body.appendChild(
+popup
+);
+
+setTimeout(()=>{
+
+popup.classList.add(
+"show"
+);
+
+},50);
+
+/* CLOSE */
+
+popup
+.querySelector(".success-btn")
+.addEventListener(
+"click",
+()=>{
+
+closePopup(
+popup
+);
+
+}
+);
+
+}
+
+/* =========================
+   CLOSE POPUP
+========================= */
+
+function closePopup(popup){
+
+if(!popup) return;
+
+popup.classList.remove(
+"show"
+);
+
+setTimeout(()=>{
+
 popup.remove();
 
-},3000);
+},400);
 
 }
