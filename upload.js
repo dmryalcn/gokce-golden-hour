@@ -43,11 +43,6 @@ document.getElementById(
 "recordBtn"
 );
 
-const stopRecordBtn =
-document.getElementById(
-"stopRecordBtn"
-);
-
 const audioPreview =
 document.getElementById(
 "audioPreview"
@@ -135,7 +130,6 @@ mediaRecorder.start();
 
 recordBtn.disabled = true;
 
-stopRecordBtn.disabled = true;
 
 recordBtn.innerHTML =
 "Kaydediliyor...";
