@@ -192,7 +192,6 @@ alert(
 );
 }
 
-
 /* =========================
    MODALS
 ========================= */
@@ -207,8 +206,10 @@ document.getElementById(
 "memoryModal"
 );
 
+let memoryModalOpen = false;
+
 /* =========================
-   OPEN MODALS
+   OPEN RSVP
 ========================= */
 
 document
@@ -217,7 +218,9 @@ document
 
 btn.addEventListener(
 "click",
-()=>{
+(e)=>{
+
+e.preventDefault();
 
 if(rsvpModal){
 
@@ -235,15 +238,26 @@ document.body.style.overflow =
 
 });
 
+/* =========================
+   OPEN MEMORY
+========================= */
+
 document
 .querySelectorAll('[data-open="memory"]')
 .forEach(btn=>{
 
 btn.addEventListener(
 "click",
-()=>{
+(e)=>{
 
-if(memoryModal){
+e.preventDefault();
+
+e.stopPropagation();
+
+if(
+memoryModal &&
+!memoryModalOpen
+){
 
 memoryModal.classList.add(
 "active"
@@ -252,14 +266,14 @@ memoryModal.classList.add(
 document.body.style.overflow =
 "hidden";
 
+memoryModalOpen = true;
+
 }
 
 }
 );
 
 });
-
-
 
 /* =========================
    CLOSE MODALS
@@ -275,15 +289,26 @@ el.addEventListener(
 "click",
 ()=>{
 
+if(memoryModal){
+
 memoryModal.classList.remove(
 "active"
 );
+
+}
+
+if(rsvpModal){
 
 rsvpModal.classList.remove(
 "active"
 );
 
-document.body.style.overflow = "auto";
+}
+
+memoryModalOpen = false;
+
+document.body.style.overflow =
+"auto";
 
 });
 
@@ -367,17 +392,18 @@ document.getElementById(
 );
 
 let memorySubmitting = false;
+
 if(memoryForm){
 
 memoryForm.addEventListener(
 "submit",
 async(e)=>{
+
+e.preventDefault();
+
 if(memorySubmitting) return;
 
 memorySubmitting = true;
-
-
-e.preventDefault();
 
 const submitBtn =
 memoryForm.querySelector(
@@ -391,8 +417,6 @@ submitBtn.disabled = true;
 
 submitBtn.innerHTML =
 "Yükleniyor...";
-memorySubmitting = false;
-
 
 try{
 
@@ -438,8 +462,6 @@ throw new Error(
 }
 
 let mediaItems = [];
-
-
 
 /* =========================
    FILE VALIDATION
@@ -492,6 +514,7 @@ URL.createObjectURL(file);
 video.src = objectUrl;
 
 await new Promise((resolve,reject)=>{
+
 video.onerror = ()=>{
 
 reject(
@@ -501,8 +524,6 @@ new Error(
 );
 
 };
-
-
 
 video.onloadedmetadata = ()=>{
 
@@ -530,8 +551,6 @@ resolve();
 
 }
 
-
-   
 /* VIDEO */
 
 if(file.type.startsWith("video")){
@@ -573,8 +592,6 @@ throw new Error(
 
 }
 
-
-   
 /* =========================
    MULTI FILE UPLOAD
 ========================= */
@@ -625,6 +642,7 @@ type:file.type
 ========================= */
 
 if(recordedAudioBlob){
+
 if(
 recordedAudioBlob.size >
 5 * 1024 * 1024
@@ -635,8 +653,6 @@ throw new Error(
 );
 
 }
-
-
 
 const audioFile =
 new File(
@@ -754,13 +770,16 @@ showErrorPopup(
 err.message || "Bir hata oluştu 😔"
 );
 
-
 }
+
+/* FINALIZE */
 
 submitBtn.disabled = false;
 
 submitBtn.innerHTML =
 originalText;
+
+memorySubmitting = false;
 
 }
 );
@@ -776,21 +795,19 @@ document.getElementById(
 "rsvpForm"
 );
 
-if(rsvpForm){
 let rsvpSubmitting = false;
 
+if(rsvpForm){
 
-   
 rsvpForm.addEventListener(
 "submit",
-
 async(e)=>{
+
+e.preventDefault();
+
 if(rsvpSubmitting) return;
 
 rsvpSubmitting = true;
-
-
-e.preventDefault();
 
 const submitBtn =
 rsvpForm.querySelector(
@@ -804,8 +821,6 @@ submitBtn.disabled = true;
 
 submitBtn.innerHTML =
 "Gönderiliyor...";
-rsvpSubmitting = false;
-
 
 try{
 
@@ -874,8 +889,6 @@ throw new Error(
 
 }
 
-
-
 await addDoc(
 collection(db,"rsvp"),
 {
@@ -895,7 +908,6 @@ serverTimestamp()
 
 }
 );
-
 
 rsvpForm.reset();
 
@@ -919,14 +931,16 @@ showErrorPopup(
 err.message || "Bir hata oluştu 😔"
 );
 
-
-
 }
+
+/* FINALIZE */
 
 submitBtn.disabled = false;
 
 submitBtn.innerHTML =
 originalText;
+
+rsvpSubmitting = false;
 
 }
 );
@@ -1122,8 +1136,11 @@ rsvpModal.classList.remove(
 
 }
 
+memoryModalOpen = false;
+
 document.body.style.overflow =
 "auto";
 
 }
+
 
