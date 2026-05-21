@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 const opening =
 document.getElementById(
@@ -10,12 +12,31 @@ document.getElementById(
 "openSiteBtn"
 );
 
+const envelope =
+document.querySelector(
+".envelope"
+);
+
+const seal =
+document.querySelector(
+".opening-seal"
+);
+
+const lightBurst =
+document.querySelector(
+".light-burst"
+);
+
 const music =
 document.getElementById(
 "bgMusic"
 );
 
-if(!opening || !openBtn) return;
+if(
+!opening ||
+!openBtn ||
+!envelope
+) return;
 
 document.body.style.overflow =
 "hidden";
@@ -40,16 +61,44 @@ music.play().catch(()=>{});
 
 }
 
-/* OPEN ANIMATION */
+/* SEAL BREAK */
 
-opening.classList.add(
-"opening-hide"
+seal.classList.add(
+"crack"
 );
 
-/* ENABLE SCROLL */
+/* LIGHT */
+
+setTimeout(()=>{
+
+lightBurst.classList.add(
+"show"
+);
+
+},300);
+
+/* ENVELOPE OPEN */
+
+setTimeout(()=>{
+
+envelope.classList.add(
+"open"
+);
+
+},500);
+
+/* SITE REVEAL */
+
+setTimeout(()=>{
+
+opening.classList.add(
+"hidden"
+);
 
 document.body.style.overflow =
 "auto";
+
+},2400);
 
 /* REMOVE */
 
@@ -57,9 +106,8 @@ setTimeout(()=>{
 
 opening.remove();
 
-},1400);
+},3800);
 
-}
-);
+});
 
 });
