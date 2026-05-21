@@ -235,14 +235,21 @@ btn.addEventListener(
 
 if(memoryModal){
 
-memoryModal.classList.add("active");
+memoryModal.classList.add(
+"active"
+);
 
-document.body.style.overflow = "hidden";
+document.body.style.overflow =
+"hidden";
+
+}
 
 }
 );
 
 });
+
+
 
 /* =========================
    CLOSE MODALS
@@ -382,6 +389,11 @@ document.getElementById(
 "memoryMessage"
 )?.value || "";
 
+const files =
+document.getElementById(
+"memoryFile"
+)?.files || [];
+
 /* MESSAGE LIMIT */
 
 if(message.length > 400){
@@ -408,14 +420,9 @@ throw new Error(
 
 }
 
-
-   
-const files =
-document.getElementById(
-"memoryFile"
-)?.files || [];
-
 let mediaItems = [];
+
+
 
 /* =========================
    FILE VALIDATION
@@ -704,8 +711,9 @@ message:
 console.error(err);
 
 showErrorPopup(
-"Bir hata oluştu 😔"
+err.message || "Bir hata oluştu 😔"
 );
+
 
 }
 
@@ -858,8 +866,10 @@ message:
 console.error(err);
 
 showErrorPopup(
-"Bir hata oluştu 😔"
+err.message || "Bir hata oluştu 😔"
 );
+
+
 
 }
 
