@@ -520,11 +520,14 @@ opacity:.7;
 
 }
 
+```css id="x8m2vp"
 /* =========================
-   MAP
+   PREMIUM MAP
 ========================= */
 
 .map-box{
+
+position:relative;
 
 overflow:hidden;
 
@@ -536,10 +539,12 @@ rgba(15,15,15,.58);
 border:
 1px solid rgba(255,255,255,.08);
 
-backdrop-filter:blur(10px);
+backdrop-filter:blur(20px);
 
 box-shadow:
 0 20px 60px rgba(0,0,0,.35);
+
+isolation:isolate;
 
 }
 
@@ -547,21 +552,178 @@ box-shadow:
 
 width:100%;
 
-height:480px;
+height:560px;
 
 border:none;
 
+display:block;
+
+filter:
+grayscale(.18)
+contrast(1.04)
+brightness(.92);
+
 }
+
+/* OVERLAY */
+
+.map-box::before{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+
+linear-gradient(
+180deg,
+rgba(0,0,0,.04),
+rgba(0,0,0,.42)
+);
+
+z-index:1;
+
+pointer-events:none;
+
+}
+
+/* CONTENT */
 
 .map-buttons{
 
-padding:25px;
+position:absolute;
+
+left:50%;
+bottom:34px;
+
+transform:
+translateX(-50%);
+
+z-index:5;
+
+width:
+calc(100% - 40px);
+
+max-width:720px;
+
+padding:28px;
+
+border-radius:28px;
+
+background:
+rgba(0,0,0,.42);
+
+backdrop-filter:blur(16px);
+
+border:
+1px solid rgba(255,255,255,.08);
 
 display:flex;
 
 justify-content:center;
 
+gap:14px;
+
+flex-wrap:wrap;
+
 }
+
+/* BUTTON */
+
+.map-btn{
+
+padding:
+16px 26px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+font-weight:700;
+
+transition:.35s;
+
+min-width:220px;
+
+text-align:center;
+
+}
+
+.map-btn:hover{
+
+transform:
+translateY(-4px);
+
+}
+
+.map-btn.primary{
+
+background:
+linear-gradient(
+135deg,
+#a77745,
+#d4a46d
+);
+
+color:white;
+
+box-shadow:
+0 15px 40px rgba(176,130,79,.25);
+
+}
+
+.map-btn.secondary{
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+color:white;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.map-box iframe{
+
+height:420px;
+
+}
+
+.map-buttons{
+
+bottom:18px;
+
+padding:18px;
+
+width:
+calc(100% - 20px);
+
+}
+
+.map-btn{
+
+width:100%;
+
+min-width:auto;
+
+padding:
+15px 20px;
+
+font-size:14px;
+
+}
+
+}
+```
+
 
 /* =========================
    GALLERY
