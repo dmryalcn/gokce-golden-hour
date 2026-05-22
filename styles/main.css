@@ -1641,4 +1641,174 @@ padding:24px;
 }
 
 }
+/* =========================================================
+   RSVP MODAL FINAL FIX
+========================================================= */
 
+.rsvp-modal{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+background:
+rgba(0,0,0,.72);
+
+backdrop-filter:blur(12px);
+
+z-index:999999;
+
+overflow-y:auto;
+overflow-x:hidden;
+
+}
+
+.rsvp-modal.active{
+
+display:flex;
+
+}
+
+.rsvp-box{
+
+position:relative;
+
+width:min(680px,92vw);
+
+max-width:92vw;
+
+padding:50px;
+
+border-radius:36px;
+
+background:
+linear-gradient(
+145deg,
+rgba(20,20,20,.96),
+rgba(10,10,10,.98)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.45);
+
+overflow:hidden;
+
+}
+
+.rsvp-box h2{
+
+font-size:72px;
+
+text-align:center;
+
+margin-bottom:30px;
+
+font-family:
+'Cormorant Garamond',
+serif;
+
+}
+
+.rsvp-box form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.rsvp-box input,
+.rsvp-box select,
+.rsvp-box textarea{
+
+width:100%;
+
+padding:18px 22px;
+
+border-radius:20px;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+background:
+rgba(255,255,255,.04);
+
+color:white;
+
+font-size:16px;
+
+outline:none;
+
+}
+
+.rsvp-box textarea{
+
+min-height:140px;
+
+resize:none;
+
+}
+
+.rsvp-close{
+
+position:absolute;
+
+top:24px;
+right:24px;
+
+width:56px;
+height:56px;
+
+border-radius:50%;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+background:
+rgba(255,255,255,.06);
+
+color:white;
+
+font-size:32px;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.rsvp-box{
+
+padding:32px 22px;
+
+border-radius:28px;
+
+}
+
+.rsvp-box h2{
+
+font-size:52px;
+
+line-height:1;
+
+}
+
+}
