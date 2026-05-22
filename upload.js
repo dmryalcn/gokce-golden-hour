@@ -1,5 +1,5 @@
 /* =========================================================
-   GÖKÇE & YALÇIN — MEMORY EXPERIENCE 2.0
+   GÖKÇE & YALÇIN — UPLOAD SYSTEM FINAL
 ========================================================= */
 
 import "./firebase.js";
@@ -12,46 +12,60 @@ serverTimestamp
 
 const db = window.db;
 
-/* =========================
+/* =========================================================
    CLOUDINARY
-========================= */
+========================================================= */
 
-const CLOUD_NAME =
-"dgtscqpny";
+const CLOUD_NAME = "dgtscqpny";
+const UPLOAD_PRESET = "weddingUploads";
 
-const UPLOAD_PRESET =
-"weddingUploads";
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-/* =========================
-   AUDIO RECORDING
-========================= */
+const memoryModal =
+document.getElementById("memoryModal");
 
-let mediaRecorder;
+const rsvpModal =
+document.getElementById("rsvpModal");
+
+const memoryForm =
+document.getElementById("memoryForm");
+
+const rsvpForm =
+document.getElementById("rsvpForm");
+
+const recordBtn =
+document.getElementById("recordBtn");
+
+const audioPreview =
+document.getElementById("audioPreview");
+
+const recordingStatus =
+document.getElementById("recordingStatus");
+
+const backgroundMusic =
+document.getElementById("backgroundMusic");
+
+/* =========================================================
+   AUDIO RECORD
+========================================================= */
+
+let mediaRecorder = null;
 
 let audioChunks = [];
 
 let recordedAudioBlob = null;
 
-let recordingTimer;
+let recordingTimer = null;
 
 let recordingSeconds = 15;
 
+let isRecording = false;
 
-
-const recordBtn =
-document.getElementById(
-"recordBtn"
-);
-
-const audioPreview =
-document.getElementById(
-"audioPreview"
-);
-
-const recordingStatus =
-document.getElementById(
-"recordingStatus"
-);
+/* =========================================================
+   START RECORD
+========================================================= */
 
 if(recordBtn){
 
@@ -59,31 +73,93 @@ recordBtn.addEventListener(
 "click",
 async()=>{
 
+if(isRecording) return;
+
 try{
+
+isRecording = true;
+
+/* MUSIC PAUSE */
+
+if(backgroundMusic){
+
+backgroundMusic.pause();
+
+}
+
+/* STREAM */
 
 const stream =
 await navigator.mediaDevices.getUserMedia({
 audio:true
 });
 
+/* MIME */
+
+let mimeType = "";
+
+if(
+MediaRecorder.isTypeSupported(
+"audio/webm;codecs=opus"
+)
+){
+
+mimeType =
+"audio/webm;codecs=opus";
+
+}
+
+else if(
+MediaRecorder.isTypeSupported(
+"audio/webm"
+)
+){
+
+mimeType = "audio/webm";
+
+}
+
+else{
+
+mimeType = "";
+
+}
+
 mediaRecorder =
-new MediaRecorder(stream);
+new MediaRecorder(
+stream,
+mimeType
+? { mimeType }
+: undefined
+);
 
 audioChunks = [];
 
 recordingSeconds = 15;
 
+/* DATA */
+
 mediaRecorder.ondataavailable =
-(e)=>{
+(event)=>{
+
+if(event.data.size > 0){
 
 audioChunks.push(
-e.data
+event.data
 );
+
+}
 
 };
 
+/* STOP */
+
 mediaRecorder.onstop = ()=>{
-clearInterval(recordingTimer);
+
+clearInterval(
+recordingTimer
+);
+
 stream
 .getTracks()
 .forEach(track=>{
@@ -92,26 +168,34 @@ track.stop();
 
 });
 
-
-   
 recordedAudioBlob =
 new Blob(
 audioChunks,
 {
-type:"audio/webm"
+type:
+mediaRecorder.mimeType ||
+"audio/webm"
 }
 );
+
+/* PREVIEW */
 
 const audioUrl =
 URL.createObjectURL(
 recordedAudioBlob
 );
 
+if(audioPreview){
+
 audioPreview.src =
 audioUrl;
 
 audioPreview.style.display =
 "block";
+
+}
+
+/* STATUS */
 
 if(recordingStatus){
 
@@ -120,28 +204,43 @@ recordingStatus.innerHTML =
 
 }
 
-clearInterval(
-recordingTimer
-);
+/* RESET BTN */
+
+recordBtn.disabled = false;
+
+recordBtn.innerHTML =
+"🎙️ Sesli Mesaj Gönder";
+
+isRecording = false;
+
+/* MUSIC RESUME */
+
+if(backgroundMusic){
+
+backgroundMusic.play()
+.catch(()=>{});
+
+}
 
 };
+
+/* START */
 
 mediaRecorder.start();
 
 recordBtn.disabled = true;
 
-
 recordBtn.innerHTML =
 "Kaydediliyor...";
+
+/* TIMER */
 
 if(recordingStatus){
 
 recordingStatus.innerHTML =
-`15 saniye kaldı`;
+"15 saniye kaldı";
 
 }
-
-/* TIMER */
 
 recordingTimer =
 setInterval(()=>{
@@ -159,11 +258,6 @@ if(recordingSeconds <= 0){
 
 mediaRecorder.stop();
 
-recordBtn.disabled = false;
-
-recordBtn.innerHTML =
-"🎙️ Sesli Mesaj Gönder";
-
 clearInterval(
 recordingTimer
 );
@@ -172,110 +266,53 @@ recordingTimer
 
 },1000);
 
-}catch(err){
+}catch(error){
 
-console.error(err);
+console.error(error);
 
 alert(
 "Mikrofon erişimi sağlanamadı 😔"
 );
 
+recordBtn.disabled = false;
+
+recordBtn.innerHTML =
+"🎙️ Sesli Mesaj Gönder";
+
+isRecording = false;
+
+if(backgroundMusic){
+
+backgroundMusic.play()
+.catch(()=>{});
+
+}
+
 }
 
 }
 );
+
 }
 
-/* =========================
+/* =========================================================
    MODALS
-========================= */
+========================================================= */
 
-const rsvpModal =
-document.getElementById(
-"rsvpModal"
-);
+function openModal(modal){
 
-const memoryModal =
-document.getElementById(
-"memoryModal"
-);
+if(!modal) return;
 
-let memoryModalOpen = false;
-
-/* =========================
-   OPEN RSVP
-========================= */
-
-document
-.querySelectorAll('[data-open="rsvp"]')
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-(e)=>{
-
-e.preventDefault();
-
-if(rsvpModal){
-
-rsvpModal.classList.add(
+modal.classList.add(
 "active"
 );
 
-}
-
-}
-);
-
-});
-
-/* =========================
-   OPEN MEMORY
-========================= */
-
-document
-.querySelectorAll('[data-open="memory"]')
-.forEach(btn=>{
-
-btn.addEventListener(
-"click",
-(e)=>{
-
-e.preventDefault();
-
-e.stopPropagation();
-
-if(
-memoryModal &&
-!memoryModalOpen
-){
-
-memoryModal.classList.add(
-"active"
-);
-
-memoryModalOpen = true;
+document.body.style.overflow =
+"hidden";
 
 }
 
-}
-);
-
-});
-
-/* =========================
-   CLOSE MODALS
-========================= */
-
-document
-.querySelectorAll(
-".modal-close,.memory-overlay"
-)
-.forEach(el=>{
-
-el.addEventListener(
-"click",
-()=>{
+function closeAllModals(){
 
 if(memoryModal){
 
@@ -293,88 +330,112 @@ rsvpModal.classList.remove(
 
 }
 
-memoryModalOpen = false;
+document.body.style.overflow =
+"auto";
 
-});
+}
 
-});
+/* OPEN */
 
-/* =========================
-   RSVP DYNAMIC AREAS
-========================= */
+document
+.querySelectorAll('[data-open="memory"]')
+.forEach(btn=>{
 
-const rsvpStatus =
-document.getElementById(
-"rsvpStatus"
+btn.addEventListener(
+"click",
+(event)=>{
+
+event.preventDefault();
+
+openModal(memoryModal);
+
+}
 );
 
-if(rsvpStatus){
+});
 
-rsvpStatus.addEventListener(
-"change",
+document
+.querySelectorAll('[data-open="rsvp"]')
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+(event)=>{
+
+event.preventDefault();
+
+openModal(rsvpModal);
+
+}
+);
+
+});
+
+/* CLOSE */
+
+document
+.querySelectorAll(
+".modal-close,.memory-overlay"
+)
+.forEach(element=>{
+
+element.addEventListener(
+"click",
 ()=>{
 
-const guestArea =
-document.getElementById(
-"guestCountArea"
-);
-
-const cannotArea =
-document.getElementById(
-"cannotJoinArea"
-);
-
-const maybeArea =
-document.getElementById(
-"maybeArea"
-);
-
-guestArea.style.display =
-"none";
-
-cannotArea.style.display =
-"none";
-
-maybeArea.style.display =
-"none";
-
-if(rsvpStatus.value ===
-"geliyor"){
-
-guestArea.style.display =
-"block";
-
-}
-
-if(rsvpStatus.value ===
-"gelmiyor"){
-
-cannotArea.style.display =
-"block";
-
-}
-
-if(rsvpStatus.value ===
-"kararsiz"){
-
-maybeArea.style.display =
-"block";
-
-}
+closeAllModals();
 
 }
 );
 
+});
+
+/* =========================================================
+   CLOUDINARY UPLOAD
+========================================================= */
+
+async function uploadToCloudinary(file){
+
+const formData =
+new FormData();
+
+formData.append(
+"file",
+file
+);
+
+formData.append(
+"upload_preset",
+UPLOAD_PRESET
+);
+
+const response =
+await fetch(
+`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
+{
+method:"POST",
+body:formData
+}
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+throw new Error(
+"Dosya yüklenemedi 😔"
+);
+
 }
 
-/* =========================
+return data.secure_url;
+
+}
+
+/* =========================================================
    MEMORY FORM
-========================= */
-
-const memoryForm =
-document.getElementById(
-"memoryForm"
-);
+========================================================= */
 
 let memorySubmitting = false;
 
@@ -382,9 +443,9 @@ if(memoryForm){
 
 memoryForm.addEventListener(
 "submit",
-async(e)=>{
+async(event)=>{
 
-e.preventDefault();
+event.preventDefault();
 
 if(memorySubmitting) return;
 
@@ -406,21 +467,32 @@ submitBtn.innerHTML =
 try{
 
 const name =
-document.getElementById(
-"memoryName"
-)?.value || "";
+document.getElementById("memoryName")
+?.value || "";
 
 const message =
-document.getElementById(
-"memoryMessage"
-)?.value || "";
+document.getElementById("memoryMessage")
+?.value || "";
 
 const files =
-document.getElementById(
-"memoryFile"
-)?.files || [];
+document.getElementById("memoryFile")
+?.files || [];
 
-/* MESSAGE LIMIT */
+/* EMPTY CHECK */
+
+if(
+!message.trim() &&
+files.length === 0 &&
+!recordedAudioBlob
+){
+
+throw new Error(
+"Lütfen bir anı bırakın 🤍"
+);
+
+}
+
+/* LIMIT */
 
 if(message.length > 400){
 
@@ -430,31 +502,13 @@ throw new Error(
 
 }
 
-/* EMPTY */
-
-if(
-
-!message.trim() &&
-files.length === 0 &&
-!recordedAudioBlob
-
-){
-
-throw new Error(
-"Lütfen bir anı bırakın 🤍"
-);
-
-}
-
 let mediaItems = [];
-
-/* =========================
-   FILE VALIDATION
-========================= */
 
 let imageCount = 0;
 
 let videoCount = 0;
+
+/* FILE LOOP */
 
 for(const file of files){
 
@@ -479,60 +533,6 @@ throw new Error(
 );
 
 }
-
-}
-
-/* VIDEO DURATION */
-
-if(file.type.startsWith("video")){
-
-const video =
-document.createElement(
-"video"
-);
-
-video.preload = "metadata";
-
-const objectUrl =
-URL.createObjectURL(file);
-
-video.src = objectUrl;
-
-await new Promise((resolve,reject)=>{
-
-video.onerror = ()=>{
-
-reject(
-new Error(
-"Video okunamadı 😔"
-)
-);
-
-};
-
-video.onloadedmetadata = ()=>{
-
-URL.revokeObjectURL(
-objectUrl
-);
-
-if(video.duration > 15){
-
-reject(
-new Error(
-"Video en fazla 15 saniye olabilir 🤍"
-)
-);
-
-}else{
-
-resolve();
-
-}
-
-};
-
-});
 
 }
 
@@ -563,10 +563,8 @@ throw new Error(
 /* UNSUPPORTED */
 
 if(
-
 !file.type.startsWith("image") &&
 !file.type.startsWith("video")
-
 ){
 
 throw new Error(
@@ -575,44 +573,16 @@ throw new Error(
 
 }
 
-}
+/* UPLOAD */
 
-/* =========================
-   MULTI FILE UPLOAD
-========================= */
-
-for(const file of files){
-
-const formData =
-new FormData();
-
-formData.append(
-"file",
+const uploadedUrl =
+await uploadToCloudinary(
 file
 );
 
-formData.append(
-"upload_preset",
-UPLOAD_PRESET
-);
-
-const response =
-await fetch(
-`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
-{
-method:"POST",
-body:formData
-}
-);
-
-const data =
-await response.json();
-
-if(response.ok){
-
 mediaItems.push({
 
-url:data.secure_url,
+url:uploadedUrl,
 
 type:file.type
 
@@ -620,24 +590,9 @@ type:file.type
 
 }
 
-}
-
-/* =========================
-   AUDIO RECORD UPLOAD
-========================= */
+/* AUDIO */
 
 if(recordedAudioBlob){
-
-if(
-recordedAudioBlob.size >
-5 * 1024 * 1024
-){
-
-throw new Error(
-"Ses kaydı maksimum 5MB olabilir 🤍"
-);
-
-}
 
 const audioFile =
 new File(
@@ -645,55 +600,29 @@ new File(
 "voice-message.webm",
 {
 type:
-mediaRecorder.mimeType ||
+recordedAudioBlob.type ||
 "audio/webm"
 }
 );
 
-const formData =
-new FormData();
-
-formData.append(
-"file",
+const uploadedAudio =
+await uploadToCloudinary(
 audioFile
 );
 
-formData.append(
-"upload_preset",
-UPLOAD_PRESET
-);
-
-const response =
-await fetch(
-`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
-{
-method:"POST",
-body:formData
-}
-);
-
-const data =
-await response.json();
-
-if(response.ok){
-
 mediaItems.push({
 
-url:data.secure_url,
+url:uploadedAudio,
 
 type:
-mediaRecorder.mimeType ||
+recordedAudioBlob.type ||
 "audio/webm"
 
 });
 
 }
 
-}
-
-/* =========================
-   FIRESTORE
-========================= */
+/* FIRESTORE */
 
 await addDoc(
 collection(db,"memories"),
@@ -703,15 +632,15 @@ name,
 message,
 mediaItems,
 
+hidden:false,
+
 createdAt:
 serverTimestamp()
 
 }
 );
 
-/* =========================
-   RESET
-========================= */
+/* RESET */
 
 memoryForm.reset();
 
@@ -721,10 +650,10 @@ audioChunks = [];
 
 if(audioPreview){
 
+audioPreview.src = "";
+
 audioPreview.style.display =
 "none";
-
-audioPreview.src = "";
 
 }
 
@@ -737,31 +666,24 @@ recordingStatus.innerHTML =
 
 closeAllModals();
 
-/* =========================
-   SUCCESS
-========================= */
+showPopup(
+"Anınız Kaydedildi 🤍",
+"Bu güzel an artık hikayemizin bir parçası oldu ✨"
+);
 
-showSuccessPopup({
+}catch(error){
 
-title:
-"Anınız Kaydedildi",
+console.error(error);
 
-message:
-"Bu güzel mesajınız artık hikayemizin bir parçası oldu ✨"
-
-});
-
-}catch(err){
-
-console.error(err);
-
-showErrorPopup(
-err.message || "Bir hata oluştu 😔"
+showPopup(
+"Bir Sorun Oluştu 😔",
+error.message ||
+"Bir hata oluştu"
 );
 
 }
 
-/* FINALIZE */
+/* FINAL */
 
 submitBtn.disabled = false;
 
@@ -775,14 +697,9 @@ memorySubmitting = false;
 
 }
 
-/* =========================
+/* =========================================================
    RSVP FORM
-========================= */
-
-const rsvpForm =
-document.getElementById(
-"rsvpForm"
-);
+========================================================= */
 
 let rsvpSubmitting = false;
 
@@ -790,9 +707,9 @@ if(rsvpForm){
 
 rsvpForm.addEventListener(
 "submit",
-async(e)=>{
+async(event)=>{
 
-e.preventDefault();
+event.preventDefault();
 
 if(rsvpSubmitting) return;
 
@@ -814,39 +731,12 @@ submitBtn.innerHTML =
 try{
 
 const name =
-document.getElementById(
-"rsvpName"
-)?.value || "";
+document.getElementById("rsvpName")
+?.value || "";
 
 const status =
-document.getElementById(
-"rsvpStatus"
-)?.value || "";
-
-const guestCount =
-document.getElementById(
-"guestCount"
-)?.value || "";
-
-const cannotJoinMessage =
-document.getElementById(
-"cannotJoinMessage"
-)?.value || "";
-
-const maybeMessage =
-document.getElementById(
-"maybeMessage"
-)?.value || "";
-
-const transportNeed =
-document.getElementById(
-"transportNeed"
-)?.value || "";
-
-const comingMessage =
-document.getElementById(
-"comingMessage"
-)?.value || "";
+document.getElementById("rsvpStatus")
+?.value || "";
 
 if(!name.trim()){
 
@@ -864,33 +754,32 @@ throw new Error(
 
 }
 
-if(
-
-comingMessage.length > 250 ||
-maybeMessage.length > 250 ||
-cannotJoinMessage.length > 250
-
-){
-
-throw new Error(
-"Mesajlar maksimum 250 karakter olabilir 🤍"
-);
-
-}
-
 await addDoc(
 collection(db,"rsvp"),
 {
 
 name,
 status,
-guestCount,
 
-transportNeed,
-comingMessage,
+guestCount:
+document.getElementById("guestCount")
+?.value || "",
 
-cannotJoinMessage,
-maybeMessage,
+transportNeed:
+document.getElementById("transportNeed")
+?.value || "",
+
+comingMessage:
+document.getElementById("comingMessage")
+?.value || "",
+
+cannotJoinMessage:
+document.getElementById("cannotJoinMessage")
+?.value || "",
+
+maybeMessage:
+document.getElementById("maybeMessage")
+?.value || "",
 
 createdAt:
 serverTimestamp()
@@ -902,27 +791,24 @@ rsvpForm.reset();
 
 closeAllModals();
 
-showSuccessPopup({
+showPopup(
+"Katılım Bilginiz Ulaştı 🤍",
+"Bu özel günümüzde yanımızda olmanız bizi çok mutlu etti ✨"
+);
 
-title:
-"Katılım Bilginiz Ulaştı",
+}catch(error){
 
-message:
-"Bu özel günümüzde yanımızda olmanız bizi çok mutlu etti 🤍"
+console.error(error);
 
-});
-
-}catch(err){
-
-console.error(err);
-
-showErrorPopup(
-err.message || "Bir hata oluştu 😔"
+showPopup(
+"Bir Sorun Oluştu 😔",
+error.message ||
+"Bir hata oluştu"
 );
 
 }
 
-/* FINALIZE */
+/* FINAL */
 
 submitBtn.disabled = false;
 
@@ -936,196 +822,17 @@ rsvpSubmitting = false;
 
 }
 
-/* =========================
-   SUCCESS POPUP
-========================= */
+/* =========================================================
+   POPUP
+========================================================= */
 
-function showSuccessPopup({
-
+function showPopup(
 title,
 message
+){
 
-}){
-
-const popup =
-document.createElement(
-"div"
-);
-
-popup.className =
-"success-popup";
-
-popup.innerHTML = `
-
-<div class="success-box">
-
-<div class="success-heart">
-🤍
-</div>
-
-<h2>
-${title}
-</h2>
-
-<p>
-${message}
-</p>
-
-<button class="success-btn">
-
-Kapat
-
-</button>
-
-</div>
-
-`;
-
-document.body.appendChild(
-popup
-);
-
-setTimeout(()=>{
-
-popup.classList.add(
-"show"
-);
-
-},50);
-
-popup
-.querySelector(".success-btn")
-.addEventListener(
-"click",
-()=>{
-
-closePopup(
-popup
+alert(
+`${title}\n\n${message}`
 );
 
 }
-);
-
-setTimeout(()=>{
-
-closePopup(
-popup
-);
-
-},5000);
-
-}
-
-/* =========================
-   ERROR POPUP
-========================= */
-
-function showErrorPopup(text){
-
-const popup =
-document.createElement(
-"div"
-);
-
-popup.className =
-"success-popup";
-
-popup.innerHTML = `
-
-<div class="success-box">
-
-<div class="success-heart">
-😔
-</div>
-
-<h2>
-Bir Sorun Oluştu
-</h2>
-
-<p>
-${text}
-</p>
-
-<button class="success-btn">
-
-Kapat
-
-</button>
-
-</div>
-
-`;
-
-document.body.appendChild(
-popup
-);
-
-setTimeout(()=>{
-
-popup.classList.add(
-"show"
-);
-
-},50);
-
-popup
-.querySelector(".success-btn")
-.addEventListener(
-"click",
-()=>{
-
-closePopup(
-popup
-);
-
-}
-);
-
-}
-
-/* =========================
-   CLOSE POPUP
-========================= */
-
-function closePopup(popup){
-
-if(!popup) return;
-
-popup.classList.remove(
-"show"
-);
-
-setTimeout(()=>{
-
-popup.remove();
-
-},400);
-
-}
-
-/* =========================
-   CLOSE ALL MODALS
-========================= */
-
-function closeAllModals(){
-
-if(memoryModal){
-
-memoryModal.classList.remove(
-"active"
-);
-
-}
-
-if(rsvpModal){
-
-rsvpModal.classList.remove(
-"active"
-);
-
-}
-
-memoryModalOpen = false;
-
-}
-
