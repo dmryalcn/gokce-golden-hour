@@ -375,7 +375,7 @@ openModal(rsvpModal);
 
 document
 .querySelectorAll(
-".modal-close,.memory-overlay"
+".modal-close,.memory-overlay,.rsvp-close"
 )
 .forEach(element=>{
 
@@ -735,7 +735,7 @@ document.getElementById("rsvpName")
 ?.value || "";
 
 const status =
-document.getElementById("rsvpStatus")
+document.getElementById("attendanceStatus")
 ?.value || "";
 
 if(!name.trim()){
