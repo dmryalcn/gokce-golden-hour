@@ -60,7 +60,7 @@ opened = true;
 
 if(music){
 
-music.volume = 0.18;
+music.volume = 0.8;
 
 music.play().catch(()=>{});
 
