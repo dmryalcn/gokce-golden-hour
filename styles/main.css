@@ -104,7 +104,6 @@ position:relative;
 
 z-index:2;
 
-overflow:hidden;
 
 }
 
@@ -529,10 +528,9 @@ font-size:11px;
 opacity:.7;
 
 }
-
-/* =========================
-   PREMIUM MAP
-========================= */
+/* =========================================================
+   FINAL MAP SYSTEM
+========================================================= */
 
 .luxury-map{
 
@@ -540,9 +538,7 @@ position:relative;
 
 overflow:hidden;
 
-border-radius:36px;
-
-padding:40px;
+border-radius:40px;
 
 background:
 linear-gradient(
@@ -560,38 +556,34 @@ box-shadow:
 0 20px 60px rgba(0,0,0,.35);
 
 }
+
 .luxury-map iframe{
 
 width:100%;
 
-height:340px;
+height:620px;
 
 border:none;
 
 display:block;
 
 filter:
-grayscale(.18)
-contrast(1.04)
+grayscale(.12)
+contrast(1.02)
 brightness(.92);
 
 }
 
-/* OVERLAY */
-
-.luxury-map::before{
-
-content:"";
+.map-overlay{
 
 position:absolute;
 inset:0;
 
 background:
-
 linear-gradient(
-180deg,
-rgba(0,0,0,.04),
-rgba(0,0,0,.42)
+to top,
+rgba(0,0,0,.72),
+rgba(0,0,0,.08)
 );
 
 z-index:1;
@@ -600,80 +592,88 @@ pointer-events:none;
 
 }
 
-/* CONTENT */
-
-.map-actions{
+.map-content{
 
 position:absolute;
 
 left:50%;
-bottom:34px;
+bottom:40px;
 
-transform:
-translateX(-50%);
+transform:translateX(-50%);
 
 z-index:5;
 
-width:
-calc(100% - 40px);
+width:min(520px,90%);
 
-max-width:720px;
+padding:30px;
 
-padding:28px;
-
-border-radius:28px;
+border-radius:30px;
 
 background:
 rgba(0,0,0,.42);
 
-backdrop-filter:blur(16px);
+backdrop-filter:blur(18px);
 
 border:
 1px solid rgba(255,255,255,.08);
 
+text-align:center;
+
+}
+
+.map-tag{
+
+font-size:12px;
+
+letter-spacing:4px;
+
+opacity:.7;
+
+margin-bottom:14px;
+
+}
+
+.map-content h3{
+
+font-size:32px;
+
+line-height:1.3;
+
+margin-bottom:14px;
+
+font-family:
+'Cormorant Garamond',
+serif;
+
+}
+
+.map-description{
+
+opacity:.82;
+
+line-height:1.7;
+
+margin-bottom:24px;
+
+}
+
+.map-actions{
+
 display:flex;
 
-flex-direction:column;
+justify-content:center;
 
-align-items:flex-start;
+align-items:center;
 
 gap:14px;
 
 flex-wrap:wrap;
 
 }
-.map-actions h3,
-.map-actions p{
-
-margin:0;
-
-}
-
-.map-actions h3{
-
-font-size:32px;
-
-font-family:
-"Cormorant Garamond",
-serif;
-
-}
-
-.map-actions p{
-
-line-height:1.7;
-
-opacity:.85;
-
-}
-
-
-/* BUTTON */
 
 .map-btn{
 
-padding:
-16px 26px;
+padding:18px 30px;
 
 border-radius:999px;
 
@@ -683,9 +683,10 @@ font-weight:700;
 
 transition:.35s;
 
-min-width:220px;
+display:inline-flex;
 
-text-align:center;
+align-items:center;
+justify-content:center;
 
 }
 
@@ -701,14 +702,14 @@ translateY(-4px);
 background:
 linear-gradient(
 135deg,
-#a77745,
-#d4a46d
+#8f6237,
+#c69763
 );
 
 color:white;
 
 box-shadow:
-0 15px 40px rgba(176,130,79,.25);
+0 18px 45px rgba(176,130,79,.32);
 
 }
 
@@ -717,12 +718,12 @@ box-shadow:
 background:
 rgba(255,255,255,.08);
 
-backdrop-filter:blur(10px);
+color:white;
 
 border:
-1px solid rgba(255,255,255,.12);
+1px solid rgba(255,255,255,.08);
 
-color:white;
+backdrop-filter:blur(10px);
 
 }
 
@@ -732,9 +733,40 @@ color:white;
 
 .luxury-map iframe{
 
-height:420px;
+height:620px;
 
 }
+
+.map-content{
+
+bottom:20px;
+
+padding:24px;
+
+width:92%;
+
+}
+
+.map-content h3{
+
+font-size:24px;
+
+}
+
+.map-actions{
+
+flex-direction:column;
+
+}
+
+.map-btn{
+
+width:100%;
+
+}
+
+}
+
 
 .map-actions{
 
@@ -772,56 +804,7 @@ backdrop-filter:none;
 }
 }
    
-/* =========================
-   GALLERY
-========================= */
 
-.gallery{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
-
-gap:24px;
-
-}
-
-.gallery img{
-
-width:100%;
-
-height:430px;
-
-object-fit:cover;
-
-border-radius:30px;
-
-transition:
-transform .45s ease,
-filter .45s ease,
-box-shadow .45s ease;
-
-filter:
-brightness(.92);
-
-box-shadow:
-0 22px 60px rgba(0,0,0,.35);
-
-}
-
-.gallery img:hover{
-
-transform:
-scale(1.03);
-
-filter:
-brightness(1);
-
-box-shadow:
-0 30px 90px rgba(0,0,0,.45);
-
-}
 
 /* =========================
    MEMORY NOTE
@@ -1415,20 +1398,6 @@ font-size:20px;
 font-size:15px;
 
 }
-
-}
-
-/* =========================================================
-   FINAL FIXES
-========================================================= */
-
-/* GLOBAL */
-
-html,
-body{
-
-overflow-x:hidden !important;
-max-width:100vw;
 
 }
 
