@@ -620,13 +620,40 @@ border:
 
 display:flex;
 
-justify-content:center;
+flex-direction:column;
+
+align-items:flex-start;
 
 gap:14px;
 
 flex-wrap:wrap;
 
 }
+.map-buttons h3,
+.map-buttons p{
+
+margin:0;
+
+}
+
+.map-buttons h3{
+
+font-size:32px;
+
+font-family:
+"Cormorant Garamond",
+serif;
+
+}
+
+.map-buttons p{
+
+line-height:1.7;
+
+opacity:.85;
+
+}
+
 
 /* BUTTON */
 
