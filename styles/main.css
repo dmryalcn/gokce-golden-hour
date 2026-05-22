@@ -534,7 +534,7 @@ opacity:.7;
    PREMIUM MAP
 ========================= */
 
-.map-box{
+.luxury-map{
 
 position:relative;
 
@@ -560,7 +560,7 @@ box-shadow:
 0 20px 60px rgba(0,0,0,.35);
 
 }
-.map-box iframe{
+.luxury-map iframe{
 
 width:100%;
 
@@ -579,7 +579,7 @@ brightness(.92);
 
 /* OVERLAY */
 
-.map-box::before{
+.luxury-map::before{
 
 content:"";
 
@@ -602,7 +602,7 @@ pointer-events:none;
 
 /* CONTENT */
 
-.map-buttons{
+.map-actions{
 
 position:absolute;
 
@@ -642,14 +642,14 @@ gap:14px;
 flex-wrap:wrap;
 
 }
-.map-buttons h3,
-.map-buttons p{
+.map-actions h3,
+.map-actions p{
 
 margin:0;
 
 }
 
-.map-buttons h3{
+.map-actions h3{
 
 font-size:32px;
 
@@ -659,7 +659,7 @@ serif;
 
 }
 
-.map-buttons p{
+.map-actions p{
 
 line-height:1.7;
 
@@ -730,13 +730,13 @@ color:white;
 
 @media(max-width:768px){
 
-.map-box iframe{
+.luxury-map iframe{
 
 height:420px;
 
 }
 
-.map-buttons{
+.map-actions{
 
 margin-top:30px;
 
