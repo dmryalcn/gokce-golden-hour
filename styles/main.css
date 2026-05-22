@@ -934,13 +934,16 @@ rgba(0,0,0,.72);
 
 position:relative;
 
-width:100%;
-max-width:720px;
+width:min(720px,92vw);
+
+max-width:92vw;
 
 max-height:90vh;
 
 overflow-y:auto;
 
+overflow-x:hidden;
+   
 margin:auto;
 
 padding:44px;
@@ -1398,30 +1401,6 @@ font-size:20px;
 font-size:15px;
 
 }
-
-}
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-.memory-modal,
-.rsvp-modal{
-
-overflow-x:hidden;
-
-}
-
-.memory-box,
-.rsvp-box{
-
-width:min(720px,92vw);
-
-max-width:92vw;
-
-overflow:hidden;
-
-box-sizing:border-box;
 
 }
 
