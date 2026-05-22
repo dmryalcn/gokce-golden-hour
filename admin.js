@@ -229,22 +229,29 @@ dataList.forEach((data)=>{
 
 total++;
 
-if(data.status === "geliyor"){
+/* STATUS COUNTS */
+
+if(data.status === "yes"){
+
 yes++;
+
 }
 
 else if(
-data.status === "gelmiyor"
+data.status === "no"
 ){
+
 no++;
+
 }
 
 else{
+
 maybe++;
+
 }
 
-const row =
-document.createElement("tr");
+/* DATE */
 
 const date =
 data.createdAt?.toDate
@@ -252,6 +259,32 @@ data.createdAt?.toDate
 data.createdAt.toDate()
 ).toLocaleString("tr-TR")
 : "-";
+
+/* STATUS TEXT */
+
+let statusText =
+"Kararsız ✨";
+
+if(data.status === "yes"){
+
+statusText =
+"Katılıyor 🤍";
+
+}
+
+else if(
+data.status === "no"
+){
+
+statusText =
+"Katılmıyor 😔";
+
+}
+
+/* ROW */
+
+const row =
+document.createElement("tr");
 
 row.innerHTML = `
 
@@ -267,21 +300,7 @@ ${data.guestCount || "-"}
 
 <span class="status ${getStatusClass(data.status)}">
 
-${
-
-data.status === "geliyor"
-? "Katılıyor"
-
-:
-
-data.status === "gelmiyor"
-? "Katılmıyor"
-
-:
-
-"Kararsız"
-
-}
+${statusText}
 
 </span>
 
@@ -289,12 +308,21 @@ data.status === "gelmiyor"
 
 <td>
 ${data.transportNeed || "-"}
-
 </td>
 
 <td>
 
-${data.comingMessage || data.cannotJoinMessage || data.maybeMessage || "-"}
+${
+
+data.comingMessage ||
+
+data.cannotJoinMessage ||
+
+data.maybeMessage ||
+
+"-"
+
+}
 
 </td>
 
@@ -322,6 +350,8 @@ row
 
 });
 
+/* COUNTS */
+
 totalCount.innerText =
 total;
 
@@ -342,12 +372,16 @@ maybe;
 
 function getStatusClass(status){
 
-if(status === "geliyor"){
+if(status === "yes"){
+
 return "yes";
+
 }
 
-if(status === "gelmiyor"){
+if(status === "no"){
+
 return "no";
+
 }
 
 return "maybe";
@@ -538,9 +572,7 @@ let mediaHTML = "";
 const mediaItems =
 data.mediaItems || [];
 
-/* =========================================================
-   MEDIA
-========================================================= */
+/* MEDIA */
 
 mediaItems.forEach(item=>{
 
@@ -594,9 +626,7 @@ class="memory-audio">
 
 });
 
-/* =========================================================
-   DATE
-========================================================= */
+/* DATE */
 
 const date =
 data.createdAt?.toDate
@@ -605,20 +635,22 @@ data.createdAt.toDate()
 ).toLocaleString("tr-TR")
 : "-";
 
-/* =========================================================
-   HIDDEN BADGE
-========================================================= */
+/* HIDDEN */
 
 const hiddenBadge =
 data.hidden === true
-? `<div class="memory-hidden">
+? `
+
+<div class="memory-hidden">
+
 Gizli
-</div>`
+
+</div>
+
+`
 : "";
 
-/* =========================================================
-   CARD
-========================================================= */
+/* CARD */
 
 card.innerHTML = `
 
@@ -674,9 +706,7 @@ card
 
 });
 
-/* =========================================================
-   COUNT
-========================================================= */
+/* MEMORY COUNT */
 
 if(memoryCount){
 
@@ -741,4 +771,3 @@ id
 
 window.deleteMemory =
 deleteMemory;
-
