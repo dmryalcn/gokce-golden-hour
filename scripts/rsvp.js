@@ -23,7 +23,7 @@ document.getElementById(
 );
 
 /* =========================================================
-   INIT
+   HELPERS
 ========================================================= */
 
 function hideAllAreas(){
@@ -52,7 +52,7 @@ maybeArea.style.display =
 }
 
 /* =========================================================
-   CHANGE EVENT
+   INIT
 ========================================================= */
 
 if(attendanceSelect){
@@ -61,7 +61,7 @@ hideAllAreas();
 
 attendanceSelect.addEventListener(
 "change",
-()=>{
+function(){
 
 hideAllAreas();
 
@@ -117,4 +117,3 @@ maybeArea.style.display =
 );
 
 }
-
