@@ -564,144 +564,124 @@ Katılım Formu
 <form id="rsvpForm">
 
 <input
-id="rsvpName"
 type="text"
-placeholder="Adınız Soyadınız"
+id="rsvpName"
+placeholder="Ad Soyad"
 required>
 
-<select
-id="rsvpStatus"
-required>
+<select id="attendanceStatus" required>
 
 <option value="">
 Katılım Durumu Seçin
 </option>
 
-<option value="geliyor">
+<option value="yes">
 Katılacağım 🤍
 </option>
 
-<option value="kararsiz">
-Kararsızım
+<option value="no">
+Katılamayacağım 😔
 </option>
 
-<option value="gelmiyor">
-Katılamayacağım
+<option value="maybe">
+Kararsızım ✨
 </option>
 
 </select>
 
-<!-- COMING -->
+<!-- YES AREA -->
 
 <div
-id="guestCountArea"
-class="hidden-area">
+class="hidden-area"
+id="yesArea">
 
 <div class="form-section">
 
-<p class="helper-title">
+<h3 class="helper-title">
 
-Sizi aramızda görmek bizi çok mutlu edecek ✨
+Sizi aramızda görmek harika olacak ✨
 
-</p>
+</h3>
 
 <p class="helper-text">
 
-Katılım detaylarınızı bizimle paylaşabilirsiniz.
+Kaç kişi geleceğinizi ve
+eklemek istediğiniz notu yazabilirsiniz.
 
 </p>
 
-</div>
-
 <input
-id="guestCount"
 type="number"
+id="guestCount"
 placeholder="Kaç kişi geleceksiniz?">
-
-<select id="transportNeed">
-
-<option value="">
-Ulaşım desteği gerekiyor mu?
-</option>
-
-<option value="hayir">
-Hayır teşekkürler 🤍
-</option>
-
-<option value="evet">
-Evet, bilgi almak isterim
-</option>
-
-</select>
 
 <textarea
 id="comingMessage"
-placeholder="İsterseniz bize küçük bir not bırakabilirsiniz ✨">
-</textarea>
+placeholder="Bize bir not bırakın 🤍"></textarea>
 
 </div>
 
-<!-- MAYBE -->
+</div>
+
+<!-- NO AREA -->
 
 <div
-id="maybeArea"
-class="hidden-area">
+class="hidden-area"
+id="noArea">
 
 <div class="form-section">
 
-<p class="helper-title">
+<h3 class="helper-title">
 
-Umarız bu özel günü birlikte paylaşabiliriz 🤍
+Sizi özleyeceğiz 🤍
 
-</p>
-
-<p class="helper-text">
-
-Kararsız olsanız bile bize küçük bir mesaj bırakabilirsiniz.
-
-</p>
-
-</div>
-
-<textarea
-id="maybeMessage"
-placeholder="Mesajınız...">
-</textarea>
-
-</div>
-
-<!-- CANNOT JOIN -->
-
-<div
-id="cannotJoinArea"
-class="hidden-area">
-
-<div class="form-section">
-
-<p class="helper-title">
-
-Sizi yanımızda görmeyi çok isterdik 🤍
-
-</p>
+</h3>
 
 <p class="helper-text">
 
-Ama bırakacağınız güzel bir mesaj bizim için çok değerli olacak.
+İsterseniz bize küçük bir mesaj bırakabilirsiniz.
 
 </p>
-
-</div>
 
 <textarea
 id="cannotJoinMessage"
-placeholder="Mesajınız...">
-</textarea>
+placeholder="Mesajınız..."></textarea>
+
+</div>
+
+</div>
+
+<!-- MAYBE AREA -->
+
+<div
+class="hidden-area"
+id="maybeArea">
+
+<div class="form-section">
+
+<h3 class="helper-title">
+
+Umarız birlikte oluruz ✨
+
+</h3>
+
+<p class="helper-text">
+
+Kararsızsanız bize kısa bir not bırakabilirsiniz.
+
+</p>
+
+<textarea
+id="maybeMessage"
+placeholder="Mesajınız..."></textarea>
+
+</div>
 
 </div>
 
 <button
-class="send-btn"
-type="submit">
+type="submit"
+class="send-btn">
 
 Katılım Bilgisini Gönder
 
@@ -709,7 +689,6 @@ Katılım Bilgisini Gönder
 
 </form>
 
-</div>
 
 </div>
 
@@ -941,7 +920,7 @@ class="memory-wall">
 
 <script type="module"
 src="scripts/memory-wall.js"></script>
-
+<script type="module" src="scripts/rsvp.js"></script>
 
 </body>
 </html>
