@@ -546,15 +546,17 @@ data-open="memory">
 <!-- RSVP MODAL -->
 
 <div
-class="memory-modal"
+class="rsvp-modal"
 id="rsvpModal">
 
-<div class="memory-overlay"></div>
+<div class="rsvp-box">
 
-<div class="memory-box">
+<button
+class="rsvp-close"
+id="closeRsvp">
 
-<button class="modal-close">
-✕
+×
+
 </button>
 
 <h2>
@@ -569,7 +571,9 @@ id="rsvpName"
 placeholder="Ad Soyad"
 required>
 
-<select id="attendanceStatus" required>
+<select
+id="attendanceStatus"
+required>
 
 <option value="">
 Katılım Durumu Seçin
@@ -589,7 +593,7 @@ Kararsızım ✨
 
 </select>
 
-<!-- YES AREA -->
+<!-- YES -->
 
 <div
 class="hidden-area"
@@ -599,14 +603,13 @@ id="yesArea">
 
 <h3 class="helper-title">
 
-Sizi aramızda görmek harika olacak ✨
+Sizi aramızda görmek bizi çok mutlu edecek ✨
 
 </h3>
 
 <p class="helper-text">
 
-Kaç kişi geleceğinizi ve
-eklemek istediğiniz notu yazabilirsiniz.
+Kaç kişi geleceğinizi paylaşabilirsiniz.
 
 </p>
 
@@ -617,13 +620,13 @@ placeholder="Kaç kişi geleceksiniz?">
 
 <textarea
 id="comingMessage"
-placeholder="Bize bir not bırakın 🤍"></textarea>
+placeholder="İsterseniz bize küçük bir not bırakabilirsiniz 🤍"></textarea>
 
 </div>
 
 </div>
 
-<!-- NO AREA -->
+<!-- NO -->
 
 <div
 class="hidden-area"
@@ -639,7 +642,7 @@ Sizi özleyeceğiz 🤍
 
 <p class="helper-text">
 
-İsterseniz bize küçük bir mesaj bırakabilirsiniz.
+İsterseniz bize kısa bir mesaj bırakabilirsiniz.
 
 </p>
 
@@ -651,7 +654,7 @@ placeholder="Mesajınız..."></textarea>
 
 </div>
 
-<!-- MAYBE AREA -->
+<!-- MAYBE -->
 
 <div
 class="hidden-area"
@@ -667,7 +670,7 @@ Umarız birlikte oluruz ✨
 
 <p class="helper-text">
 
-Kararsızsanız bize kısa bir not bırakabilirsiniz.
+Kararsızsanız bize küçük bir not bırakabilirsiniz.
 
 </p>
 
@@ -680,8 +683,8 @@ placeholder="Mesajınız..."></textarea>
 </div>
 
 <button
-type="submit"
-class="send-btn">
+class="send-btn"
+type="submit">
 
 Katılım Bilgisini Gönder
 
@@ -689,8 +692,10 @@ Katılım Bilgisini Gönder
 
 </form>
 
+</div>
 
 </div>
+
 
 <!-- MEMORY MODAL -->
 
