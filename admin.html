@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -762,6 +763,110 @@ margin-bottom:18px;
 }
 
 /* =========================================================
+   SITE GALLERY
+========================================================= */
+
+.gallery-upload-box{
+
+display:flex;
+
+gap:14px;
+
+margin-bottom:30px;
+
+flex-wrap:wrap;
+
+}
+
+.gallery-upload-box input{
+
+padding:14px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.06);
+
+color:white;
+
+}
+
+.admin-gallery-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(240px,1fr));
+
+gap:24px;
+
+}
+
+.admin-gallery-card{
+
+background:
+rgba(15,15,15,.95);
+
+border:
+1px solid rgba(255,255,255,.05);
+
+border-radius:28px;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.admin-gallery-card img{
+
+width:100%;
+
+height:260px;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+.gallery-card-actions{
+
+padding:16px;
+
+display:flex;
+
+gap:12px;
+
+}
+
+.gallery-hidden{
+
+position:absolute;
+
+top:14px;
+left:14px;
+
+padding:8px 14px;
+
+border-radius:999px;
+
+background:black;
+
+color:white;
+
+font-size:12px;
+
+font-weight:700;
+
+z-index:3;
+
+}
+
+/* =========================================================
    EMPTY
 ========================================================= */
 
@@ -1000,6 +1105,50 @@ id="memoryGallery">
 
 </div>
 
+<!-- =========================================================
+     SITE GALLERY MANAGEMENT
+========================================================= -->
+
+<div class="panel-section">
+
+<div class="section-header">
+
+<div class="section-title">
+Site Galerisi ✨
+</div>
+
+</div>
+
+<div style="padding:26px;">
+
+<div class="gallery-upload-box">
+
+<input
+type="file"
+id="galleryUploadInput"
+accept="image/*"
+multiple>
+
+<button
+class="export-btn"
+id="uploadGalleryBtn">
+
+Fotoğraf Yükle
+
+</button>
+
+</div>
+
+<div
+class="admin-gallery-grid"
+id="adminGalleryGrid">
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script type="module" src="./admin.js"></script>
@@ -1007,3 +1156,4 @@ id="memoryGallery">
 </body>
 
 </html>
+```
