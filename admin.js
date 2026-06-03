@@ -1,456 +1,410 @@
-<!DOCTYPE html>
-<html lang="tr">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-G&Y Admin Panel
-</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap"
-rel="stylesheet">
-
-<style>
+import "./firebase.js";
 
 /* =========================================================
-   RESET
+   FIREBASE
 ========================================================= */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+const {
 
-html{
-scroll-behavior:smooth;
-}
+collection,
+onSnapshot,
+query,
+orderBy,
+deleteDoc,
+doc,
+updateDoc,
+addDoc,
+serverTimestamp
 
-body{
+} = window.firebaseFns;
 
-font-family:'Inter',sans-serif;
-
-background:#080808;
-
-color:white;
-
-min-height:100vh;
-
-overflow-x:hidden;
-
-padding:30px;
-
-position:relative;
-
-}
+const db = window.db;
 
 /* =========================================================
-   BACKGROUND
+   CLOUDINARY
 ========================================================= */
 
-body::before{
+const CLOUD_NAME = "dgtscqpny";
+const UPLOAD_PRESET = "weddingUploads";
 
-content:"";
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-position:fixed;
-inset:0;
-
-background:
-
-radial-gradient(
-circle at top left,
-rgba(212,163,115,.14),
-transparent 28%
-),
-
-radial-gradient(
-circle at bottom right,
-rgba(176,137,104,.12),
-transparent 30%
+const loginScreen =
+document.getElementById(
+"loginScreen"
 );
 
-pointer-events:none;
+const adminPanel =
+document.getElementById(
+"adminPanel"
+);
 
-z-index:-1;
+const guestTable =
+document.getElementById(
+"guestTable"
+);
 
-}
+const totalCount =
+document.getElementById(
+"totalCount"
+);
+
+const yesCount =
+document.getElementById(
+"yesCount"
+);
+
+const noCount =
+document.getElementById(
+"noCount"
+);
+
+const maybeCount =
+document.getElementById(
+"maybeCount"
+);
+
+const memoryGallery =
+document.getElementById(
+"memoryGallery"
+);
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const memoryCount =
+document.getElementById(
+"memoryCount"
+);
+
+/* =========================================================
+   GALLERY ELEMENTS
+========================================================= */
+
+const galleryUploadInput =
+document.getElementById(
+"galleryUploadInput"
+);
+
+const uploadGalleryBtn =
+document.getElementById(
+"uploadGalleryBtn"
+);
+
+const adminGalleryGrid =
+document.getElementById(
+"adminGalleryGrid"
+);
 
 /* =========================================================
    LOGIN
 ========================================================= */
 
-.login-screen{
+function login(){
 
-position:fixed;
-inset:0;
+const pass =
+document.getElementById(
+"password"
+).value;
 
-background:#050505;
+if(
+pass === "Gokce2026"
+){
 
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-z-index:999999;
-
-padding:20px;
-
-}
-
-.login-box{
-
-width:100%;
-max-width:430px;
-
-padding:42px;
-
-border-radius:34px;
-
-background:
-rgba(20,20,20,.95);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-backdrop-filter:blur(18px);
-
-box-shadow:
-0 25px 80px rgba(0,0,0,.6);
-
-}
-
-.logo{
-
-width:92px;
-height:92px;
-
-margin:auto;
-
-margin-bottom:28px;
-
-border-radius:50%;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-font-size:34px;
-font-weight:700;
-
-background:
-linear-gradient(
-135deg,
-#a77745,
-#d4a46d
+localStorage.setItem(
+"gy_admin",
+"true"
 );
 
-box-shadow:
-0 12px 35px rgba(212,163,115,.25);
+showPanel();
 
-}
+}else{
 
-.login-box h1{
-
-text-align:center;
-
-font-size:42px;
-
-margin-bottom:10px;
-
-font-family:
-"Cormorant Garamond",
-serif;
-
-}
-
-.login-box p{
-
-text-align:center;
-
-opacity:.65;
-
-line-height:1.7;
-
-margin-bottom:30px;
-
-}
-
-.login-box input{
-
-width:100%;
-
-padding:18px;
-
-border:none;
-outline:none;
-
-border-radius:18px;
-
-background:#171717;
-
-border:
-1px solid rgba(255,255,255,.05);
-
-color:white;
-
-font-size:16px;
-
-margin-bottom:18px;
-
-}
-
-.login-box input:focus{
-
-border-color:
-rgba(212,163,115,.5);
-
-}
-
-.login-box button{
-
-width:100%;
-
-padding:18px;
-
-border:none;
-
-border-radius:18px;
-
-background:
-linear-gradient(
-135deg,
-#a77745,
-#d4a46d
+alert(
+"Şifre yanlış 😔"
 );
 
-color:white;
-
-font-size:16px;
-font-weight:700;
-
-cursor:pointer;
-
-transition:.35s;
+}
 
 }
 
-.login-box button:hover{
+window.login = login;
 
-transform:
-translateY(-2px);
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-box-shadow:
-0 10px 30px rgba(212,163,115,.25);
+function logout(){
+
+localStorage.removeItem(
+"gy_admin"
+);
+
+location.reload();
+
+}
+
+window.logout = logout;
+
+/* =========================================================
+   CHECK LOGIN
+========================================================= */
+
+function showPanel(){
+
+loginScreen.style.display =
+"none";
+
+adminPanel.style.display =
+"block";
+
+loadGuests();
+
+loadMemories();
+
+loadGalleryImages();
+
+}
+
+if(
+localStorage.getItem(
+"gy_admin"
+) === "true"
+){
+
+showPanel();
 
 }
 
 /* =========================================================
-   PANEL
+   RSVP
 ========================================================= */
 
-.admin-panel{
+let allGuests = [];
 
-display:none;
+function loadGuests(){
 
-animation:
-fade .5s ease;
+const q =
+query(
 
-}
+collection(
+db,
+"rsvp"
+),
 
-@keyframes fade{
+orderBy(
+"createdAt",
+"desc"
+)
 
-from{
-opacity:0;
-transform:translateY(20px);
-}
+);
 
-to{
-opacity:1;
-transform:none;
-}
+onSnapshot(q,(snapshot)=>{
+
+allGuests = [];
+
+snapshot.forEach((docSnap)=>{
+
+allGuests.push({
+
+id:docSnap.id,
+...docSnap.data()
+
+});
+
+});
+
+renderGuests(
+allGuests
+);
+
+});
 
 }
 
 /* =========================================================
-   TOPBAR
+   RENDER GUESTS
 ========================================================= */
 
-.topbar{
+function renderGuests(dataList){
 
-display:flex;
+guestTable.innerHTML = "";
 
-justify-content:space-between;
+let total = 0;
+let yes = 0;
+let no = 0;
+let maybe = 0;
 
-align-items:center;
+if(!dataList.length){
 
-gap:20px;
+guestTable.innerHTML = `
 
-margin-bottom:34px;
+<tr>
+<td colspan="7" class="empty">
 
-flex-wrap:wrap;
+Henüz veri yok
 
-}
+</td>
+</tr>
 
-.topbar-left h1{
-
-font-size:52px;
-
-font-family:
-"Cormorant Garamond",
-serif;
-
-margin-bottom:6px;
+`;
 
 }
 
-.topbar-left p{
+dataList.forEach((data)=>{
 
-opacity:.62;
+total++;
 
-}
+if(data.status === "yes"){
 
-.logout-btn{
-
-padding:16px 20px;
-
-border:none;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.06);
-
-border:
-1px solid rgba(255,255,255,.08);
-
-color:white;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.35s;
+yes++;
 
 }
 
-.logout-btn:hover{
+else if(
+data.status === "no"
+){
 
-background:
-rgba(255,255,255,.1);
+no++;
+
+}
+
+else{
+
+maybe++;
+
+}
+
+const date =
+data.createdAt?.toDate
+? new Date(
+data.createdAt.toDate()
+).toLocaleString("tr-TR")
+: "-";
+
+let statusText =
+"Kararsız ✨";
+
+if(data.status === "yes"){
+
+statusText =
+"Katılıyor 🤍";
+
+}
+
+else if(
+data.status === "no"
+){
+
+statusText =
+"Katılmıyor 😔";
+
+}
+
+const row =
+document.createElement("tr");
+
+row.innerHTML = `
+
+<td>
+${data.name || "-"}
+</td>
+
+<td>
+${data.guestCount || "-"}
+</td>
+
+<td>
+
+<span class="status ${getStatusClass(data.status)}">
+
+${statusText}
+
+</span>
+
+</td>
+
+<td>
+${data.transportNeed || "-"}
+</td>
+
+<td>
+
+${
+
+data.comingMessage ||
+
+data.cannotJoinMessage ||
+
+data.maybeMessage ||
+
+"-"
+
+}
+
+</td>
+
+<td>
+${date}
+</td>
+
+<td>
+
+<button
+class="action-btn delete"
+onclick="deleteRSVP('${data.id}')">
+
+Sil
+
+</button>
+
+</td>
+
+`;
+
+guestTable.appendChild(
+row
+);
+
+});
+
+totalCount.innerText =
+total;
+
+yesCount.innerText =
+yes;
+
+noCount.innerText =
+no;
+
+maybeCount.innerText =
+maybe;
 
 }
 
 /* =========================================================
-   STATS
+   STATUS CLASS
 ========================================================= */
 
-.stats{
+function getStatusClass(status){
 
-display:grid;
+if(status === "yes"){
 
-grid-template-columns:
-repeat(auto-fit,minmax(240px,1fr));
-
-gap:22px;
-
-margin-bottom:34px;
+return "yes";
 
 }
 
-.stat-card{
+if(status === "no"){
 
-padding:28px;
-
-border-radius:30px;
-
-background:
-rgba(20,20,20,.94);
-
-border:
-1px solid rgba(255,255,255,.05);
-
-backdrop-filter:blur(14px);
+return "no";
 
 }
 
-.stat-card h2{
-
-font-size:14px;
-
-opacity:.62;
-
-margin-bottom:14px;
-
-font-weight:500;
-
-}
-
-.stat-card span{
-
-font-size:48px;
-
-font-weight:700;
-
-}
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-.panel-section{
-
-background:
-rgba(20,20,20,.94);
-
-border:
-1px solid rgba(255,255,255,.05);
-
-border-radius:34px;
-
-overflow:hidden;
-
-margin-bottom:34px;
-
-backdrop-filter:blur(14px);
-
-}
-
-/* HEADER */
-
-.section-header{
-
-padding:26px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-gap:18px;
-
-flex-wrap:wrap;
-
-border-bottom:
-1px solid rgba(255,255,255,.05);
-
-}
-
-.section-title{
-
-font-size:30px;
-
-font-family:
-"Cormorant Garamond",
-serif;
+return "maybe";
 
 }
 
@@ -458,700 +412,652 @@ serif;
    SEARCH
 ========================================================= */
 
-.search-box{
+searchInput?.addEventListener(
+"input",
+(e)=>{
 
-width:280px;
+const val =
+e.target.value
+.toLowerCase();
 
-max-width:100%;
+const filtered =
+allGuests.filter(item=>
 
-padding:16px 18px;
+(item.name || "")
+.toLowerCase()
+.includes(val)
 
-border:none;
-outline:none;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,.05);
-
-border:
-1px solid rgba(255,255,255,.06);
-
-color:white;
-
-}
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.table-wrap{
-
-overflow:auto;
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-min-width:1000px;
-
-}
-
-thead{
-
-background:#151515;
-
-}
-
-th{
-
-padding:20px;
-
-text-align:left;
-
-font-size:13px;
-
-font-weight:600;
-
-opacity:.68;
-
-}
-
-td{
-
-padding:18px 20px;
-
-border-bottom:
-1px solid rgba(255,255,255,.04);
-
-font-size:14px;
-
-line-height:1.6;
-
-}
-
-tr:hover{
-
-background:
-rgba(255,255,255,.02);
-
-}
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-
-display:inline-flex;
-
-padding:9px 14px;
-
-border-radius:999px;
-
-font-size:12px;
-
-font-weight:700;
-
-}
-
-.status.yes{
-
-background:
-rgba(61,220,151,.14);
-
-color:#3ddc97;
-
-}
-
-.status.no{
-
-background:
-rgba(255,107,107,.14);
-
-color:#ff6b6b;
-
-}
-
-.status.maybe{
-
-background:
-rgba(255,209,102,.14);
-
-color:#ffd166;
-
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.action-btn{
-
-padding:11px 16px;
-
-border:none;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-weight:700;
-
-transition:.35s;
-
-}
-
-.action-btn.delete{
-
-background:
-rgba(255,80,80,.12);
-
-color:#ff8b8b;
-
-}
-
-.action-btn.delete:hover{
-
-background:
-rgba(255,80,80,.22);
-
-transform:
-translateY(-2px);
-
-}
-
-.export-btn{
-
-padding:16px 22px;
-
-border:none;
-
-border-radius:18px;
-
-background:
-linear-gradient(
-135deg,
-#a77745,
-#d4a46d
 );
 
-color:white;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.35s;
+renderGuests(filtered);
 
 }
-
-.export-btn:hover{
-
-transform:
-translateY(-2px);
-
-box-shadow:
-0 10px 30px rgba(212,163,115,.25);
-
-}
+);
 
 /* =========================================================
-   MEMORY GRID
+   DELETE RSVP
 ========================================================= */
 
-.memory-grid{
+async function deleteRSVP(id){
 
-padding:26px;
+const confirmed =
+confirm(
+"Bu katılım bilgisini silmek istiyor musunuz?"
+);
 
-display:grid;
+if(!confirmed) return;
 
-grid-template-columns:
-repeat(auto-fill,minmax(280px,1fr));
+await deleteDoc(
 
-gap:24px;
+doc(
+db,
+"rsvp",
+id
+)
 
-}
-
-/* CARD */
-
-.memory-card{
-
-background:
-rgba(15,15,15,.95);
-
-border:
-1px solid rgba(255,255,255,.05);
-
-border-radius:28px;
-
-overflow:hidden;
-
-padding:18px;
+);
 
 }
 
-/* MEDIA */
-
-.memory-card img{
-
-width:100%;
-
-height:240px;
-
-object-fit:cover;
-
-border-radius:18px;
-
-margin-bottom:16px;
-
-}
-
-.memory-card video{
-
-width:100%;
-
-border-radius:18px;
-
-margin-bottom:16px;
-
-}
-
-.memory-card audio{
-
-width:100%;
-
-margin-bottom:16px;
-
-}
-
-/* CONTENT */
-
-.memory-name{
-
-font-size:18px;
-
-font-weight:700;
-
-margin-bottom:10px;
-
-}
-
-.memory-message{
-
-line-height:1.7;
-
-opacity:.76;
-
-margin-bottom:16px;
-
-}
-
-.memory-date{
-
-font-size:13px;
-
-opacity:.45;
-
-margin-bottom:18px;
-
-}
+window.deleteRSVP =
+deleteRSVP;
 
 /* =========================================================
-   SITE GALLERY
+   EXPORT CSV
 ========================================================= */
 
-.gallery-upload-box{
+function exportData(){
 
-display:flex;
+let csv =
+"İsim,Kişi Sayısı,Durum,Ulaşım,Mesaj,Tarih\n";
 
-gap:14px;
+document
+.querySelectorAll(
+"#guestTable tr"
+)
+.forEach(tr=>{
 
-margin-bottom:30px;
+const cols =
+tr.querySelectorAll("td");
 
-flex-wrap:wrap;
+if(cols.length){
 
-}
+let row = [];
 
-.gallery-upload-box input{
+cols.forEach((td,index)=>{
 
-padding:14px;
+if(index < 6){
 
-border-radius:18px;
+row.push(
 
-background:
-rgba(255,255,255,.05);
+td.innerText
+.replace(/,/g," ")
 
-border:
-1px solid rgba(255,255,255,.06);
-
-color:white;
-
-}
-
-.admin-gallery-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fill,minmax(240px,1fr));
-
-gap:24px;
+);
 
 }
 
-.admin-gallery-card{
+});
 
-background:
-rgba(15,15,15,.95);
-
-border:
-1px solid rgba(255,255,255,.05);
-
-border-radius:28px;
-
-overflow:hidden;
-
-position:relative;
+csv +=
+row.join(",") + "\n";
 
 }
 
-.admin-gallery-card img{
+});
 
-width:100%;
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
 
-height:260px;
+const url =
+URL.createObjectURL(blob);
 
-object-fit:cover;
+const a =
+document.createElement("a");
 
-display:block;
+a.href = url;
 
-}
+a.download =
+"gokce-yalcin-rsvp.csv";
 
-.gallery-card-actions{
+a.click();
 
-padding:16px;
-
-display:flex;
-
-gap:12px;
-
-}
-
-.gallery-hidden{
-
-position:absolute;
-
-top:14px;
-left:14px;
-
-padding:8px 14px;
-
-border-radius:999px;
-
-background:black;
-
-color:white;
-
-font-size:12px;
-
-font-weight:700;
-
-z-index:3;
+URL.revokeObjectURL(url);
 
 }
+
+window.exportData =
+exportData;
 
 /* =========================================================
-   EMPTY
+   MEMORIES
 ========================================================= */
 
-.empty{
+function loadMemories(){
 
-padding:50px;
+const q =
+query(
 
-text-align:center;
+collection(
+db,
+"memories"
+),
 
-opacity:.5;
+orderBy(
+"createdAt",
+"desc"
+)
 
-}
+);
 
-/* =========================================================
-   MOBILE
-========================================================= */
+onSnapshot(q,(snapshot)=>{
 
-@media(max-width:768px){
+memoryGallery.innerHTML = "";
 
-body{
-padding:14px;
-}
+let totalMemories = 0;
 
-.topbar-left h1{
-font-size:40px;
-}
+if(snapshot.empty){
 
-.section-title{
-font-size:24px;
-}
+memoryGallery.innerHTML = `
 
-.section-header{
-padding:20px;
-}
+<div class="empty">
 
-.memory-grid{
-padding:18px;
-}
-
-.stat-card span{
-font-size:38px;
-}
-
-table{
-min-width:850px;
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<!-- LOGIN -->
-
-<div
-class="login-screen"
-id="loginScreen">
-
-<div class="login-box">
-
-<div class="logo">
-G&Y
-</div>
-
-<h1>
-Admin Panel
-</h1>
-
-<p>
-Gökçe & Yalçın davet yönetim sistemi
-</p>
-
-<input
-type="password"
-id="password"
-placeholder="Admin şifresi">
-
-<button onclick="login()">
-
-Panele Giriş Yap
-
-</button>
+Henüz anı bırakılmadı
 
 </div>
 
+`;
+
+return;
+
+}
+
+snapshot.forEach((docSnap)=>{
+
+const data =
+docSnap.data();
+
+totalMemories++;
+
+const card =
+document.createElement("div");
+
+card.className =
+"memory-card";
+
+let mediaHTML = "";
+
+const mediaItems =
+data.mediaItems || [];
+
+mediaItems.forEach(item=>{
+
+if(item.type?.includes("image")){
+
+mediaHTML += `
+
+<img
+src="${item.url}"
+class="memory-media">
+
+`;
+
+}
+
+else if(
+item.type?.includes("video")
+){
+
+mediaHTML += `
+
+<video
+controls
+class="memory-media">
+
+<source src="${item.url}">
+
+</video>
+
+`;
+
+}
+
+else if(
+item.type?.includes("audio")
+){
+
+mediaHTML += `
+
+<audio
+controls
+class="memory-audio">
+
+<source src="${item.url}">
+
+</audio>
+
+`;
+
+}
+
+});
+
+const date =
+data.createdAt?.toDate
+? new Date(
+data.createdAt.toDate()
+).toLocaleString("tr-TR")
+: "-";
+
+const hiddenBadge =
+data.hidden === true
+? `
+
+<div class="gallery-hidden">
+
+Gizli
+
 </div>
 
-<!-- PANEL -->
+`
+: "";
 
-<div
-class="admin-panel"
-id="adminPanel">
+card.innerHTML = `
 
-<!-- TOPBAR -->
+${hiddenBadge}
 
-<div class="topbar">
+${mediaHTML}
 
-<div class="topbar-left">
+<div class="memory-name">
 
-<h1>
-Yönetim Paneli
-</h1>
-
-<p>
-RSVP & Memory Wall yönetimi
-</p>
+${data.name || "İsimsiz"}
 
 </div>
+
+<div class="memory-message">
+
+${data.message || "-"}
+
+</div>
+
+<div class="memory-date">
+
+${date}
+
+</div>
+
+<div class="gallery-card-actions">
 
 <button
-class="logout-btn"
-onclick="logout()">
+class="action-btn"
+onclick="toggleMemory('${docSnap.id}',${data.hidden === true})">
 
-Çıkış Yap
+${data.hidden === true
+? "Yayınla"
+: "Gizle"}
 
 </button>
-
-</div>
-
-<!-- STATS -->
-
-<div class="stats">
-
-<div class="stat-card">
-<h2>Toplam Başvuru</h2>
-<span id="totalCount">0</span>
-</div>
-
-<div class="stat-card">
-<h2>Katılıyor</h2>
-<span id="yesCount">0</span>
-</div>
-
-<div class="stat-card">
-<h2>Katılmıyor</h2>
-<span id="noCount">0</span>
-</div>
-
-<div class="stat-card">
-<h2>Kararsız</h2>
-<span id="maybeCount">0</span>
-</div>
-
-</div>
-
-<!-- RSVP -->
-
-<div class="panel-section">
-
-<div class="section-header">
-
-<div class="section-title">
-RSVP Yönetimi
-</div>
-
-<div style="
-display:flex;
-gap:14px;
-flex-wrap:wrap;
-">
-
-<input
-type="text"
-id="searchInput"
-class="search-box"
-placeholder="İsim ara...">
 
 <button
-class="export-btn"
-onclick="exportData()">
+class="action-btn delete"
+onclick="deleteMemory('${docSnap.id}')">
 
-CSV İndir
+Sil
 
 </button>
 
 </div>
 
+`;
+
+memoryGallery.appendChild(
+card
+);
+
+});
+
+if(memoryCount){
+
+memoryCount.innerText =
+totalMemories;
+
+}
+
+});
+
+}
+
+/* =========================================================
+   TOGGLE MEMORY
+========================================================= */
+
+async function toggleMemory(id,isHidden){
+
+await updateDoc(
+
+doc(
+db,
+"memories",
+id
+),
+
+{
+hidden:!isHidden
+}
+
+);
+
+}
+
+window.toggleMemory =
+toggleMemory;
+
+/* =========================================================
+   DELETE MEMORY
+========================================================= */
+
+async function deleteMemory(id){
+
+const confirmed =
+confirm(
+"Bu anıyı tamamen silmek istiyor musunuz?"
+);
+
+if(!confirmed) return;
+
+await deleteDoc(
+
+doc(
+db,
+"memories",
+id
+)
+
+);
+
+}
+
+window.deleteMemory =
+deleteMemory;
+
+/* =========================================================
+   CLOUDINARY UPLOAD
+========================================================= */
+
+async function uploadToCloudinary(file){
+
+const formData =
+new FormData();
+
+formData.append(
+"file",
+file
+);
+
+formData.append(
+"upload_preset",
+UPLOAD_PRESET
+);
+
+const response =
+await fetch(
+`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+{
+method:"POST",
+body:formData
+}
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+throw new Error(
+"Fotoğraf yüklenemedi 😔"
+);
+
+}
+
+return data.secure_url;
+
+}
+
+/* =========================================================
+   GALLERY UPLOAD
+========================================================= */
+
+uploadGalleryBtn?.addEventListener(
+"click",
+async()=>{
+
+const files =
+galleryUploadInput.files;
+
+if(!files.length){
+
+alert(
+"Lütfen fotoğraf seçin 🤍"
+);
+
+return;
+
+}
+
+uploadGalleryBtn.disabled = true;
+
+uploadGalleryBtn.innerText =
+"Yükleniyor...";
+
+try{
+
+for(const file of files){
+
+const imageUrl =
+await uploadToCloudinary(
+file
+);
+
+await addDoc(
+collection(
+db,
+"galleryImages"
+),
+{
+
+imageUrl,
+
+hidden:false,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+}
+
+galleryUploadInput.value = "";
+
+alert(
+"Fotoğraflar yüklendi ✨"
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Yükleme başarısız 😔"
+);
+
+}
+
+uploadGalleryBtn.disabled = false;
+
+uploadGalleryBtn.innerText =
+"Fotoğraf Yükle";
+
+}
+);
+
+/* =========================================================
+   LOAD GALLERY
+========================================================= */
+
+function loadGalleryImages(){
+
+const q =
+query(
+
+collection(
+db,
+"galleryImages"
+),
+
+orderBy(
+"createdAt",
+"desc"
+)
+
+);
+
+onSnapshot(q,(snapshot)=>{
+
+adminGalleryGrid.innerHTML = "";
+
+if(snapshot.empty){
+
+adminGalleryGrid.innerHTML = `
+
+<div class="empty">
+
+Henüz galeri fotoğrafı yok
+
 </div>
 
-<div class="table-wrap">
+`;
 
-<table>
+return;
 
-<thead>
+}
 
-<tr>
+snapshot.forEach((docSnap)=>{
 
-<th>İsim</th>
-<th>Kişi</th>
-<th>Durum</th>
-<th>Ulaşım</th>
-<th>Mesaj</th>
-<th>Tarih</th>
-<th>İşlem</th>
+const data =
+docSnap.data();
 
-</tr>
+const hiddenBadge =
+data.hidden === true
+? `
 
-</thead>
+<div class="gallery-hidden">
 
-<tbody id="guestTable">
-
-<tr>
-<td colspan="7" class="empty">
-Henüz veri yok
-</td>
-</tr>
-
-</tbody>
-
-</table>
+Gizli
 
 </div>
 
-</div>
+`
+: "";
 
-<!-- MEMORY -->
+const card =
+document.createElement("div");
 
-<div class="panel-section">
+card.className =
+"admin-gallery-card";
 
-<div class="section-header">
+card.innerHTML = `
 
-<div class="section-title">
-Anı Galerisi 🤍
-</div>
+${hiddenBadge}
 
-</div>
+<img src="${data.imageUrl}">
 
-<div
-class="memory-grid"
-id="memoryGallery">
-
-</div>
-
-</div>
-
-<!-- =========================================================
-     SITE GALLERY MANAGEMENT
-========================================================= -->
-
-<div class="panel-section">
-
-<div class="section-header">
-
-<div class="section-title">
-Site Galerisi ✨
-</div>
-
-</div>
-
-<div style="padding:26px;">
-
-<div class="gallery-upload-box">
-
-<input
-type="file"
-id="galleryUploadInput"
-accept="image/*"
-multiple>
+<div class="gallery-card-actions">
 
 <button
-class="export-btn"
-id="uploadGalleryBtn">
+class="action-btn"
+onclick="toggleGalleryImage('${docSnap.id}',${data.hidden === true})">
 
-Fotoğraf Yükle
+${data.hidden === true
+? "Yayınla"
+: "Gizle"}
+
+</button>
+
+<button
+class="action-btn delete"
+onclick="deleteGalleryImage('${docSnap.id}')">
+
+Sil
 
 </button>
 
 </div>
 
-<div
-class="admin-gallery-grid"
-id="adminGalleryGrid">
+`;
 
-</div>
+adminGalleryGrid.appendChild(
+card
+);
 
-</div>
+});
 
-</div>
+});
 
-</div>
+}
 
-<script type="module" src="./admin.js"></script>
+/* =========================================================
+   TOGGLE GALLERY
+========================================================= */
 
-</body>
+async function toggleGalleryImage(id,isHidden){
 
-</html>
+await updateDoc(
+
+doc(
+db,
+"galleryImages",
+id
+),
+
+{
+hidden:!isHidden
+}
+
+);
+
+}
+
+window.toggleGalleryImage =
+toggleGalleryImage;
+
+/* =========================================================
+   DELETE GALLERY
+========================================================= */
+
+async function deleteGalleryImage(id){
+
+const confirmed =
+confirm(
+"Bu fotoğrafı silmek istiyor musunuz?"
+);
+
+if(!confirmed) return;
+
+await deleteDoc(
+
+doc(
+db,
+"galleryImages",
+id
+)
+
+);
+
+}
+
+window.deleteGalleryImage =
+deleteGalleryImage;
+
