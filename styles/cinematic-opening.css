@@ -1,3 +1,4 @@
+```css
 /* =========================================================
    FINAL CINEMATIC OPENING
 ========================================================= */
@@ -28,6 +29,10 @@ transition:
 opacity 1.8s ease,
 visibility 1.8s ease;
 
+will-change:
+opacity,
+transform;
+
 }
 
 /* =========================================================
@@ -57,7 +62,7 @@ inset:0;
 background-image:
 
 linear-gradient(
-rgba(0,0,0,.42),
+rgba(0,0,0,.38),
 rgba(0,0,0,.62)
 ),
 
@@ -74,10 +79,12 @@ transform:scale(1.08);
 animation:
 cinematicZoom 18s ease-in-out infinite alternate;
 
+will-change:transform;
+
 }
 
 /* =========================================================
-   CINEMATIC ZOOM
+   ZOOM
 ========================================================= */
 
 @keyframes cinematicZoom{
@@ -112,12 +119,9 @@ background:
 
 radial-gradient(
 circle at center,
-transparent 10%,
-rgba(0,0,0,.38) 100%
+rgba(255,255,255,.02),
+rgba(0,0,0,.45) 100%
 );
-
-backdrop-filter:
-blur(2px);
 
 }
 
@@ -138,6 +142,10 @@ flex-direction:column;
 align-items:center;
 
 justify-content:center;
+
+text-align:center;
+
+padding:20px;
 
 }
 
@@ -173,11 +181,15 @@ font-weight:600;
 
 color:#fff;
 
+line-height:1;
+
 text-shadow:
 
-0 0 25px rgba(255,255,255,.35),
+0 0 25px rgba(255,255,255,.28),
 
-0 0 60px rgba(212,176,123,.28);
+0 0 60px rgba(212,176,123,.22),
+
+0 0 120px rgba(212,176,123,.12);
 
 letter-spacing:2px;
 
@@ -198,7 +210,7 @@ transparent
 );
 
 box-shadow:
-0 0 20px rgba(255,255,255,.45);
+0 0 20px rgba(255,255,255,.35);
 
 }
 
@@ -250,7 +262,7 @@ justify-content:center;
 cursor:pointer;
 
 transition:
-transform .4s ease;
+transform .45s ease;
 
 }
 
@@ -262,7 +274,7 @@ scale(1.08);
 }
 
 /* =========================================================
-   CORE CENTER
+   CENTER LIGHT
 ========================================================= */
 
 .core-center{
@@ -282,7 +294,7 @@ box-shadow:
 
 0 0 60px rgba(212,176,123,.6),
 
-0 0 120px rgba(212,176,123,.4);
+0 0 120px rgba(212,176,123,.35);
 
 animation:
 pulseCore 2.8s ease-in-out infinite;
@@ -290,7 +302,7 @@ pulseCore 2.8s ease-in-out infinite;
 }
 
 /* =========================================================
-   CORE RINGS
+   RINGS
 ========================================================= */
 
 .core-ring{
@@ -300,7 +312,7 @@ position:absolute;
 border-radius:50%;
 
 border:
-1px solid rgba(255,255,255,.25);
+1px solid rgba(255,255,255,.22);
 
 }
 
@@ -335,7 +347,7 @@ ringPulse 6s linear infinite;
 }
 
 /* =========================================================
-   RING PULSE
+   RING ANIMATION
 ========================================================= */
 
 @keyframes ringPulse{
@@ -367,7 +379,7 @@ opacity:.3;
 }
 
 /* =========================================================
-   CORE PULSE
+   CORE ANIMATION
 ========================================================= */
 
 @keyframes pulseCore{
@@ -393,7 +405,7 @@ transform:scale(1);
 }
 
 /* =========================================================
-   OPENING TEXT
+   TEXT
 ========================================================= */
 
 .opening-text{
@@ -436,10 +448,15 @@ position:absolute;
 
 inset:0;
 
-background-image:
-url("https://grainy-gradients.vercel.app/noise.svg");
+opacity:.035;
 
-opacity:.06;
+background:
+
+radial-gradient(
+circle at center,
+rgba(255,255,255,.04),
+transparent 70%
+);
 
 mix-blend-mode:soft-light;
 
@@ -481,5 +498,13 @@ letter-spacing:4px;
 
 }
 
+.cinematic-bg{
+
+animation:none;
+
+transform:scale(1.04);
+
 }
 
+}
+```
