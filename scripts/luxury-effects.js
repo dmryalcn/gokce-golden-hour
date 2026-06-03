@@ -1,11 +1,17 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-/* =========================
-   CURSOR GLOW
-========================= */
+/* =========================================================
+   DEVICE CHECK
+========================================================= */
 
 const isMobile =
 window.innerWidth < 768;
+
+/* =========================================================
+   CURSOR GLOW
+========================================================= */
 
 if(!isMobile){
 
@@ -15,7 +21,9 @@ document.createElement("div");
 glow.className =
 "cursor-glow";
 
-document.body.appendChild(glow);
+document.body.appendChild(
+glow
+);
 
 let mouseX = 0;
 let mouseY = 0;
@@ -57,9 +65,47 @@ animateGlow();
 
 }
 
-/* =========================
-   LUXURY PARTICLES
-========================= */
+/* =========================================================
+   GOLD ATMOSPHERE
+========================================================= */
+
+const goldLight =
+document.createElement("div");
+
+goldLight.className =
+"gold-light";
+
+document.body.appendChild(
+goldLight
+);
+
+/* =========================================================
+   BLUR ORBS
+========================================================= */
+
+const orbOne =
+document.createElement("div");
+
+orbOne.className =
+"blur-orb one";
+
+document.body.appendChild(
+orbOne
+);
+
+const orbTwo =
+document.createElement("div");
+
+orbTwo.className =
+"blur-orb two";
+
+document.body.appendChild(
+orbTwo
+);
+
+/* =========================================================
+   PARTICLE SYSTEM
+========================================================= */
 
 const particleContainer =
 document.createElement("div");
@@ -72,7 +118,7 @@ particleContainer
 );
 
 const particleLimit =
-isMobile ? 10 : 18;
+isMobile ? 10 : 22;
 
 function createParticle(){
 
@@ -108,7 +154,7 @@ Math.random() * 100 + "vw";
 /* SPEED */
 
 const duration =
-14 + Math.random() * 18;
+16 + Math.random() * 18;
 
 particle.style.animationDuration =
 duration + "s";
@@ -116,12 +162,12 @@ duration + "s";
 /* DELAY */
 
 particle.style.animationDelay =
-Math.random() * 3 + "s";
+Math.random() * 4 + "s";
 
 /* OPACITY */
 
 particle.style.opacity =
-.18 + Math.random() * .45;
+.12 + Math.random() * .45;
 
 particleContainer.appendChild(
 particle
@@ -158,13 +204,88 @@ createParticle();
 
 }
 
-},2000);
+},1800);
 
-/* =========================
+/* =========================================================
+   CINEMATIC REVEAL
+========================================================= */
+
+const revealElements =
+document.querySelectorAll(
+
+`
+section,
+.hero-content,
+.gallery img,
+.card,
+.memory-box,
+.time-box
+`
+
+);
+
+const revealObserver =
+new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add(
+"reveal-active"
+);
+
+}
+
+});
+
+},
+
+{
+threshold:.12
+}
+
+);
+
+revealElements.forEach(el=>{
+
+el.classList.add("reveal");
+
+revealObserver.observe(el);
+
+});
+
+/* =========================================================
    IMAGE DEPTH
-========================= */
+========================================================= */
 
 if(!isMobile){
+
+document.addEventListener(
+"mousemove",
+(e)=>{
+
+const x =
+e.clientX /
+window.innerWidth;
+
+const y =
+e.clientY /
+window.innerHeight;
+
+goldLight.style.transform =
+
+`
+translate(
+${x * 40}px,
+${y * 40}px
+)
+`;
+
+}
+);
 
 const galleryImages =
 document.querySelectorAll(
@@ -187,18 +308,18 @@ const y =
 e.clientY - rect.top;
 
 const rotateY =
-((x / rect.width) - .5) * 8;
+((x / rect.width) - .5) * 7;
 
 const rotateX =
-((y / rect.height) - .5) * -8;
+((y / rect.height) - .5) * -7;
 
 img.style.transform =
 
 `
-perspective(1000px)
+perspective(1200px)
 rotateX(${rotateX}deg)
 rotateY(${rotateY}deg)
-scale(1.025)
+scale(1.02)
 `;
 
 }
@@ -217,44 +338,137 @@ img.style.transform = "";
 
 }
 
-/* =========================
-   SMOOTH SECTION REVEAL
-========================= */
+/* =========================================================
+   SMOOTH PARALLAX
+========================================================= */
 
-const sections =
+let currentY = 0;
+let targetY = 0;
+
+window.addEventListener(
+"scroll",
+()=>{
+
+targetY =
+window.scrollY;
+
+}
+);
+
+function animateParallax(){
+
+currentY +=
+(targetY - currentY) * 0.08;
+
+const hero =
+document.querySelector(
+".hero"
+);
+
+if(hero){
+
+hero.style.backgroundPosition =
+
+`center ${currentY * .12}px`;
+
+}
+
+requestAnimationFrame(
+animateParallax
+);
+
+}
+
+animateParallax();
+
+/* =========================================================
+   BUTTON MAGNETIC FEEL
+========================================================= */
+
+if(!isMobile){
+
+const buttons =
 document.querySelectorAll(
-"section"
+".btn,.btn-gold,.send-btn"
 );
 
-const observer =
-new IntersectionObserver(
+buttons.forEach(btn=>{
 
-(entries)=>{
+btn.addEventListener(
+"mousemove",
+(e)=>{
 
-entries.forEach(entry=>{
+const rect =
+btn.getBoundingClientRect();
 
-if(entry.isIntersecting){
+const x =
+e.clientX - rect.left;
 
-entry.target.classList.add(
-"section-visible"
+const y =
+e.clientY - rect.top;
+
+const moveX =
+(x - rect.width/2) * .08;
+
+const moveY =
+(y - rect.height/2) * .08;
+
+btn.style.transform =
+
+`
+translate(
+${moveX}px,
+${moveY}px
+)
+`;
+
+}
 );
+
+btn.addEventListener(
+"mouseleave",
+()=>{
+
+btn.style.transform = "";
+
+}
+);
+
+});
 
 }
 
+/* =========================================================
+   IOS PERFORMANCE FIX
+========================================================= */
+
+document.querySelectorAll(
+
+`
+.hero-content,
+.card,
+.memory-box,
+.gallery img,
+.time-box
+`
+
+).forEach(el=>{
+
+el.style.backfaceVisibility =
+"hidden";
+
+el.style.transformStyle =
+"preserve-3d";
+
 });
 
-},
+/* =========================================================
+   PAGE READY
+========================================================= */
 
-{
-threshold:.12
-}
-
+document.body.classList.add(
+"site-ready"
 );
 
-sections.forEach(section=>{
-
-observer.observe(section);
-
 });
 
-});
