@@ -1,11 +1,33 @@
-/* =========================
-   LUXURY EFFECTS V2
-   Gökçe & Yalçın
-========================= */
+/* =========================================================
+   GÖKÇE & YALÇIN
+   FINAL LUXURY EFFECTS V3
+========================================================= */
 
-/* =========================
+/* =========================================================
+   GLOBAL PERFORMANCE
+========================================================= */
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+overflow-x:hidden;
+
+-webkit-font-smoothing:
+antialiased;
+
+text-rendering:
+optimizeLegibility;
+
+}
+
+/* =========================================================
    CURSOR GLOW
-========================= */
+========================================================= */
 
 .cursor-glow{
 
@@ -23,12 +45,12 @@ z-index:1;
 background:
 radial-gradient(
 circle,
-rgba(212,176,123,.18),
+rgba(212,176,123,.16),
 rgba(212,176,123,.08),
 transparent 72%
 );
 
-filter:blur(42px);
+filter:blur(48px);
 
 transform:
 translate(-50%,-50%);
@@ -38,13 +60,16 @@ transform .08s linear;
 
 mix-blend-mode:screen;
 
-opacity:.9;
+opacity:.85;
+
+will-change:
+transform;
 
 }
 
-/* =========================
+/* =========================================================
    GOLD ATMOSPHERE
-========================= */
+========================================================= */
 
 .gold-light{
 
@@ -65,14 +90,17 @@ z-index:0;
 background:
 radial-gradient(
 circle,
-rgba(212,176,123,.08),
+rgba(212,176,123,.07),
 transparent 70%
 );
 
-filter:blur(90px);
+filter:blur(100px);
 
 animation:
-goldPulse 12s ease-in-out infinite;
+goldPulse 16s ease-in-out infinite;
+
+will-change:
+transform;
 
 }
 
@@ -84,17 +112,17 @@ transform:
 scale(1)
 translate(0,0);
 
-opacity:.35;
+opacity:.32;
 
 }
 
 50%{
 
 transform:
-scale(1.15)
+scale(1.12)
 translate(4%,3%);
 
-opacity:.55;
+opacity:.5;
 
 }
 
@@ -104,15 +132,94 @@ transform:
 scale(1)
 translate(0,0);
 
-opacity:.35;
+opacity:.32;
 
 }
 
 }
 
-/* =========================
-   CINEMATIC PARTICLES
-========================= */
+/* =========================================================
+   BLUR ORBS
+========================================================= */
+
+.blur-orb{
+
+position:fixed;
+
+border-radius:50%;
+
+pointer-events:none;
+
+filter:blur(100px);
+
+z-index:0;
+
+opacity:.18;
+
+animation:
+orbFloat 18s ease-in-out infinite;
+
+will-change:
+transform;
+
+}
+
+.blur-orb.one{
+
+width:320px;
+height:320px;
+
+top:10%;
+left:-120px;
+
+background:
+rgba(212,176,123,.30);
+
+}
+
+.blur-orb.two{
+
+width:260px;
+height:260px;
+
+bottom:5%;
+right:-80px;
+
+background:
+rgba(255,255,255,.12);
+
+animation-delay:4s;
+
+}
+
+@keyframes orbFloat{
+
+0%{
+
+transform:
+translateY(0px);
+
+}
+
+50%{
+
+transform:
+translateY(-28px);
+
+}
+
+100%{
+
+transform:
+translateY(0px);
+
+}
+
+}
+
+/* =========================================================
+   PARTICLE SYSTEM
+========================================================= */
 
 .luxury-particles{
 
@@ -147,11 +254,12 @@ filter:blur(1px);
 animation:
 luxuryFloat linear infinite;
 
-opacity:.8;
+opacity:.75;
+
+will-change:
+transform;
 
 }
-
-/* SIZES */
 
 .luxury-particle.small{
 
@@ -174,8 +282,6 @@ height:14px;
 
 }
 
-/* FLOAT */
-
 @keyframes luxuryFloat{
 
 from{
@@ -190,11 +296,15 @@ opacity:0;
 }
 
 10%{
+
 opacity:1;
+
 }
 
 90%{
+
 opacity:1;
+
 }
 
 to{
@@ -210,53 +320,95 @@ opacity:0;
 
 }
 
-/* =========================
-   DEPTH ATMOSPHERE
-========================= */
+/* =========================================================
+   CINEMATIC REVEAL
+========================================================= */
 
-body::after{
+.reveal{
 
-content:"";
+opacity:0;
 
-position:fixed;
+transform:
+translateY(70px)
+scale(.985);
 
-inset:0;
+filter:
+blur(12px);
 
-pointer-events:none;
+transition:
 
-z-index:0;
+opacity 1.2s ease,
+transform 1.2s ease,
+filter 1.2s ease;
 
-background:
-
-radial-gradient(
-circle at 20% 30%,
-rgba(255,255,255,.03),
-transparent 30%
-),
-
-radial-gradient(
-circle at 80% 70%,
-rgba(212,176,123,.05),
-transparent 35%
-),
-
-radial-gradient(
-circle at center,
-rgba(255,255,255,.015),
-transparent 60%
-);
-
-mix-blend-mode:screen;
+will-change:
+transform,
+opacity,
+filter;
 
 }
 
-/* =========================
-   GLASS SHIMMER
-========================= */
+.reveal.reveal-active{
 
-.hero-content::before,
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+filter:
+blur(0);
+
+}
+
+/* =========================================================
+   HERO FLOAT
+========================================================= */
+
+.hero-content{
+
+position:relative;
+
+animation:
+heroFloat 8s ease-in-out infinite;
+
+will-change:
+transform;
+
+}
+
+@keyframes heroFloat{
+
+0%{
+
+transform:
+translateY(0px);
+
+}
+
+50%{
+
+transform:
+translateY(-8px);
+
+}
+
+100%{
+
+transform:
+translateY(0px);
+
+}
+
+}
+
+/* =========================================================
+   GLASS SHIMMER
+========================================================= */
+
+.hero-content::after,
 .card::before,
-.memory-box::before,
+.memory-box::after,
 .time-box::before{
 
 content:"";
@@ -273,14 +425,15 @@ background:
 linear-gradient(
 90deg,
 transparent,
-rgba(255,255,255,.05),
+rgba(255,255,255,.04),
 transparent
 );
 
-transform:skewX(-20deg);
+transform:
+skewX(-20deg);
 
 animation:
-glassShine 9s infinite;
+glassShine 10s linear infinite;
 
 pointer-events:none;
 
@@ -289,63 +442,43 @@ pointer-events:none;
 @keyframes glassShine{
 
 0%{
+
 left:-120%;
+
 }
 
 100%{
+
 left:160%;
-}
 
-}
-
-/* =========================
-   FLOATING HERO
-========================= */
-
-.hero-content{
-
-position:relative;
-
-animation:
-heroFloat 7s ease-in-out infinite;
-
-}
-
-@keyframes heroFloat{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(-6px);
-}
-
-100%{
-transform:translateY(0px);
 }
 
 }
 
-/* =========================
+/* =========================================================
    IMAGE DEPTH
-========================= */
+========================================================= */
 
 .gallery img{
+
+position:relative;
 
 transform-style:
 preserve-3d;
 
-perspective:1000px;
-
-position:relative;
+perspective:1200px;
 
 overflow:hidden;
 
 transition:
+
 transform .45s ease,
 box-shadow .45s ease,
-filter .45s ease;
+filter .45s ease,
+opacity .6s ease;
+
+will-change:
+transform;
 
 }
 
@@ -356,73 +489,19 @@ translateY(-8px)
 scale(1.015);
 
 box-shadow:
-0 25px 70px rgba(212,176,123,.18);
+0 25px 70px rgba(212,176,123,.16);
 
 filter:
-brightness(1.03);
+brightness(1.03)
+saturate(1.02);
 
 }
 
-/* =========================
-   HERO ATMOSPHERE
-========================= */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
-.hero::after{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-background:
-radial-gradient(
-circle at center,
-rgba(255,255,255,.04),
-transparent 55%
-);
-
-pointer-events:none;
-
-}
-
-/* =========================
-   PREMIUM SCROLL FADE
-========================= */
-
-section{
-
-animation:
-sectionFade .9s ease;
-
-}
-
-@keyframes sectionFade{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(40px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-}
-
-/* =========================
-   BUTTON GLOW
-========================= */
-
+.btn,
 .btn-gold,
 .send-btn,
 .floating-memory{
@@ -431,8 +510,14 @@ position:relative;
 
 overflow:hidden;
 
+isolation:isolate;
+
+will-change:
+transform;
+
 }
 
+.btn::before,
 .btn-gold::before,
 .send-btn::before,
 .floating-memory::before{
@@ -455,12 +540,17 @@ rgba(255,255,255,.18),
 transparent
 );
 
-transform:skewX(-20deg);
+transform:
+skewX(-20deg);
 
-transition:.7s;
+transition:
+left .8s ease;
+
+z-index:-1;
 
 }
 
+.btn:hover::before,
 .btn-gold:hover::before,
 .send-btn:hover::before,
 .floating-memory:hover::before{
@@ -469,89 +559,107 @@ left:160%;
 
 }
 
-/* =========================
-   SOFT BLUR ORBS
-========================= */
+/* =========================================================
+   SECTION ATMOSPHERE
+========================================================= */
 
-.blur-orb{
+section{
 
-position:fixed;
+position:relative;
 
-border-radius:50%;
+z-index:2;
+
+}
+
+section::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
 
 pointer-events:none;
 
-filter:blur(100px);
+background:
+radial-gradient(
+circle at top,
+rgba(255,255,255,.03),
+transparent 42%
+);
 
-z-index:0;
-
-opacity:.18;
-
-animation:
-orbFloat 18s ease-in-out infinite;
+opacity:.8;
 
 }
 
-.blur-orb.one{
+/* =========================================================
+   HERO ATMOSPHERE
+========================================================= */
 
-width:300px;
-height:300px;
+.hero::after{
 
-top:10%;
-left:-120px;
+content:"";
+
+position:absolute;
+
+inset:0;
 
 background:
-rgba(212,176,123,.35);
+radial-gradient(
+circle at center,
+rgba(255,255,255,.04),
+transparent 55%
+);
+
+pointer-events:none;
 
 }
 
-.blur-orb.two{
+/* =========================================================
+   IOS FIX
+========================================================= */
 
-width:260px;
-height:260px;
+.hero-content,
+.card,
+.memory-box,
+.gallery img,
+.time-box{
 
-bottom:5%;
-right:-80px;
+backface-visibility:hidden;
 
-background:
-rgba(255,255,255,.16);
-
-animation-delay:4s;
-
-}
-
-@keyframes orbFloat{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(-30px);
-}
-
-100%{
-transform:translateY(0px);
-}
+transform:
+translateZ(0);
 
 }
 
-/* =========================
-   MOBILE OPTIMIZATION
-========================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:768px){
 
 .cursor-glow{
+
 display:none;
+
 }
 
 .gold-light{
-opacity:.5;
+
+opacity:.45;
+
+}
+
+.blur-orb{
+
+opacity:.12;
+
 }
 
 .luxury-particles{
+
 opacity:.55;
+
 }
 
 .luxury-particle.large{
@@ -563,63 +671,31 @@ height:10px;
 
 .hero-content{
 
-backdrop-filter:
-blur(12px);
+animation:none;
 
 }
 
-.section-title h2{
+.gallery img:hover{
 
-line-height:1.15;
-
-}
-
-.memory-note{
-
-font-size:28px;
-
-padding:0 10px;
+transform:none;
 
 }
 
-.card{
+.reveal{
 
-padding:28px 22px;
+transition:
 
-}
-
-.gallery img{
-
-height:auto;
+opacity .9s ease,
+transform .9s ease,
+filter .9s ease;
 
 }
 
 }
 
-/* =========================
-   IOS PERFORMANCE FIX
-========================= */
-
-.hero-content,
-.card,
-.memory-box,
-.gallery img,
-.time-box{
-
-will-change:
-transform,
-opacity;
-
-backface-visibility:hidden;
-
-transform:
-translateZ(0);
-
-}
-
-/* =========================
+/* =========================================================
    REDUCED MOTION
-========================= */
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -631,3 +707,4 @@ transition:none !important;
 }
 
 }
+
