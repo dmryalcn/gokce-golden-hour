@@ -83,7 +83,13 @@ isRecording = true;
 
 if(backgroundMusic){
 
+backgroundMusic.volume = 0;
+
 backgroundMusic.pause();
+
+}
+
+
 
 }
 
@@ -214,15 +220,16 @@ recordBtn.innerHTML =
 isRecording = false;
 
 /* MUSIC RESUME */
-
 if(backgroundMusic){
+
+backgroundMusic.volume = 0.35;
 
 backgroundMusic.play()
 .catch(()=>{});
 
 }
 
-};
+
 
 /* START */
 
@@ -279,12 +286,14 @@ recordBtn.disabled = false;
 recordBtn.innerHTML =
 "🎙️ Sesli Mesaj Gönder";
 
-isRecording = false;
-
 if(backgroundMusic){
+
+backgroundMusic.volume = 0.35;
 
 backgroundMusic.play()
 .catch(()=>{});
+
+}
 
 }
 
