@@ -7,6 +7,10 @@ document.addEventListener(
 
 window.scrollTo(0,0);
 
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
 const opening =
 document.getElementById(
 "openingScreen"
@@ -22,10 +26,19 @@ document.getElementById(
 "bgMusic"
 );
 
+const particlesLayer =
+document.querySelector(
+".cinematic-particles"
+);
+
 if(
 !opening ||
 !trigger
 ) return;
+
+/* =========================================================
+   LOCK SCROLL
+========================================================= */
 
 document.body.style.overflow =
 "hidden";
@@ -34,30 +47,27 @@ document.body.style.overflow =
    PARTICLES
 ========================================================= */
 
-const particleContainer =
-document.querySelector(
-".cinematic-particles"
-);
+const particleCount =
+window.innerWidth < 768
+? 22
+: 45;
 
-for(let i=0;i<28;i++){
+for(let i=0;i<particleCount;i++){
 
 const particle =
-document.createElement("div");
+document.createElement("span");
 
-particle.style.position =
-"absolute";
+particle.className =
+"gold-particle";
+
+const size =
+Math.random() * 5 + 2;
 
 particle.style.width =
-Math.random() * 6 + 2 + "px";
+size + "px";
 
 particle.style.height =
-particle.style.width;
-
-particle.style.borderRadius =
-"50%";
-
-particle.style.background =
-"rgba(255,255,255,.85)";
+size + "px";
 
 particle.style.left =
 Math.random() * 100 + "%";
@@ -65,99 +75,109 @@ Math.random() * 100 + "%";
 particle.style.top =
 Math.random() * 100 + "%";
 
+particle.style.animationDuration =
+10 + Math.random() * 18 + "s";
+
+particle.style.animationDelay =
+Math.random() * 8 + "s";
+
 particle.style.opacity =
-Math.random() * .5;
+.15 + Math.random() * .6;
 
-particle.style.filter =
-"blur(1px)";
-
-particle.style.animation =
-
-`
-floatParticle
-${10 + Math.random()*14}s
-linear infinite
-`;
-
-particleContainer.appendChild(
+particlesLayer.appendChild(
 particle
 );
 
 }
 
 /* =========================================================
-   PARTICLE STYLE
+   LIGHT EXPLOSION
 ========================================================= */
 
-const style =
-document.createElement("style");
+const explosion =
+document.createElement("div");
 
-style.innerHTML =
+explosion.className =
+"light-explosion";
 
-`
-@keyframes floatParticle{
-
-0%{
-
-transform:
-translateY(0px);
-
-}
-
-50%{
-
-transform:
-translateY(-40px);
-
-}
-
-100%{
-
-transform:
-translateY(0px);
-
-}
-
-}
-`;
-
-document.head.appendChild(
-style
+opening.appendChild(
+explosion
 );
 
 /* =========================================================
-   OPEN
+   CINEMATIC OPEN
 ========================================================= */
+
+let opened = false;
 
 trigger.addEventListener(
 "click",
 ()=>{
 
+if(opened) return;
+
+opened = true;
+
+/* MUSIC */
+
 if(music){
 
-music.volume = 0.32;
+music.volume = 0.35;
 
 music.play().catch(()=>{});
 
 }
 
-trigger.style.transform =
+/* BUTTON */
 
-"scale(18)";
+trigger.classList.add(
+"opening-triggered"
+);
 
-trigger.style.opacity =
-"0";
+/* EXPLOSION */
 
-opening.style.transition =
+explosion.classList.add(
+"active"
+);
 
+/* PARTICLES BURST */
+
+document.querySelectorAll(
+".gold-particle"
+).forEach((particle,index)=>{
+
+particle.style.transition =
 `
-opacity 2s ease,
-visibility 2s ease,
-filter 2s ease
+transform 2.5s ease,
+opacity 2.5s ease
 `;
 
-opening.style.filter =
-"blur(20px)";
+const x =
+(Math.random() - .5)
+* 1200;
+
+const y =
+(Math.random() - .5)
+* 1200;
+
+particle.style.transform =
+`
+translate(${x}px,${y}px)
+scale(0)
+`;
+
+particle.style.opacity =
+"0";
+
+});
+
+/* BACKGROUND */
+
+opening.classList.add(
+"cinematic-reveal"
+);
+
+/* REMOVE */
 
 setTimeout(()=>{
 
@@ -170,19 +190,21 @@ document.body.style.overflow =
 
 window.scrollTo({
 top:0,
-left:0
+left:0,
+behavior:"instant"
 });
 
-},1200);
+},2200);
+
+/* CLEANUP */
 
 setTimeout(()=>{
 
 opening.remove();
 
-},3000);
+},4200);
 
 });
 
 });
-
 
