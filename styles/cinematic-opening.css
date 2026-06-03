@@ -1,0 +1,485 @@
+/* =========================================================
+   FINAL CINEMATIC OPENING
+========================================================= */
+
+.cinematic-opening{
+
+position:fixed;
+
+inset:0;
+
+width:100vw;
+height:100vh;
+
+overflow:hidden;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+z-index:999999999;
+
+background:#000;
+
+isolation:isolate;
+
+transition:
+opacity 1.8s ease,
+visibility 1.8s ease;
+
+}
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.cinematic-opening.hidden{
+
+opacity:0;
+
+visibility:hidden;
+
+pointer-events:none;
+
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.cinematic-bg{
+
+position:absolute;
+
+inset:0;
+
+background-image:
+
+linear-gradient(
+rgba(0,0,0,.42),
+rgba(0,0,0,.62)
+),
+
+url("../images/background.webp");
+
+background-size:cover;
+
+background-position:center;
+
+background-repeat:no-repeat;
+
+transform:scale(1.08);
+
+animation:
+cinematicZoom 18s ease-in-out infinite alternate;
+
+}
+
+/* =========================================================
+   CINEMATIC ZOOM
+========================================================= */
+
+@keyframes cinematicZoom{
+
+from{
+
+transform:
+scale(1.08);
+
+}
+
+to{
+
+transform:
+scale(1.16);
+
+}
+
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.cinematic-overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+
+radial-gradient(
+circle at center,
+transparent 10%,
+rgba(0,0,0,.38) 100%
+);
+
+backdrop-filter:
+blur(2px);
+
+}
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.cinematic-center{
+
+position:relative;
+
+z-index:5;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+/* =========================================================
+   MONOGRAM
+========================================================= */
+
+.gy-monogram{
+
+display:flex;
+
+align-items:center;
+
+gap:24px;
+
+margin-bottom:42px;
+
+animation:
+floatMonogram 6s ease-in-out infinite;
+
+}
+
+.g-letter,
+.y-letter{
+
+font-family:
+"Cormorant Garamond",
+serif;
+
+font-size:110px;
+
+font-weight:600;
+
+color:#fff;
+
+text-shadow:
+
+0 0 25px rgba(255,255,255,.35),
+
+0 0 60px rgba(212,176,123,.28);
+
+letter-spacing:2px;
+
+}
+
+.gy-divider{
+
+width:2px;
+height:80px;
+
+background:
+
+linear-gradient(
+to bottom,
+transparent,
+rgba(255,255,255,.85),
+transparent
+);
+
+box-shadow:
+0 0 20px rgba(255,255,255,.45);
+
+}
+
+/* =========================================================
+   FLOAT
+========================================================= */
+
+@keyframes floatMonogram{
+
+0%{
+
+transform:
+translateY(0px);
+
+}
+
+50%{
+
+transform:
+translateY(-10px);
+
+}
+
+100%{
+
+transform:
+translateY(0px);
+
+}
+
+}
+
+/* =========================================================
+   LIGHT CORE
+========================================================= */
+
+.light-core{
+
+position:relative;
+
+width:120px;
+height:120px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
+
+transition:
+transform .4s ease;
+
+}
+
+.light-core:hover{
+
+transform:
+scale(1.08);
+
+}
+
+/* =========================================================
+   CORE CENTER
+========================================================= */
+
+.core-center{
+
+position:absolute;
+
+width:22px;
+height:22px;
+
+border-radius:50%;
+
+background:#fff;
+
+box-shadow:
+
+0 0 30px rgba(255,255,255,.9),
+
+0 0 60px rgba(212,176,123,.6),
+
+0 0 120px rgba(212,176,123,.4);
+
+animation:
+pulseCore 2.8s ease-in-out infinite;
+
+}
+
+/* =========================================================
+   CORE RINGS
+========================================================= */
+
+.core-ring{
+
+position:absolute;
+
+border-radius:50%;
+
+border:
+1px solid rgba(255,255,255,.25);
+
+}
+
+.ring-1{
+
+width:70px;
+height:70px;
+
+animation:
+ringPulse 4s linear infinite;
+
+}
+
+.ring-2{
+
+width:100px;
+height:100px;
+
+animation:
+ringPulse 5s linear infinite;
+
+}
+
+.ring-3{
+
+width:130px;
+height:130px;
+
+animation:
+ringPulse 6s linear infinite;
+
+}
+
+/* =========================================================
+   RING PULSE
+========================================================= */
+
+@keyframes ringPulse{
+
+0%{
+
+transform:scale(.92);
+
+opacity:.3;
+
+}
+
+50%{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:scale(.92);
+
+opacity:.3;
+
+}
+
+}
+
+/* =========================================================
+   CORE PULSE
+========================================================= */
+
+@keyframes pulseCore{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+/* =========================================================
+   OPENING TEXT
+========================================================= */
+
+.opening-text{
+
+margin-top:46px;
+
+font-size:13px;
+
+letter-spacing:6px;
+
+text-transform:uppercase;
+
+color:rgba(255,255,255,.82);
+
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.cinematic-particles{
+
+position:absolute;
+
+inset:0;
+
+overflow:hidden;
+
+pointer-events:none;
+
+}
+
+/* =========================================================
+   NOISE
+========================================================= */
+
+.cinematic-noise{
+
+position:absolute;
+
+inset:0;
+
+background-image:
+url("https://grainy-gradients.vercel.app/noise.svg");
+
+opacity:.06;
+
+mix-blend-mode:soft-light;
+
+pointer-events:none;
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:768px){
+
+.g-letter,
+.y-letter{
+
+font-size:72px;
+
+}
+
+.gy-divider{
+
+height:54px;
+
+}
+
+.light-core{
+
+width:90px;
+height:90px;
+
+}
+
+.opening-text{
+
+font-size:10px;
+
+letter-spacing:4px;
+
+}
+
+}
+
