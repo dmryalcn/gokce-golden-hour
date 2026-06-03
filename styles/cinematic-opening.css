@@ -59,8 +59,8 @@ inset:0;
 background-image:
 
 linear-gradient(
-rgba(0,0,0,.40),
-rgba(0,0,0,.72)
+rgba(0,0,0,.42),
+rgba(0,0,0,.76)
 ),
 
 url("../images/background.webp");
@@ -73,21 +73,16 @@ background-repeat:no-repeat;
 
 transform:scale(1.08);
 
+filter:
+brightness(.92);
+
 animation:
 bgZoom 18s ease-in-out infinite alternate;
-
-filter:
-blur(0px)
-brightness(.95);
 
 will-change:
 transform;
 
 }
-
-/* =========================================================
-   BG ZOOM
-========================================================= */
 
 @keyframes bgZoom{
 
@@ -121,8 +116,8 @@ background:
 
 radial-gradient(
 circle at center,
-rgba(255,255,255,.06),
-rgba(0,0,0,.68) 100%
+rgba(255,255,255,.04),
+rgba(0,0,0,.72) 100%
 );
 
 }
@@ -139,17 +134,17 @@ inset:0;
 
 opacity:.04;
 
+pointer-events:none;
+
 mix-blend-mode:soft-light;
 
 background:
 
 radial-gradient(
 circle,
-rgba(255,255,255,.06),
+rgba(255,255,255,.05),
 transparent 70%
 );
-
-pointer-events:none;
 
 }
 
@@ -161,7 +156,7 @@ pointer-events:none;
 
 position:relative;
 
-z-index:10;
+z-index:20;
 
 display:flex;
 
@@ -178,7 +173,7 @@ padding:20px;
 }
 
 /* =========================================================
-   MONOGRAM
+   GY
 ========================================================= */
 
 .gy-monogram{
@@ -187,12 +182,12 @@ display:flex;
 
 align-items:center;
 
-gap:28px;
+gap:26px;
 
-margin-bottom:26px;
+margin-bottom:24px;
 
 animation:
-floatMonogram 7s ease-in-out infinite;
+monogramFloat 6s ease-in-out infinite;
 
 }
 
@@ -216,8 +211,8 @@ background:
 linear-gradient(
 180deg,
 #fff,
-#f7d7a1 45%,
-#d8a65a 100%
+#f5ddb0 45%,
+#d4a15d 100%
 );
 
 -webkit-background-clip:text;
@@ -226,24 +221,20 @@ linear-gradient(
 
 text-shadow:
 
-0 0 12px rgba(255,255,255,.18),
+0 0 8px rgba(255,255,255,.25),
 
-0 0 35px rgba(212,176,123,.30),
+0 0 28px rgba(255,220,160,.25),
 
-0 0 80px rgba(212,176,123,.16),
+0 0 70px rgba(212,176,123,.18),
 
-0 0 160px rgba(212,176,123,.08);
+0 0 140px rgba(212,176,123,.10);
 
 }
-
-/* =========================================================
-   DIVIDER
-========================================================= */
 
 .gy-divider{
 
 width:2px;
-height:90px;
+height:86px;
 
 background:
 
@@ -256,17 +247,13 @@ transparent
 
 box-shadow:
 
-0 0 20px rgba(255,255,255,.35),
+0 0 12px rgba(255,255,255,.35),
 
-0 0 40px rgba(212,176,123,.28);
+0 0 34px rgba(212,176,123,.24);
 
 }
 
-/* =========================================================
-   FLOAT
-========================================================= */
-
-@keyframes floatMonogram{
+@keyframes monogramFloat{
 
 0%{
 
@@ -278,7 +265,7 @@ translateY(0px);
 50%{
 
 transform:
-translateY(-10px);
+translateY(-8px);
 
 }
 
@@ -297,83 +284,80 @@ translateY(0px);
 
 .opening-date{
 
-margin-top:6px;
+margin-top:4px;
 
-font-size:14px;
+margin-bottom:18px;
 
-letter-spacing:10px;
+font-size:13px;
 
-color:rgba(255,255,255,.92);
+letter-spacing:8px;
 
 text-transform:uppercase;
 
-margin-bottom:28px;
+color:rgba(255,255,255,.85);
 
 }
 
 /* =========================================================
-   BUTTON
+   ORB BUTTON
 ========================================================= */
 
 .enter-button{
 
 position:relative;
 
-margin-top:34px;
-
-padding:
-20px 72px;
+width:92px;
+height:92px;
 
 border:none;
+outline:none;
 
-border-radius:999px;
-
-background:
-
-linear-gradient(
-180deg,
-rgba(255,220,160,.22),
-rgba(212,176,123,.12)
-);
-
-backdrop-filter:
-blur(16px);
-
--webkit-backdrop-filter:
-blur(16px);
-
-font-family:
-"Cormorant Garamond",
-serif;
-
-font-size:30px;
-
-font-weight:600;
-
-letter-spacing:3px;
-
-color:#fff;
+border-radius:50%;
 
 cursor:pointer;
 
-overflow:hidden;
+display:flex;
 
-z-index:999;
+align-items:center;
+justify-content:center;
 
-transition:
-all .45s ease;
+overflow:visible;
+
+margin-top:12px;
+
+background:
+
+radial-gradient(
+circle at 30% 30%,
+rgba(255,255,255,.95),
+rgba(255,240,200,.92) 16%,
+rgba(255,220,160,.85) 28%,
+rgba(212,176,123,.62) 55%,
+rgba(120,70,20,.35) 100%
+);
 
 box-shadow:
 
-0 0 0 1px rgba(255,220,160,.22),
+0 0 12px rgba(255,255,255,.55),
 
-0 12px 40px rgba(0,0,0,.45),
+0 0 35px rgba(255,220,160,.42),
 
-0 0 60px rgba(212,176,123,.22);
+0 0 80px rgba(212,176,123,.34),
+
+0 0 150px rgba(212,176,123,.18);
+
+transition:
+
+transform .45s ease,
+box-shadow .45s ease,
+filter .45s ease;
+
+animation:
+orbFloat 4s ease-in-out infinite;
 
 }
 
-/* GLOW */
+/* INNER CORE */
 
 .enter-button::before{
 
@@ -381,38 +365,26 @@ content:"";
 
 position:absolute;
 
-inset:-2px;
+inset:16px;
 
-border-radius:inherit;
-
-padding:1px;
+border-radius:50%;
 
 background:
 
-linear-gradient(
-120deg,
-rgba(255,255,255,.75),
-rgba(255,220,160,.28),
-rgba(255,255,255,.75)
+radial-gradient(
+circle,
+rgba(255,255,255,1),
+rgba(255,255,255,.18)
 );
 
--webkit-mask:
+filter:
+blur(2px);
 
-linear-gradient(#fff 0 0)
-content-box,
-
-linear-gradient(#fff 0 0);
-
--webkit-mask-composite:
-xor;
-
-mask-composite:exclude;
-
-opacity:.75;
+opacity:.95;
 
 }
 
-/* SHIMMER */
+/* SONAR RING */
 
 .enter-button::after{
 
@@ -420,48 +392,35 @@ content:"";
 
 position:absolute;
 
-top:0;
-left:-120%;
+width:160%;
+height:160%;
 
-width:120%;
-height:100%;
+border-radius:50%;
 
-background:
+border:
+1px solid rgba(255,255,255,.20);
 
-linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.35),
-transparent
-);
-
-transform:
-skewX(-20deg);
-
-transition:
-1s ease;
+animation:
+orbPulse 3s ease-out infinite;
 
 }
 
-.enter-button:hover::after{
-
-left:120%;
-
-}
+/* HOVER */
 
 .enter-button:hover{
 
 transform:
-translateY(-4px)
-scale(1.03);
+scale(1.08);
 
 box-shadow:
 
-0 0 0 1px rgba(255,220,160,.4),
+0 0 16px rgba(255,255,255,.75),
 
-0 20px 60px rgba(0,0,0,.52),
+0 0 45px rgba(255,220,160,.55),
 
-0 0 120px rgba(212,176,123,.34);
+0 0 110px rgba(212,176,123,.42),
+
+0 0 180px rgba(212,176,123,.26);
 
 }
 
@@ -470,92 +429,76 @@ box-shadow:
 .enter-button:active{
 
 transform:
-scale(.96);
+scale(.94);
 
 }
 
-/* MOBILE */
+/* FLOAT */
 
-@media(max-width:768px){
+@keyframes orbFloat{
 
-.enter-button{
-
-padding:
-16px 48px;
-
-font-size:22px;
-
-}
-
-}
-
-
-
-/* =========================================================
-   BUTTON GLOW
-========================================================= */
-
-.enter-button::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-background:
-
-linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.18),
-transparent
-);
+0%{
 
 transform:
-translateX(-120%);
-
-transition:
-transform 1s ease;
+translateY(0px);
 
 }
 
-.enter-button:hover::before{
+50%{
 
 transform:
-translateX(120%);
+translateY(-5px);
 
 }
 
-.enter-button:hover{
+100%{
 
 transform:
-translateY(-4px)
-scale(1.03);
+translateY(0px);
 
-box-shadow:
+}
 
-0 18px 60px rgba(0,0,0,.38),
+}
 
-0 0 80px rgba(212,176,123,.26);
+/* PULSE */
+
+@keyframes orbPulse{
+
+0%{
+
+transform:
+scale(.72);
+
+opacity:.85;
+
+}
+
+100%{
+
+transform:
+scale(1.42);
+
+opacity:0;
+
+}
 
 }
 
 /* =========================================================
-   SUBTEXT
+   TEXT
 ========================================================= */
 
 .opening-text{
 
-margin-top:34px;
+margin-top:28px;
 
-font-size:12px;
+font-size:11px;
 
 letter-spacing:7px;
 
 text-transform:uppercase;
 
-color:rgba(255,255,255,.78);
+color:rgba(255,255,255,.82);
 
 }
 
@@ -585,8 +528,8 @@ background:
 
 radial-gradient(
 circle,
-rgba(255,220,160,1),
-rgba(255,220,160,.2)
+rgba(255,240,200,1),
+rgba(255,220,160,.15)
 );
 
 filter:
@@ -596,10 +539,6 @@ animation:
 particleFloat linear infinite;
 
 }
-
-/* =========================================================
-   PARTICLE FLOAT
-========================================================= */
 
 @keyframes particleFloat{
 
@@ -651,7 +590,7 @@ background:
 radial-gradient(
 circle,
 rgba(255,255,255,1),
-rgba(255,220,160,.95),
+rgba(255,240,200,.95),
 rgba(255,220,160,0)
 70%
 );
@@ -663,13 +602,9 @@ pointer-events:none;
 z-index:30;
 
 filter:
-blur(4px);
+blur(5px);
 
 }
-
-/* =========================================================
-   ACTIVE
-========================================================= */
 
 .light-explosion.active{
 
@@ -679,10 +614,6 @@ cubic-bezier(.16,1,.3,1)
 forwards;
 
 }
-
-/* =========================================================
-   EXPLOSION
-========================================================= */
 
 @keyframes explodeLight{
 
@@ -748,16 +679,14 @@ font-size:88px;
 
 .gy-divider{
 
-height:58px;
+height:56px;
 
 }
 
 .enter-button{
 
-padding:
-15px 38px;
-
-font-size:22px;
+width:72px;
+height:72px;
 
 }
 
@@ -771,9 +700,9 @@ letter-spacing:4px;
 
 .opening-date{
 
-font-size:11px;
+font-size:10px;
 
-letter-spacing:6px;
+letter-spacing:5px;
 
 }
 
