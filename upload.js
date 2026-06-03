@@ -1,3 +1,4 @@
+```js
 /* =========================================================
    GÖKÇE & YALÇIN — UPLOAD SYSTEM FINAL
 ========================================================= */
@@ -45,7 +46,7 @@ const recordingStatus =
 document.getElementById("recordingStatus");
 
 const backgroundMusic =
-document.getElementById("backgroundMusic");
+document.getElementById("bgMusic");
 
 /* =========================================================
    AUDIO RECORD
@@ -79,7 +80,7 @@ try{
 
 isRecording = true;
 
-/* MUSIC PAUSE */
+/* MUSIC */
 
 if(backgroundMusic){
 
@@ -110,22 +111,18 @@ mimeType =
 "audio/webm;codecs=opus";
 
 }
-
 else if(
 MediaRecorder.isTypeSupported(
 "audio/webm"
 )
 ){
 
-mimeType = "audio/webm";
+mimeType =
+"audio/webm";
 
 }
 
-else{
-
-mimeType = "";
-
-}
+/* RECORDER */
 
 mediaRecorder =
 new MediaRecorder(
@@ -170,6 +167,8 @@ track.stop();
 
 });
 
+/* AUDIO BLOB */
+
 recordedAudioBlob =
 new Blob(
 audioChunks,
@@ -206,7 +205,7 @@ recordingStatus.innerHTML =
 
 }
 
-/* RESET BTN */
+/* RESET BUTTON */
 
 recordBtn.disabled = false;
 
@@ -215,7 +214,8 @@ recordBtn.innerHTML =
 
 isRecording = false;
 
-/* MUSIC RESUME */
+/* MUSIC RETURN */
+
 if(backgroundMusic){
 
 backgroundMusic.volume = 0.35;
@@ -225,7 +225,7 @@ backgroundMusic.play()
 
 }
 
-
+};
 
 /* START */
 
@@ -236,7 +236,7 @@ recordBtn.disabled = true;
 recordBtn.innerHTML =
 "Kaydediliyor...";
 
-/* TIMER */
+/* STATUS */
 
 if(recordingStatus){
 
@@ -244,6 +244,8 @@ recordingStatus.innerHTML =
 "15 saniye kaldı";
 
 }
+
+/* TIMER */
 
 recordingTimer =
 setInterval(()=>{
@@ -282,14 +284,16 @@ recordBtn.disabled = false;
 recordBtn.innerHTML =
 "🎙️ Sesli Mesaj Gönder";
 
+isRecording = false;
+
+/* MUSIC RETURN */
+
 if(backgroundMusic){
 
 backgroundMusic.volume = 0.35;
 
 backgroundMusic.play()
 .catch(()=>{});
-
-}
 
 }
 
@@ -340,7 +344,9 @@ document.body.style.overflow =
 
 }
 
-/* OPEN */
+/* =========================================================
+   OPEN MODALS
+========================================================= */
 
 document
 .querySelectorAll('[data-open="memory"]')
@@ -376,7 +382,9 @@ openModal(rsvpModal);
 
 });
 
-/* CLOSE */
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
 
 document
 .querySelectorAll(
@@ -483,7 +491,7 @@ const files =
 document.getElementById("memoryFile")
 ?.files || [];
 
-/* EMPTY CHECK */
+/* EMPTY */
 
 if(
 !message.trim() &&
@@ -497,7 +505,7 @@ throw new Error(
 
 }
 
-/* LIMIT */
+/* MESSAGE LIMIT */
 
 if(message.length > 400){
 
@@ -513,7 +521,7 @@ let imageCount = 0;
 
 let videoCount = 0;
 
-/* FILE LOOP */
+/* FILES */
 
 for(const file of files){
 
@@ -627,7 +635,7 @@ recordedAudioBlob.type ||
 
 }
 
-/* FIRESTORE */
+/* SAVE */
 
 await addDoc(
 collection(db,"memories"),
@@ -770,10 +778,6 @@ guestCount:
 document.getElementById("guestCount")
 ?.value || "",
 
-transportNeed:
-document.getElementById("transportNeed")
-?.value || "",
-
 comingMessage:
 document.getElementById("comingMessage")
 ?.value || "",
@@ -841,3 +845,4 @@ alert(
 );
 
 }
+```
