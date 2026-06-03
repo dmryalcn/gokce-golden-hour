@@ -161,9 +161,26 @@ img.style.backfaceVisibility =
 img.style.webkitBackfaceVisibility =
 "hidden";
 
-/* CINEMATIC */
+/* =========================================================
+   SMART LAYOUT
+========================================================= */
 
-if(index % 5 === 0){
+img.addEventListener(
+"load",
+()=>{
+
+const width =
+img.naturalWidth;
+
+const height =
+img.naturalHeight;
+
+const ratio =
+width / height;
+
+/* LANDSCAPE */
+
+if(ratio > 1.25){
 
 img.classList.add(
 "wide"
@@ -171,7 +188,9 @@ img.classList.add(
 
 }
 
-if(index % 7 === 0){
+/* PORTRAIT */
+
+else if(ratio < 0.8){
 
 img.classList.add(
 "tall"
@@ -179,13 +198,10 @@ img.classList.add(
 
 }
 
-/* APPEND */
-
-gallery.appendChild(
-img
+}
 );
 
-});
+
 
 /* LIGHTBOX */
 
