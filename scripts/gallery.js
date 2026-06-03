@@ -5,18 +5,16 @@ import "../firebase.js";
 ========================================================= */
 
 const {
-
 collection,
 query,
 orderBy,
 onSnapshot
-
 } = window.firebaseFns;
 
 const db = window.db;
 
 /* =========================================================
-   ELEMENTS
+   ELEMENT
 ========================================================= */
 
 const gallery =
@@ -30,26 +28,22 @@ document.getElementById(
 
 function loadGallery(){
 
-const q =
-query(
-
+const q = query(
 collection(
 db,
 "galleryImages"
 ),
-
 orderBy(
 "createdAt",
 "desc"
 )
-
 );
 
 onSnapshot(q,(snapshot)=>{
 
 gallery.innerHTML = "";
 
-const visibleImages = [];
+const images = [];
 
 snapshot.forEach((docSnap)=>{
 
@@ -59,11 +53,11 @@ docSnap.data();
 if(data.hidden === true)
 return;
 
-visibleImages.push(data);
+images.push(data);
 
 });
 
-if(!visibleImages.length){
+if(!images.length){
 
 gallery.innerHTML = `
 
@@ -79,13 +73,15 @@ return;
 
 }
 
-visibleImages.forEach((data,index)=>{
+images.forEach((data,index)=>{
 
 const img =
 document.createElement("img");
 
 img.src =
 data.imageUrl;
+
+/* LAZY */
 
 img.loading =
 "lazy";
@@ -150,20 +146,7 @@ revealImage
 
 }
 
-/* MEMORY FIX */
-
-img.style.willChange =
-"transform, opacity, filter";
-
-img.style.backfaceVisibility =
-"hidden";
-
-img.style.webkitBackfaceVisibility =
-"hidden";
-
-/* =========================================================
-   SMART LAYOUT
-========================================================= */
+/* SMART LAYOUT */
 
 img.addEventListener(
 "load",
@@ -201,6 +184,33 @@ img.classList.add(
 }
 );
 
+/* PERFORMANCE */
+
+img.style.willChange =
+"transform, opacity, filter";
+
+img.style.backfaceVisibility =
+"hidden";
+
+img.style.webkitBackfaceVisibility =
+"hidden";
+
+/* APPEND */
+
+gallery.appendChild(
+img
+);
+
+});
+
+/* LIGHTBOX */
+
+initializeLightbox();
+
+});
+
+}
+
 /* =========================================================
    LIGHTBOX
 ========================================================= */
@@ -212,6 +222,8 @@ document.querySelectorAll(
 ".gallery img"
 );
 
+/* REMOVE OLD */
+
 const oldLightbox =
 document.querySelector(
 ".lightbox"
@@ -222,6 +234,8 @@ if(oldLightbox){
 oldLightbox.remove();
 
 }
+
+/* CREATE */
 
 const lightbox =
 document.createElement(
@@ -266,12 +280,6 @@ let currentIndex = 0;
 function openLightbox(index){
 
 currentIndex = index;
-
-const preloadImage =
-new Image();
-
-preloadImage.src =
-images[index].src;
 
 lightboxImg.src =
 images[index].src;
@@ -342,7 +350,7 @@ openLightbox(index);
 
 });
 
-/* CLOSE BTN */
+/* CLOSE */
 
 closeBtn.addEventListener(
 "click",
@@ -406,10 +414,10 @@ lightbox.addEventListener(
 "touchend",
 (e)=>{
 
-let endX =
+const endX =
 e.changedTouches[0].clientX;
 
-let diff =
+const diff =
 startX - endX;
 
 if(Math.abs(diff) > 50){
@@ -443,4 +451,3 @@ loadGallery();
 
 }
 );
-}
