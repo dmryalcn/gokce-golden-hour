@@ -1,0 +1,229 @@
+/* =========================================================
+   CINEMATIC BACKGROUND
+========================================================= */
+
+body{
+
+position:relative;
+
+overflow-x:hidden;
+
+background:#070707;
+
+}
+
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background-image:
+url("../images/background.webp");
+
+background-size:cover;
+
+background-position:center;
+
+background-repeat:no-repeat;
+
+transform:scale(1.08);
+
+filter:
+blur(5px)
+brightness(.35)
+saturate(1.08);
+
+z-index:-3;
+
+animation:
+bgZoom 24s ease-in-out infinite alternate;
+
+will-change:
+transform;
+
+}
+
+/* =========================================================
+   CINEMATIC OVERLAY
+========================================================= */
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background:
+
+linear-gradient(
+to bottom,
+rgba(0,0,0,.48),
+rgba(0,0,0,.65)
+),
+
+radial-gradient(
+circle at top,
+rgba(255,255,255,.06),
+transparent 45%
+),
+
+radial-gradient(
+circle at bottom,
+rgba(184,130,63,.16),
+transparent 60%
+);
+
+z-index:-2;
+
+pointer-events:none;
+
+backdrop-filter:
+blur(2px);
+
+}
+
+/* =========================================================
+   CINEMATIC DEPTH
+========================================================= */
+
+.hero-content,
+.countdown-container,
+.gallery-section,
+.rsvp-section,
+.memory-section{
+
+position:relative;
+
+z-index:2;
+
+}
+
+/* =========================================================
+   FLOATING LIGHT EFFECT
+========================================================= */
+
+.hero-content::before{
+
+content:"";
+
+position:absolute;
+
+width:420px;
+height:420px;
+
+top:-120px;
+left:50%;
+
+transform:
+translateX(-50%);
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.08),
+transparent 70%
+);
+
+filter:blur(60px);
+
+z-index:-1;
+
+pointer-events:none;
+
+animation:
+floatGlow 7s ease-in-out infinite;
+
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes bgZoom{
+
+from{
+
+transform:
+scale(1.04);
+
+}
+
+to{
+
+transform:
+scale(1.12);
+
+}
+
+}
+
+@keyframes floatGlow{
+
+0%{
+
+transform:
+translateX(-50%)
+translateY(0px);
+
+opacity:.7;
+
+}
+
+50%{
+
+transform:
+translateX(-50%)
+translateY(-12px);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+translateX(-50%)
+translateY(0px);
+
+opacity:.7;
+
+}
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:768px){
+
+body::before{
+
+filter:
+blur(2px)
+brightness(.28);
+
+animation:none;
+
+}
+
+.hero-content::before{
+
+width:240px;
+height:240px;
+
+filter:blur(40px);
+
+}
+
+}
+
