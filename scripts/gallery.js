@@ -443,3 +443,4 @@ loadGallery();
 
 }
 );
+}
