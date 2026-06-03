@@ -1,5 +1,5 @@
 /* =========================================================
-   CINEMATIC OPENING ENGINE
+   CINEMATIC OPENING
 ========================================================= */
 
 .cinematic-opening{
@@ -8,7 +8,7 @@ position:fixed;
 
 inset:0;
 
-width:100vw;
+width:100%;
 height:100vh;
 
 overflow:hidden;
@@ -26,14 +26,14 @@ isolation:isolate;
 
 transition:
 
-opacity 2s ease,
-visibility 2s ease,
-filter 2.5s ease;
+opacity 1.8s ease,
+visibility 1.8s ease,
+filter 2s ease;
 
 }
 
 /* =========================================================
-   HIDDEN
+   HIDE
 ========================================================= */
 
 .cinematic-opening.hidden{
@@ -73,11 +73,11 @@ background-repeat:no-repeat;
 
 transform:scale(1.08);
 
-filter:
-brightness(.92);
-
 animation:
 bgZoom 18s ease-in-out infinite alternate;
+
+filter:
+brightness(.92);
 
 will-change:
 transform;
@@ -119,6 +119,68 @@ circle at center,
 rgba(255,255,255,.04),
 rgba(0,0,0,.72) 100%
 );
+
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.cinematic-particles{
+
+position:absolute;
+
+inset:0;
+
+overflow:hidden;
+
+pointer-events:none;
+
+}
+
+.gold-particle{
+
+position:absolute;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(255,240,200,1),
+rgba(255,220,160,.12)
+);
+
+filter:blur(1px);
+
+animation:
+particleFloat linear infinite;
+
+}
+
+@keyframes particleFloat{
+
+0%{
+
+transform:
+translateY(0px);
+
+}
+
+50%{
+
+transform:
+translateY(-50px);
+
+}
+
+100%{
+
+transform:
+translateY(0px);
+
+}
 
 }
 
@@ -182,9 +244,9 @@ display:flex;
 
 align-items:center;
 
-gap:26px;
+gap:28px;
 
-margin-bottom:24px;
+margin-bottom:26px;
 
 animation:
 monogramFloat 6s ease-in-out infinite;
@@ -210,7 +272,7 @@ background:
 
 linear-gradient(
 180deg,
-#fff,
+#ffffff,
 #f5ddb0 45%,
 #d4a15d 100%
 );
@@ -279,22 +341,22 @@ translateY(0px);
 }
 
 /* =========================================================
-   DATE
+   ORB WRAPPER
 ========================================================= */
 
-.opening-date{
+.opening-orb-wrapper{
 
-margin-top:4px;
+position:relative;
 
-margin-bottom:18px;
+width:180px;
+height:180px;
 
-font-size:13px;
+display:flex;
 
-letter-spacing:8px;
+align-items:center;
+justify-content:center;
 
-text-transform:uppercase;
-
-color:rgba(255,255,255,.85);
+margin-top:6px;
 
 }
 
@@ -306,8 +368,8 @@ color:rgba(255,255,255,.85);
 
 position:relative;
 
-width:92px;
-height:92px;
+width:88px;
+height:88px;
 
 border:none;
 outline:none;
@@ -316,56 +378,44 @@ border-radius:50%;
 
 cursor:pointer;
 
+background:transparent;
+
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-overflow:visible;
-
-margin-top:12px;
-
-background:
-
-radial-gradient(
-circle at 30% 30%,
-rgba(255,255,255,.95),
-rgba(255,240,200,.92) 16%,
-rgba(255,220,160,.85) 28%,
-rgba(212,176,123,.62) 55%,
-rgba(120,70,20,.35) 100%
-);
-
-box-shadow:
-
-0 0 12px rgba(255,255,255,.55),
-
-0 0 35px rgba(255,220,160,.42),
-
-0 0 80px rgba(212,176,123,.34),
-
-0 0 150px rgba(212,176,123,.18);
-
 transition:
+transform .4s ease;
 
-transform .45s ease,
-box-shadow .45s ease,
-filter .45s ease;
-
-animation:
-orbFloat 4s ease-in-out infinite;
+z-index:5;
 
 }
 
-/* INNER CORE */
+.enter-button:hover{
 
-.enter-button::before{
+transform:
+scale(1.08);
 
-content:"";
+}
+
+.enter-button:active{
+
+transform:
+scale(.95);
+
+}
+
+/* =========================================================
+   CORE
+========================================================= */
+
+.orb-core{
 
 position:absolute;
 
-inset:16px;
+width:18px;
+height:18px;
 
 border-radius:50%;
 
@@ -374,109 +424,133 @@ background:
 radial-gradient(
 circle,
 rgba(255,255,255,1),
-rgba(255,255,255,.18)
+rgba(255,240,200,.92)
 );
-
-filter:
-blur(2px);
-
-opacity:.95;
-
-}
-
-/* SONAR RING */
-
-.enter-button::after{
-
-content:"";
-
-position:absolute;
-
-width:160%;
-height:160%;
-
-border-radius:50%;
-
-border:
-1px solid rgba(255,255,255,.20);
-
-animation:
-orbPulse 3s ease-out infinite;
-
-}
-
-/* HOVER */
-
-.enter-button:hover{
-
-transform:
-scale(1.08);
 
 box-shadow:
 
-0 0 16px rgba(255,255,255,.75),
+0 0 10px rgba(255,255,255,.95),
 
-0 0 45px rgba(255,220,160,.55),
+0 0 30px rgba(255,220,160,.9),
 
-0 0 110px rgba(212,176,123,.42),
+0 0 60px rgba(255,220,160,.55),
 
-0 0 180px rgba(212,176,123,.26);
+0 0 120px rgba(255,220,160,.24);
 
-}
+z-index:5;
 
-/* ACTIVE */
-
-.enter-button:active{
-
-transform:
-scale(.94);
+animation:
+corePulse 2.8s ease-in-out infinite;
 
 }
 
-/* FLOAT */
-
-@keyframes orbFloat{
+@keyframes corePulse{
 
 0%{
 
 transform:
-translateY(0px);
+scale(1);
 
 }
 
 50%{
 
 transform:
-translateY(-5px);
+scale(1.18);
 
 }
 
 100%{
 
 transform:
-translateY(0px);
+scale(1);
 
 }
 
 }
 
-/* PULSE */
+/* =========================================================
+   RINGS
+========================================================= */
 
-@keyframes orbPulse{
+.orb-ring{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:
+translate(-50%,-50%);
+
+border-radius:50%;
+
+border:
+1px solid rgba(255,255,255,.20);
+
+pointer-events:none;
+
+opacity:0;
+
+}
+
+.ring-1{
+
+width:80px;
+height:80px;
+
+animation:
+ringPulse 3s linear infinite;
+
+}
+
+.ring-2{
+
+width:120px;
+height:120px;
+
+animation:
+ringPulse 3s linear infinite;
+
+animation-delay:1s;
+
+}
+
+.ring-3{
+
+width:160px;
+height:160px;
+
+animation:
+ringPulse 3s linear infinite;
+
+animation-delay:2s;
+
+}
+
+@keyframes ringPulse{
 
 0%{
 
 transform:
+translate(-50%,-50%)
 scale(.72);
 
-opacity:.85;
+opacity:0;
+
+}
+
+20%{
+
+opacity:.55;
 
 }
 
 100%{
 
 transform:
-scale(1.42);
+translate(-50%,-50%)
+scale(1.18);
 
 opacity:0;
 
@@ -490,7 +564,7 @@ opacity:0;
 
 .opening-text{
 
-margin-top:28px;
+margin-top:8px;
 
 font-size:11px;
 
@@ -499,69 +573,6 @@ letter-spacing:7px;
 text-transform:uppercase;
 
 color:rgba(255,255,255,.82);
-
-}
-
-/* =========================================================
-   PARTICLES
-========================================================= */
-
-.cinematic-particles{
-
-position:absolute;
-
-inset:0;
-
-overflow:hidden;
-
-pointer-events:none;
-
-}
-
-.gold-particle{
-
-position:absolute;
-
-border-radius:50%;
-
-background:
-
-radial-gradient(
-circle,
-rgba(255,240,200,1),
-rgba(255,220,160,.15)
-);
-
-filter:
-blur(1px);
-
-animation:
-particleFloat linear infinite;
-
-}
-
-@keyframes particleFloat{
-
-0%{
-
-transform:
-translateY(0px);
-
-}
-
-50%{
-
-transform:
-translateY(-50px);
-
-}
-
-100%{
-
-transform:
-translateY(0px);
-
-}
 
 }
 
@@ -602,7 +613,7 @@ pointer-events:none;
 z-index:30;
 
 filter:
-blur(5px);
+blur(6px);
 
 }
 
@@ -673,13 +684,20 @@ all 2.5s ease;
 .g-letter,
 .y-letter{
 
-font-size:88px;
+font-size:90px;
 
 }
 
 .gy-divider{
 
 height:56px;
+
+}
+
+.opening-orb-wrapper{
+
+width:140px;
+height:140px;
 
 }
 
@@ -690,19 +708,32 @@ height:72px;
 
 }
 
+.ring-1{
+
+width:70px;
+height:70px;
+
+}
+
+.ring-2{
+
+width:100px;
+height:100px;
+
+}
+
+.ring-3{
+
+width:130px;
+height:130px;
+
+}
+
 .opening-text{
 
 font-size:10px;
 
 letter-spacing:4px;
-
-}
-
-.opening-date{
-
-font-size:10px;
-
-letter-spacing:5px;
 
 }
 
