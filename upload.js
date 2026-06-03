@@ -89,10 +89,6 @@ backgroundMusic.pause();
 
 }
 
-
-
-}
-
 /* STREAM */
 
 const stream =
