@@ -319,33 +319,36 @@ margin-bottom:28px;
 
 position:relative;
 
+margin-top:34px;
+
 padding:
-18px 54px;
+20px 72px;
+
+border:none;
 
 border-radius:999px;
-
-border:
-1px solid rgba(255,255,255,.18);
 
 background:
 
 linear-gradient(
 180deg,
-rgba(255,255,255,.12),
-rgba(255,255,255,.05)
+rgba(255,220,160,.22),
+rgba(212,176,123,.12)
 );
 
 backdrop-filter:
-blur(14px);
+blur(16px);
 
 -webkit-backdrop-filter:
-blur(14px);
+blur(16px);
 
 font-family:
 "Cormorant Garamond",
 serif;
 
-font-size:28px;
+font-size:30px;
+
+font-weight:600;
 
 letter-spacing:3px;
 
@@ -355,16 +358,138 @@ cursor:pointer;
 
 overflow:hidden;
 
+z-index:999;
+
 transition:
 all .45s ease;
 
 box-shadow:
 
-0 12px 35px rgba(0,0,0,.35),
+0 0 0 1px rgba(255,220,160,.22),
 
-0 0 45px rgba(212,176,123,.18);
+0 12px 40px rgba(0,0,0,.45),
+
+0 0 60px rgba(212,176,123,.22);
 
 }
+
+/* GLOW */
+
+.enter-button::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:inherit;
+
+padding:1px;
+
+background:
+
+linear-gradient(
+120deg,
+rgba(255,255,255,.75),
+rgba(255,220,160,.28),
+rgba(255,255,255,.75)
+);
+
+-webkit-mask:
+
+linear-gradient(#fff 0 0)
+content-box,
+
+linear-gradient(#fff 0 0);
+
+-webkit-mask-composite:
+xor;
+
+mask-composite:exclude;
+
+opacity:.75;
+
+}
+
+/* SHIMMER */
+
+.enter-button::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:120%;
+height:100%;
+
+background:
+
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.35),
+transparent
+);
+
+transform:
+skewX(-20deg);
+
+transition:
+1s ease;
+
+}
+
+.enter-button:hover::after{
+
+left:120%;
+
+}
+
+.enter-button:hover{
+
+transform:
+translateY(-4px)
+scale(1.03);
+
+box-shadow:
+
+0 0 0 1px rgba(255,220,160,.4),
+
+0 20px 60px rgba(0,0,0,.52),
+
+0 0 120px rgba(212,176,123,.34);
+
+}
+
+/* ACTIVE */
+
+.enter-button:active{
+
+transform:
+scale(.96);
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.enter-button{
+
+padding:
+16px 48px;
+
+font-size:22px;
+
+}
+
+}
+
+
 
 /* =========================================================
    BUTTON GLOW
