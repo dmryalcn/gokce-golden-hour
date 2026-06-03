@@ -737,5 +737,49 @@ letter-spacing:4px;
 
 }
 
+/* =========================================================
+   MOBILE FIXES
+========================================================= */
+
+@media(max-width:768px){
+
+.cinematic-opening{
+
+position:fixed;
+
+width:100vw;
+height:100dvh;
+
+overflow:hidden;
+
+}
+
+.cinematic-bg{
+
+background-attachment:scroll !important;
+
+transform:none !important;
+
+animation:none !important;
+
+}
+
+body{
+
+overflow-x:hidden;
+
+}
+
+.gallery{
+
+position:relative;
+
+z-index:2;
+
+}
+
+}
+
+
 }
 
