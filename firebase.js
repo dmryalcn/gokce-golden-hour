@@ -3,45 +3,64 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  onSnapshot,
-  serverTimestamp,
-  query,
-  orderBy,
-  doc,
-  updateDoc,
-  deleteDoc,
-  where,
-  limit
+getFirestore,
+collection,
+addDoc,
+getDocs,
+onSnapshot,
+serverTimestamp,
+query,
+orderBy,
+doc,
+updateDoc,
+deleteDoc,
+where,
+limit
 
 }
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* =========================================================
+FIREBASE CONFIG
+========================================================= */
+
 const firebaseConfig = {
 
-  apiKey:
-  "AIzaSyAvp8zij9FF7Jmae0inb3mKBie1ZrW8Dzs",
+apiKey:
+"AIzaSyAvp8zij9FF7Jmae0inb3mKBie1ZrW8Dzs",
 
-  authDomain:
-  "gokceyalcin-7d5a2.firebaseapp.com",
+authDomain:
+"gokceyalcin-7d5a2.firebaseapp.com",
 
-  projectId:
-  "gokceyalcin-7d5a2",
+projectId:
+"gokceyalcin-7d5a2",
 
-  storageBucket:
-  "gokceyalcin-7d5a2.firebasestorage.app",
+storageBucket:
+"gokceyalcin-7d5a2.firebasestorage.app",
 
-  messagingSenderId:
-  "948754842189",
+messagingSenderId:
+"948754842189",
 
-  appId:
-  "1:948754842189:web:6850d52f763f333715d204"
+appId:
+"1:948754842189:web:6850d52f763f333715d204"
 
 };
+
+/* =========================================================
+APP
+========================================================= */
 
 const app =
 initializeApp(firebaseConfig);
@@ -49,71 +68,88 @@ initializeApp(firebaseConfig);
 const db =
 getFirestore(app);
 
-/* GLOBAL ACCESS */
+const auth =
+getAuth(app);
+
+/* =========================================================
+GLOBAL ACCESS
+========================================================= */
 
 window.db = db;
+window.auth = auth;
 
-/* FIREBASE FUNCTIONS */
+/* =========================================================
+FIREBASE FUNCTIONS
+========================================================= */
 
 window.firebaseFns = {
 
-  collection,
-  addDoc,
-  getDocs,
-  onSnapshot,
-  serverTimestamp,
-  query,
-  orderBy,
-  doc,
-  updateDoc,
-  deleteDoc,
-  where,
-  limit
+/* Firestore */
+
+collection,
+addDoc,
+getDocs,
+onSnapshot,
+serverTimestamp,
+query,
+orderBy,
+doc,
+updateDoc,
+deleteDoc,
+where,
+limit,
+
+/* Auth */
+
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
 
 };
 
-/* SECURITY HELPERS */
+/* =========================================================
+AUTH HELPERS
+========================================================= */
 
-window.adminSecurity = {
+window.authHelpers = {
 
-  sessionKey:
-  "gy_admin_session",
+async login(email,password){
 
-  login(password){
+```
+return await signInWithEmailAndPassword(
+  auth,
+  email,
+  password
+);
+```
 
-    if(password === "GY2026SecureAdmin"){
-      
-      sessionStorage.setItem(
-        this.sessionKey,
-        "true"
-      );
+},
 
-      return true;
+async logout(){
 
-    }
+```
+return await signOut(auth);
+```
 
-    return false;
+},
 
-  },
+listen(callback){
 
-  logout(){
+```
+return onAuthStateChanged(
+  auth,
+  callback
+);
+```
 
-    sessionStorage.removeItem(
-      this.sessionKey
-    );
-
-  },
-
-  isLoggedIn(){
-
-    return sessionStorage.getItem(
-      this.sessionKey
-    ) === "true";
-
-  }
+}
 
 };
+
+/* =========================================================
+READY
+========================================================= */
 
 console.log(
-  "G&Y Firebase Connected Successfully"
+"G&Y Firebase Auth Connected Successfully"
 );
