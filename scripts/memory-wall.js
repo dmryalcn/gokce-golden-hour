@@ -17,7 +17,44 @@ document.getElementById(
 );
 
 /* =========================================================
-   LOAD MEMORIES
+SECURITY HELPERS
+========================================================= */
+
+function escapeHTML(value){
+
+return String(value || "")
+.replace(/&/g,"&")
+.replace(/</g,"<")
+.replace(/>/g,">")
+.replace(/"/g,""")
+.replace(/'/g,"'");
+
+}
+
+function isSafeCloudinaryUrl(url){
+
+if(!url) return false;
+
+try{
+
+const parsed =
+new URL(url);
+
+return (
+parsed.protocol === "https:" &&
+parsed.hostname.includes("cloudinary.com")
+);
+
+}catch{
+
+return false;
+
+}
+
+}
+
+/* =========================================================
+LOAD MEMORIES
 ========================================================= */
 
 async function loadMemories(){
@@ -44,9 +81,7 @@ orderBy(
 const snapshot =
 await getDocs(q);
 
-/* =========================================================
-   EMPTY
-========================================================= */
+/* EMPTY */
 
 if(snapshot.empty){
 
@@ -66,53 +101,47 @@ return;
 
 memoryWall.innerHTML = "";
 
-/* =========================================================
-   LOOP
-========================================================= */
+/* LOOP */
 
-snapshot.forEach(doc=>{
+snapshot.forEach(docSnap=>{
 
 const memory =
-doc.data();
+docSnap.data() || {};
 
-/* =========================================================
-   HIDDEN MEMORY
-========================================================= */
+/* HIDDEN */
 
 if(memory.hidden === true){
 return;
 }
 
-/* =========================================================
-   CARD
-========================================================= */
+/* CARD */
 
 const card =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 card.className =
 "memory-card";
 
-/* =========================================================
-   MEDIA
-========================================================= */
+/* MEDIA */
 
 const mediaItems =
-memory.mediaItems || [];
+Array.isArray(memory.mediaItems)
+? memory.mediaItems
+: [];
 
 let mediaHTML = "";
 
-/* =========================================================
-   RENDER MEDIA
-========================================================= */
+/* IMAGE + VIDEO */
 
 mediaItems.forEach(item=>{
 
-if(!item?.url) return;
-
-/* IMAGE */
+if(
+!item ||
+!item.url ||
+!isSafeCloudinaryUrl(item.url)
+){
+return;
+}
 
 if(
 item.type?.includes("image")
@@ -125,6 +154,7 @@ mediaHTML += `
 <img
 src="${item.url}"
 loading="lazy"
+decoding="async"
 alt="Wedding Memory">
 
 </div>
@@ -132,8 +162,6 @@ alt="Wedding Memory">
 `;
 
 }
-
-/* VIDEO */
 
 else if(
 item.type?.includes("video")
@@ -160,20 +188,19 @@ src="${item.url}">
 
 });
 
-/* =========================================================
-   AUDIO
-========================================================= */
+/* AUDIO */
 
 let audioHTML = "";
 
 const audioItem =
 mediaItems.find(item=>
 
-item.type?.includes("audio")
+item?.type?.includes("audio") &&
+isSafeCloudinaryUrl(item.url)
 
 );
 
-if(audioItem?.url){
+if(audioItem){
 
 audioHTML = `
 
@@ -182,8 +209,7 @@ audioHTML = `
 <audio controls>
 
 <source
-src="${audioItem.url}"
-type="audio/webm">
+src="${audioItem.url}">
 
 </audio>
 
@@ -193,9 +219,7 @@ type="audio/webm">
 
 }
 
-/* =========================================================
-   DATE
-========================================================= */
+/* DATE */
 
 const createdAt =
 memory.createdAt?.toDate
@@ -209,9 +233,19 @@ createdAt
 )
 : "";
 
-/* =========================================================
-   CONTENT
-========================================================= */
+/* SAFE TEXT */
+
+const safeName =
+escapeHTML(
+memory.name || "Misafir"
+);
+
+const safeMessage =
+escapeHTML(
+memory.message || ""
+);
+
+/* CONTENT */
 
 card.innerHTML = `
 
@@ -219,13 +253,13 @@ card.innerHTML = `
 
 <h3 class="memory-name">
 
-${memory.name || "Misafir"}
+${safeName}
 
 </h3>
 
 <p class="memory-message">
 
-${memory.message || ""}
+${safeMessage}
 
 </p>
 
@@ -261,7 +295,10 @@ card
 
 }catch(err){
 
-console.error(err);
+console.error(
+"Memory Wall Error:",
+err
+);
 
 memoryWall.innerHTML = `
 
@@ -278,8 +315,7 @@ Anılar yüklenemedi 😔
 }
 
 /* =========================================================
-   INIT
+INIT
 ========================================================= */
 
 loadMemories();
-
