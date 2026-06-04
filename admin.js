@@ -19,6 +19,15 @@ serverTimestamp
 } = window.firebaseFns;
 
 const db = window.db;
+const auth = window.auth;
+
+const {
+
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
+
+} = window.firebaseFns;
 
 /* =========================================================
    CLOUDINARY
@@ -99,33 +108,48 @@ const adminGalleryGrid =
 document.getElementById(
 "adminGalleryGrid"
 );
-
 /* =========================================================
-   LOGIN
+FIREBASE AUTH LOGIN
 ========================================================= */
 
-function login(){
+async function login(){
 
-const pass =
+const email =
+document.getElementById(
+"email"
+)?.value?.trim();
+
+const password =
 document.getElementById(
 "password"
-).value;
+)?.value;
 
-if(
-pass === "Gokce2026"
-){
+if(!email || !password){
 
-localStorage.setItem(
-"gy_admin",
-"true"
+alert(
+"E-posta ve şifre giriniz 🤍"
+);
+
+return;
+
+}
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
 );
 
 showPanel();
 
-}else{
+}catch(error){
+
+console.error(error);
 
 alert(
-"Şifre yanlış 😔"
+"Giriş başarısız 😔"
 );
 
 }
@@ -135,14 +159,12 @@ alert(
 window.login = login;
 
 /* =========================================================
-   LOGOUT
+LOGOUT
 ========================================================= */
 
-function logout(){
+async function logout(){
 
-localStorage.removeItem(
-"gy_admin"
-);
+await signOut(auth);
 
 location.reload();
 
@@ -151,7 +173,7 @@ location.reload();
 window.logout = logout;
 
 /* =========================================================
-   CHECK LOGIN
+SHOW PANEL
 ========================================================= */
 
 function showPanel(){
@@ -170,15 +192,25 @@ loadGalleryImages();
 
 }
 
-if(
-localStorage.getItem(
-"gy_admin"
-) === "true"
-){
+/* =========================================================
+AUTH CHECK
+========================================================= */
+
+onAuthStateChanged(
+
+auth,
+
+(user)=>{
+
+if(user){
 
 showPanel();
 
 }
+
+}
+
+);
 
 /* =========================================================
    RSVP
