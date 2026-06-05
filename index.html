@@ -13,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- Styles — sadece repoda var olan dosyalar -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/animations.css">
   <link rel="stylesheet" href="styles/effects.css">
@@ -23,19 +22,127 @@
   <link rel="stylesheet" href="styles/memory-wall.css">
   <link rel="stylesheet" href="styles/quotes.css">
   <link rel="stylesheet" href="styles/cinematic-opening.css">
+
+  <!-- ── DÜZELTME 1: memory modal için ses kaydı & fotoğraf yükleme stilleri ── -->
+  <style>
+    /* ── Ses kaydı alanı ── */
+    .record-area {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(201,169,110,0.18);
+      background: rgba(255,255,255,0.03);
+    }
+    .record-area label {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold, #c9a96e);
+      margin-bottom: 0.6rem;
+    }
+    #recordBtn {
+      background: transparent;
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold-light, #e8d5a3);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    #recordBtn:hover:not(:disabled) {
+      background: rgba(201,169,110,0.1);
+      border-color: var(--gold, #c9a96e);
+    }
+    #recordBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+    #recordingStatus {
+      font-size: 0.72rem;
+      color: rgba(245,239,230,0.5);
+      margin-top: 0.5rem;
+      display: block;
+      letter-spacing: 0.08em;
+    }
+    #audioPreview {
+      display: none;
+      width: 100%;
+      margin-top: 0.8rem;
+    }
+
+    /* ── RSVP koşullu alanlar ── */
+    .rsvp-conditional { display: none; margin-top: 0.2rem; }
+
+    /* ── Modal scroll fix ── */
+    .rsvp-box, .memory-box {
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .rsvp-box::-webkit-scrollbar,
+    .memory-box::-webkit-scrollbar { width: 4px; }
+    .rsvp-box::-webkit-scrollbar-thumb,
+    .memory-box::-webkit-scrollbar-thumb {
+      background: rgba(201,169,110,0.3);
+    }
+
+    /* ── Popup toast ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(12,9,7,0.96);
+      border: 1px solid rgba(201,169,110,0.35);
+      color: #f5efe6;
+      padding: 1rem 2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-align: center;
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      max-width: 90vw;
+      backdrop-filter: blur(10px);
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    #toast .toast-title {
+      display: block;
+      color: var(--gold, #c9a96e);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ── dominant-glow için eksik CSS ── */
+    .dynamic-dominant-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      opacity: 0.18;
+      filter: blur(80px);
+      transition: background 1.2s ease;
+      will-change: transform;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════
-       PRELOADER
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ PRELOADER ════════════════ -->
   <div id="preloader">
     <div class="preloader-monogram">G <span class="sep-heart">♥</span> Y</div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════
-       CİNEMATİK OPENING
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ CİNEMATİK OPENING ════════════════ -->
   <div id="cinematic-opening">
     <div class="opening-bg"></div>
     <div class="opening-overlay"></div>
@@ -43,7 +150,6 @@
 
     <div class="opening-content">
       <span class="opening-tag">Nişan Töreni Daveti</span>
-
       <span class="opening-name-top">Gökçe</span>
 
       <div class="opening-separator">
@@ -53,47 +159,32 @@
       </div>
 
       <span class="opening-name-bottom">Yalçın</span>
-
       <div class="opening-date">2025 · Nişan Töreni</div>
       <div class="opening-divider"></div>
-      <button class="opening-btn">Davete Katıl</button>
+      <button class="opening-btn" id="openingEnterBtn">Davete Katıl</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ HERO ════════════════ -->
   <section class="hero">
     <span class="hero-tag">Nişan Töreni Daveti</span>
-
-    <h1>
-      Gökçe
-      <span class="sep-heart">♥</span>
-      Yalçın
-    </h1>
-
+    <h1>Gökçe <span class="sep-heart">♥</span> Yalçın</h1>
     <div class="hero-date">2025</div>
     <div class="hero-divider"></div>
     <p class="hero-sub">Birlikte başlayan hikâye</p>
-
     <div class="hero-scroll">
       <span>Keşfet</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       COUNTDOWN
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ COUNTDOWN ════════════════ -->
   <section class="section-countdown reveal">
     <div class="section-header">
       <span class="section-label">Nişana Kalan</span>
-      <h2 class="section-title">
-        Gökçe <span class="sep-heart">♥</span> Yalçın
-      </h2>
+      <h2 class="section-title">Gökçe <span class="sep-heart">♥</span> Yalçın</h2>
       <div class="section-divider"></div>
     </div>
-
     <div class="countdown">
       <div class="time-box">
         <span class="number" id="cd-days">00</span>
@@ -117,18 +208,13 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       BİLGİ KARTLARI
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ BİLGİ KARTLARI ════════════════ -->
   <section class="section-info reveal">
     <div class="section-header">
       <span class="section-label">Tören Detayları</span>
-      <h2 class="section-title">
-        Gökçe <span class="sep-heart">♥</span> Yalçın
-      </h2>
+      <h2 class="section-title">Gökçe <span class="sep-heart">♥</span> Yalçın</h2>
       <div class="section-divider"></div>
     </div>
-
     <div class="cards">
       <div class="card reveal">
         <span class="card-icon">🗓</span>
@@ -153,18 +239,13 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       HARİTA
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ HARİTA ════════════════ -->
   <section class="section-map reveal">
     <div class="section-header">
       <span class="section-label">Konum</span>
-      <h2 class="section-title">
-        Bizi Burada Bulun
-      </h2>
+      <h2 class="section-title">Bizi Burada Bulun</h2>
       <div class="section-divider"></div>
     </div>
-
     <div class="luxury-map">
       <iframe
         src="https://maps.google.com/maps?q=İstanbul&output=embed"
@@ -176,260 +257,512 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       GALERİ
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ GALERİ ════════════════ -->
   <section class="section-gallery reveal">
     <div class="section-header">
       <span class="section-label">Anılar</span>
-      <h2 class="section-title">
-        Gökçe <span class="sep-heart">♥</span> Yalçın
-      </h2>
+      <h2 class="section-title">Gökçe <span class="sep-heart">♥</span> Yalçın</h2>
       <div class="section-divider"></div>
     </div>
-
-    <div class="gallery-grid" id="gallery-grid">
-      <!-- Galeri JS ile doldurulacak -->
+    <!-- DÜZELTME 2: id="gallery" — gallery.js bu id'yi arıyor -->
+    <div class="gallery" id="gallery">
+      <div class="gallery-loading">Fotoğraflar yükleniyor...</div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       ANLATIM / MEMORY WALL
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ MEMORY WALL ════════════════ -->
   <section class="section-memory reveal">
     <div class="section-header">
       <span class="section-label">Sevdiklerimizden</span>
-      <h2 class="section-title">
-        Güzel Dilekler
-      </h2>
+      <h2 class="section-title">Güzel Dilekler</h2>
       <div class="section-divider"></div>
     </div>
-
-    <div class="memory-grid" id="memory-grid">
-      <div class="memory-note reveal">
-        <p>Ömür boyu mutluluklar, birbirinize daima değer verin.</p>
-        <span class="note-author">— Aile</span>
-      </div>
-      <div class="memory-note reveal">
-        <p>Hayatınızın en güzel sayfasının başlangıcı kutlu olsun.</p>
-        <span class="note-author">— Yakın Arkadaşlar</span>
-      </div>
-      <div class="memory-note reveal">
-        <p>Birlikte yürüyeceğiniz yollar hep aydınlık olsun.</p>
-        <span class="note-author">— Sevdikleriniz</span>
-      </div>
+    <!-- DÜZELTME 3: id="memoryWall" — memory-wall.js bu id'yi arıyor -->
+    <div class="memory-wall" id="memoryWall">
+      <div class="memory-empty">Anılar yükleniyor...</div>
     </div>
-
-    <button class="btn-memory" id="btn-add-memory">
-      Dilek Bırak
-    </button>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <button class="btn-memory" id="btn-add-memory">Anı Bırak</button>
+    </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       RSVP
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ RSVP ════════════════ -->
   <section class="section-rsvp reveal">
     <div class="section-header">
       <span class="section-label">Katılım</span>
-      <h2 class="section-title">
-        Gökçe <span class="sep-heart">♥</span> Yalçın
-      </h2>
+      <h2 class="section-title">Gökçe <span class="sep-heart">♥</span> Yalçın</h2>
       <div class="section-divider"></div>
     </div>
-
-    <p class="rsvp-desc">
-      Varlığınız bizim için en güzel hediyedir.
-      Lütfen katılımınızı bildirin.
-    </p>
-
+    <p class="rsvp-desc">Varlığınız bizim için en güzel hediyedir. Lütfen katılımınızı bildirin.</p>
     <button class="btn-rsvp" id="btn-rsvp">Katılımımı Bildiriyorum</button>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════ FOOTER ════════════════ -->
   <footer>
-    <div class="footer-monogram">
-      Gökçe <span class="sep-heart">♥</span> Yalçın
-    </div>
+    <div class="footer-monogram">Gökçe <span class="sep-heart">♥</span> Yalçın</div>
     <p class="footer-date">2025 · Nişan Töreni</p>
-    <p class="footer-made">Sevgiyle hazırlandı</p>
+    <p class="footer-made">Sevgiyle hazırlandı 🤍</p>
   </footer>
 
-  <!-- ═══════════════════════════════════════════════════
+  <!-- ═══════════════ TOAST ════════════════ -->
+  <div id="toast">
+    <span class="toast-title" id="toastTitle"></span>
+    <span id="toastMsg"></span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
        RSVP MODAL
-  ════════════════════════════════════════════════════ -->
+       DÜZELTME 4: Katılacak/katılmayacak/kararsız
+       için ayrı mesaj alanları + Firebase entegrasyonu
+  ════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="rsvp-modal">
     <div class="rsvp-box">
       <button class="modal-close" id="close-rsvp">×</button>
-      <h2 class="modal-title">
-        Gökçe <span class="sep-heart">♥</span> Yalçın
-      </h2>
+      <h2 class="modal-title">Gökçe <span class="sep-heart">♥</span> Yalçın</h2>
 
       <div class="form-group">
-        <label for="rsvp-name">Adınız Soyadınız</label>
-        <input type="text" id="rsvp-name" placeholder="Ad Soyad">
+        <label for="rsvp-name">Adınız Soyadınız *</label>
+        <input type="text" id="rsvp-name" placeholder="Ad Soyad" maxlength="80">
       </div>
       <div class="form-group">
         <label for="rsvp-phone">Telefon</label>
-        <input type="tel" id="rsvp-phone" placeholder="0(5xx) xxx xx xx">
+        <input type="tel" id="rsvp-phone" placeholder="0(5xx) xxx xx xx" maxlength="20">
       </div>
       <div class="form-group">
-        <label for="rsvp-attend">Katılım Durumu</label>
+        <label for="rsvp-attend">Katılım Durumu *</label>
         <select id="rsvp-attend">
           <option value="">Seçiniz</option>
-          <option value="yes">Evet, katılacağım</option>
-          <option value="no">Katılamayacağım</option>
+          <option value="yes">Evet, katılacağım 🎉</option>
+          <option value="no">Maalesef katılamayacağım</option>
           <option value="maybe">Henüz bilmiyorum</option>
         </select>
       </div>
-      <div class="form-group">
-        <label for="rsvp-guests">Kaç Kişi Geliyor?</label>
-        <select id="rsvp-guests">
-          <option value="1">1 Kişi</option>
-          <option value="2">2 Kişi</option>
-          <option value="3">3 Kişi</option>
-          <option value="4+">4+ Kişi</option>
-        </select>
+
+      <!-- Katılıyor: kişi sayısı + mesaj -->
+      <div class="rsvp-conditional" id="rsvp-yes-area">
+        <div class="form-group">
+          <label for="rsvp-guests">Kaç Kişi Geliyor?</label>
+          <select id="rsvp-guests">
+            <option value="1">1 Kişi</option>
+            <option value="2">2 Kişi</option>
+            <option value="3">3 Kişi</option>
+            <option value="4+">4+ Kişi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rsvp-yes-msg">Mesajınız (isteğe bağlı)</label>
+          <textarea id="rsvp-yes-msg" placeholder="Çok mutlu oldum, görüşmek için sabırsızlanıyorum! 🤍" maxlength="400"></textarea>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="rsvp-note">Notunuz (isteğe bağlı)</label>
-        <textarea id="rsvp-note" placeholder="Dilek, not veya mesajınız..."></textarea>
+
+      <!-- Katılmıyor: özür + mesaj -->
+      <div class="rsvp-conditional" id="rsvp-no-area">
+        <div class="form-group">
+          <label for="rsvp-no-msg">Mesajınız (isteğe bağlı)</label>
+          <textarea id="rsvp-no-msg" placeholder="Çok üzüldüm, ama mutlulukların daim olsun! ✨" maxlength="400"></textarea>
+        </div>
       </div>
+
+      <!-- Kararsız: mesaj -->
+      <div class="rsvp-conditional" id="rsvp-maybe-area">
+        <div class="form-group">
+          <label for="rsvp-maybe-msg">Mesajınız (isteğe bağlı)</label>
+          <textarea id="rsvp-maybe-msg" placeholder="Mümkün olduğunca gelmeye çalışacağım 🤍" maxlength="400"></textarea>
+        </div>
+      </div>
+
       <button class="btn-submit" id="rsvp-submit">Gönder</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════
-       MEMORY MODAL
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════
+       MEMORY / ANI MODAL
+       DÜZELTME 5: Ses kaydı + fotoğraf yükleme
+       + Firebase entegrasyonu
+  ════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="memory-modal">
     <div class="memory-box">
       <button class="modal-close" id="close-memory">×</button>
-      <h2 class="modal-title">Dilek Bırak</h2>
+      <h2 class="modal-title">Anı Bırak 🤍</h2>
 
       <div class="form-group">
         <label for="memory-name">Adınız</label>
-        <input type="text" id="memory-name" placeholder="Adınız">
+        <input type="text" id="memory-name" placeholder="Adınız" maxlength="60">
       </div>
       <div class="form-group">
         <label for="memory-text">Mesajınız</label>
-        <textarea id="memory-text" placeholder="Gökçe & Yalçın'a bir mesaj bırakın..."></textarea>
+        <textarea id="memory-text" placeholder="Gökçe & Yalçın'a bir mesaj bırakın..." maxlength="400"></textarea>
       </div>
-      <button class="btn-submit" id="memory-submit">Gönder</button>
+      <div class="form-group">
+        <label for="memory-file">Fotoğraf Ekle (max 5 adet, 8MB)</label>
+        <input type="file" id="memory-file" accept="image/jpeg,image/png,image/webp" multiple style="color:rgba(245,239,230,0.7);width:100%;padding:0.5rem 0;">
+      </div>
+
+      <!-- Ses kaydı alanı -->
+      <div class="record-area">
+        <label>Sesli Mesaj (15 saniye)</label>
+        <button type="button" id="recordBtn">🎙️ Sesli Mesaj Kaydet</button>
+        <span id="recordingStatus">Hazır</span>
+        <audio id="audioPreview" controls></audio>
+      </div>
+
+      <button class="btn-submit" id="memory-submit">Anımı Gönder 🤍</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════
-       SCRIPTS — sadece repoda var olan dosyalar
-  ════════════════════════════════════════════════════ -->
-  <script src="scripts/preloader.js"></script>
+  <!-- ═══════════════ SCRIPTS ════════════════ -->
+
+  <!-- DÜZELTME 6: cinematic-opening.js type="module" değil normal script -->
   <script src="scripts/cinematic-opening.js"></script>
+  <script src="scripts/preloader.js"></script>
   <script src="scripts/animations.js"></script>
-  <script src="scripts/dominant-glow.js"></script>
   <script src="scripts/luxury-effects.js"></script>
+  <script src="scripts/dominant-glow.js"></script>
   <script src="scripts/quotes.js"></script>
   <script src="scripts/protection.js"></script>
-  <script src="scripts/gallery.js" type="module"></script>
-  <script src="scripts/memory-wall.js" type="module"></script>
+
+  <!-- Firebase + modül scriptler -->
+  <script type="module" src="scripts/firebase.js"></script>
+  <script type="module" src="scripts/gallery.js"></script>
+  <script type="module" src="scripts/memory-wall.js"></script>
 
   <script>
-    /* ── Countdown ── */
-    (function () {
-      // Tarihi buraya girin: new Date('YYYY-MM-DDTHH:mm:ss')
-      var target = new Date('2025-12-31T19:00:00');
+  /* ══════════════════════════════════════════════
+     COUNTDOWN
+  ══════════════════════════════════════════════ */
+  (function () {
+    var target = new Date('2025-12-31T19:00:00');
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      var diff = target - new Date();
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id){
+          document.getElementById(id).textContent = '00';
+        });
+        return;
+      }
+      document.getElementById('cd-days').textContent    = pad(Math.floor(diff / 86400000));
+      document.getElementById('cd-hours').textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('cd-minutes').textContent = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('cd-seconds').textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 
-      function pad(n) { return String(n).padStart(2, '0'); }
-
-      function tick() {
-        var now  = new Date();
-        var diff = target - now;
-        if (diff <= 0) {
-          document.getElementById('cd-days').textContent    = '00';
-          document.getElementById('cd-hours').textContent   = '00';
-          document.getElementById('cd-minutes').textContent = '00';
-          document.getElementById('cd-seconds').textContent = '00';
-          return;
+  /* ══════════════════════════════════════════════
+     SCROLL REVEAL
+     DÜZELTME 7: class "visible" ekliyor — main.css ile uyumlu
+  ══════════════════════════════════════════════ */
+  (function () {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
         }
-        var d = Math.floor(diff / 86400000);
-        var h = Math.floor((diff % 86400000) / 3600000);
-        var m = Math.floor((diff % 3600000) / 60000);
-        var s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('cd-days').textContent    = pad(d);
-        document.getElementById('cd-hours').textContent   = pad(h);
-        document.getElementById('cd-minutes').textContent = pad(m);
-        document.getElementById('cd-seconds').textContent = pad(s);
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      observer.observe(el);
+    });
+  })();
+
+  /* ══════════════════════════════════════════════
+     TOAST
+  ══════════════════════════════════════════════ */
+  function showToast(title, msg) {
+    var t = document.getElementById('toast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent   = msg || '';
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 4000);
+  }
+
+  /* ══════════════════════════════════════════════
+     MODAL YARDIMCILARI
+  ══════════════════════════════════════════════ */
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  }
+  function closeModal(id) {
+    var m = document.getElementById(id);
+    if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+
+  // Açma butonları
+  document.getElementById('btn-rsvp').addEventListener('click', function(){ openModal('rsvp-modal'); });
+  document.getElementById('btn-add-memory').addEventListener('click', function(){ openModal('memory-modal'); });
+
+  // Kapatma butonları
+  document.getElementById('close-rsvp').addEventListener('click', function(){ closeModal('rsvp-modal'); });
+  document.getElementById('close-memory').addEventListener('click', function(){ closeModal('memory-modal'); });
+
+  // Overlay tıklaması
+  document.getElementById('rsvp-modal').addEventListener('click', function(e){ if(e.target===this) closeModal('rsvp-modal'); });
+  document.getElementById('memory-modal').addEventListener('click', function(e){ if(e.target===this) closeModal('memory-modal'); });
+
+  /* ══════════════════════════════════════════════
+     DÜZELTME 8: RSVP — Koşullu alanlar
+  ══════════════════════════════════════════════ */
+  document.getElementById('rsvp-attend').addEventListener('change', function() {
+    ['rsvp-yes-area','rsvp-no-area','rsvp-maybe-area'].forEach(function(id){
+      document.getElementById(id).style.display = 'none';
+    });
+    if (this.value === 'yes')   document.getElementById('rsvp-yes-area').style.display   = 'block';
+    if (this.value === 'no')    document.getElementById('rsvp-no-area').style.display    = 'block';
+    if (this.value === 'maybe') document.getElementById('rsvp-maybe-area').style.display = 'block';
+  });
+
+  /* ══════════════════════════════════════════════
+     DÜZELTME 9: RSVP — Firebase'e gönderme
+     (firebase.js yüklendikten sonra çalışır)
+  ══════════════════════════════════════════════ */
+  var rsvpBusy = false;
+  document.getElementById('rsvp-submit').addEventListener('click', async function() {
+    if (rsvpBusy) return;
+
+    var name   = (document.getElementById('rsvp-name').value || '').trim();
+    var phone  = (document.getElementById('rsvp-phone').value || '').trim();
+    var status = document.getElementById('rsvp-attend').value;
+
+    if (!name)   { showToast('Eksik Bilgi', 'Lütfen adınızı girin 🤍'); return; }
+    if (!status) { showToast('Eksik Bilgi', 'Lütfen katılım durumunuzu seçin 🤍'); return; }
+
+    var guestCount = document.getElementById('rsvp-guests')?.value || '';
+    var yesMsg     = (document.getElementById('rsvp-yes-msg')?.value || '').trim();
+    var noMsg      = (document.getElementById('rsvp-no-msg')?.value || '').trim();
+    var maybeMsg   = (document.getElementById('rsvp-maybe-msg')?.value || '').trim();
+    var message    = status === 'yes' ? yesMsg : status === 'no' ? noMsg : maybeMsg;
+
+    rsvpBusy = true;
+    this.disabled = true;
+    this.textContent = 'Gönderiliyor...';
+
+    try {
+      // firebase.js window.db ve window.firebaseFns'i set edene kadar bekle
+      var waited = 0;
+      while ((!window.db || !window.firebaseFns) && waited < 5000) {
+        await new Promise(function(r){ setTimeout(r, 100); });
+        waited += 100;
+      }
+      if (!window.db || !window.firebaseFns) throw new Error('Firebase bağlanamadı 😔');
+
+      var fns = window.firebaseFns;
+      await fns.addDoc(fns.collection(window.db, 'rsvp'), {
+        name:        name.replace(/[<>]/g,''),
+        phone:       phone,
+        status:      status,
+        guestCount:  guestCount,
+        message:     message.replace(/[<>]/g,''),
+        createdAt:   fns.serverTimestamp()
+      });
+
+      document.getElementById('rsvp-modal').querySelector('form, div').reset?.();
+      document.getElementById('rsvp-name').value = '';
+      document.getElementById('rsvp-phone').value = '';
+      document.getElementById('rsvp-attend').value = '';
+      ['rsvp-yes-area','rsvp-no-area','rsvp-maybe-area'].forEach(function(id){
+        document.getElementById(id).style.display = 'none';
+      });
+      if(document.getElementById('rsvp-yes-msg')) document.getElementById('rsvp-yes-msg').value = '';
+      if(document.getElementById('rsvp-no-msg')) document.getElementById('rsvp-no-msg').value = '';
+      if(document.getElementById('rsvp-maybe-msg')) document.getElementById('rsvp-maybe-msg').value = '';
+
+      closeModal('rsvp-modal');
+      showToast('Teşekkürler 🤍', 'Katılım bilginiz iletildi ✨');
+      window.dispatchEvent(new Event('gy:rsvpSent'));
+    } catch(err) {
+      console.error(err);
+      showToast('Hata 😔', err.message || 'Bir sorun oluştu, tekrar deneyin.');
+    }
+
+    this.disabled = false;
+    this.textContent = 'Gönder';
+    rsvpBusy = false;
+  });
+
+  /* ══════════════════════════════════════════════
+     DÜZELTME 10: SES KAYDI
+  ══════════════════════════════════════════════ */
+  var mediaRecorder     = null;
+  var audioChunks       = [];
+  var recordedBlob      = null;
+  var recordTimer       = null;
+  var recordSecs        = 15;
+  var isRecording       = false;
+
+  document.getElementById('recordBtn').addEventListener('click', async function() {
+    if (isRecording) return;
+    isRecording = true;
+    var btn = this;
+    var status = document.getElementById('recordingStatus');
+    var preview = document.getElementById('audioPreview');
+
+    try {
+      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      var mimeType = '';
+      if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) mimeType = 'audio/webm;codecs=opus';
+      else if (MediaRecorder.isTypeSupported('audio/webm')) mimeType = 'audio/webm';
+      else if (MediaRecorder.isTypeSupported('audio/mp4')) mimeType = 'audio/mp4';
+
+      mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+      audioChunks   = [];
+      recordSecs    = 15;
+
+      mediaRecorder.ondataavailable = function(e){ if(e.data.size > 0) audioChunks.push(e.data); };
+
+      mediaRecorder.onstop = function() {
+        clearInterval(recordTimer);
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        recordedBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+        var url = URL.createObjectURL(recordedBlob);
+        preview.src = url;
+        preview.style.display = 'block';
+        status.textContent = 'Sesli mesaj hazır ✨';
+        btn.disabled = false;
+        btn.textContent = '🎙️ Yeniden Kaydet';
+        isRecording = false;
+      };
+
+      mediaRecorder.start();
+      btn.disabled = true;
+      btn.textContent = 'Kaydediliyor...';
+      status.textContent = '15 saniye kaldı';
+
+      recordTimer = setInterval(function() {
+        recordSecs--;
+        status.textContent = recordSecs + ' saniye kaldı';
+        if (recordSecs <= 0) {
+          mediaRecorder.stop();
+          clearInterval(recordTimer);
+        }
+      }, 1000);
+
+    } catch(err) {
+      console.error(err);
+      showToast('Mikrofon Hatası', 'Mikrofon erişimi sağlanamadı 😔');
+      btn.disabled = false;
+      btn.textContent = '🎙️ Sesli Mesaj Kaydet';
+      isRecording = false;
+    }
+  });
+
+  /* ══════════════════════════════════════════════
+     DÜZELTME 11: ANI / MEMORY MODAL — Firebase gönderme
+     + fotoğraf + ses kaydı
+  ══════════════════════════════════════════════ */
+  var memBusy = false;
+  document.getElementById('memory-submit').addEventListener('click', async function() {
+    if (memBusy) return;
+
+    var name    = (document.getElementById('memory-name').value || '').trim();
+    var message = (document.getElementById('memory-text').value || '').trim();
+    var files   = document.getElementById('memory-file').files;
+
+    if (!message && files.length === 0 && !recordedBlob) {
+      showToast('Eksik', 'Lütfen bir mesaj veya fotoğraf bırakın 🤍');
+      return;
+    }
+
+    memBusy = true;
+    this.disabled = true;
+    this.textContent = 'Yükleniyor...';
+
+    try {
+      var waited = 0;
+      while ((!window.db || !window.firebaseFns) && waited < 5000) {
+        await new Promise(function(r){ setTimeout(r, 100); });
+        waited += 100;
+      }
+      if (!window.db || !window.firebaseFns) throw new Error('Firebase bağlanamadı 😔');
+
+      var fns = window.firebaseFns;
+
+      // Cloudinary imzalı yükleme yardımcısı
+      async function getSignature() {
+        var r = await fetch('/api/sign-upload', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        if (!r.ok) throw new Error('İmza alınamadı 😔');
+        return await r.json();
       }
 
-      tick();
-      setInterval(tick, 1000);
-    })();
-
-    /* ── Scroll Reveal ── */
-    (function () {
-      var els = document.querySelectorAll('.reveal');
-      if (!els.length) return;
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            observer.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      els.forEach(function (el) { observer.observe(el); });
-    })();
-
-    /* ── RSVP Modal ── */
-    (function () {
-      var modal   = document.getElementById('rsvp-modal');
-      var btnOpen = document.getElementById('btn-rsvp');
-      var btnClose = document.getElementById('close-rsvp');
-      var btnSubmit = document.getElementById('rsvp-submit');
-
-      if (btnOpen)  btnOpen.addEventListener('click', function () { modal.classList.add('open'); });
-      if (btnClose) btnClose.addEventListener('click', function () { modal.classList.remove('open'); });
-      if (modal)    modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('open'); });
-
-      if (btnSubmit) {
-        btnSubmit.addEventListener('click', function () {
-          var name = document.getElementById('rsvp-name').value.trim();
-          if (!name) { alert('Lütfen adınızı girin.'); return; }
-          modal.classList.remove('open');
-          // Burada form verisi gönderilebilir
-        });
+      function isSafeUrl(url) {
+        try {
+          var p = new URL(url);
+          return p.protocol === 'https:' && p.hostname.endsWith('cloudinary.com');
+        } catch { return false; }
       }
-    })();
 
-    /* ── Memory Modal ── */
-    (function () {
-      var modal    = document.getElementById('memory-modal');
-      var btnOpen  = document.getElementById('btn-add-memory');
-      var btnClose = document.getElementById('close-memory');
-      var btnSubmit = document.getElementById('memory-submit');
-
-      if (btnOpen)  btnOpen.addEventListener('click', function () { modal.classList.add('open'); });
-      if (btnClose) btnClose.addEventListener('click', function () { modal.classList.remove('open'); });
-      if (modal)    modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('open'); });
-
-      if (btnSubmit) {
-        btnSubmit.addEventListener('click', function () {
-          var name = document.getElementById('memory-name').value.trim();
-          var text = document.getElementById('memory-text').value.trim();
-          if (!name || !text) { alert('Lütfen adınızı ve mesajınızı girin.'); return; }
-
-          var grid = document.getElementById('memory-grid');
-          var note = document.createElement('div');
-          note.className = 'memory-note';
-          note.innerHTML = '<p>' + text + '</p><span class="note-author">— ' + name + '</span>';
-          grid.appendChild(note);
-
-          modal.classList.remove('open');
-          document.getElementById('memory-name').value = '';
-          document.getElementById('memory-text').value = '';
-        });
+      async function uploadFile(file) {
+        var sig = await getSignature();
+        var fd  = new FormData();
+        fd.append('file', file);
+        fd.append('signature', sig.signature);
+        fd.append('timestamp', sig.timestamp);
+        fd.append('api_key', sig.apiKey);
+        fd.append('folder', sig.folder);
+        var r = await fetch('https://api.cloudinary.com/v1_1/' + sig.cloudName + '/auto/upload', { method: 'POST', body: fd });
+        var d = await r.json();
+        if (!r.ok || !isSafeUrl(d.secure_url)) throw new Error('Dosya yüklenemedi 😔');
+        return d.secure_url;
       }
-    })();
+
+      var mediaItems = [];
+      var imgCount = 0;
+
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        if (!['image/jpeg','image/png','image/webp'].includes(f.type)) continue;
+        if (f.size > 8 * 1024 * 1024) { showToast('Boyut Hatası', 'Fotoğraflar en fazla 8MB olabilir 🤍'); continue; }
+        imgCount++;
+        if (imgCount > 5) { showToast('Limit', 'En fazla 5 fotoğraf yüklenebilir 🤍'); break; }
+        var url = await uploadFile(f);
+        mediaItems.push({ url: url, type: f.type });
+      }
+
+      if (recordedBlob) {
+        var ext = (recordedBlob.type || '').includes('mp4') ? 'mp4' : 'webm';
+        var audioFile = new File([recordedBlob], 'voice.' + ext, { type: recordedBlob.type || 'audio/webm' });
+        var audioUrl  = await uploadFile(audioFile);
+        mediaItems.push({ url: audioUrl, type: recordedBlob.type || 'audio/webm' });
+      }
+
+      await fns.addDoc(fns.collection(window.db, 'memories'), {
+        name:       (name || 'Misafir').replace(/[<>]/g,''),
+        message:    message.replace(/[<>]/g,''),
+        mediaItems: mediaItems,
+        hidden:     false,
+        createdAt:  fns.serverTimestamp()
+      });
+
+      // Formu sıfırla
+      document.getElementById('memory-name').value = '';
+      document.getElementById('memory-text').value = '';
+      document.getElementById('memory-file').value = '';
+      recordedBlob = null;
+      audioChunks  = [];
+      var ap = document.getElementById('audioPreview');
+      ap.src = ''; ap.style.display = 'none';
+      document.getElementById('recordingStatus').textContent = 'Hazır';
+      document.getElementById('recordBtn').textContent = '🎙️ Sesli Mesaj Kaydet';
+      document.getElementById('recordBtn').disabled = false;
+
+      closeModal('memory-modal');
+      showToast('Anınız Kaydedildi 🤍', 'Bu güzel an hikayemizin bir parçası oldu ✨');
+      window.dispatchEvent(new Event('gy:memorySent'));
+
+    } catch(err) {
+      console.error(err);
+      showToast('Hata 😔', err.message || 'Bir sorun oluştu');
+    }
+
+    this.disabled = false;
+    this.textContent = 'Anımı Gönder 🤍';
+    memBusy = false;
+  });
   </script>
+
 </body>
 </html>
