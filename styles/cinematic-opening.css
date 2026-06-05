@@ -19,7 +19,7 @@
 .opening-bg {
   position: absolute;
   inset: 0;
-  background-image: url('images/background.webp');
+  background-image: url('../images/background.webp');
   background-size: cover;
   background-position: center;
   filter: brightness(0.38) saturate(0.7);
