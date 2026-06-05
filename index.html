@@ -7,11 +7,9 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-<title>
-Gökçe & Yalçın
-</title>
+<title>Gökçe & Yalçın</title>
 
 <!-- =========================================================
      SEO
@@ -21,21 +19,11 @@ Gökçe & Yalçın
 name="description"
 content="Gökçe & Yalçın nişan daveti">
 
-<meta
-property="og:title"
-content="Gökçe & Yalçın">
-
-<meta
-property="og:description"
-content="Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız 🤍">
-
-<meta
-property="og:image"
-content="https://www.gokceyalcin.net/preview.png">
-
-<meta
-property="og:type"
-content="website">
+<meta property="og:title"       content="Gökçe & Yalçın">
+<meta property="og:description" content="Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız 🤍">
+<meta property="og:image"       content="https://www.gokceyalcin.net/preview.png">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://www.gokceyalcin.net">
 
 <!-- =========================================================
      FAVİCON
@@ -47,112 +35,51 @@ content="website">
      FONTS
 ========================================================= -->
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-rel="stylesheet">
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+  rel="stylesheet">
 
 <!-- =========================================================
      CSS
 ========================================================= -->
-<link 
-rel="stylesheet" 
-href="styles/animations.css">
-     
-<link
-rel="stylesheet"
-href="styles/main.css">
 
-<link
-rel="stylesheet"
-href="styles/gallery.css">
-
-<link
-rel="stylesheet"
-href="styles/background.css">
-
-<link
-rel="stylesheet"
-href="styles/cinematic-opening.css">
-
-<link
-rel="stylesheet"
-href="styles/luxury-effects.css">
-
-<link
-rel="stylesheet"
-href="styles/preloader.css">
-
-<link
-rel="stylesheet"
-href="styles/effects.css">
-
-<link
-rel="stylesheet"
-href="styles/memory-wall.css">
+<link rel="stylesheet" href="styles/animations.css">
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/gallery.css">
+<link rel="stylesheet" href="styles/background.css">
+<link rel="stylesheet" href="styles/cinematic-opening.css">
+<link rel="stylesheet" href="styles/luxury-effects.css">
+<link rel="stylesheet" href="styles/preloader.css">
+<link rel="stylesheet" href="styles/effects.css">
+<link rel="stylesheet" href="styles/memory-wall.css">
 
 <!-- =========================================================
-     FIREBASE
+     FIREBASE + UPLOAD
 ========================================================= -->
 
-<script
-type="module"
-src="firebase.js"></script>
-
-<script
-type="module"
-src="upload.js"></script>
+<script type="module" src="firebase.js"></script>
+<script type="module" src="upload.js"></script>
 
 <!-- =========================================================
      MODULE SCRIPTS
 ========================================================= -->
 
-<script
-type="module"
-src="scripts/gallery.js"></script>
-
-<script
-type="module"
-src="scripts/rsvp.js"></script>
-
-<script
-type="module"
-src="scripts/memory-wall.js"></script>
+<script type="module" src="scripts/gallery.js"></script>
+<script type="module" src="scripts/rsvp.js"></script>
+<script type="module" src="scripts/memory-wall.js"></script>
 
 <!-- =========================================================
      EFFECT SCRIPTS
 ========================================================= -->
-<script 
-defer 
-src="scripts/animations.js"></script>
 
-<script
-defer
-src="scripts/cinematic-opening.js"></script>
-
-<script
-defer
-src="scripts/luxury-effects.js"></script>
-
-<script
-defer
-src="scripts/dominant-glow.js"></script>
-
-<script
-defer
-src="scripts/preloader.js"></script>
-
-<script
-defer
-src="scripts/protection.js"></script>
+<script defer src="scripts/animations.js"></script>
+<script defer src="scripts/cinematic-opening.js"></script>
+<script defer src="scripts/luxury-effects.js"></script>
+<script defer src="scripts/dominant-glow.js"></script>
+<script defer src="scripts/preloader.js"></script>
+<script defer src="scripts/protection.js"></script>
 
 </head>
 
@@ -163,93 +90,59 @@ src="scripts/protection.js"></script>
 ========================================================= -->
 
 <div class="gold-light"></div>
-
 <div class="blur-orb one"></div>
-
 <div class="blur-orb two"></div>
-
 
 <!-- =========================================================
      CINEMATIC OPENING
 ========================================================= -->
 
-<div
-class="cinematic-opening"
-id="openingScreen">
+<div class="cinematic-opening" id="openingScreen">
 
-<div class="cinematic-bg"></div>
+  <div class="cinematic-bg"></div>
+  <div class="cinematic-overlay"></div>
+  <div class="cinematic-particles"></div>
+  <div class="cinematic-noise"></div>
 
-<div class="cinematic-overlay"></div>
+  <div class="cinematic-center">
 
-<div class="cinematic-particles"></div>
+    <div class="gy-monogram">
+      <span class="g-letter">G</span>
+      <div class="gy-divider"></div>
+      <span class="y-letter">Y</span>
+    </div>
 
-<div class="cinematic-noise"></div>
+    <div class="opening-orb-wrapper">
+      <button class="enter-button" id="openSiteBtn">
+        <span class="orb-core"></span>
+        <span class="orb-ring ring-1"></span>
+        <span class="orb-ring ring-2"></span>
+        <span class="orb-ring ring-3"></span>
+      </button>
+    </div>
 
-<div class="cinematic-center">
+    <p class="opening-text">DOKUN VE HİKAYEMİZE KATIL</p>
 
-<div class="gy-monogram">
-
-<span class="g-letter">
-G
-</span>
-
-<div class="gy-divider"></div>
-
-<span class="y-letter">
-Y
-</span>
-
-</div>
-
-<div class="opening-orb-wrapper">
-
-<button
-class="enter-button"
-id="openSiteBtn">
-
-<span class="orb-core"></span>
-
-<span class="orb-ring ring-1"></span>
-<span class="orb-ring ring-2"></span>
-<span class="orb-ring ring-3"></span>
-
-</button>
+  </div>
 
 </div>
-
-<p class="opening-text">
-
-DOKUN VE HİKAYEMİZE KATIL
-
-</p>
-
-</div>
-
-</div>
-
 
 <!-- =========================================================
      PRELOADER
 ========================================================= -->
 
 <div id="preloader">
-
-<div class="loader-ring"></div>
-
+  <div class="loader-ring"></div>
 </div>
 
 <!-- =========================================================
      MUSIC
 ========================================================= -->
 
-<audio
-id="bgMusic"
-loop>
-
-<source
-src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3"
-type="audio/mpeg">
-
+<audio id="bgMusic" loop>
+  <source
+    src="G%C3%B6zlerin%20(Yedi%20Karanfil)%20-%20Esen%20M%C3%BCzik%20%5B8t-S9Hf-f4U%5D%20(1).mp3"
+    type="audio/mpeg">
 </audio>
 
 <!-- =========================================================
@@ -258,70 +151,39 @@ type="audio/mpeg">
 
 <section class="hero">
 
-<div class="hero-bg"></div>
+  <div class="hero-bg"></div>
 
-<div class="container">
+  <div class="container">
+    <div class="hero-content">
 
-<div class="hero-content">
+      <p class="hero-tag">26 HAZİRAN 2026</p>
 
-<p class="hero-tag">
+      <h1>Gökçe & Yalçın</h1>
 
-26 HAZİRAN 2026
+      <p class="hero-text">
+        Hayatımızın en güzel
+        "evet"lerinden birine
+        şahitlik etmeniz bizi
+        çok mutlu eder.
+      </p>
 
-</p>
+      <p class="hero-quote">
+        "Bir ömür aynı manzaraya
+        bakabilmek için…" 🤍
+      </p>
 
-<h1>
+      <p class="music-note">
+        🎵 Şu an çalan parça:
+        Zülfü Livaneli — Gözlerin
+      </p>
 
-Gökçe & Yalçın
+      <div class="hero-buttons">
+        <button class="btn btn-gold" data-open="rsvp">Katılım Formu</button>
+        <button class="btn btn-light" data-open="memory">Anı Gönder</button>
+      </div>
 
-</h1>
-
-<p class="hero-text">
-
-Hayatımızın en güzel
-"evet"lerinden birine
-şahitlik etmeniz bizi
-çok mutlu eder.
-
-</p>
-
-<p class="hero-quote">
-
-"Bir ömür aynı manzaraya
-bakabilmek için…" 🤍
-
-</p>
-
-<p class="music-note">
-
-🎵 Şu an çalan parça:
-Zülfü Livaneli — Gözlerin
-
-</p>
-
-<div class="hero-buttons">
-
-<button
-class="btn btn-gold"
-data-open="rsvp">
-
-Katılım Formu
-
-</button>
-
-<button
-class="btn btn-light"
-data-open="memory">
-
-Anı Gönder
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+    </div>
+  </div>
 
 </section>
 
@@ -331,57 +193,38 @@ Anı Gönder
 
 <section class="countdown-section">
 
-<div class="container">
+  <div class="container">
 
-<div class="section-title">
+    <div class="section-title">
+      <p>GERİ SAYIM</p>
+      <h2>Büyük Güne Kalan Süre</h2>
+    </div>
 
-<p>
-GERİ SAYIM
-</p>
+    <div class="countdown">
 
-<h2>
-Büyük Güne Kalan Süre
-</h2>
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>Gün</small>
+      </div>
 
-</div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>Saat</small>
+      </div>
 
-<div class="countdown">
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>Dakika</small>
+      </div>
 
-<div class="time-box">
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>Saniye</small>
+      </div>
 
-<span id="days">00</span>
+    </div>
 
-<small>Gün</small>
-
-</div>
-
-<div class="time-box">
-
-<span id="hours">00</span>
-
-<small>Saat</small>
-
-</div>
-
-<div class="time-box">
-
-<span id="minutes">00</span>
-
-<small>Dakika</small>
-
-</div>
-
-<div class="time-box">
-
-<span id="seconds">00</span>
-
-<small>Sanibe</small>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -391,73 +234,36 @@ Büyük Güne Kalan Süre
 
 <section>
 
-<div class="container">
+  <div class="container">
 
-<div class="section-title">
+    <div class="section-title">
+      <p>NİŞAN DETAYLARI</p>
+      <h2>Bu Özel Gün</h2>
+    </div>
 
-<p>
-NİŞAN DETAYLARI
-</p>
+    <div class="cards">
 
-<h2>
-Bu Özel Gün
-</h2>
+      <div class="card">
+        <div class="icon">🗓️</div>
+        <h3>Tarih</h3>
+        <p>26 Haziran 2026</p>
+      </div>
 
-</div>
+      <div class="card">
+        <div class="icon">🕖</div>
+        <h3>Saat</h3>
+        <p>19:00</p>
+      </div>
 
-<div class="cards">
+      <div class="card">
+        <div class="icon">📍</div>
+        <h3>Konum</h3>
+        <p>Hatay</p>
+      </div>
 
-<div class="card">
+    </div>
 
-<div class="icon">
-🗓️
-</div>
-
-<h3>
-Tarih
-</h3>
-
-<p>
-26 Haziran 2026
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-🕖
-</div>
-
-<h3>
-Saat
-</h3>
-
-<p>
-19:00
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-📍
-</div>
-
-<h3>
-Konum
-</h3>
-
-<p>
-Hatay
-</p>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -467,80 +273,61 @@ Hatay
 
 <section>
 
-<div class="container">
+  <div class="container">
 
-<div class="section-title">
+    <div class="section-title">
+      <p>KONUM</p>
+      <h2>Yol Tarifi</h2>
+    </div>
 
-<p>
-KONUM
-</p>
+    <div class="luxury-map">
 
-<h2>
-Yol Tarifi
-</h2>
+      <div class="map-overlay"></div>
 
-</div>
+      <iframe
+        src="https://maps.google.com/maps?q=36.145576,36.142250&z=16&output=embed"
+        loading="lazy"
+        allowfullscreen
+        title="Nişan Mekanı">
+      </iframe>
 
-<div class="luxury-map">
+      <div class="map-content">
 
-<div class="map-overlay"></div>
+        <p class="map-tag">NİŞAN MEKANI</p>
 
-<iframe
-src="https://maps.google.com/maps?q=36.145576,36.142250&z=16&output=embed"
-loading="lazy"
-allowfullscreen>
-</iframe>
+        <h3>Bu özel gecede aynı masada buluşalım ✨</h3>
 
-<div class="map-content">
+        <p class="map-description">
+          Sizleri bu güzel gecede
+          aramızda görmekten
+          büyük mutluluk duyacağız.
+        </p>
 
-<p class="map-tag">
+        <div class="map-actions">
 
-NİŞAN MEKANI
+          <a
+            class="btn btn-gold"
+            href="https://maps.google.com/?q=36.145576,36.142250"
+            target="_blank"
+            rel="noopener noreferrer">
+            Google Maps
+          </a>
 
-</p>
+          <a
+            class="btn btn-light"
+            href="https://www.google.com/maps/dir/?api=1&destination=36.145576,36.142250"
+            target="_blank"
+            rel="noopener noreferrer">
+            Yol Tarifi
+          </a>
 
-<h3>
+        </div>
 
-Bu özel gecede
-aynı masada buluşalım ✨
+      </div>
 
-</h3>
+    </div>
 
-<p class="map-description">
-
-Sizleri bu güzel gecede
-aramızda görmekten
-büyük mutluluk duyacağız.
-
-</p>
-
-<div class="map-actions">
-
-<a
-class="btn btn-gold"
-href="https://maps.google.com/?q=36.145576,36.142250"
-target="_blank">
-
-Google Maps
-
-</a>
-
-<a
-class="btn btn-light"
-href="https://www.google.com/maps/dir/?api=1&destination=36.145576,36.142250"
-target="_blank">
-
-Yol Tarifi
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -550,33 +337,18 @@ Yol Tarifi
 
 <section>
 
-<div class="container">
+  <div class="container">
 
-<div class="section-title">
+    <div class="section-title">
+      <p>ANILAR</p>
+      <h2>Bizden Kareler</h2>
+    </div>
 
-<p>
-ANILAR
-</p>
+    <div class="gallery" id="gallery">
+      <div class="gallery-loading">Yükleniyor ✨</div>
+    </div>
 
-<h2>
-Bizden Kareler
-</h2>
-
-</div>
-
-<div
-class="gallery"
-id="gallery">
-
-<div class="gallery-loading">
-
-Yükleniyor ✨
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -585,133 +357,69 @@ Yükleniyor ✨
 ========================================================= -->
 
 <section>
-
-<div class="container">
-
-<p class="memory-note">
-
-"Bu siteye bıraktığınız
-her anı, yıllar sonra tekrar
-açıp gülümseyeceğiz." 🤍
-
-</p>
-
-</div>
-
+  <div class="container">
+    <p class="memory-note">
+      "Bu siteye bıraktığınız her anı,
+      yıllar sonra tekrar açıp gülümseyeceğiz." 🤍
+    </p>
+  </div>
 </section>
 
 <!-- =========================================================
      FLOATING BUTTON
 ========================================================= -->
 
-<button
-class="floating-memory"
-data-open="memory">
-
-💌 Anı Bırak
-
+<button class="floating-memory" data-open="memory">
+  💌 Anı Bırak
 </button>
 
 <!-- =========================================================
      RSVP MODAL
 ========================================================= -->
 
-<div
-class="rsvp-modal"
-id="rsvpModal">
+<div class="rsvp-modal" id="rsvpModal">
 
-<div class="rsvp-box">
+  <div class="rsvp-box">
 
-<button
-class="rsvp-close"
-id="closeRsvp">
+    <button class="rsvp-close" id="closeRsvp">×</button>
 
-×
+    <h2>Katılım Formu</h2>
 
-</button>
+    <form id="rsvpForm">
 
-<h2>
+      <input
+        type="text"
+        id="rsvpName"
+        placeholder="Ad Soyad"
+        required>
 
-Katılım Formu
+      <select id="attendanceStatus" required>
+        <option value="">Katılım Durumu Seçin</option>
+        <option value="yes">Katılacağım 🤍</option>
+        <option value="no">Katılamayacağım 😔</option>
+        <option value="maybe">Kararsızım ✨</option>
+      </select>
 
-</h2>
+      <div class="hidden-area" id="yesArea">
+        <input type="number" id="guestCount" placeholder="Kaç kişi geleceksiniz?">
+        <textarea id="comingMessage" placeholder="Mesajınız..."></textarea>
+      </div>
 
-<form id="rsvpForm">
+      <div class="hidden-area" id="noArea">
+        <textarea id="cannotJoinMessage" placeholder="Mesajınız..."></textarea>
+      </div>
 
-<input
-type="text"
-id="rsvpName"
-placeholder="Ad Soyad"
-required>
+      <div class="hidden-area" id="maybeArea">
+        <textarea id="maybeMessage" placeholder="Mesajınız..."></textarea>
+      </div>
 
-<select
-id="attendanceStatus"
-required>
+      <button class="send-btn" type="submit">
+        Katılım Bilgisini Gönder
+      </button>
 
-<option value="">
-Katılım Durumu Seçin
-</option>
+    </form>
 
-<option value="yes">
-Katılacağım 🤍
-</option>
-
-<option value="no">
-Katılamayacağım 😔
-</option>
-
-<option value="maybe">
-Kararsızım ✨
-</option>
-
-</select>
-
-<div
-class="hidden-area"
-id="yesArea">
-
-<input
-type="number"
-id="guestCount"
-placeholder="Kaç kişi geleceksiniz?">
-
-<textarea
-id="comingMessage"
-placeholder="Mesajınız..."></textarea>
-
-</div>
-
-<div
-class="hidden-area"
-id="noArea">
-
-<textarea
-id="cannotJoinMessage"
-placeholder="Mesajınız..."></textarea>
-
-</div>
-
-<div
-class="hidden-area"
-id="maybeArea">
-
-<textarea
-id="maybeMessage"
-placeholder="Mesajınız..."></textarea>
-
-</div>
-
-<button
-class="send-btn"
-type="submit">
-
-Katılım Bilgisini Gönder
-
-</button>
-
-</form>
-
-</div>
+  </div>
 
 </div>
 
@@ -719,114 +427,58 @@ Katılım Bilgisini Gönder
      MEMORY MODAL
 ========================================================= -->
 
-<div
-class="memory-modal"
-id="memoryModal">
+<div class="memory-modal" id="memoryModal">
 
-<div class="memory-overlay"></div>
+  <div class="memory-overlay"></div>
 
-<div class="memory-box">
+  <div class="memory-box">
 
-<button class="modal-close">
+    <button class="modal-close">✕</button>
 
-✕
+    <h2>Anı Bırak 💌</h2>
 
-</button>
+    <p class="memory-subtitle">
+      Bu geceye ait bir fotoğraf,
+      video ya da sesinizi bırakabilirsiniz ✨
+    </p>
 
-<h2>
+    <form id="memoryForm">
 
-Anı Bırak 💌
+      <input
+        id="memoryName"
+        type="text"
+        placeholder="Adınız Soyadınız"
+        required>
 
-</h2>
+      <textarea
+        id="memoryMessage"
+        placeholder="Bizim için mesaj bırakabilirsiniz 🤍"
+        required></textarea>
 
-<p class="memory-subtitle">
+      <div class="upload-area">
+        <label>Fotoğraf / Video Yükle</label>
+        <input
+          id="memoryFile"
+          type="file"
+          multiple
+          accept="image/*,video/*,audio/*">
+        <p class="upload-note">Birden fazla fotoğraf seçebilirsiniz ✨</p>
+      </div>
 
-Bu geceye ait bir fotoğraf,
-video ya da sesinizi
-bırakabilirsiniz ✨
+      <div class="voice-recorder">
+        <p class="voice-title">🎙️ Sesli Mesaj Bırak</p>
+        <button class="record-btn" type="button" id="recordBtn">
+          🎙️ Sesli Mesaj Gönder
+        </button>
+        <div class="recording-status" id="recordingStatus">Hazır</div>
+        <audio id="audioPreview" controls style="display:none;"></audio>
+      </div>
 
-</p>
+      <button class="send-btn" type="submit">Gönder</button>
 
-<form id="memoryForm">
+    </form>
 
-<input
-id="memoryName"
-type="text"
-placeholder="Adınız Soyadınız"
-required>
-
-<textarea
-id="memoryMessage"
-placeholder="Bizim için mesaj bırakabilirsiniz 🤍"
-required></textarea>
-
-<div class="upload-area">
-
-<label>
-
-Fotoğraf / Video Yükle
-
-</label>
-
-<input
-id="memoryFile"
-type="file"
-multiple
-accept="image/*,video/*,audio/*">
-
-<p class="upload-note">
-
-Birden fazla fotoğraf
-seçebilirsiniz ✨
-
-</p>
-
-</div>
-
-<div class="voice-recorder">
-
-<p class="voice-title">
-
-🎙️ Sesli Mesaj Bırak
-
-</p>
-
-<button
-class="record-btn"
-type="button"
-id="recordBtn">
-
-🎙️ Sesli Mesaj Gönder
-
-</button>
-
-<div
-class="recording-status"
-id="recordingStatus">
-
-Hazır
-
-</div>
-
-<audio
-id="audioPreview"
-controls
-style="display:none;">
-</audio>
-
-</div>
-
-<button
-class="send-btn"
-type="submit">
-
-Gönder
-
-</button>
-
-</form>
-
-</div>
+  </div>
 
 </div>
 
@@ -836,27 +488,16 @@ Gönder
 
 <section class="memory-wall-section">
 
-<div class="container">
+  <div class="container">
 
-<div class="section-title">
+    <div class="section-title">
+      <p>ANILAR</p>
+      <h2>Bize Bıraktığınız Hatıralar</h2>
+    </div>
 
-<p>
-ANILAR
-</p>
+    <div id="memoryWall" class="memory-wall"></div>
 
-<h2>
-Bize Bıraktığınız Hatıralar
-</h2>
-
-</div>
-
-<div
-id="memoryWall"
-class="memory-wall">
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -865,203 +506,121 @@ class="memory-wall">
 ========================================================= -->
 
 <footer>
-
-<div class="container">
-
-<h2>
-
-Gökçe & Yalçın
-
-</h2>
-
-<p>
-
-Hayatımızın en güzel gününde
-bizimle olduğunuz için
-teşekkür ederiz 🤍
-
-</p>
-
-</div>
-
+  <div class="container">
+    <h2>Gökçe & Yalçın</h2>
+    <p>
+      Hayatımızın en güzel gününde
+      bizimle olduğunuz için teşekkür ederiz 🤍
+    </p>
+  </div>
 </footer>
 
 <!-- =========================================================
-     COUNTDOWN
+     COUNTDOWN SCRIPT
 ========================================================= -->
 
 <script>
+(function () {
 
-const targetDate =
-new Date(
-"2026-06-26T19:00:00"
-).getTime();
+  const targetDate = new Date("2026-06-26T19:00:00").getTime();
 
-setInterval(()=>{
+  function updateCountdown() {
+    const now      = Date.now();
+    const distance = targetDate - now;
 
-const now =
-new Date().getTime();
+    if (distance <= 0) {
+      document.getElementById("days").textContent    = "0";
+      document.getElementById("hours").textContent   = "0";
+      document.getElementById("minutes").textContent = "0";
+      document.getElementById("seconds").textContent = "0";
+      return;
+    }
 
-const distance =
-targetDate - now;
+    document.getElementById("days").textContent    = Math.floor(distance / 86400000);
+    document.getElementById("hours").textContent   = Math.floor((distance % 86400000) / 3600000);
+    document.getElementById("minutes").textContent = Math.floor((distance % 3600000) / 60000);
+    document.getElementById("seconds").textContent = Math.floor((distance % 60000) / 1000);
+  }
 
-const days =
-Math.floor(
-distance /
-(1000*60*60*24)
-);
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-const hours =
-Math.floor(
-(distance %
-(1000*60*60*24)) /
-(1000*60*60)
-);
-
-const minutes =
-Math.floor(
-(distance %
-(1000*60*60)) /
-(1000*60)
-);
-
-const seconds =
-Math.floor(
-(distance %
-(1000*60)) /
-1000
-);
-
-document.getElementById(
-"days"
-).textContent = days;
-
-document.getElementById(
-"hours"
-).textContent = hours;
-
-document.getElementById(
-"minutes"
-).textContent = minutes;
-
-document.getElementById(
-"seconds"
-).textContent = seconds;
-
-},1000);
-
+})();
 </script>
 
 <!-- =========================================================
      HASH MODAL — QR KOD DESTEĞİ
-     #memory → Anı modalı otomatik açılır
-     #rsvp   → Katılım modalı otomatik açılır
-     QR için URL: https://www.gokceyalcin.net#memory
+     https://www.gokceyalcin.net#memory  → Anı formu açılır
+     https://www.gokceyalcin.net#rsvp    → Katılım formu açılır
 ========================================================= -->
 
 <script>
+(function () {
 
-(function(){
+  function openModal(type) {
+    const id    = type === "memory" ? "memoryModal" : "rsvpModal";
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+  }
 
-function openModal(type){
+  function checkHash() {
+    const hash = window.location.hash.replace("#", "").toLowerCase();
+    if (hash === "memory" || hash === "rsvp") {
+      openModal(hash);
+    }
+  }
 
-if(type === "memory"){
+  function waitForOpeningAndCheck() {
+    const hash = window.location.hash.replace("#", "").toLowerCase();
+    if (hash !== "memory" && hash !== "rsvp") return;
 
-const modal =
-document.getElementById(
-"memoryModal"
-);
+    const opening = document.getElementById("openingScreen");
 
-if(modal){
-modal.classList.add("active");
-}
+    if (!opening) {
+      setTimeout(checkHash, 300);
+      return;
+    }
 
-} else if(type === "rsvp"){
+    /* Açılış ekranı kapandığında izle */
+    const observer = new MutationObserver(() => {
+      const style   = window.getComputedStyle(opening);
+      const hidden  =
+        opening.classList.contains("hidden") ||
+        style.display   === "none"           ||
+        style.visibility === "hidden"        ||
+        style.opacity    === "0";
 
-const modal =
-document.getElementById(
-"rsvpModal"
-);
+      if (hidden) {
+        observer.disconnect();
+        setTimeout(checkHash, 400);
+      }
+    });
 
-if(modal){
-modal.classList.add("active");
-}
+    observer.observe(opening, {
+      attributes:      true,
+      attributeFilter: ["class", "style"]
+    });
 
-}
+    /* Yedek: 8 saniye sonra yine de dene */
+    setTimeout(() => {
+      observer.disconnect();
+      checkHash();
+    }, 8000);
+  }
 
-}
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", waitForOpeningAndCheck);
+  } else {
+    waitForOpeningAndCheck();
+  }
 
-function checkHash(){
-
-const hash =
-window.location.hash
-.replace("#","")
-.toLowerCase();
-
-if(hash === "memory" || hash === "rsvp"){
-
-/* Sinematik açılış kapandıktan sonra modalı aç */
-const opening =
-document.getElementById(
-"openingScreen"
-);
-
-if(
-opening &&
-!opening.classList.contains("hidden")
-){
-
-/* Açılış ekranı hâlâ görünüyor — kapanmasını bekle */
-opening.addEventListener(
-"transitionend",
-function handler(){
-
-opening.removeEventListener(
-"transitionend",
-handler
-);
-
-setTimeout(()=>{
-openModal(hash);
-}, 400);
-
-},
-{ once: true }
-);
-
-} else {
-
-/* Açılış ekranı yok veya zaten gizlenmiş */
-setTimeout(()=>{
-openModal(hash);
-}, 600);
-
-}
-
-}
-
-}
-
-/* DOM hazır olduğunda kontrol et */
-if(
-document.readyState === "loading"
-){
-
-document.addEventListener(
-"DOMContentLoaded",
-checkHash
-);
-
-} else {
-
-checkHash();
-
-}
+  window.addEventListener("hashchange", checkHash);
 
 })();
-
 </script>
 
 </body>
-
 </html>
