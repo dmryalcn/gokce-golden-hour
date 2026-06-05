@@ -28,20 +28,9 @@
   <link rel="stylesheet" href="styles/cinematic-opening.css">
 
   <style>
-    /* ── Sayfa arka planı — opening ile aynı görsel ── */
-    html, body {
-      background-color: #0a0805;
-    }
+    /* ── Arka plan blur kaldır — background.css override ── */
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image: url('images/background.webp');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      filter: brightness(0.32) saturate(0.65);
+      filter: blur(0px) brightness(0.35) saturate(1.08) !important;
     }
 
     /* ── Animasyonlu Kalp Separator ── */
@@ -161,7 +150,7 @@
      HERO
 ══════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg" style="background-image: url('images/background.webp'); background-size: cover; background-position: center;"></div>
+  <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
@@ -374,21 +363,17 @@
 <!-- ══════════════════════════════════════════
      SCRIPTS
 ══════════════════════════════════════════ -->
-<!-- Firebase -->
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-  import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
-  // Firebase config buraya
-  window.__firebaseReady = true;
-</script>
-
+<!-- Var olan script dosyaları -->
 <script src="scripts/cinematic-opening.js" defer></script>
-<script src="scripts/countdown.js" defer></script>
-<script src="scripts/gallery.js" defer></script>
-<script src="scripts/memory-wall.js" defer></script>
-<script src="scripts/upload.js" defer></script>
+<script src="scripts/animations.js" defer></script>
+<script src="scripts/dominant-glow.js" defer></script>
+<script src="scripts/luxury-effects.js" defer></script>
+<script src="scripts/preloader.js" defer></script>
+<script src="scripts/quotes.js" defer></script>
 <script src="scripts/rsvp.js" defer></script>
+<script src="scripts/gallery.js" type="module" defer></script>
+<script src="scripts/memory-wall.js" type="module" defer></script>
+<script src="scripts/protection.js" defer></script>
 
 <script>
   /* Reveal on scroll */
