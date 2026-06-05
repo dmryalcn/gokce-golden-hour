@@ -1,88 +1,98 @@
-/* =========================================================
-   OPENING PARTICLES
-========================================================= */
+history.scrollRestoration = "manual";
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
+document.addEventListener("DOMContentLoaded", () => {
+  window.scrollTo(0, 0);
 
-const opening =
-document.querySelector(
-".opening"
-);
+  const opening = document.getElementById("openingScreen");
+  const trigger = document.getElementById("openSiteBtn");
+  const music   = document.getElementById("bgMusic");
+  const particlesLayer = document.querySelector(".cinematic-particles");
 
-if(!opening) return;
+  if (!opening || !trigger) return;
 
-/* =========================================================
-   PARTICLE CONTAINER
-========================================================= */
+  /* Scroll kilitle */
+  document.body.style.overflow = "hidden";
 
-const particles =
-document.createElement(
-"div"
-);
+  /* ── Partiküller ── */
+  const count = window.innerWidth < 768 ? 28 : 55;
 
-particles.className =
-"opening-particles";
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    const isLarge = i < Math.floor(count * 0.22);
+    p.className = "gold-particle" + (isLarge ? " large" : "");
 
-opening.appendChild(
-particles
-);
+    const size = isLarge
+      ? Math.random() * 5 + 4
+      : Math.random() * 3 + 1.5;
 
-/* =========================================================
-   CREATE PARTICLES
-========================================================= */
+    const op = 0.12 + Math.random() * (isLarge ? 0.55 : 0.38);
 
-for(let i=0;i<24;i++){
+    p.style.cssText = `
+      width:${size}px;
+      height:${size}px;
+      left:${Math.random() * 100}%;
+      top:${85 + Math.random() * 25}%;
+      animation-duration:${12 + Math.random() * 20}s;
+      animation-delay:${Math.random() * 10}s;
+      --op:${op};
+    `;
+    particlesLayer.appendChild(p);
+  }
 
-const particle =
-document.createElement(
-"span"
-);
+  /* ── Işık patlaması elementi ── */
+  const explosion = document.createElement("div");
+  explosion.className = "light-explosion";
+  opening.appendChild(explosion);
 
-const size =
-Math.random() * 12 + 6;
+  /* ── Açılış butonu ── */
+  let opened = false;
 
-particle.style.width =
-`${size}px`;
+  trigger.addEventListener("click", () => {
+    if (opened) return;
+    opened = true;
 
-particle.style.height =
-`${size}px`;
+    /* Müzik */
+    if (music) {
+      music.volume = 0.32;
+      music.play().catch(() => {});
+    }
 
-particle.style.left =
-`${Math.random()*100}%`;
+    /* Buton gizle */
+    trigger.classList.add("opening-triggered");
 
-particle.style.animationDuration =
-`${Math.random()*10+10}s`;
+    /* Patlama */
+    explosion.classList.add("active");
 
-particle.style.animationDelay =
-`${Math.random()*8}s`;
+    /* Partiküller saç */
+    document.querySelectorAll(".gold-particle").forEach(p => {
+      const x = (Math.random() - 0.5) * 1400;
+      const y = (Math.random() - 0.5) * 1000 - 300;
+      p.style.transition = "transform 2.8s cubic-bezier(.22,.68,0,1.2), opacity 2.4s ease";
+      p.style.transform  = `translate(${x}px,${y}px) scale(0)`;
+      p.style.opacity    = "0";
+    });
 
-particle.style.opacity =
-Math.random();
+    /* Arka plan karart */
+    opening.classList.add("cinematic-reveal");
 
-particles.appendChild(
-particle
-);
+    /* Kapat */
+    setTimeout(() => {
+      opening.classList.add("hidden");
+      document.body.style.overflow = "auto";
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-}
+      /* Hash yönlendirme (QR kodlar için) */
+      const hash = window.location.hash;
+      if (hash === "#memory") {
+        document.getElementById("memoryModal")?.classList.add("active");
+      } else if (hash === "#rsvp") {
+        document.getElementById("rsvpModal")?.classList.add("active");
+      }
+    }, 2400);
 
-/* =========================================================
-   PARALLAX
-========================================================= */
-
-window.addEventListener(
-"scroll",
-()=>{
-
-const scrollY =
-window.scrollY;
-
-opening.style.transform =
-`translateY(${scrollY * .08}px)`;
-
-}
-);
-
+    /* Temizle */
+    setTimeout(() => {
+      opening.remove();
+    }, 4000);
+  });
 });
-
