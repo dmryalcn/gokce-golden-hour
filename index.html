@@ -16,16 +16,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/background.css">
-  <link rel="stylesheet" href="styles/cinematic-opening.css">
-  <link rel="stylesheet" href="styles/hero.css">
-  <link rel="stylesheet" href="styles/sections.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/effects.css">
+  <link rel="stylesheet" href="styles/luxury-effects.css">
   <link rel="stylesheet" href="styles/gallery.css">
-  <link rel="stylesheet" href="styles/modals.css">
   <link rel="stylesheet" href="styles/memory-wall.css">
+  <link rel="stylesheet" href="styles/quotes.css">
+  <link rel="stylesheet" href="styles/preloader.css">
+  <link rel="stylesheet" href="styles/cinematic-opening.css">
 
   <style>
+    /* ── Sayfa arka planı — opening ile aynı görsel ── */
+    html, body {
+      background-color: #0a0805;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: url('images/background.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      filter: brightness(0.32) saturate(0.65);
+    }
+
     /* ── Animasyonlu Kalp Separator ── */
     .gy-sep {
       display: inline-flex;
@@ -143,7 +161,7 @@
      HERO
 ══════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" style="background-image: url('images/background.webp'); background-size: cover; background-position: center;"></div>
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
