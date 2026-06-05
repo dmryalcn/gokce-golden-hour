@@ -3,759 +3,415 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gökçe & Yalçın</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Gökçe & Yalçın'ın nişan kutlamasına hoş geldiniz. 26 Haziran 2026">
-  <meta name="theme-color" content="#d4b07b">
-
-  <!-- OG -->
-  <meta property="og:title" content="Gökçe & Yalçın — Nişan">
-  <meta property="og:description" content="26 Haziran 2026 · Nişan kutlamamıza davetlisiniz">
-  <meta property="og:image" content="https://www.gokceyalcin.net/images/preview.png">
-  <meta property="og:url" content="https://www.gokceyalcin.net">
+  <title>Gökçe ♥ Yalçın</title>
+  <meta name="description" content="Gökçe & Yalçın nişan töreni daveti">
+  <meta property="og:title" content="Gökçe ♥ Yalçın">
+  <meta property="og:description" content="Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız 🤍">
+  <meta property="og:image" content="preview.png">
   <meta property="og:type" content="website">
 
-  <!-- Favicon -->
-  <link rel="icon" href="data:,">
-
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 
   <!-- Styles -->
+  <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/background.css">
-  <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/cinematic-opening.css">
-  <link rel="stylesheet" href="styles/animations.css">
-  <link rel="stylesheet" href="styles/effects.css">
+  <link rel="stylesheet" href="styles/hero.css">
+  <link rel="stylesheet" href="styles/sections.css">
   <link rel="stylesheet" href="styles/gallery.css">
+  <link rel="stylesheet" href="styles/modals.css">
   <link rel="stylesheet" href="styles/memory-wall.css">
 
   <style>
-    /* =========================================================
-       DESIGN TOKENS
-    ========================================================= */
-    :root{
-      --gold:       #d4b07b;
-      --gold-light: #e8d4aa;
-      --gold-dim:   rgba(212,176,123,.18);
-      --white-soft: rgba(255,255,255,.88);
-      --white-dim:  rgba(255,255,255,.52);
-      --glass:      rgba(255,255,255,.04);
-      --glass-bd:   rgba(255,255,255,.08);
-      --serif:      "Cormorant Garamond",serif;
-      --body:       "EB Garamond","Cormorant Garamond",serif;
+    /* ── Animasyonlu Kalp Separator ── */
+    .gy-sep {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      flex-direction: column;
+      vertical-align: middle;
+      margin: 0 clamp(0.45rem, 1.5vw, 0.9rem);
+      line-height: 1;
+    }
+    .gy-sep .sep-line {
+      width: 1px;
+      height: 10px;
+      background: linear-gradient(to bottom, transparent, rgba(196,162,96,0.45));
+    }
+    .gy-sep .sep-line.bottom {
+      background: linear-gradient(to bottom, rgba(196,162,96,0.45), transparent);
+    }
+    .gy-sep .sep-heart {
+      color: #c9a650;
+      font-size: 0.72em;
+      line-height: 1;
+      animation: heartbeat 2.4s ease-in-out infinite;
+      display: inline-block;
+      filter: drop-shadow(0 0 4px rgba(196,162,96,0.55));
+    }
+    /* Hero'da daha büyük sep */
+    .hero-names .gy-sep .sep-heart { font-size: 0.55em; }
+    .hero-names .gy-sep .sep-line  { height: 16px; }
+
+    /* Footer'da orta boy */
+    .footer-monogram .gy-sep .sep-heart { font-size: 0.85em; }
+    .footer-monogram .gy-sep .sep-line  { height: 8px; }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1);    opacity: 0.72; }
+      20%       { transform: scale(1.24); opacity: 1; }
+      40%       { transform: scale(0.95); opacity: 0.85; }
+      60%       { transform: scale(1.14); opacity: 1; }
     }
 
-    /* =========================================================
-       HERO
-    ========================================================= */
-    .hero{
-      min-height:100vh;
-      display:flex; align-items:center; justify-content:center;
-      text-align:center; padding:0 24px;
-      position:relative; overflow:hidden;
+    /* ── Müzik bilgi ── */
+    .music-info {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 1.4rem;
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(10,8,5,0.72);
+      border: 1px solid rgba(196,162,96,0.22);
+      backdrop-filter: blur(8px);
+      padding: 0.55rem 1rem;
+      border-radius: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: rgba(196,162,96,0.8);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      animation: fadeUp 1s ease 4.5s both;
     }
-    /* vertical line bottom */
-    .hero::after{
-      content:"";
-      position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-      width:1px; height:64px;
-      background:linear-gradient(to bottom,rgba(212,176,123,.5),transparent);
-    }
-    .hero-content{ position:relative; z-index:2; max-width:700px; width:100%; }
-
-    .hero-eyebrow{
-      font-family:var(--body);
-      font-size:11px; letter-spacing:8px; text-transform:uppercase;
-      color:var(--gold); margin-bottom:28px;
-      opacity:0; animation:fadeUp .9s .2s forwards;
-    }
-    .hero-names{
-      font-family:var(--serif);
-      font-size:clamp(68px,11vw,140px);
-      font-weight:300; line-height:.92; letter-spacing:-1px;
-      color:var(--white-soft); margin:0;
-      opacity:0; animation:fadeUp 1s .4s cubic-bezier(.16,1,.3,1) forwards;
-    }
-    .hero-names em{
-      font-style:italic; color:var(--gold-light); display:block;
-    }
-    .hero-amp{
-      display:block; font-style:italic;
-      font-size:clamp(46px,7vw,84px);
-      color:rgba(212,176,123,.75); line-height:1; margin:6px 0;
-    }
-    .hero-divider{
-      width:72px; height:1px; margin:32px auto 0;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent);
-      opacity:0; animation:fadeUp .9s .75s forwards;
-    }
-    .hero-date{
-      font-family:var(--body);
-      font-size:14px; letter-spacing:5px; text-transform:uppercase;
-      color:var(--white-dim); margin-top:22px;
-      opacity:0; animation:fadeUp .9s .85s forwards;
-    }
-    .hero-cta-row{
-      display:flex; gap:14px; justify-content:center; margin-top:36px;
-      flex-wrap:wrap;
-      opacity:0; animation:fadeUp .9s 1.05s forwards;
-    }
-
-    /* ── BUTTONS ── */
-    .btn-gold{
-      font-family:var(--body);
-      font-size:13px; letter-spacing:4px; text-transform:uppercase;
-      padding:15px 36px; border-radius:999px;
-      background:linear-gradient(135deg,#c9a25b,#e8d4aa,#c9a25b);
-      background-size:200% auto;
-      color:#1a1510; border:none; cursor:pointer;
-      transition:transform .35s ease, box-shadow .35s ease, background-position .5s ease;
-      text-decoration:none; display:inline-block;
-    }
-    .btn-ghost{
-      font-family:var(--body);
-      font-size:13px; letter-spacing:4px; text-transform:uppercase;
-      padding:14px 36px; border-radius:999px;
-      background:transparent; color:var(--gold-light);
-      border:1px solid rgba(212,176,123,.35); cursor:pointer;
-      transition:transform .35s ease, border-color .35s ease, background .35s ease;
-      text-decoration:none; display:inline-block;
-    }
-    .btn-gold:hover{ transform:translateY(-3px); box-shadow:0 14px 36px rgba(201,162,91,.32); background-position:right center; }
-    .btn-ghost:hover{ transform:translateY(-3px); border-color:var(--gold); background:var(--gold-dim); }
-
-    /* ── MUSIC BADGE ── */
-    .music-badge{
-      position:fixed; bottom:28px; right:28px;
-      width:52px; height:52px; border-radius:50%;
-      background:rgba(16,14,10,.78);
-      backdrop-filter:blur(14px);
-      border:1px solid rgba(212,176,123,.28);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; z-index:500;
-      transition:transform .3s ease, border-color .3s ease;
-      opacity:0; animation:fadeUp .8s 1.8s forwards;
-    }
-    .music-badge:hover{ transform:scale(1.1); border-color:var(--gold); }
-    .music-badge svg{ width:20px; height:20px; fill:var(--gold); }
-    .music-badge.playing{ border-color:var(--gold); animation:musicPulse 2.2s ease-in-out infinite; }
-    @keyframes musicPulse{
-      0%,100%{ box-shadow:0 0 0 0 rgba(212,176,123,.4); }
-      50%    { box-shadow:0 0 0 10px rgba(212,176,123,0); }
-    }
-
-    /* =========================================================
-       SECTIONS
-    ========================================================= */
-    .section{ padding:120px 24px; position:relative; }
-    .section-inner{ max-width:1200px; margin:0 auto; }
-
-    .section-label{
-      font-family:var(--body);
-      font-size:11px; letter-spacing:7px; text-transform:uppercase;
-      color:var(--gold); margin-bottom:18px;
-      display:flex; align-items:center; justify-content:center; gap:16px;
-    }
-    .section-label::before,.section-label::after{
-      content:""; flex:0 0 36px; height:1px;
-      background:linear-gradient(90deg,transparent,var(--gold));
-    }
-    .section-label::after{ background:linear-gradient(90deg,var(--gold),transparent); }
-
-    .section-title{
-      font-family:var(--serif);
-      font-size:clamp(40px,6vw,78px); font-weight:300; line-height:1;
-      color:var(--white-soft); text-align:center; margin-bottom:16px;
-    }
-    .section-title em{ font-style:italic; color:var(--gold-light); }
-
-    .section-sub{
-      font-family:var(--body);
-      font-size:18px; line-height:1.85;
-      color:var(--white-dim);
-      text-align:center; max-width:500px; margin:0 auto 72px;
-    }
-
-    /* =========================================================
-       COUNTDOWN
-    ========================================================= */
-    .countdown-section{ text-align:center; }
-    .countdown-grid{
-      display:flex; justify-content:center; align-items:stretch;
-      margin-top:56px;
-    }
-    .countdown-item{
-      flex:0 0 auto; min-width:120px;
-      padding:40px 20px; position:relative;
-    }
-    .countdown-item+.countdown-item::before{
-      content:"·"; position:absolute; left:-2px; top:46%;
-      transform:translateY(-50%);
-      font-family:var(--serif); font-size:38px;
-      color:rgba(212,176,123,.25);
-    }
-    .countdown-num{
-      font-family:var(--serif);
-      font-size:clamp(60px,9vw,96px); font-weight:300; line-height:1;
-      color:var(--white-soft); display:block;
-    }
-    .countdown-num.gold{ color:var(--gold); }
-    .countdown-lbl{
-      font-family:var(--body);
-      font-size:11px; letter-spacing:5px; text-transform:uppercase;
-      color:var(--white-dim); margin-top:12px; display:block;
-    }
-
-    /* =========================================================
-       LOCATION
-    ========================================================= */
-    .location-section{ text-align:center; }
-    .location-cards{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:18px; margin-bottom:44px;
-    }
-    .location-card{
-      background:var(--glass);
-      backdrop-filter:blur(18px);
-      border:1px solid var(--glass-bd); border-radius:24px;
-      padding:36px 24px; text-align:center;
-      transition:transform .4s ease, border-color .4s ease;
-    }
-    .location-card:hover{ transform:translateY(-6px); border-color:rgba(212,176,123,.28); }
-    .location-card-icon{ font-size:28px; margin-bottom:14px; display:block; }
-    .location-card-title{
-      font-family:var(--serif); font-size:22px; font-weight:300;
-      color:var(--white-soft); margin-bottom:8px;
-    }
-    .location-card-detail{
-      font-family:var(--body); font-size:16px; line-height:1.7;
-      color:var(--white-dim);
-    }
-    .location-card-detail a{ color:var(--gold-light); text-decoration:none; }
-    .location-card-detail a:hover{ color:var(--gold); }
-    .map-wrap{
-      border-radius:24px; overflow:hidden;
-      border:1px solid var(--glass-bd); height:340px;
-    }
-    .map-wrap iframe{ width:100%; height:100%; border:none; display:block; }
-
-    /* =========================================================
-       GALLERY
-    ========================================================= */
-    .gallery-section{ text-align:center; }
-
-    /* =========================================================
-       MEMORIES
-    ========================================================= */
-    .memory-section{ text-align:center; }
-    .memory-open-btn{
-      display:inline-flex; align-items:center; gap:10px;
-      font-family:var(--body);
-      font-size:13px; letter-spacing:4px; text-transform:uppercase;
-      color:var(--gold); margin-bottom:64px;
-      padding:14px 28px;
-      border:1px solid rgba(212,176,123,.28); border-radius:999px;
-      background:rgba(212,176,123,.06);
-      cursor:pointer; transition:background .3s, border-color .3s;
-    }
-    .memory-open-btn:hover{ background:rgba(212,176,123,.13); border-color:var(--gold); }
-
-    /* =========================================================
-       RSVP
-    ========================================================= */
-    .rsvp-section{ text-align:center; }
-    .rsvp-wrap{
-      max-width:560px; margin:0 auto;
-      background:var(--glass);
-      backdrop-filter:blur(20px);
-      border:1px solid var(--glass-bd); border-radius:32px;
-      padding:52px 44px;
-    }
-    .form-group{ margin-bottom:22px; text-align:left; }
-    .form-label{
-      font-family:var(--body);
-      font-size:11px; letter-spacing:4px; text-transform:uppercase;
-      color:var(--white-dim); display:block; margin-bottom:10px;
-    }
-    .form-input,.form-select,.form-textarea{
-      width:100%; padding:14px 18px; box-sizing:border-box;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:12px; color:var(--white-soft);
-      font-family:var(--body); font-size:16px;
-      transition:border-color .3s, background .3s; outline:none;
-    }
-    .form-input:focus,.form-select:focus,.form-textarea:focus{
-      border-color:rgba(212,176,123,.45); background:rgba(255,255,255,.09);
-    }
-    .form-select{ appearance:none; cursor:pointer; }
-    .form-select option{ background:#1a1510; }
-    .form-textarea{ resize:vertical; min-height:96px; }
-    .rsvp-submit{
-      width:100%; padding:16px;
-      background:linear-gradient(135deg,#c9a25b,#e8d4aa,#c9a25b);
-      background-size:200% auto;
-      color:#1a1510; border:none; border-radius:12px; cursor:pointer;
-      font-family:var(--body); font-size:14px; letter-spacing:4px;
-      text-transform:uppercase; margin-top:8px;
-      transition:transform .35s ease, box-shadow .35s ease, background-position .5s ease;
-    }
-    .rsvp-submit:hover{
-      transform:translateY(-2px);
-      box-shadow:0 12px 32px rgba(201,162,91,.28);
-      background-position:right center;
-    }
-    .rsvp-submit:disabled{ opacity:.6; pointer-events:none; }
-    .rsvp-msg{
-      margin-top:16px; font-family:var(--body);
-      font-size:15px; min-height:22px; color:var(--gold);
-    }
-
-    /* =========================================================
-       MEMORY MODAL
-    ========================================================= */
-    .memory-overlay{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.72); backdrop-filter:blur(7px);
-      z-index:9000; display:none;
-      align-items:center; justify-content:center; padding:24px;
-    }
-    .memory-overlay.open{ display:flex; }
-    .memory-modal{
-      background:rgba(20,17,12,.96);
-      border:1px solid rgba(212,176,123,.2); border-radius:32px;
-      padding:48px 40px; max-width:560px; width:100%;
-      position:relative; animation:modalIn .45s cubic-bezier(.16,1,.3,1);
-      max-height:90vh; overflow-y:auto;
-    }
-    @keyframes modalIn{
-      from{ opacity:0; transform:scale(.94) translateY(18px); }
-      to  { opacity:1; transform:scale(1)   translateY(0); }
-    }
-    .modal-close{
-      position:absolute; top:20px; right:20px;
-      width:36px; height:36px; border-radius:50%;
-      background:rgba(255,255,255,.07); border:none; cursor:pointer;
-      color:var(--white-dim); font-size:18px;
-      display:flex; align-items:center; justify-content:center;
-      transition:background .3s, color .3s;
-    }
-    .modal-close:hover{ background:rgba(212,176,123,.18); color:var(--gold); }
-    .modal-title{
-      font-family:var(--serif); font-size:42px; font-weight:300;
-      color:var(--white-soft); margin-bottom:4px;
-    }
-    .modal-sub{
-      font-family:var(--body); font-size:13px; letter-spacing:4px;
-      text-transform:uppercase; color:var(--gold); margin-bottom:36px;
-    }
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
-    .site-footer{
-      padding:88px 24px 60px; text-align:center; position:relative;
-    }
-    .site-footer::before{
-      content:"";
-      position:absolute; top:0; left:50%; transform:translateX(-50%);
-      width:1px; height:72px;
-      background:linear-gradient(to bottom,rgba(212,176,123,.4),transparent);
-    }
-    .footer-mono{
-      font-family:var(--serif);
-      font-size:clamp(52px,8vw,92px); font-weight:300; line-height:1;
-      color:var(--gold-light);
-    }
-    .footer-mono em{ font-style:italic; color:var(--gold); }
-    .footer-tagline{
-      font-family:var(--body); font-size:18px; line-height:1.9;
-      color:var(--white-dim); margin:22px auto 0; max-width:440px;
-    }
-    .footer-rule{
-      width:56px; height:1px; margin:32px auto;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent);
-    }
-    .footer-meta{
-      font-family:var(--body); font-size:12px; letter-spacing:4px;
-      text-transform:uppercase; color:rgba(255,255,255,.28);
-    }
-
-    /* =========================================================
-       KEYFRAMES
-    ========================================================= */
-    @keyframes fadeUp{
-      from{ opacity:0; transform:translateY(22px); }
-      to  { opacity:1; transform:translateY(0); }
-    }
-
-    /* =========================================================
-       MOBILE
-    ========================================================= */
-    @media(max-width:768px){
-      .section{ padding:80px 20px; }
-      .countdown-item{ min-width:76px; padding:24px 10px; }
-      .countdown-item+.countdown-item::before{ display:none; }
-      .rsvp-wrap{ padding:36px 22px; }
-      .memory-modal{ padding:36px 22px; }
-      .location-cards{ grid-template-columns:1fr; }
-      .music-badge{ bottom:20px; right:18px; }
-    }
-    @media(max-width:480px){
-      .hero-cta-row{ flex-direction:column; align-items:center; }
-      .countdown-grid{ flex-wrap:wrap; }
-      .countdown-item{ min-width:calc(50% - 10px); }
-    }
+    .music-note { animation: noteFloat 2s ease-in-out infinite; display: inline-block; }
+    @keyframes noteFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════
-     CINEMATIC OPENING
-════════════════════════════════════════════════════ -->
-<div id="openingScreen">
-
-  <!-- Arka plan -->
-  <div class="cinematic-bg"></div>
-  <div class="cinematic-vignette"></div>
-  <div class="cinematic-scan"></div>
-
-  <!-- Partiküller -->
+<!-- ══════════════════════════════════════════
+     OPENING SCREEN
+══════════════════════════════════════════ -->
+<div id="openingScreen" class="invitation-opening">
+  <div class="opening-bg"></div>
+  <div class="opening-overlay"></div>
+  <div class="opening-scanlines"></div>
+  <div class="opening-corners"></div>
   <div class="cinematic-particles"></div>
 
-  <!-- Köşe süslemeleri -->
-  <div class="cinematic-corner cinematic-corner--tl"></div>
-  <div class="cinematic-corner cinematic-corner--tr"></div>
-  <div class="cinematic-corner cinematic-corner--bl"></div>
-  <div class="cinematic-corner cinematic-corner--br"></div>
+  <div class="opening-content">
+    <p class="opening-label">Nişan Töreni Daveti</p>
 
-  <!-- İçerik -->
-  <div class="cinematic-content">
-    <p class="cinematic-eyebrow">bir hikâye başlıyor</p>
-    <div class="cinematic-line-top"></div>
+    <div class="opening-names">
+      <span class="name">Gökçe</span>
+      <span class="gy-sep">
+        <span class="sep-line"></span>
+        <span class="sep-heart">♥</span>
+        <span class="sep-line bottom"></span>
+      </span>
+      <span class="name">Yalçın</span>
+    </div>
 
-    <h1 class="cinematic-names">
-      Gökçe
-      <span class="cinematic-amp">&amp;</span>
-      <em>Yalçın</em>
-    </h1>
+    <p class="opening-date">26 Haziran 2026 · Hatay</p>
 
-    <p class="cinematic-date">26 · 06 · 2026</p>
-    <div class="cinematic-line-bottom"></div>
-
-    <button class="cinematic-btn" id="openSiteBtn">
-      Kutlamaya Katıl
+    <button id="openSiteBtn" class="opening-trigger-btn">
+      Hikâyemize Katıl
     </button>
   </div>
-
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     AUDIO
-════════════════════════════════════════════════════ -->
+<!-- Müzik -->
 <audio id="bgMusic" loop preload="none">
-  <source src="audio/G%C3%B6zlerin%20(Yedi%20Karanfil)%20-%20Erkin%20Ko%C5%9Fal%20-%20Instrumental.mp3" type="audio/mpeg">
+  <source src="Gözlerin (Yedi Karanfil) - Esen Müzik [8t-S9Hf-f4U] (1).mp3" type="audio/mpeg">
 </audio>
 
-<!-- Müzik butonu -->
-<button class="music-badge" id="musicToggle" aria-label="Müziği aç/kapat">
-  <svg id="iconPlay"  viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-  <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-</button>
+<!-- Müzik bilgi -->
+<div class="music-info">
+  <span class="music-note">🎵</span>
+  Zülfü Livaneli — Gözlerin
+</div>
 
-<!-- ═══════════════════════════════════════════════════
+
+<!-- ══════════════════════════════════════════
      HERO
-════════════════════════════════════════════════════ -->
-<section class="hero" id="home">
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
   <div class="hero-content">
-    <p class="hero-eyebrow">Nişan Kutlaması</p>
-    <h1 class="hero-names">
-      Gökçe
-      <span class="hero-amp">&amp;</span>
-      <em>Yalçın</em>
+    <p class="hero-label reveal">Nişan Töreni</p>
+
+    <h1 class="hero-names reveal">
+      <span class="hero-name">Gökçe</span>
+      <span class="gy-sep">
+        <span class="sep-line"></span>
+        <span class="sep-heart">♥</span>
+        <span class="sep-line bottom"></span>
+      </span>
+      <span class="hero-name">Yalçın</span>
     </h1>
-    <div class="hero-divider"></div>
-    <p class="hero-date">26 Haziran 2026 · Perşembe</p>
-    <div class="hero-cta-row">
-      <a href="#rsvp" class="btn-gold">Katılımı Onayla</a>
-      <button class="btn-ghost" id="heroMemoryBtn">Anı Bırak 🤍</button>
+
+    <p class="hero-quote reveal">
+      "Hayatımızın en güzel "evet"lerinden birine<br>şahitlik etmeniz bizi çok mutlu eder."
+    </p>
+
+    <div class="hero-actions reveal">
+      <button class="btn-primary" onclick="document.getElementById('rsvpModal').classList.add('active')">
+        Katılımı Onayla
+      </button>
+      <button class="btn-secondary" onclick="document.getElementById('memoryModal').classList.add('active')">
+        💌 Anı Bırak
+      </button>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     COUNTDOWN
-════════════════════════════════════════════════════ -->
-<section class="section countdown-section reveal" id="countdown">
-  <div class="section-inner">
-    <div class="section-label">Geri Sayım</div>
-    <h2 class="section-title">Büyük <em>Güne</em></h2>
-    <p class="section-sub">Her geçen an biraz daha yaklaşıyoruz</p>
-    <div class="countdown-grid">
-      <div class="countdown-item">
-        <span class="countdown-num gold" id="cdDays">00</span>
-        <span class="countdown-lbl">Gün</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-num" id="cdHours">00</span>
-        <span class="countdown-lbl">Saat</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-num" id="cdMins">00</span>
-        <span class="countdown-lbl">Dakika</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-num" id="cdSecs">00</span>
-        <span class="countdown-lbl">Saniye</span>
-      </div>
+
+<!-- ══════════════════════════════════════════
+     GERİ SAYIM
+══════════════════════════════════════════ -->
+<section class="section-countdown reveal-section">
+  <p class="section-label">Geri Sayım</p>
+  <h2 class="section-title">Büyük Güne Kalan Süre</h2>
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-item"><span id="days">00</span><span class="unit">Gün</span></div>
+    <div class="countdown-item"><span id="hours">00</span><span class="unit">Saat</span></div>
+    <div class="countdown-item"><span id="minutes">00</span><span class="unit">Dakika</span></div>
+    <div class="countdown-item"><span id="seconds">00</span><span class="unit">Saniye</span></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     NİŞAN DETAYLARI
+══════════════════════════════════════════ -->
+<section class="section-details reveal-section">
+  <p class="section-label">Nişan Detayları</p>
+  <h2 class="section-title">Bu Özel Gün</h2>
+
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="detail-icon">🗓️</span>
+      <h3>Tarih</h3>
+      <p>26 Haziran 2026</p>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">🕖</span>
+      <h3>Saat</h3>
+      <p>19:00</p>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">📍</span>
+      <h3>Konum</h3>
+      <p>Hatay</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     LOCATION
-════════════════════════════════════════════════════ -->
-<section class="section location-section reveal" id="location">
-  <div class="section-inner">
-    <div class="section-label">Konum</div>
-    <h2 class="section-title">Nerede <em>Buluşuyoruz</em></h2>
-    <p class="section-sub">Sizinle aynı çatı altında olmak için sabırsızlanıyoruz</p>
-    <div class="location-cards">
-      <div class="location-card">
-        <span class="location-card-icon">📅</span>
-        <div class="location-card-title">Tarih &amp; Saat</div>
-        <div class="location-card-detail">26 Haziran 2026<br>Perşembe · 19:00</div>
-      </div>
-      <div class="location-card">
-        <span class="location-card-icon">📍</span>
-        <div class="location-card-title">Mekan</div>
-        <div class="location-card-detail">
-          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Haritada Görüntüle →</a>
-        </div>
-      </div>
-      <div class="location-card">
-        <span class="location-card-icon">💌</span>
-        <div class="location-card-title">Katılım</div>
-        <div class="location-card-detail">Lütfen en geç<br>20 Haziran'a kadar bildirin</div>
-      </div>
-    </div>
-    <div class="map-wrap">
-      <iframe
-        title="Nişan Mekanı"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192698.46330539638!2d28.731992800000003!3d41.0055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1620000000000!5m2!1str!2str"
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
+
+<!-- ══════════════════════════════════════════
+     KONUM
+══════════════════════════════════════════ -->
+<section class="section-map reveal-section">
+  <p class="section-label">Konum</p>
+  <h2 class="section-title">Yol Tarifi</h2>
+
+  <div class="map-wrapper">
+    <iframe
+      src="https://maps.google.com/maps?q=36.145576,36.142250&z=16&output=embed"
+      allowfullscreen
+      loading="lazy"
+      title="Nişan Mekânı">
+    </iframe>
   </div>
+
+  <div class="map-actions">
+    <a href="https://maps.google.com/?q=36.145576,36.142250" target="_blank" class="btn-map">
+      Google Maps
+    </a>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=36.145576,36.142250" target="_blank" class="btn-map">
+      Yol Tarifi
+    </a>
+  </div>
+
+  <p class="map-note">Bu özel gecede aynı masada buluşalım ✨</p>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     GALLERY
-════════════════════════════════════════════════════ -->
-<section class="section gallery-section reveal" id="gallery">
-  <div class="section-inner">
-    <div class="section-label">Galeri</div>
-    <h2 class="section-title">Bizden <em>Kareler</em></h2>
-    <p class="section-sub">Anların her biri bir hikâye</p>
-    <div class="gallery" id="galleryGrid"></div>
+
+<!-- ══════════════════════════════════════════
+     GALERİ
+══════════════════════════════════════════ -->
+<section class="section-gallery reveal-section">
+  <p class="section-label">Anılar</p>
+  <h2 class="section-title">Bizden Kareler</h2>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <p class="gallery-loading">Yükleniyor ✨</p>
   </div>
+
+  <p class="gallery-quote">
+    "Bu siteye bıraktığınız her anı,<br>
+    yıllar sonra tekrar açıp gülümseyeceğiz." 🤍
+  </p>
+
+  <button class="btn-secondary" onclick="document.getElementById('memoryModal').classList.add('active')">
+    💌 Anı Bırak
+  </button>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     MEMORIES
-════════════════════════════════════════════════════ -->
-<section class="section memory-section reveal" id="memories">
-  <div class="section-inner">
-    <div class="section-label">Anı Duvarı</div>
-    <h2 class="section-title">Sevginizi <em>Paylaşın</em></h2>
-    <p class="section-sub">Fotoğraf, video ya da sesli mesajınızla bu güzel günün parçası olun</p>
-    <button class="memory-open-btn" id="openMemoryBtn">
-      <span>📸</span> Anı Bırak
-    </button>
-    <div class="memory-wall" id="memoryWall"></div>
-  </div>
+
+<!-- ══════════════════════════════════════════
+     ANI DUVARI
+══════════════════════════════════════════ -->
+<section class="section-memories reveal-section">
+  <p class="section-label">Anılar</p>
+  <h2 class="section-title">Bize Bıraktığınız Hatıralar</h2>
+  <div class="memory-wall" id="memoryWall"></div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     RSVP
-════════════════════════════════════════════════════ -->
-<section class="section rsvp-section reveal" id="rsvp">
-  <div class="section-inner">
-    <div class="section-label">Katılım</div>
-    <h2 class="section-title">Bizi <em>Onurlandırın</em></h2>
-    <p class="section-sub">Katılımınızı öğrenmek bizim için çok değerli</p>
-    <div class="rsvp-wrap">
-      <form id="rsvpForm" onsubmit="return false;">
-        <div class="form-group">
-          <label class="form-label" for="rsvpName">Adınız Soyadınız</label>
-          <input class="form-input" type="text" id="rsvpName" placeholder="örn. Ayşe Yıldız" maxlength="80" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="rsvpStatus">Katılım Durumunuz</label>
-          <select class="form-select" id="rsvpStatus">
-            <option value="">Seçiniz</option>
-            <option value="Katılacağım">Katılacağım 🎉</option>
-            <option value="Katılamayacağım">Katılamayacağım 😔</option>
-            <option value="Belki">Belki 🤔</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="rsvpCount">Kişi Sayısı</label>
-          <input class="form-input" type="number" id="rsvpCount" min="1" max="10" placeholder="1" value="1">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="rsvpNote">Notunuz <span style="opacity:.5;font-size:12px;">(isteğe bağlı)</span></label>
-          <textarea class="form-textarea" id="rsvpNote" placeholder="Bir mesajınız var mı?" maxlength="400"></textarea>
-        </div>
-        <button type="submit" class="rsvp-submit" id="rsvpBtn">Katılımı Onayla</button>
-        <p class="rsvp-msg" id="rsvpMsg"></p>
-      </form>
-    </div>
-  </div>
-</section>
 
-<!-- ═══════════════════════════════════════════════════
+<!-- ══════════════════════════════════════════
      FOOTER
-════════════════════════════════════════════════════ -->
+══════════════════════════════════════════ -->
 <footer class="site-footer">
-  <div class="footer-mono">G<em>&amp;</em>Y</div>
-  <div class="footer-tagline">
-    Hayatın en güzel anlarından birini sizinle paylaşmak<br>
-    için sabırsızlanıyoruz.
+  <div class="footer-inner">
+    <div class="footer-monogram">
+      <span class="footer-name">Gökçe</span>
+      <span class="gy-sep">
+        <span class="sep-line"></span>
+        <span class="sep-heart">♥</span>
+        <span class="sep-line bottom"></span>
+      </span>
+      <span class="footer-name">Yalçın</span>
+    </div>
+
+    <p class="footer-message">
+      Hayatın en güzel anlarından birini sizinle paylaşmak için sabırsızlanıyoruz
+    </p>
+
+    <p class="footer-meta">26 Haziran 2026 · gokceyalcin.net</p>
   </div>
-  <div class="footer-rule"></div>
-  <div class="footer-meta">26 Haziran 2026 · gokceyalcin.net</div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════
-     MEMORY MODAL
-════════════════════════════════════════════════════ -->
-<div class="memory-overlay" id="memoryModal" role="dialog" aria-modal="true">
-  <div class="memory-modal">
-    <button class="modal-close" id="modalClose" aria-label="Kapat">✕</button>
-    <div class="modal-title">Anı Bırak</div>
-    <div class="modal-sub">Bu güzel günün parçası ol</div>
-    <div id="uploadFormContainer"></div>
+
+<!-- ══════════════════════════════════════════
+     RSVP MODAL
+══════════════════════════════════════════ -->
+<div id="rsvpModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('rsvpModal').classList.remove('active')">✕</button>
+    <h2 class="modal-title">Katılım Formu</h2>
+
+    <select id="rsvpStatus" class="modal-select">
+      <option value="">Katılım Durumu Seçin</option>
+      <option value="yes">Katılacağım 🤍</option>
+      <option value="no">Katılamayacağım 😔</option>
+      <option value="maybe">Kararsızım ✨</option>
+    </select>
+
+    <button class="btn-primary modal-submit" id="rsvpSubmit">
+      Katılım Bilgisini Gönder
+    </button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
+
+<!-- ══════════════════════════════════════════
+     ANI MODAL
+══════════════════════════════════════════ -->
+<div id="memoryModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('memoryModal').classList.remove('active')">✕</button>
+    <h2 class="modal-title">Anı Bırak 💌</h2>
+    <p class="modal-sub">
+      Bu geceye ait bir fotoğraf, video ya da sesinizi bırakabilirsiniz ✨
+    </p>
+
+    <label class="upload-area" for="fileInput">
+      <span>Fotoğraf / Video Yükle</span>
+      <span class="upload-hint">Birden fazla fotoğraf seçebilirsiniz ✨</span>
+    </label>
+    <input type="file" id="fileInput" multiple accept="image/*,video/*" hidden>
+
+    <button class="btn-voice" id="voiceBtn">🎙️ Sesli Mesaj Bırak</button>
+
+    <div id="voiceControls" class="voice-controls hidden">
+      <button class="btn-voice-action" id="recordBtn">🎙️ Sesli Mesaj Gönder</button>
+      <span id="voiceStatus">Hazır</span>
+    </div>
+
+    <button class="btn-primary modal-submit" id="memorySubmit">Gönder</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
      SCRIPTS
-════════════════════════════════════════════════════ -->
-<script type="module" src="firebase.js"></script>
-<script type="module" src="scripts/cinematic-opening.js"></script>
-<script type="module" src="scripts/animations.js"></script>
-<script type="module" src="scripts/gallery.js"></script>
-<script type="module" src="scripts/memory-wall.js"></script>
-<script type="module" src="upload.js"></script>
-<script type="module" src="scripts/protection.js"></script>
-
+══════════════════════════════════════════ -->
+<!-- Firebase -->
 <script type="module">
-  /* ── MUSIC ──────────────────────────────────────── */
-  const audio      = document.getElementById("bgMusic");
-  const musicBtn   = document.getElementById("musicToggle");
-  const iconPlay   = document.getElementById("iconPlay");
-  const iconPause  = document.getElementById("iconPause");
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+  import { getStorage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+  // Firebase config buraya
+  window.__firebaseReady = true;
+</script>
 
-  musicBtn.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        musicBtn.classList.add("playing");
-        iconPlay.style.display  = "none";
-        iconPause.style.display = "";
-      }).catch(() => {});
-    } else {
-      audio.pause();
-      musicBtn.classList.remove("playing");
-      iconPlay.style.display  = "";
-      iconPause.style.display = "none";
-    }
+<script src="scripts/cinematic-opening.js" defer></script>
+<script src="scripts/countdown.js" defer></script>
+<script src="scripts/gallery.js" defer></script>
+<script src="scripts/memory-wall.js" defer></script>
+<script src="scripts/upload.js" defer></script>
+<script src="scripts/rsvp.js" defer></script>
+
+<script>
+  /* Reveal on scroll */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal-section, .reveal').forEach(el => observer.observe(el));
+
+  /* Modal dışına tıklayınca kapat */
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('active');
+    });
   });
 
-  /* ── COUNTDOWN ──────────────────────────────────── */
-  (function(){
-    const target = new Date("2026-06-26T19:00:00");
-    const pad = n => String(n).padStart(2,"0");
-    const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=pad(v); };
-    function tick(){
-      const diff = target - Date.now();
-      if(diff<=0){ ["cdDays","cdHours","cdMins","cdSecs"].forEach(id=>set(id,0)); return; }
-      set("cdDays",  Math.floor(diff/86400000));
-      set("cdHours", Math.floor((diff%86400000)/3600000));
-      set("cdMins",  Math.floor((diff%3600000)/60000));
-      set("cdSecs",  Math.floor((diff%60000)/1000));
+  /* Geri sayım */
+  function updateCountdown() {
+    const target = new Date('2026-06-26T19:00:00+03:00');
+    const now    = new Date();
+    const diff   = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<p class="countdown-done">🤍 Bugün!</p>';
+      return;
     }
-    tick(); setInterval(tick,1000);
-  })();
-
-  /* ── SCROLL REVEAL ──────────────────────────────── */
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("visible"); obs.unobserve(e.target); } });
-  },{ threshold:0.1 });
-  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
-
-  /* ── MEMORY MODAL ───────────────────────────────── */
-  const overlay  = document.getElementById("memoryModal");
-  const closeBtn = document.getElementById("modalClose");
-  const openBtns = [
-    document.getElementById("openMemoryBtn"),
-    document.getElementById("heroMemoryBtn"),
-  ];
-  const openModal  = () => { overlay.classList.add("open"); document.body.style.overflow="hidden"; };
-  const closeModal = () => { overlay.classList.remove("open"); document.body.style.overflow=""; };
-  openBtns.forEach(b => b?.addEventListener("click", openModal));
-  closeBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", e => { if(e.target===overlay) closeModal(); });
-  document.addEventListener("keydown", e => { if(e.key==="Escape") closeModal(); });
-  window.openMemoryModal = openModal;
-
-  /* ── HASH ROUTING ───────────────────────────────── */
-  function handleHash(){
-    if(location.hash==="#memory") openModal();
-    if(location.hash==="#rsvp"){
-      const el=document.getElementById("rsvp");
-      if(el) setTimeout(()=>el.scrollIntoView({behavior:"smooth"}),200);
-    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').textContent    = String(d).padStart(2,'0');
+    document.getElementById('hours').textContent   = String(h).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(s).padStart(2,'0');
   }
-  window.addEventListener("hashchange", handleHash);
-
-  /* ── RSVP ───────────────────────────────────────── */
-  document.getElementById("rsvpForm").addEventListener("submit", async () => {
-    const btn  = document.getElementById("rsvpBtn");
-    const msg  = document.getElementById("rsvpMsg");
-    const name = document.getElementById("rsvpName").value.trim();
-    const status = document.getElementById("rsvpStatus").value;
-    const count  = parseInt(document.getElementById("rsvpCount").value)||1;
-    const note   = document.getElementById("rsvpNote").value.trim();
-
-    if(!name||!status){ msg.textContent="Lütfen isim ve katılım durumunuzu seçin."; return; }
-
-    const rKey="gy_rsvp_ts";
-    const last=Number(localStorage.getItem(rKey)||0);
-    if(Date.now()-last<120000){ msg.textContent="Lütfen birkaç dakika sonra tekrar deneyin."; return; }
-
-    btn.disabled=true; btn.textContent="Gönderiliyor…";
-    try{
-      const db  = window.db;
-      const fns = window.firebaseFns;
-      await fns.addDoc(fns.collection(db,"rsvp"),{
-        name: name.slice(0,80),
-        status,
-        count: Math.min(Math.max(count,1),10),
-        note: note.slice(0,400),
-        createdAt: fns.serverTimestamp()
-      });
-      localStorage.setItem(rKey,Date.now());
-      msg.textContent="Teşekkürler! Katılımınız alındı 🤍";
-      document.getElementById("rsvpForm").reset();
-    }catch{
-      msg.textContent="Bir hata oluştu, lütfen tekrar deneyin.";
-    }finally{
-      btn.disabled=false; btn.textContent="Katılımı Onayla";
-    }
-  });
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 </script>
 
 </body>
