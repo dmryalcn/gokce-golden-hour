@@ -40,31 +40,28 @@ const Security = {
     return clean;
   },
 
+  /* Video türleri kaldırıldı — sadece fotoğraf ve ses */
   ALLOWED_TYPES: [
     "image/jpeg",
     "image/png",
     "image/webp",
     "image/gif",
-    "video/mp4",
-    "video/webm",
     "audio/webm",
     "audio/ogg",
-    "audio/mp4"
+    "audio/mp4",
+    "audio/x-m4a",
+    "audio/mpeg"
   ],
 
   MAX_IMAGE_SIZE: 8  * 1024 * 1024,
-  MAX_VIDEO_SIZE: 40 * 1024 * 1024,
   MAX_AUDIO_SIZE: 10 * 1024 * 1024,
 
   validateFile(file) {
     if (!this.ALLOWED_TYPES.includes(file.type)) {
-      throw new Error("Desteklenmeyen dosya türü 😔 (jpg, png, webp, mp4, webm kabul edilir)");
+      throw new Error("Desteklenmeyen dosya türü 😔 (jpg, png, webp kabul edilir)");
     }
     if (file.type.startsWith("image") && file.size > this.MAX_IMAGE_SIZE) {
       throw new Error("Fotoğraflar en fazla 8MB olabilir 🤍");
-    }
-    if (file.type.startsWith("video") && file.size > this.MAX_VIDEO_SIZE) {
-      throw new Error("Video en fazla 40MB olabilir 🤍");
     }
     if (file.type.startsWith("audio") && file.size > this.MAX_AUDIO_SIZE) {
       throw new Error("Sesli mesaj en fazla 10MB olabilir 🤍");
@@ -98,7 +95,6 @@ const Security = {
 
 /* =========================================================
    CLOUDINARY — SIGNED UPLOAD
-   İmzayı Vercel serverless function'dan alır
 ========================================================= */
 
 async function getUploadSignature() {
@@ -159,6 +155,27 @@ const recordingStatus = document.getElementById("recordingStatus");
 const backgroundMusic = document.getElementById("bgMusic");
 
 /* =========================================================
+   SES OYNATINCA MÜZİĞİ DURDUR
+   audioPreview play → bgMusic pause
+   audioPreview pause/ended → bgMusic devam
+========================================================= */
+
+if (audioPreview && backgroundMusic) {
+
+  audioPreview.addEventListener("play", () => {
+    backgroundMusic.pause();
+  });
+
+  audioPreview.addEventListener("pause", () => {
+    backgroundMusic.play().catch(() => {});
+  });
+
+  audioPreview.addEventListener("ended", () => {
+    backgroundMusic.play().catch(() => {});
+  });
+}
+
+/* =========================================================
    AUDIO RECORD
 ========================================================= */
 
@@ -184,11 +201,14 @@ if (recordBtn) {
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+      /* iOS Safari audio/mp4 kaydeder, diğerleri audio/webm */
       let mimeType = "";
       if (MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) {
         mimeType = "audio/webm;codecs=opus";
       } else if (MediaRecorder.isTypeSupported("audio/webm")) {
         mimeType = "audio/webm";
+      } else if (MediaRecorder.isTypeSupported("audio/mp4")) {
+        mimeType = "audio/mp4";
       }
 
       mediaRecorder    = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
@@ -203,10 +223,9 @@ if (recordBtn) {
         clearInterval(recordingTimer);
         stream.getTracks().forEach(track => track.stop());
 
-        recordedAudioBlob = new Blob(
-          audioChunks,
-          { type: mediaRecorder.mimeType || "audio/webm" }
-        );
+        const blobType = mediaRecorder.mimeType || "audio/webm";
+
+        recordedAudioBlob = new Blob(audioChunks, { type: blobType });
 
         const audioUrl = URL.createObjectURL(recordedAudioBlob);
 
@@ -215,10 +234,10 @@ if (recordBtn) {
           audioPreview.style.display = "block";
         }
 
-        if (recordingStatus) recordingStatus.innerHTML = "Sesli mesaj hazır ✨";
+        if (recordingStatus) recordingStatus.textContent = "Sesli mesaj hazır ✨";
 
         recordBtn.disabled  = false;
-        recordBtn.innerHTML = "🎙️ Sesli Mesaj Gönder";
+        recordBtn.textContent = "🎙️ Sesli Mesaj Gönder";
         isRecording         = false;
 
         if (backgroundMusic) {
@@ -228,14 +247,14 @@ if (recordBtn) {
       };
 
       mediaRecorder.start();
-      recordBtn.disabled  = true;
-      recordBtn.innerHTML = "Kaydediliyor...";
+      recordBtn.disabled    = true;
+      recordBtn.textContent = "Kaydediliyor...";
 
-      if (recordingStatus) recordingStatus.innerHTML = "15 saniye kaldı";
+      if (recordingStatus) recordingStatus.textContent = "15 saniye kaldı";
 
       recordingTimer = setInterval(() => {
         recordingSeconds--;
-        if (recordingStatus) recordingStatus.innerHTML = `${recordingSeconds} saniye kaldı`;
+        if (recordingStatus) recordingStatus.textContent = `${recordingSeconds} saniye kaldı`;
         if (recordingSeconds <= 0) {
           mediaRecorder.stop();
           clearInterval(recordingTimer);
@@ -245,9 +264,9 @@ if (recordBtn) {
     } catch (error) {
       console.error(error);
       alert("Mikrofon erişimi sağlanamadı 😔");
-      recordBtn.disabled  = false;
-      recordBtn.innerHTML = "🎙️ Sesli Mesaj Gönder";
-      isRecording         = false;
+      recordBtn.disabled    = false;
+      recordBtn.textContent = "🎙️ Sesli Mesaj Gönder";
+      isRecording           = false;
 
       if (backgroundMusic) {
         backgroundMusic.volume = 0.35;
@@ -307,9 +326,9 @@ if (memoryForm) {
     memorySubmitting = true;
 
     const submitBtn    = memoryForm.querySelector(".send-btn");
-    const originalText = submitBtn.innerHTML;
+    const originalText = submitBtn.textContent;
     submitBtn.disabled  = true;
-    submitBtn.innerHTML = "Yükleniyor...";
+    submitBtn.textContent = "Yükleniyor...";
 
     try {
       const name    = Security.sanitizeText(document.getElementById("memoryName")?.value    || "");
@@ -322,7 +341,6 @@ if (memoryForm) {
 
       let mediaItems = [];
       let imageCount = 0;
-      let videoCount = 0;
 
       for (const file of files) {
         Security.validateFile(file);
@@ -331,23 +349,23 @@ if (memoryForm) {
           imageCount++;
           if (imageCount > 5) throw new Error("En fazla 5 fotoğraf yükleyebilirsiniz 🤍");
         }
-        if (file.type.startsWith("video")) {
-          videoCount++;
-          if (videoCount > 1) throw new Error("Sadece 1 video yükleyebilirsiniz 🤍");
-        }
 
         const uploadedUrl = await uploadToCloudinary(file);
         mediaItems.push({ url: uploadedUrl, type: file.type });
       }
 
       if (recordedAudioBlob) {
+        /* iOS'ta mimeType audio/mp4 olabilir, uzantıyı ona göre ayarla */
+        const blobType = recordedAudioBlob.type || "audio/webm";
+        const ext      = blobType.includes("mp4") ? "mp4" : "webm";
+
         const audioFile = new File(
           [recordedAudioBlob],
-          "voice-message.webm",
-          { type: recordedAudioBlob.type || "audio/webm" }
+          `voice-message.${ext}`,
+          { type: blobType }
         );
         const uploadedAudio = await uploadToCloudinary(audioFile);
-        mediaItems.push({ url: uploadedAudio, type: recordedAudioBlob.type || "audio/webm" });
+        mediaItems.push({ url: uploadedAudio, type: blobType });
       }
 
       await addDoc(collection(db, "memories"), {
@@ -366,7 +384,7 @@ if (memoryForm) {
         audioPreview.src           = "";
         audioPreview.style.display = "none";
       }
-      if (recordingStatus) recordingStatus.innerHTML = "Hazır";
+      if (recordingStatus) recordingStatus.textContent = "Hazır";
 
       closeAllModals();
       showPopup("Anınız Kaydedildi 🤍", "Bu güzel an artık hikayemizin bir parçası oldu ✨");
@@ -376,9 +394,9 @@ if (memoryForm) {
       showPopup("Bir Sorun Oluştu 😔", error.message || "Bir hata oluştu");
     }
 
-    submitBtn.disabled  = false;
-    submitBtn.innerHTML = originalText;
-    memorySubmitting    = false;
+    submitBtn.disabled    = false;
+    submitBtn.textContent = originalText;
+    memorySubmitting      = false;
   });
 }
 
@@ -404,9 +422,9 @@ if (rsvpForm) {
     rsvpSubmitting = true;
 
     const submitBtn    = rsvpForm.querySelector(".send-btn");
-    const originalText = submitBtn.innerHTML;
+    const originalText = submitBtn.textContent;
     submitBtn.disabled  = true;
-    submitBtn.innerHTML = "Gönderiliyor...";
+    submitBtn.textContent = "Gönderiliyor...";
 
     try {
       const name   = Security.validateName(document.getElementById("rsvpName")?.value || "");
@@ -439,9 +457,9 @@ if (rsvpForm) {
       showPopup("Bir Sorun Oluştu 😔", error.message || "Bir hata oluştu");
     }
 
-    submitBtn.disabled  = false;
-    submitBtn.innerHTML = originalText;
-    rsvpSubmitting      = false;
+    submitBtn.disabled    = false;
+    submitBtn.textContent = originalText;
+    rsvpSubmitting        = false;
   });
 }
 
