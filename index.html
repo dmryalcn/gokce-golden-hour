@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/background.css">
   <link rel="stylesheet" href="styles/animations.css">
   <link rel="stylesheet" href="styles/effects.css">
   <link rel="stylesheet" href="styles/luxury-effects.css">
@@ -411,8 +412,8 @@
   </div>
 
   <!-- ═══════════════ SCRIPTS ════════════════ -->
-
-  <!-- DÜZELTME 6: cinematic-opening.js type="module" değil normal script -->
+  <!-- Yapı: index.html root'ta, scripts/ klasöründe JS dosyaları, firebase.js de root'ta -->
+  <!-- cinematic-opening.js IIFE olduğu için type="module" değil normal script -->
   <script src="scripts/cinematic-opening.js"></script>
   <script src="scripts/preloader.js"></script>
   <script src="scripts/animations.js"></script>
@@ -421,8 +422,9 @@
   <script src="scripts/quotes.js"></script>
   <script src="scripts/protection.js"></script>
 
-  <!-- Firebase + modül scriptler -->
-  <script type="module" src="scripts/firebase.js"></script>
+  <!-- firebase.js root'ta. gallery.js ve memory-wall.js zaten "import '../firebase.js'" ile yüklüyor.
+       index.html root'ta olduğu için firebase.js'i direkt çağırıyoruz: -->
+  <script type="module" src="firebase.js"></script>
   <script type="module" src="scripts/gallery.js"></script>
   <script type="module" src="scripts/memory-wall.js"></script>
 
@@ -550,14 +552,18 @@
       if (!window.db || !window.firebaseFns) throw new Error('Firebase bağlanamadı 😔');
 
       var fns = window.firebaseFns;
-      await fns.addDoc(fns.collection(window.db, 'rsvp'), {
-        name:        name.replace(/[<>]/g,''),
-        phone:       phone,
-        status:      status,
-        guestCount:  guestCount,
-        message:     message.replace(/[<>]/g,''),
-        createdAt:   fns.serverTimestamp()
-      });
+      // Alan isimleri Firestore rules ile eşleşmeli
+      var docData = {
+        name:       name.replace(/[<>]/g,''),
+        phone:      phone,
+        status:     status,
+        guestCount: guestCount,
+        createdAt:  fns.serverTimestamp()
+      };
+      if (status === 'yes')   docData.comingMessage     = yesMsg.replace(/[<>]/g,'');
+      if (status === 'no')    docData.cannotJoinMessage = noMsg.replace(/[<>]/g,'');
+      if (status === 'maybe') docData.maybeMessage      = maybeMsg.replace(/[<>]/g,'');
+      await fns.addDoc(fns.collection(window.db, 'rsvp'), docData);
 
       document.getElementById('rsvp-modal').querySelector('form, div').reset?.();
       document.getElementById('rsvp-name').value = '';
