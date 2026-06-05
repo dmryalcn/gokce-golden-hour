@@ -26,14 +26,7 @@ const {
 } = window.firebaseFns;
 
 /* =========================================================
-   CLOUDINARY
-========================================================= */
-
-const CLOUD_NAME    = "dgtscqpny";
-const UPLOAD_PRESET = "weddingUploads";
-
-/* =========================================================
-   GÜVENLİK YARDIMCILARI (admin.js yerel kopyası)
+   GÜVENLİK YARDIMCILARI
 ========================================================= */
 
 const Security = {
@@ -47,22 +40,9 @@ const Security = {
       .replace(/'/g,  "&#39;");
   },
 
-  /* Güvenli text node: XSS imkansız */
   safeText(element, value) {
     if (!element) return;
     element.textContent = String(value ?? "");
-  },
-
-  isSafeCloudinaryUrl(url) {
-    try {
-      const parsed = new URL(url);
-      return (
-        parsed.protocol === "https:" &&
-        parsed.hostname.endsWith("cloudinary.com")
-      );
-    } catch {
-      return false;
-    }
   },
 
   isSafeMediaUrl(url) {
@@ -79,8 +59,7 @@ const Security = {
     }
   },
 
-  /* İzin verilen dosya tipleri (admin gallery için sadece image) */
-  ALLOWED_IMAGE_TYPES: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+  ALLOWED_IMAGE_TYPES: ["image/jpeg","image/png","image/webp","image/gif"],
   MAX_IMAGE_SIZE: 8 * 1024 * 1024,
 
   validateImageFile(file) {
@@ -98,27 +77,22 @@ const Security = {
    ELEMENTS
 ========================================================= */
 
-const loginScreen   = document.getElementById("loginScreen");
-const adminPanel    = document.getElementById("adminPanel");
-const guestTable    = document.getElementById("guestTable");
-const totalCount    = document.getElementById("totalCount");
-const yesCount      = document.getElementById("yesCount");
-const noCount       = document.getElementById("noCount");
-const maybeCount    = document.getElementById("maybeCount");
-const memoryGallery = document.getElementById("memoryGallery");
-const searchInput   = document.getElementById("searchInput");
-const memoryCount   = document.getElementById("memoryCount");
-
-/* =========================================================
-   GALLERY ELEMENTS
-========================================================= */
-
+const loginScreen    = document.getElementById("loginScreen");
+const adminPanel     = document.getElementById("adminPanel");
+const guestTable     = document.getElementById("guestTable");
+const totalCount     = document.getElementById("totalCount");
+const yesCount       = document.getElementById("yesCount");
+const noCount        = document.getElementById("noCount");
+const maybeCount     = document.getElementById("maybeCount");
+const memoryGallery  = document.getElementById("memoryGallery");
+const searchInput    = document.getElementById("searchInput");
+const memoryCount    = document.getElementById("memoryCount");
 const galleryUploadInput = document.getElementById("galleryUploadInput");
 const uploadGalleryBtn   = document.getElementById("uploadGalleryBtn");
 const adminGalleryGrid   = document.getElementById("adminGalleryGrid");
 
 /* =========================================================
-   FIREBASE AUTH LOGIN
+   LOGIN
 ========================================================= */
 
 async function login() {
@@ -134,7 +108,6 @@ async function login() {
     await signInWithEmailAndPassword(auth, email, password);
     showPanel();
   } catch (error) {
-    /* Hata detayını kullanıcıya gösterme — saldırgana bilgi verme */
     console.error(error.code);
     alert("Giriş başarısız 😔");
   }
@@ -142,20 +115,12 @@ async function login() {
 
 window.login = login;
 
-/* =========================================================
-   LOGOUT
-========================================================= */
-
 async function logout() {
   await signOut(auth);
   location.reload();
 }
 
 window.logout = logout;
-
-/* =========================================================
-   SHOW PANEL
-========================================================= */
 
 function showPanel() {
   loginScreen.style.display = "none";
@@ -165,13 +130,48 @@ function showPanel() {
   loadGalleryImages();
 }
 
-/* =========================================================
-   AUTH CHECK
-========================================================= */
-
 onAuthStateChanged(auth, (user) => {
   if (user) showPanel();
 });
+
+/* =========================================================
+   CLOUDINARY — SIGNED UPLOAD (admin için)
+========================================================= */
+
+async function getUploadSignature() {
+  const response = await fetch("/api/sign-upload", {
+    method:  "POST",
+    headers: { "Content-Type": "application/json" }
+  });
+
+  if (!response.ok) throw new Error("İmza alınamadı 😔");
+  return await response.json();
+}
+
+async function uploadToCloudinary(file) {
+  Security.validateImageFile(file);
+
+  const { signature, timestamp, apiKey, cloudName, folder } =
+    await getUploadSignature();
+
+  const formData = new FormData();
+  formData.append("file",      file);
+  formData.append("signature", signature);
+  formData.append("timestamp", timestamp);
+  formData.append("api_key",   apiKey);
+  formData.append("folder",    folder);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+    { method: "POST", body: formData }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) throw new Error("Fotoğraf yüklenemedi 😔");
+
+  return data.secure_url;
+}
 
 /* =========================================================
    RSVP
@@ -180,10 +180,7 @@ onAuthStateChanged(auth, (user) => {
 let allGuests = [];
 
 function loadGuests() {
-  const q = query(
-    collection(db, "rsvp"),
-    orderBy("createdAt", "desc")
-  );
+  const q = query(collection(db, "rsvp"), orderBy("createdAt", "desc"));
 
   onSnapshot(q, (snapshot) => {
     allGuests = [];
@@ -194,10 +191,6 @@ function loadGuests() {
   });
 }
 
-/* =========================================================
-   RENDER GUESTS — XSS korumalı (textContent kullanır)
-========================================================= */
-
 function renderGuests(dataList) {
   guestTable.innerHTML = "";
 
@@ -206,8 +199,8 @@ function renderGuests(dataList) {
   if (!dataList.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan   = 7;
-    td.className = "empty";
+    td.colSpan     = 7;
+    td.className   = "empty";
     td.textContent = "Henüz veri yok";
     tr.appendChild(td);
     guestTable.appendChild(tr);
@@ -229,34 +222,31 @@ function renderGuests(dataList) {
 
     const row = document.createElement("tr");
 
-    /* Her hücre textContent ile oluşturuluyor — innerHTML YOK */
-    const cells = [
+    const fieldOrder = [
       data.name       || "-",
       data.guestCount || "-",
-      null, /* status span — ayrı ele alınıyor */
+      null,
       data.transportNeed || "-",
       data.comingMessage || data.cannotJoinMessage || data.maybeMessage || "-",
       date
     ];
 
-    cells.forEach((val, idx) => {
-      if (val === null) return; /* status hücresi atla */
+    fieldOrder.forEach((val, idx) => {
+      if (val === null) return;
       const td = document.createElement("td");
       td.textContent = val;
       row.appendChild(td);
 
-      /* status span'ını 2. indexten sonra ekle */
       if (idx === 1) {
         const statusTd   = document.createElement("td");
         const statusSpan = document.createElement("span");
-        statusSpan.className  = `status ${getStatusClass(data.status)}`;
+        statusSpan.className   = `status ${getStatusClass(data.status)}`;
         statusSpan.textContent = statusText;
         statusTd.appendChild(statusSpan);
         row.appendChild(statusTd);
       }
     });
 
-    /* Sil butonu */
     const actionTd  = document.createElement("td");
     const deleteBtn = document.createElement("button");
     deleteBtn.className   = "action-btn delete";
@@ -274,19 +264,11 @@ function renderGuests(dataList) {
   Security.safeText(maybeCount, maybe);
 }
 
-/* =========================================================
-   STATUS CLASS
-========================================================= */
-
 function getStatusClass(status) {
   if (status === "yes") return "yes";
   if (status === "no")  return "no";
   return "maybe";
 }
-
-/* =========================================================
-   SEARCH
-========================================================= */
 
 searchInput?.addEventListener("input", (e) => {
   const val      = e.target.value.toLowerCase();
@@ -296,38 +278,25 @@ searchInput?.addEventListener("input", (e) => {
   renderGuests(filtered);
 });
 
-/* =========================================================
-   DELETE RSVP
-========================================================= */
-
 async function deleteRSVP(id) {
   const confirmed = confirm("Bu katılım bilgisini silmek istiyor musunuz?");
   if (!confirmed) return;
   await deleteDoc(doc(db, "rsvp", id));
 }
-
 window.deleteRSVP = deleteRSVP;
-
-/* =========================================================
-   EXPORT CSV
-========================================================= */
 
 function exportData() {
   let csv = "İsim,Kişi Sayısı,Durum,Ulaşım,Mesaj,Tarih\n";
-
   document.querySelectorAll("#guestTable tr").forEach(tr => {
     const cols = tr.querySelectorAll("td");
     if (cols.length) {
       let row = [];
       cols.forEach((td, index) => {
-        if (index < 6) {
-          row.push(td.textContent.replace(/,/g, " "));
-        }
+        if (index < 6) row.push(td.textContent.replace(/,/g, " "));
       });
       csv += row.join(",") + "\n";
     }
   });
-
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement("a");
@@ -336,18 +305,14 @@ function exportData() {
   a.click();
   URL.revokeObjectURL(url);
 }
-
 window.exportData = exportData;
 
 /* =========================================================
-   MEMORIES — XSS korumalı
+   MEMORIES
 ========================================================= */
 
 function loadMemories() {
-  const q = query(
-    collection(db, "memories"),
-    orderBy("createdAt", "desc")
-  );
+  const q = query(collection(db, "memories"), orderBy("createdAt", "desc"));
 
   onSnapshot(q, (snapshot) => {
     memoryGallery.innerHTML = "";
@@ -368,28 +333,27 @@ function loadMemories() {
       const card = document.createElement("div");
       card.className = "memory-card";
 
-      /* Medya öğeleri — sadece güvenli URL'ler */
       const mediaItems = data.mediaItems || [];
       mediaItems.forEach(item => {
-        /* URL güvenlik kontrolü */
-        if (!Security.isSafeMediaUrl(item.url)) return;
+        /* URL kontrolü — res.cloudinary.com dahil tüm subdomain'lere izin ver */
+        if (!item?.url || !Security.isSafeMediaUrl(item.url)) return;
 
         if (item.type?.includes("image")) {
-          const img = document.createElement("img");
-          img.src       = item.url;
-          img.className = "memory-media";
-          img.alt       = "Anı fotoğrafı";
+          const img       = document.createElement("img");
+          img.src         = item.url;
+          img.className   = "memory-media";
+          img.alt         = "Anı fotoğrafı";
           card.appendChild(img);
         } else if (item.type?.includes("video")) {
-          const video = document.createElement("video");
-          video.controls   = true;
-          video.className  = "memory-media";
-          const source     = document.createElement("source");
-          source.src       = item.url;
+          const video     = document.createElement("video");
+          video.controls  = true;
+          video.className = "memory-media";
+          const source    = document.createElement("source");
+          source.src      = item.url;
           video.appendChild(source);
           card.appendChild(video);
         } else if (item.type?.includes("audio")) {
-          const audio  = document.createElement("audio");
+          const audio     = document.createElement("audio");
           audio.controls  = true;
           audio.className = "memory-audio";
           const source    = document.createElement("source");
@@ -403,29 +367,26 @@ function loadMemories() {
         ? new Date(data.createdAt.toDate()).toLocaleString("tr-TR")
         : "-";
 
-      /* Gizli badge */
       if (data.hidden === true) {
-        const badge = document.createElement("div");
+        const badge       = document.createElement("div");
         badge.className   = "gallery-hidden";
         badge.textContent = "Gizli";
         card.prepend(badge);
       }
 
-      /* Metin bilgileri — textContent ile */
-      const nameDiv    = document.createElement("div");
-      nameDiv.className = "memory-name";
+      const nameDiv       = document.createElement("div");
+      nameDiv.className   = "memory-name";
       nameDiv.textContent = data.name || "İsimsiz";
 
-      const msgDiv    = document.createElement("div");
-      msgDiv.className = "memory-message";
-      msgDiv.textContent = data.message || "-";
+      const msgDiv        = document.createElement("div");
+      msgDiv.className    = "memory-message";
+      msgDiv.textContent  = data.message || "-";
 
-      const dateDiv    = document.createElement("div");
-      dateDiv.className = "memory-date";
+      const dateDiv       = document.createElement("div");
+      dateDiv.className   = "memory-date";
       dateDiv.textContent = date;
 
-      /* Aksiyon butonları */
-      const actionsDiv = document.createElement("div");
+      const actionsDiv    = document.createElement("div");
       actionsDiv.className = "gallery-card-actions";
 
       const toggleBtn       = document.createElement("button");
@@ -440,7 +401,6 @@ function loadMemories() {
 
       actionsDiv.appendChild(toggleBtn);
       actionsDiv.appendChild(deleteBtn);
-
       card.appendChild(nameDiv);
       card.appendChild(msgDiv);
       card.appendChild(dateDiv);
@@ -453,57 +413,17 @@ function loadMemories() {
   });
 }
 
-/* =========================================================
-   TOGGLE MEMORY
-========================================================= */
-
 async function toggleMemory(id, isHidden) {
   await updateDoc(doc(db, "memories", id), { hidden: !isHidden });
 }
-
 window.toggleMemory = toggleMemory;
-
-/* =========================================================
-   DELETE MEMORY
-========================================================= */
 
 async function deleteMemory(id) {
   const confirmed = confirm("Bu anıyı tamamen silmek istiyor musunuz?");
   if (!confirmed) return;
   await deleteDoc(doc(db, "memories", id));
 }
-
 window.deleteMemory = deleteMemory;
-
-/* =========================================================
-   CLOUDINARY UPLOAD (admin — sadece image)
-========================================================= */
-
-async function uploadToCloudinary(file) {
-  /* Tip + boyut kontrolü */
-  Security.validateImageFile(file);
-
-  const formData = new FormData();
-  formData.append("file",          file);
-  formData.append("upload_preset", UPLOAD_PRESET);
-
-  const response = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-    { method: "POST", body: formData }
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Fotoğraf yüklenemedi 😔");
-  }
-
-  if (!Security.isSafeCloudinaryUrl(data.secure_url)) {
-    throw new Error("Geçersiz yükleme yanıtı 😔");
-  }
-
-  return data.secure_url;
-}
 
 /* =========================================================
    GALLERY UPLOAD
@@ -530,10 +450,8 @@ uploadGalleryBtn?.addEventListener("click", async () => {
         createdAt: serverTimestamp()
       });
     }
-
     galleryUploadInput.value = "";
     alert("Fotoğraflar yüklendi ✨");
-
   } catch (error) {
     console.error(error);
     alert(error.message || "Yükleme başarısız 😔");
@@ -544,14 +462,11 @@ uploadGalleryBtn?.addEventListener("click", async () => {
 });
 
 /* =========================================================
-   LOAD GALLERY — XSS korumalı
+   LOAD GALLERY
 ========================================================= */
 
 function loadGalleryImages() {
-  const q = query(
-    collection(db, "galleryImages"),
-    orderBy("createdAt", "desc")
-  );
+  const q = query(collection(db, "galleryImages"), orderBy("createdAt", "desc"));
 
   onSnapshot(q, (snapshot) => {
     adminGalleryGrid.innerHTML = "";
@@ -567,15 +482,13 @@ function loadGalleryImages() {
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
 
-      /* URL güvenlik kontrolü */
       if (!Security.isSafeMediaUrl(data.imageUrl)) return;
 
-      const card = document.createElement("div");
+      const card     = document.createElement("div");
       card.className = "admin-gallery-card";
 
-      /* Gizli badge */
       if (data.hidden === true) {
-        const badge = document.createElement("div");
+        const badge       = document.createElement("div");
         badge.className   = "gallery-hidden";
         badge.textContent = "Gizli";
         card.appendChild(badge);
@@ -586,7 +499,7 @@ function loadGalleryImages() {
       img.alt      = "Galeri fotoğrafı";
       card.appendChild(img);
 
-      const actionsDiv = document.createElement("div");
+      const actionsDiv     = document.createElement("div");
       actionsDiv.className = "gallery-card-actions";
 
       const toggleBtn       = document.createElement("button");
@@ -608,24 +521,14 @@ function loadGalleryImages() {
   });
 }
 
-/* =========================================================
-   TOGGLE GALLERY
-========================================================= */
-
 async function toggleGalleryImage(id, isHidden) {
   await updateDoc(doc(db, "galleryImages", id), { hidden: !isHidden });
 }
-
 window.toggleGalleryImage = toggleGalleryImage;
-
-/* =========================================================
-   DELETE GALLERY
-========================================================= */
 
 async function deleteGalleryImage(id) {
   const confirmed = confirm("Bu fotoğrafı silmek istiyor musunuz?");
   if (!confirmed) return;
   await deleteDoc(doc(db, "galleryImages", id));
 }
-
 window.deleteGalleryImage = deleteGalleryImage;
