@@ -4,7 +4,7 @@ const {
   collection,
   query,
   orderBy,
-  getDocs
+  onSnapshot
 } = window.firebaseFns;
 
 const db = window.db;
@@ -24,13 +24,15 @@ function escapeHTML(value) {
     .replace(/'/g,  "&#39;");
 }
 
-function isSafeCloudinaryUrl(url) {
+function isSafeMediaUrl(url) {
   if (!url) return false;
   try {
     const parsed = new URL(url);
     return (
-      parsed.protocol === "https:" &&
-      parsed.hostname.includes("cloudinary.com")
+      parsed.protocol === "https:" && (
+        parsed.hostname.endsWith("cloudinary.com") ||
+        parsed.hostname.endsWith("firebasestorage.googleapis.com")
+      )
     );
   } catch {
     return false;
@@ -38,19 +40,19 @@ function isSafeCloudinaryUrl(url) {
 }
 
 /* =========================================================
-   LOAD MEMORIES
+   LOAD MEMORIES — onSnapshot ile canlı güncellenir
 ========================================================= */
 
-async function loadMemories() {
+function loadMemories() {
   if (!memoryWall) return;
 
-  try {
-    const q = query(
-      collection(db, "memories"),
-      orderBy("createdAt", "desc")
-    );
+  const q = query(
+    collection(db, "memories"),
+    orderBy("createdAt", "desc")
+  );
 
-    const snapshot = await getDocs(q);
+  /* getDocs yerine onSnapshot — yeni anı gelince sayfa yenilemeden görünür */
+  onSnapshot(q, (snapshot) => {
 
     if (snapshot.empty) {
       memoryWall.innerHTML = `
@@ -66,9 +68,10 @@ async function loadMemories() {
     snapshot.forEach(docSnap => {
       const memory = docSnap.data() || {};
 
+      /* Gizli anıları gösterme */
       if (memory.hidden === true) return;
 
-      const card = document.createElement("div");
+      const card     = document.createElement("div");
       card.className = "memory-card";
 
       const mediaItems = Array.isArray(memory.mediaItems)
@@ -78,7 +81,7 @@ async function loadMemories() {
       let mediaHTML = "";
 
       mediaItems.forEach(item => {
-        if (!item || !item.url || !isSafeCloudinaryUrl(item.url)) return;
+        if (!item || !item.url || !isSafeMediaUrl(item.url)) return;
 
         if (item.type?.includes("image")) {
           mediaHTML += `
@@ -103,7 +106,7 @@ async function loadMemories() {
 
       let audioHTML = "";
       const audioItem = mediaItems.find(item =>
-        item?.type?.includes("audio") && isSafeCloudinaryUrl(item.url)
+        item?.type?.includes("audio") && isSafeMediaUrl(item.url)
       );
 
       if (audioItem) {
@@ -140,14 +143,14 @@ async function loadMemories() {
       memoryWall.appendChild(card);
     });
 
-  } catch (err) {
+  }, (err) => {
     console.error("Memory Wall Error:", err);
     memoryWall.innerHTML = `
       <div class="memory-empty">
         Anılar yüklenemedi 😔
       </div>
     `;
-  }
+  });
 }
 
 /* =========================================================
