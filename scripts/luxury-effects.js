@@ -217,6 +217,7 @@ el.style.transformStyle = "preserve-3d";
 
 });
 
-document.body.classList.add("site-ready");
+document.body.classList.add("site-ready"
+);
 
 });
