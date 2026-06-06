@@ -347,10 +347,6 @@
         <input type="text" id="rsvp-name" placeholder="Ad Soyad" maxlength="80">
       </div>
       <div class="form-group">
-        <label for="rsvp-phone">Telefon</label>
-        <input type="tel" id="rsvp-phone" placeholder="0(5xx) xxx xx xx" maxlength="20">
-      </div>
-      <div class="form-group">
         <label for="rsvp-attend">Katılım Durumu *</label>
         <select id="rsvp-attend">
           <option value="">Seçiniz</option>
@@ -592,13 +588,12 @@
 
       var fns = window.firebaseFns;
       // Alan isimleri Firestore rules ile eşleşmeli
-      var docData = {
-        name:       name.replace(/[<>]/g,''),
-        phone:      phone,
-        status:     status,
-        guestCount: guestCount,
-        createdAt:  fns.serverTimestamp()
-      };
+   var docData = {
+  name: name.replace(/[<>]/g,''),
+  status: status,
+  guestCount: guestCount,
+  createdAt: fns.serverTimestamp()
+};
       if (status === 'yes')   docData.comingMessage     = yesMsg.replace(/[<>]/g,'');
       if (status === 'no')    docData.cannotJoinMessage = noMsg.replace(/[<>]/g,'');
       if (status === 'maybe') docData.maybeMessage      = maybeMsg.replace(/[<>]/g,'');
@@ -606,7 +601,6 @@
 
       document.getElementById('rsvp-modal').querySelector('form, div').reset?.();
       document.getElementById('rsvp-name').value = '';
-      document.getElementById('rsvp-phone').value = '';
       document.getElementById('rsvp-attend').value = '';
       ['rsvp-yes-area','rsvp-no-area','rsvp-maybe-area'].forEach(function(id){
         document.getElementById(id).style.display = 'none';
