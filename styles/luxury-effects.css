@@ -348,6 +348,8 @@ filter;
 
 }
 
+.reveal.active,
+.reveal.visible,
 .reveal.reveal-active{
 
 opacity:1;
@@ -356,8 +358,7 @@ transform:
 translateY(0)
 scale(1);
 
-filter:
-blur(0);
+filter:none;
 
 }
 
