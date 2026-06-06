@@ -225,17 +225,14 @@
       <div class="card reveal">
         <span class="card-icon">🕐</span>
         <h3>Saat</h3>
-        <p>20:00<br>Nişan Töreni Başlangıcı</p>
+        <p>20:00<br>Nişan Töreni </p>
       </div>
       <div class="card reveal">
         <span class="card-icon">📍</span>
         <h3>Mekan</h3>
-        <p>Hatay<br>36.145583, 36.142250</p>
+        <p>Hatay<br>Defne, Harbiye</p>
       </div>
-      <div class="card reveal">
-        <span class="card-icon">👗</span>
-        <h3>Kıyafet</h3>
-        <p>Şık & Zarif<br>Davetiye rengine uygun</p>
+ 
       </div>
     </div>
   </section>
@@ -244,7 +241,7 @@
   <section class="section-map reveal">
     <div class="section-header">
       <span class="section-label">Konum</span>
-      <h2 class="section-title">Bizi Burada Bulun</h2>
+      <h2 class="section-title">Bizimle Bu Mutlu Günü Paylaşın</h2>
       <div class="section-divider"></div>
     </div>
     <div class="luxury-map">
@@ -253,7 +250,7 @@
         loading="lazy"
         allowfullscreen=""
         referrerpolicy="no-referrer-when-downgrade"
-        title="Tören Mekanı">
+        title="Tören Adresi">
       </iframe>
     </div>
   </section>
@@ -267,7 +264,7 @@
     </div>
     <!-- DÜZELTME 2: id="gallery" — gallery.js bu id'yi arıyor -->
     <div class="gallery" id="gallery">
-      <div class="gallery-loading">Fotoğraflar yükleniyor...</div>
+      <div class="gallery-loading">Çok yakında...</div>
     </div>
   </section>
 
@@ -467,7 +464,7 @@
 
         if (!entry.isIntersecting) return;
 
-        entry.target.classList.add("reveal-active");
+        entry.target.classList.add("visible");
 
         observer.unobserve(entry.target);
 
