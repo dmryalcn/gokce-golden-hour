@@ -214,12 +214,11 @@ const revealElements =
 document.querySelectorAll(
 
 `
-section,
-.hero-content,
-.gallery img,
+.section-header,
 .card,
 .memory-box,
-.time-box
+.time-box,
+.gallery-item
 `
 
 );
@@ -234,7 +233,7 @@ entries.forEach(entry=>{
 if(entry.isIntersecting){
 
 entry.target.classList.add(
-"reveal-active"
+"visible"
 );
 
 }
@@ -339,49 +338,6 @@ img.style.transform = "";
 }
 
 /* =========================================================
-   SMOOTH PARALLAX
-========================================================= */
-
-let currentY = 0;
-let targetY = 0;
-
-window.addEventListener(
-"scroll",
-()=>{
-
-targetY =
-window.scrollY;
-
-}
-);
-
-function animateParallax(){
-
-currentY +=
-(targetY - currentY) * 0.08;
-
-const hero =
-document.querySelector(
-".hero"
-);
-
-if(hero){
-
-hero.style.backgroundPosition =
-
-`center ${currentY * .12}px`;
-
-}
-
-requestAnimationFrame(
-animateParallax
-);
-
-}
-
-animateParallax();
-
-/* =========================================================
    BUTTON MAGNETIC FEEL
 ========================================================= */
 
@@ -462,13 +418,5 @@ el.style.transformStyle =
 
 });
 
-/* =========================================================
-   PAGE READY
-========================================================= */
 
-document.body.classList.add(
-"site-ready"
-);
-
-});
 
