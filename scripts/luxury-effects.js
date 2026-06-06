@@ -426,6 +426,7 @@ document.body.classList.add(
 "site-ready"
 );
 
+});
 
    
    
