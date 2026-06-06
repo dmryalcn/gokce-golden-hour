@@ -451,25 +451,41 @@
     tick();
     setInterval(tick, 1000);
   })();
+    
+<script>
+/* ══════════════════════════════════════════════
+   SCROLL REVEAL
+   Luxury Effects ile uyumlu sürüm
+══════════════════════════════════════════════ */
+(function () {
 
-  /* ══════════════════════════════════════════════
-     SCROLL REVEAL
-     DÜZELTME 7: class "visible" ekliyor — main.css ile uyumlu
-  ══════════════════════════════════════════════ */
-  (function () {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
+  const observer = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("reveal-active");
+
+        observer.unobserve(entry.target);
+
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(function (el) {
-      observer.observe(el);
-    });
-  })();
 
+    },
+    {
+      threshold: 0.10,
+      rootMargin: "0px 0px -50px 0px"
+    }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => {
+    observer.observe(el);
+  });
+
+})();
+</script>
+  
   /* ══════════════════════════════════════════════
      TOAST
   ══════════════════════════════════════════════ */
