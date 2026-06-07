@@ -162,7 +162,7 @@ h1, h2, h3, h4 {
   color: var(--gold);
   margin-bottom: 2.4rem;
   opacity: 0;
-  animation: fadeUp 1s ease forwards 0.3s;
+animation: fadeUp 1s ease both 0.3s;
 }
 
 .hero h1 {
@@ -172,7 +172,7 @@ h1, h2, h3, h4 {
   color: var(--cream);
   margin-bottom: 0.15em;
   opacity: 0;
-  animation: fadeUp 1.1s ease forwards 0.5s;
+animation: fadeUp 1.1s ease both 0.5s;
 }
 
 .hero h1 .sep-heart {
@@ -188,7 +188,7 @@ h1, h2, h3, h4 {
   color: var(--gold-light);
   margin-top: 1.6rem;
   opacity: 0;
-  animation: fadeUp 1s ease forwards 0.8s;
+animation: fadeUp 1s ease both 0.8s;
 }
 
 .hero-divider {
@@ -197,7 +197,7 @@ h1, h2, h3, h4 {
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   margin: 2rem auto;
   opacity: 0;
-  animation: fadeIn 1.2s ease forwards 1s;
+animation: fadeIn 1.2s ease both 1s;
 }
 
 .hero-sub {
@@ -206,7 +206,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   color: var(--text-dim);
   opacity: 0;
-  animation: fadeUp 1s ease forwards 1.1s;
+animation: fadeUp 1s ease both 1.1s;
 }
 
 .hero-scroll {
