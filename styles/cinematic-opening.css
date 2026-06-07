@@ -7,7 +7,7 @@
 #cinematic-opening {
   position: fixed;
   inset: 0;
-  z-index: 8000;
+  z-index: 9000;
   display: flex;
   align-items: center;
   justify-content: center;
