@@ -12,6 +12,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  opacity: 1;
+  visibility: visible;
   transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1),
               visibility 1.2s cubic-bezier(0.4,0,0.2,1);
 }
@@ -110,7 +112,7 @@
   color: rgba(201,169,110,0.9);
   margin-bottom: 2rem;
   opacity: 0;
-  animation: openingFadeUp 1s ease forwards 0.4s;
+  animation: openingFadeUp 1s ease both 0.4s;
 }
 
 /* Top line — Gökçe */
@@ -122,7 +124,7 @@
   color: #f5efe6;
   line-height: 1;
   opacity: 0;
-  animation: openingFadeUp 1.1s ease forwards 0.7s;
+  animation: openingFadeUp 1.1s ease both 0.7s;
 }
 
 /* Middle — animated separator */
@@ -133,7 +135,7 @@
   gap: 1rem;
   margin: 0.8rem 0;
   opacity: 0;
-  animation: openingFadeIn 1.2s ease forwards 1.1s;
+  animation: openingFadeIn 1.2s ease both 1.1s;
 }
 
 .opening-sep-line {
@@ -173,7 +175,7 @@
   color: #f5efe6;
   line-height: 1;
   opacity: 0;
-  animation: openingFadeUp 1.1s ease forwards 1s;
+  animation: openingFadeUp 1.1s ease both 1s;
 }
 
 /* Date */
@@ -185,7 +187,7 @@
   color: rgba(232,213,163,0.85);
   margin-top: 1.6rem;
   opacity: 0;
-  animation: openingFadeUp 1s ease forwards 1.4s;
+  animation: openingFadeUp 1s ease both 1.4s;
 }
 
 /* Divider */
@@ -195,7 +197,7 @@
   background: linear-gradient(90deg, transparent, rgba(201,169,110,0.55), transparent);
   margin: 1.4rem auto;
   opacity: 0;
-  animation: openingFadeIn 1.2s ease forwards 1.6s;
+  animation: openingFadeIn 1.2s ease both 1.6s;
 }
 
 /* CTA button */
@@ -211,7 +213,7 @@
   cursor: pointer;
   transition: all 0.35s ease;
   opacity: 0;
-  animation: openingFadeIn 1.2s ease forwards 2s;
+  animation: openingFadeIn 1.2s ease both 2s;
   position: relative;
   overflow: hidden;
 }
@@ -250,6 +252,18 @@
 @keyframes openingFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* ========================= WEBKIT PREFIX ========================= */
+.opening-tag,
+.opening-name-top,
+.opening-name-bottom,
+.opening-separator,
+.opening-date,
+.opening-divider,
+.opening-btn {
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 /* ========================= MOBILE ========================= */
