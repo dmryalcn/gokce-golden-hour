@@ -2,7 +2,6 @@
    GÖKÇE & YALÇIN — CİNEMATİK OPENING JS
    scripts/cinematic-opening.js
 ========================================================== */
-
 (function () {
   "use strict";
 
@@ -73,6 +72,5 @@
   } else {
     init();
   }
-    });
 
-});
+})();
