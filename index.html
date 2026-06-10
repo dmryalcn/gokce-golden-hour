@@ -709,7 +709,22 @@ if(status === 'no' || status === 'maybe'){
 window.dispatchEvent(
   new Event('gy:rsvpSent')
 );
+} catch(err) {
 
+  console.error(err);
+
+  showToast(
+    'Hata 😔',
+    err.message || 'Bir sorun oluştu'
+  );
+
+}
+
+this.disabled = false;
+this.textContent = 'Gönder';
+rsvpBusy = false;
+
+});
   /* ══════════════════════════════════════════════
      DÜZELTME 10: SES KAYDI
   ══════════════════════════════════════════════ */
