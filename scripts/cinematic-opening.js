@@ -8,7 +8,7 @@ function createParticles(container, count) {
 for (let i = 0; i < count; i++) {
 const p = document.createElement("span");
 
-```
+
   p.className = "particle";
 
   p.style.cssText = `
@@ -23,13 +23,13 @@ const p = document.createElement("span");
 
   container.appendChild(p);
 }
-```
+
 
 }
 
 function openTargetModal() {
 
-```
+
 const hash = window.location.hash.toLowerCase();
 
 if (hash === "#rsvp") {
@@ -53,13 +53,13 @@ if (hash === "#memory") {
     modal.classList.add("active");
   }
 }
-```
+
 
 }
 
 function closeOpening() {
 
-```
+
 const opening =
   document.getElementById("cinematic-opening");
 
@@ -76,13 +76,13 @@ setTimeout(() => {
   openTargetModal();
 
 }, 1300);
-```
+
 
 }
 
 function init() {
 
-```
+
 const opening =
   document.getElementById("cinematic-opening");
 
@@ -167,24 +167,24 @@ setTimeout(
   closeOpening,
   12000
 );
-```
+
 
 }
 
 if (document.readyState === "loading") {
 
-```
+
 document.addEventListener(
   "DOMContentLoaded",
   init
 );
-```
+
 
 } else {
 
-```
+
 init();
-```
+
 
 }
 
