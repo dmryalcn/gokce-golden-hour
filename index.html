@@ -588,10 +588,36 @@
   // Kapatma butonları
   document.getElementById('close-rsvp').addEventListener('click', function(){ closeModal('rsvp-modal'); });
   document.getElementById('close-memory').addEventListener('click', function(){ closeModal('memory-modal'); });
+  document.getElementById('close-memory-invite')
+.addEventListener('click', function(){
+  closeModal('memory-invite-modal');
+});
+document.getElementById('go-memory-btn')
+.addEventListener('click', function(){
+
+  closeModal('memory-invite-modal');
+
+  setTimeout(function(){
+
+    openModal('memory-modal');
+
+  }, 300);
+
+});  
 
   // Overlay tıklaması
   document.getElementById('rsvp-modal').addEventListener('click', function(e){ if(e.target===this) closeModal('rsvp-modal'); });
   document.getElementById('memory-modal').addEventListener('click', function(e){ if(e.target===this) closeModal('memory-modal'); });
+  document.getElementById('memory-invite-modal')
+.addEventListener('click', function(e){
+
+  if(e.target === this){
+
+    closeModal('memory-invite-modal');
+
+  }
+
+});
 
   /* ══════════════════════════════════════════════
      DÜZELTME 8: RSVP — Koşullu alanlar
@@ -661,18 +687,28 @@
       if(document.getElementById('rsvp-no-msg')) document.getElementById('rsvp-no-msg').value = '';
       if(document.getElementById('rsvp-maybe-msg')) document.getElementById('rsvp-maybe-msg').value = '';
 
-      closeModal('rsvp-modal');
-      showToast('Teşekkürler 🤍', 'Katılım bilginiz iletildi ✨');
-      window.dispatchEvent(new Event('gy:rsvpSent'));
-    } catch(err) {
-      console.error(err);
-      showToast('Hata 😔', err.message || 'Bir sorun oluştu, tekrar deneyin.');
-    }
+closeModal('rsvp-modal');
 
-    this.disabled = false;
-    this.textContent = 'Gönder';
-    rsvpBusy = false;
-  });
+if(status === 'no' || status === 'maybe'){
+
+  setTimeout(function(){
+
+    openModal('memory-invite-modal');
+
+  }, 400);
+
+} else {
+
+  showToast(
+    'Teşekkürler 🤍',
+    'Katılım bilginiz iletildi ✨'
+  );
+
+}
+
+window.dispatchEvent(
+  new Event('gy:rsvpSent')
+);
 
   /* ══════════════════════════════════════════════
      DÜZELTME 10: SES KAYDI
