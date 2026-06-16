@@ -41,9 +41,7 @@
         document.getElementById("rsvp-modal");
 
       if (modal) {
-
         modal.classList.add("open");
-
       }
     }
 
@@ -53,9 +51,7 @@
         document.getElementById("memory-modal");
 
       if (modal) {
-
         modal.classList.add("open");
-
       }
     }
   }
@@ -95,10 +91,34 @@
 
     if (!opening) return;
 
-    document.body.style.overflow = "hidden";
-
     const hash =
       window.location.hash.toLowerCase();
+
+    /* ==========================================================
+       QR LİNKLERİNDE OPENING ATLANSIN
+    ========================================================== */
+
+    if (
+      hash === "#rsvp" ||
+      hash === "#memory"
+    ) {
+
+      opening.remove();
+
+      document.body.style.overflow = "";
+
+      setTimeout(() => {
+
+        openTargetModal();
+
+      }, 100);
+
+      return;
+    }
+
+    /* Normal ziyaretçiler için opening devam etsin */
+
+    document.body.style.overflow = "hidden";
 
     const tag =
       opening.querySelector(".opening-tag");
@@ -111,17 +131,13 @@
     if (hash === "#rsvp") {
 
       if (tag) {
-
         tag.textContent =
           "Katılım Durumunuzu Bildirin";
-
       }
 
       if (btn) {
-
         btn.textContent =
           "Katılım Formuna Geç";
-
       }
     }
 
@@ -130,17 +146,13 @@
     if (hash === "#memory") {
 
       if (tag) {
-
         tag.textContent =
           "Bize Bir Anı Bırakın";
-
       }
 
       if (btn) {
-
         btn.textContent =
           "Anı Bırak";
-
       }
     }
 
